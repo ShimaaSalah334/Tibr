@@ -1,4 +1,5 @@
 # Tibr
+<<<<<<< HEAD
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.24.
 
@@ -57,3 +58,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+=======
+ITI Final Graduation Project - A comprehensive Angular frontend platform designed to democratize gold and silver investment, enabling fractional investing from small amounts with AI-driven buy/sell guidance, real-time market analytics, and a seamless digital investment experience.
+>>>>>>> 5c028745dbc2daa423ccf306af101fb2b71099ae

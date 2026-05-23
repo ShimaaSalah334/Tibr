@@ -1,63 +1,37 @@
-# Tibr
-<<<<<<< HEAD
+# Tibr — Gold & Silver Investment Platform
+ITI Final Graduation Project — Angular Frontend Application.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.24.
+## Overview
+Millions of middle-income people want to protect their savings from inflation using gold and silver, but the process is complex, opaque, and requires expertise they don't have. Existing options — jewelers, banks, or physical bullion — lack transparent pricing, real-time insights, or accessibility for small investors. There is no unified digital platform that combines investment analytics and guidance in one place.
 
-## Development server
+**Tibr** solves this by providing a comprehensive digital platform that lets anyone invest in gold and silver starting from small amounts, with AI guiding the optimal moments to buy or sell.
 
-To start a local development server, run:
+## Project Structure
+- **core:** Application-wide singleton logic and configuration
+  - **environments:** Environment variables for development and production API URLs
+  - **guards:** Route protection
+    - Auth guard — blocks unauthenticated users from protected pages
+    - Logged guard — redirects already logged-in users away from auth pages
+  - **interceptors:** Global HTTP handling
+    - Headers interceptor — attaches JWT token to every outgoing request
+    - Errors interceptor — catches API errors and displays toast notifications
+    - Loading interceptor — triggers spinner during HTTP calls
+  - **interfaces:** TypeScript interfaces for all API response models
+  - **services:** API communication and business logic layer
 
-```bash
-ng serve
-```
+- **layouts:** Shared layout wrapper components
+  - **Auth layout** — wraps login and register pages
+  - **Main layout** — wraps all authenticated pages with navbar and footer
+  - **Navbar** — top navigation bar with links, cart count badge, and user menu
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **pages:** All application views organized by access level
+  - **auth:** Public authentication pages (login, register, forgot password)
+  - **guest:** Pages accessible without login (home, products, product details)
+  - **protected:** Pages that require authentication (cart, wishlist, orders, profile, checkout)
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-ITI Final Graduation Project - A comprehensive Angular frontend platform designed to democratize gold and silver investment, enabling fractional investing from small amounts with AI-driven buy/sell guidance, real-time market analytics, and a seamless digital investment experience.
->>>>>>> 5c028745dbc2daa423ccf306af101fb2b71099ae
+- **shared:** Reusable elements shared across the entire app
+  - **components:** Shared UI components split into two layers
+    - **business:** Feature-aware components tied to app logic (product card, cart item, order card)
+    - **ui:** Pure presentational components with no business logic (button, input, spinner, modal)
+  - **directives:** Custom Angular directives for DOM behavior
+  - **pipes:** Custom Angular pipes for data transformation in templates

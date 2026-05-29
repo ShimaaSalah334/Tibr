@@ -1,0 +1,80 @@
+<main class="flex-grow-1 d-flex align-items-center justify-content-center px-3 py-5 position-relative login-page-bg" dir="rtl">
+  
+  <div class="animated-bg-glow"></div>
+  <div class="particles-container">
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+  </div>
+
+  <div class="card w-100 bg-white border border-light rounded-4 vault-shadow p-4 p-md-5 text-center position-relative z-index-form" style="max-width: 460px;">
+    
+    <div class="mb-4 d-flex justify-content-center">
+      <div class="rounded-circle d-flex align-items-center justify-content-center bg-light-gold-tint" style="width: 64px; height: 64px;">
+        <span class="material-symbols-outlined text-gold-dark fs-2">mark_email_read</span>
+      </div>
+    </div>
+    
+    <h1 class="h3 fw-bold text-navy mb-3">تأكيد بريدك الإلكتروني</h1>
+    <p class="text-secondary-muted small mb-4 lh-base">
+      لقد أرسلنا رمز التحقق الموثق إلى بريدك الإلكتروني. يرجى إدخال الرمز المكون من 6 أرقام لتأمين محفظتك الاستثمارية.
+    </p>
+    
+    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+      <div class="d-flex gap-2 justify-content-center mb-4" style="direction: ltr !important;">
+        @for (inputName of inputKeys; track $index) {
+          <input 
+            [formControlName]="inputName"
+            (keydown)="onKeyDown($event, $index)"
+            (input)="onInput($event, $index)"
+            (paste)="onPaste($event)"
+            class="form-control form-control-lg otp-input text-center fw-bold fs-4 rounded-3 p-0" 
+            maxlength="1" 
+            pattern="\d*" 
+            type="text"
+            autocomplete="one-time-code"
+            #otpInputField>
+        }
+      </div>
+      
+      <button 
+        class="btn w-100 py-3 fw-bold rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2"
+        [class.btn-corporate-gold]="formState() !== 'success'"
+        [class.btn-corporate-success]="formState() === 'success'"
+        [disabled]="formState() === 'loading' || otpForm.invalid" 
+        type="submit">
+        
+        @if (formState() === 'loading') {
+          <span class="material-symbols-outlined animate-spin fs-5">sync</span>
+          <span>جاري مطابقة الشفرة الرقمية...</span>
+        } @else if (formState() === 'success') {
+          <span class="material-symbols-outlined fs-5">verified</span>
+          <span>تم التحقق بنجاح</span>
+        } @else {
+          <span>تأكيد الرمز والحساب</span>
+          <span class="material-symbols-outlined fs-5">verified</span>
+        }
+      </button>
+    </form>
+    
+    <div class="mt-4 pt-4 border-top border-light">
+      <p class="text-secondary-muted small mb-1">لم تستلم الرمز الأمني؟</p>
+      
+      <button 
+        class="btn btn-link text-gold-dark small fw-bold text-decoration-none d-flex align-items-center justify-content-center gap-1 mx-auto hover-gold-text" 
+        [disabled]="isTimerActive()"
+        (click)="resendCode()"
+        type="button">
+        <span>إعادة إرسال الرمز</span>
+        <span class="material-symbols-outlined fs-6" [class.animate-spin]="isResending()">refresh</span>
+      </button>
+      
+      @if (isTimerActive()) {
+        <div class="mt-2 text-muted small">
+          يمكنك طلب رمز جديد خلال <span class="fw-bold text-navy">{{ timerValue() }}</span> ثانية
+        </div>
+      }
+    </div>
+    
+  </div>
+</main>

@@ -1,0 +1,178 @@
+:host {
+  --corporate-navy: #0A192F;
+  --corporate-gold: #96742E;
+  --corporate-gold-hover: #7D5F22;
+  --bg-soft-gray: #F4F6F8;
+  --border-light: #DCE2E6;
+  --gold-accent: #E5C76B;
+}
+
+.login-page-bg {
+  min-height: 100vh;
+  background-color: var(--bg-soft-gray);
+  position: relative;
+  overflow: hidden;
+}
+
+.z-index-form {
+  z-index: 10;
+}
+
+/* ==========================================
+   ✨ تأثيرات الحركة والخلفية الديناميكية ✨
+   ========================================== */
+.animated-bg-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.08) 0%, rgba(10, 25, 47, 0.04) 50%, transparent 100%);
+  top: -10%;
+  right: -10%;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: floatGlow 12s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes floatGlow {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-60px, 40px) scale(1.15); }
+}
+
+.particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.35) 0%, rgba(150, 116, 46, 0) 70%);
+  border-radius: 50%;
+  animation: floatParticles infinite linear;
+}
+
+.particle.p1 { width: 120px; height: 120px; bottom: -10%; left: 8%; animation-duration: 20s; }
+.particle.p2 { width: 90px; height: 90px; top: 10%; left: 40%; animation-duration: 26s; opacity: 0.6; }
+.particle.p3 { width: 140px; height: 140px; bottom: 15%; right: 5%; animation-duration: 22s; opacity: 0.5; }
+.particle.p4 { width: 70px; height: 70px; top: -5%; left: 25%; animation-duration: 16s; }
+
+@keyframes floatParticles {
+  0% { transform: translateY(100vh) translateX(0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(40px) scale(0.8); opacity: 0; }
+}
+
+/* دوامة الدوران اللانهائية عند معالجة الفورم */
+.animate-spin {
+  animation: spin 1s infinite linear;
+}
+@keyframes spin {
+  100% { transform: rotate(-360deg); }
+}
+
+/* ==========================================
+   عناصر واجهة المستخدم النظيفة
+   ========================================== */
+.main-card {
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(10, 25, 47, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.brand-logo-wrapper {
+  font-size: 2.3rem;
+  font-weight: 800;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.logo-navy { color: var(--corporate-navy); }
+.logo-gold { color: var(--corporate-gold); }
+.text-navy { color: var(--corporate-navy); }
+.text-gold-dark { color: var(--corporate-gold); }
+.text-gold-light { color: var(--gold-accent); }
+.text-secondary-muted { color: #6E7E8B; }
+
+.form-control-corporate {
+  background-color: #FFFFFF !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--corporate-navy) !important;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.25s ease-in-out;
+}
+.form-control-corporate:focus, .field-focused {
+  border-color: var(--corporate-gold) !important;
+  box-shadow: 0 0 0 4px rgba(150, 116, 46, 0.12) !important;
+  outline: none;
+}
+
+.form-check-corporate {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  accent-color: var(--corporate-gold);
+  cursor: pointer;
+}
+
+/* الأزرار التفاعلية والنجاح */
+.btn-corporate-gold {
+  background-color: var(--corporate-gold);
+  border: none;
+  color: #FFFFFF !important;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-corporate-gold:hover {
+  background-color: var(--corporate-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(150, 116, 46, 0.25);
+}
+
+.btn-corporate-success {
+  background-color: #198754;
+  border: none;
+  color: #FFFFFF !important;
+  border-radius: 8px;
+}
+
+/* النصف الأيسر الجمالي */
+.left-branding-panel {
+  background-color: #FFFFFF;
+}
+.brand-image-box {
+  height: 100%;
+  background-color: #050E1A;
+  overflow: hidden;
+}
+.brand-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+.image-overlay-gradient {
+  background: linear-gradient(180deg, rgba(10, 25, 47, 0.1) 0%, rgba(10, 25, 47, 0.85) 100%);
+}
+
+.border-white-20 {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+.micro-text {
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+.small-caption {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.form-label {
+  font-size: 0.88rem;
+}

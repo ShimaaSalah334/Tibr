@@ -16,7 +16,7 @@
  */
 
 export interface Order {
-  id: number;
+  id: string | number;
   userId: number;
   userFullName: string;
   orderNumber: string;

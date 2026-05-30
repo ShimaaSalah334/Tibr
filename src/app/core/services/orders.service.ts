@@ -12,7 +12,7 @@ export class OrdersService {
     return this.http.get<Order[]>(this.baseUrl);
   }
 
-  getOrder(id: number): Observable<Order> {
+  getOrder(id: string | number): Observable<Order> {
     return this.http.get<Order>(`${this.baseUrl}/${id}`);
   }
 
@@ -24,11 +24,11 @@ export class OrdersService {
     return this.http.post<Order>(this.baseUrl, dto);
   }
 
-  updateOrder(id: number, dto: UpdateOrderDto): Observable<Order> {
+  updateOrder(id: string | number, dto: UpdateOrderDto): Observable<Order> {
     return this.http.put<Order>(`${this.baseUrl}/${id}`, dto);
   }
 
-  deleteOrder(id: number): Observable<void> {
+  deleteOrder(id: string | number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

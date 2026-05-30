@@ -88,6 +88,13 @@ export class Products {
     { value: 'popularity',  label: 'Most Popular' },
   ];
 
+  ngOnInit(): void {
+    // this.setupSearchDebounce();
+    this.loadCategories();
+    this.readQueryParams();
+    this.loadProducts();
+  }
+
   // Read query params from URL (from home category click) 
   private readQueryParams(): void {
     this.route.queryParams.subscribe(params => {
@@ -146,5 +153,127 @@ export class Products {
         this.isLoadingCategories.set(false);
       }
     });
+  }
+
+
+  //  Filter actions 
+  // onSearchInput(value: string): void {
+  //   this.searchSubject.next(value);
+  // }
+
+   onMetalTypeChange(metalType: string): void {
+    // Toggle — if same clicked again, deselect
+    this.selectedMetalType.set(
+      this.selectedMetalType() === metalType ? '' : metalType
+    );
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+ onCategoryChange(categoryName: string): void {
+    // Toggle — if same clicked again, deselect
+    this.selectedCategory.set(
+      this.selectedCategory() === categoryName ? '' : categoryName
+    );
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+  onSortChange(sort: SortOption): void {
+    this.sortBy.set(sort);
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+  onPriceRangeChange(min: number | null, max: number | null): void {
+    this.minPrice.set(min);
+    this.maxPrice.set(max);
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+   onWeightRangeChange(min: number | null, max: number | null): void {
+    this.minWeight.set(min);
+    this.maxWeight.set(max);
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+  onPurityRangeChange(min: number | null, max: number | null): void {
+    this.minPurity.set(min);
+    this.maxPurity.set(max);
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+  onStockToggle(): void {
+    this.includeOutOfStock.set(!this.includeOutOfStock());
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+
+  removeFilter(key: string): void {
+    switch (key) {
+      case 'metalType':   this.selectedMetalType.set('');    break;
+      case 'categoryName':this.selectedCategory.set('');     break;
+      case 'search':      this.searchKeyword.set('');        break;
+      case 'minPrice':    this.minPrice.set(null);           break;
+      case 'maxPrice':    this.maxPrice.set(null);           break;
+      case 'minWeight':   this.minWeight.set(null);          break;
+      case 'maxWeight':   this.maxWeight.set(null);          break;
+      case 'outOfStock':  this.includeOutOfStock.set(false); break;
+    }
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+   clearAllFilters(): void {
+    this.selectedMetalType.set('');
+    this.selectedCategory.set('');
+    this.searchKeyword.set('');
+    this.sortBy.set('newest');
+    this.minPrice.set(null);
+    this.maxPrice.set(null);
+    this.minWeight.set(null);
+    this.maxWeight.set(null);
+    this.minPurity.set(null);
+    this.maxPurity.set(null);
+    this.includeOutOfStock.set(false);
+    this.currentPage.set(1);
+    this.loadProducts();
+  }
+
+
+  //  Pagination 
+  goToPage(page: number): void {
+    this.currentPage.set(page);
+    this.loadProducts();
+  }
+
+  nextPage(): void {
+    if (this.paginationData()?.hasNextPage) {
+      this.currentPage.update(p => p + 1);
+      this.loadProducts();
+    }
+  }
+
+  prevPage(): void {
+    if (this.paginationData()?.hasPreviousPage) {
+      this.currentPage.update(p => p - 1);
+      this.loadProducts();
+    }
+  }
+
+
+  // Generate page numbers array for template
+  getPageNumbers(): number[] {
+    const total = this.paginationData()?.totalPages ?? 0;
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  //  Navigation 
+  goToProductDetails(id: number): void {
+    this.router.navigate(['/products', id]);
   }
 }

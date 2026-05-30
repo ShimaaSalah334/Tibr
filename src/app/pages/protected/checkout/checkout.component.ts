@@ -1,6 +1,5 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreateOrderDto } from '../../../core/interfaces/order.interface';
 import { OrdersService } from '../../../core/services/orders.service';
 import { PaymentService } from '../../../core/services/payment.service';
@@ -17,7 +16,6 @@ interface CartItem {
   selector: 'app-checkout',
   imports: [
     CurrencyPipe,
-    FontAwesomeModule,
     AddressFormComponent,
   ],
   templateUrl: './checkout.component.html',

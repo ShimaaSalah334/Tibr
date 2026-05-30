@@ -1,6 +1,6 @@
 export interface CreatePaymentRequest {
   amountCents: number;
-  orderId: number;
+  orderId: string | number;
   currency: string;
   firstName: string;
   lastName: string;

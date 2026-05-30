@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Order } from '../../../core/interfaces/order.interface';
 import { OrdersService } from '../../../core/services/orders.service';
 import { OrderCardComponent } from '../../../shared/components/business/order-card/order-card.component';
@@ -12,7 +11,6 @@ import { LoadingSpinnerComponent } from '../../../shared/components/ui/loading-s
   imports: [
     FormsModule,
     RouterLink,
-    FontAwesomeModule,
     OrderCardComponent,
     LoadingSpinnerComponent,
   ],

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../../core/services/product-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProduct, IProductDetails } from '../../../core/interfaces/iproduct';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
-export class ProductDetails implements OnInit{
+export class ProductDetails implements OnInit {
 private productService = inject(ProductService);
 private route          = inject(ActivatedRoute);
 private router         = inject(Router);
@@ -21,9 +21,59 @@ private router         = inject(Router);
   isLoading    = signal<boolean>(false);
   error        = signal<string | null>(null);
 
- // ── Related products ──────────────────────────────────────
+ //  Related products 
   relatedProducts    = signal<IProduct[]>([]);
   isLoadingRelated   = signal<boolean>(false);
+
+ // Stock state 
+  stockLevel      = signal<number>(0);
+  isLoadingStock  = signal<boolean>(false);
+
+  //  Investment calculator 
+  calculatorMode   = signal<'grams' | 'egp'>('egp');  // toggle mode
+  calculatorInput  = signal<number>(0);
+
+    // Computed result based on mode and buy price
+  calculatorResult = computed(() => {
+    const p = this.product();
+    if (!p || !this.calculatorInput()) return null;
+
+    if (this.calculatorMode() === 'egp') {
+      // User enters EGP → get grams
+      const grams = this.calculatorInput() / p.buyPrice;
+      return {
+        label: 'You get',
+        value: grams.toFixed(4),
+        unit: 'grams'
+      };
+    } else {
+      // User enters grams → get EGP
+      const egp = this.calculatorInput() * p.buyPrice;
+      return {
+        label: 'You pay',
+        value: egp.toFixed(2),
+        unit: 'EGP'
+      };
+    }
+  });
+
+    //  Computed helpers 
+  isOutOfStock = computed(() => this.product()?.stock === 0);
+
+  isLowStock = computed(() => {
+    const stock = this.product()?.stock ?? 0;
+    return stock > 0 && stock <= 10;
+  });
+
+  stockPercentage = computed(() => {
+    const stock = this.product()?.stock ?? 0;
+    // Assume 1000g max for percentage bar
+    return Math.min((stock / 1000) * 100, 100);
+  });
+
+  metalLabel = computed(() =>
+    this.product()?.metalType === 'Gold' ? ' Gold' : ' Silver'
+  );
 
 ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -75,6 +125,16 @@ ngOnInit(): void {
       },
       error: () => this.isLoadingRelated.set(false)
     });
+  }
+
+  // Calculator actions 
+  setCalculatorMode(mode: 'grams' | 'egp'): void {
+    this.calculatorMode.set(mode);
+    this.calculatorInput.set(0);
+  }
+
+  onCalculatorInput(value: number): void {
+    this.calculatorInput.set(value);
   }
 
   //  Navigation 

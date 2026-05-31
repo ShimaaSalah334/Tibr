@@ -1,0 +1,70 @@
+<div class="container py-4">
+  <a routerLink="/orders" class="btn btn-outline-secondary btn-sm mb-3">
+    <i class="fas fa-chevron-left me-1"></i>
+    Back to Orders
+  </a>
+
+  @if (paymentNotification) {
+    <div
+      class="alert alert-{{ paymentNotification.type === 'success' ? 'success' : 'danger' }} d-flex align-items-center gap-2"
+    >
+      <i class="fas" [class.fa-check]="paymentNotification.type === 'success'" [class.fa-times]="paymentNotification.type !== 'success'"></i>
+      <span>{{ paymentNotification.message }}</span>
+      <button class="btn-close ms-auto" (click)="paymentNotification = null"></button>
+    </div>
+  }
+
+  @if (isLoading) {
+    <app-loading-spinner [isLoading]="true" />
+  }
+
+  @if (error && !isLoading) {
+    <div class="alert alert-danger d-flex align-items-center gap-2">
+      <i class="fas fa-times"></i>
+      <span>{{ error }}</span>
+      <button class="btn btn-outline-danger btn-sm ms-auto" (click)="loadOrder()">
+        Retry
+      </button>
+    </div>
+  }
+
+  @if (!order && !isLoading && !error) {
+    <div class="text-center py-5">
+      <p class="text-muted fs-5">Order not found.</p>
+      <a routerLink="/orders" class="btn btn-primary">View All Orders</a>
+    </div>
+  }
+
+  @if (order && !isLoading) {
+    <h2 class="mb-3">Order #{{ order.orderNumber }}</h2>
+
+    <div class="d-flex gap-2 mb-4">
+      <app-status-badge [label]="order.orderStatus" />
+      <app-status-badge [label]="order.paymentStatus" />
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <p class="mb-1">
+          <strong>Date placed:</strong> {{ order.createdAt | date: 'medium' }}
+        </p>
+        <p class="mb-0">
+          <strong>Customer:</strong> {{ order.userFullName }}
+        </p>
+      </div>
+    </div>
+
+    <app-order-items-table [items]="order.items" />
+
+    <div class="d-flex justify-content-end mt-3 mb-4">
+      <h4 class="fw-bold">Total: {{ order.totalAmount | currency }}</h4>
+    </div>
+
+    @if (canCancel) {
+      <button class="btn btn-outline-danger" (click)="cancelOrder()">
+        <i class="fas fa-trash me-1"></i>
+        Cancel Order
+      </button>
+    }
+  }
+</div>

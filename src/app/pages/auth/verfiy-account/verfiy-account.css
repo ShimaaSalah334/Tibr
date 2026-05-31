@@ -1,0 +1,146 @@
+:host {
+  --corporate-navy: #0A192F;
+  --corporate-gold: #96742E;
+  --corporate-gold-hover: #7D5F22;
+  --bg-soft-gray: #F4F6F8;
+  --border-light: #DCE2E6;
+}
+
+.login-page-bg {
+  min-height: calc(117vh - 128px); /* طرح مساحة الهيدر والفوتر لضبط التوسيط */
+  background-color: var(--bg-soft-gray);
+  position: relative;
+  overflow: hidden;
+}
+
+.z-index-navbar { z-index: 1050; }
+.z-index-form { z-index: 10; }
+
+/* ==========================================
+   ✨ تأثيرات الحركة والخلفية الديناميكية الموحدة ✨
+   ========================================== */
+.animated-bg-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.08) 0%, rgba(10, 25, 47, 0.04) 50%, transparent 100%);
+  top: 15%;
+  right: -5%;
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: floatGlow 14s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes floatGlow {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-40px, 30px) scale(1.1); }
+}
+
+.particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.25) 0%, rgba(150, 116, 46, 0) 70%);
+  border-radius: 50%;
+  animation: floatParticles infinite linear;
+}
+
+.particle.p1 { width: 100px; height: 100px; bottom: -5%; left: 10%; animation-duration: 18s; }
+.particle.p2 { width: 80px; height: 80px; top: 15%; left: 35%; animation-duration: 22s; opacity: 0.6; }
+.particle.p3 { width: 120px; height: 120px; bottom: 20%; right: 8%; animation-duration: 20s; opacity: 0.5; }
+
+@keyframes floatParticles {
+  0% { transform: translateY(100vh) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-120vh) scale(0.8); opacity: 0; }
+}
+
+/* ==========================================
+   تصميم الحقول والمكونات الداخلية
+   ========================================== */
+.vault-shadow {
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(10, 25, 47, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.brand-logo-wrapper {
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -1px;
+}
+.logo-navy { color: var(--corporate-navy); }
+.logo-gold { color: var(--corporate-gold); }
+.text-navy { color: var(--corporate-navy); }
+.text-gold-dark { color: var(--corporate-gold); }
+.text-secondary-muted { color: #6E7E8B; }
+.bg-light-gold-tint { background-color: #FAF6EE; }
+
+/* مربعات إدخال الـ OTP المصممة هندسياً */
+.otp-input {
+  width: 50px;
+  height: 60px;
+  background-color: #FFFFFF !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--corporate-navy) !important;
+  transition: all 0.2s ease-in-out;
+}
+.otp-input:focus {
+  border-color: var(--corporate-gold) !important;
+  box-shadow: 0 0 0 4px rgba(150, 116, 46, 0.12) !important;
+  outline: none;
+  transform: scale(1.04);
+}
+
+/* أزرار الحفظ والألوان للبراند المعاصر */
+.btn-corporate-gold {
+  background-color: var(--corporate-gold);
+  border: none;
+  color: #FFFFFF !important;
+  border-radius: 8px;
+  transition: all 0.25s ease-in-out;
+}
+.btn-corporate-gold:hover:not(:disabled) {
+  background-color: var(--corporate-gold-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(150, 116, 46, 0.2);
+}
+.btn-corporate-gold:disabled {
+  background-color: #CCD4DA;
+  color: #FFFFFF !important;
+  cursor: not-allowed;
+}
+
+.btn-corporate-success {
+  background-color: #198754;
+  border: none;
+  color: #FFFFFF !important;
+  border-radius: 8px;
+}
+
+.btn-link-corporate {
+  color: var(--corporate-navy);
+  text-decoration: none;
+}
+.btn-link-corporate:hover {
+  background-color: rgba(10, 25, 47, 0.04);
+}
+
+.hover-gold-text { transition: color 0.2s ease; }
+.hover-gold-text:hover:not(:disabled) { color: var(--corporate-gold-hover) !important; }
+.hover-gold-text:disabled { color: #A0AEC0 !important; cursor: not-allowed; }
+
+.animate-spin {
+  animation: spin 1s infinite linear;
+}
+@keyframes spin {
+  100% { transform: rotate(-360deg); }
+}

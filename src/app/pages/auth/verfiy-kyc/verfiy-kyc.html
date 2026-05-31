@@ -1,0 +1,238 @@
+<main class="container-fluid px-3 px-md-5 py-5 pb-5 mb-5" dir="rtl" style="font-family: 'Cairo', sans-serif;">
+
+  <!-- رسائل الخطأ والنجاح -->
+  @if (errorMessage()) {
+  <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-3 mb-4" role="alert">
+    <span class="material-symbols-outlined text-danger fs-3">error_circle</span>
+    <div class="flex-grow-1">
+      <strong>خطأ:</strong>
+      <span class="d-block text-dark">{{ errorMessage() }}</span>
+    </div>
+    <button type="button" class="btn-close" (click)="errorMessage.set(null)"></button>
+  </div>
+  }
+
+  @if (successMessage()) {
+  <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-3 mb-4 alert-success-custom"
+    role="alert">
+    <span class="material-symbols-outlined text-success fs-3"
+      style="font-variation-settings: 'FILL' 1;">check_circle</span>
+    <div class="flex-grow-1">
+      <strong>نجاح:</strong>
+      <span class="d-block text-dark">{{ successMessage() }}</span>
+    </div>
+    <button type="button" class="btn-close" (click)="successMessage.set(null)"></button>
+  </div>
+  }
+
+  <section class="mb-5 text-center text-md-start bg-light-gold-gradient p-4 rounded-4 border-end-gold">
+    <div class="row align-items-center">
+      <div class="col-md-7 mb-4 mb-md-0">
+        <h1
+          class="h2 fw-extrabold text-navy mb-2 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+          <span class="material-symbols-outlined text-gold-dark fs-3 animate-pulse">verified_user</span>
+          التحقق من الهوية
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- جسم الفورم الرئيسي -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-10 d-flex flex-column gap-4">
+
+      <form [formGroup]="kycForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
+
+        <!-- القسم الأول: البيانات الشخصية للمستثمر -->
+        <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div
+              class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm"
+              style="width: 52px; height: 52px;">
+              <span class="material-symbols-outlined fs-3">person_pin</span>
+            </div>
+            <div>
+              <h2 class="h5 fw-bold text-navy mb-1">البيانات الشخصية للمستثمر</h2>
+              <p class="text-muted small mb-0">يرجى إدخال البيانات بدقة لتفادي تأخير مراجعة الحساب</p>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-bold text-navy mb-2">نوع الوثيقة</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light text-muted"><span
+                    class="material-symbols-outlined fs-5">assignment</span></span>
+
+                 <input formControlName="documentType"
+                  class="form-control form-control-corporate p-3 border-end-0 fs-6" value="NATIONAL_ID" 
+                  type="text" />
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label small fw-bold text-navy mb-2">رقم الوثيقة</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light border-start-0 text-muted"><span
+                    class="material-symbols-outlined fs-5">numbers</span></span>
+                <input formControlName="documentNumber"
+                  class="form-control form-control-corporate p-3 border-end-0 fs-6" placeholder="أدخل رقم الوثيقة"
+                  type="text" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- القسم الثاني: منطقة سحب وإفلات الوثائق الرسمية -->
+        <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div
+              class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm"
+              style="width: 52px; height: 52px;">
+              <span class="material-symbols-outlined fs-3">upload_file</span>
+            </div>
+            <div>
+              <h2 class="h5 fw-bold text-navy mb-1">تحميل الوثائق الرسمية</h2>
+              <p class="text-muted small mb-0">يرجى تحميل نسخة رقمية واضحة وعالية الدقة من الهوية الوطنية أو جواز السفر
+              </p>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <label class="form-label small fw-bold text-navy mb-2">صورة الهوية (أمام)</label>
+              <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
+                <input id="frontUpload" type="file" accept="image/png, image/jpeg"
+                  (change)="onFileSelected($event,'front')"
+                  class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" />
+                @if (!documentFrontName()) {
+                <div class="upload-icon-box mb-2 mx-auto"><span
+                    class="material-symbols-outlined text-gold-dark fs-2">camera_front</span></div>
+                <div class="small text-muted">PNG, JPG — أقل من 5 ميجابايت</div>
+                } @else {
+                <div class="success-icon-box mb-2 mx-auto"><span
+                    class="material-symbols-outlined text-success fs-2">check_circle</span></div>
+                <div class="fw-bold text-navy small">{{ documentFrontName() }}</div>
+                }
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label small fw-bold text-navy mb-2">صورة الهوية (خلف)</label>
+              <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
+                <input id="backUpload" type="file" accept="image/png, image/jpeg"
+                  (change)="onFileSelected($event,'back')"
+                  class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" />
+                @if (!documentBackName()) {
+                <div class="upload-icon-box mb-2 mx-auto"><span
+                    class="material-symbols-outlined text-gold-dark fs-2">photo_library</span></div>
+                <div class="small text-muted">PNG, JPG — أقل من 5 ميجابايت</div>
+                } @else {
+                <div class="success-icon-box mb-2 mx-auto"><span
+                    class="material-symbols-outlined text-success fs-2">check_circle</span></div>
+                <div class="fw-bold text-navy small">{{ documentBackName() }}</div>
+                }
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label small fw-bold text-navy mb-2">صورة السيلفي مع البطاقة</label>
+              <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
+                <input id="selfieUpload" type="file" accept="image/png, image/jpeg"
+                  (change)="onFileSelected($event,'selfie')"
+                  class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" />
+                @if (!selfieFileName()) {
+                <div class="upload-icon-box mb-2 mx-auto"><span
+                    class="material-symbols-outlined text-gold-dark fs-2">portrait</span></div>
+                <div class="small text-muted">التقط صورة واضحة وأنت تمسك البطاقة</div>
+                } @else {
+                <div class="success-icon-box mb-2 mx-auto"><span
+                    class="material-symbols-outlined text-success fs-2">check_circle</span></div>
+                <div class="fw-bold text-navy small">{{ selfieFileName() }}</div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- القسم الثالث: نظام التحقق بالصورة الحية (Selfie Component) -->
+        <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
+          <div class="d-flex align-items-center gap-3 mb-4">
+            <div
+              class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm"
+              style="width: 52px; height: 52px;">
+              <span class="material-symbols-outlined fs-3">center_focus_strong</span>
+            </div>
+            <div>
+              <h2 class="h5 fw-bold text-navy mb-1">التحقق بالصورة الشخصية</h2>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-4 bg-light border border-light-subtle">
+            <div class="d-flex flex-column flex-md-row gap-4 align-items-center">
+
+              <!-- إطار الكاميرا الدائري المتطور -->
+              <div class="camera-frame-container position-relative flex-shrink-0">
+                <div
+                  class="rounded-circle border border-4 border-white bg-white shadow d-flex align-items-center justify-content-center overflow-hidden position-relative inner-frame"
+                  style="width: 240px; height: 240px;">
+                  @if (cameraActive()) {
+                  <video #videoPreview class="w-100 h-100 object-cover rounded-circle" autoplay muted playsinline></video>
+                  } @else if (capturedSelfieUrl()) {
+                  <img [src]="capturedSelfieUrl()" class="w-100 h-100 object-cover rounded-circle" alt="Selfie captured" />
+                  } @else {
+                  <span class="material-symbols-outlined text-secondary-subtle"
+                    style="font-size: 100px;">account_circle</span>
+                  }
+                </div>
+                <canvas #selfieCanvas class="d-none"></canvas>
+              </div>
+
+              <div class="flex-grow-1 text-center text-md-start w-100">
+                <p class="text-secondary-muted small mb-3 lh-lg">التقط صورة واضحة ومباشرة لوجهك الكريم؛ تأكد من جودة
+                  الإضاءة المحيطة، وعدم ارتداء أي قبعات أو نظارات حجب رؤية لتجنب رفض النظام التلقائي.</p>
+
+                <button
+                  class="btn btn-corporate-outline d-inline-flex align-items-center gap-2 px-4 py-3 small fw-bold rounded-3 shadow-sm transition-all text-nowrap"
+                  (click)="triggerSelfieCapture()" type="button">
+                  <span class="material-symbols-outlined fs-5">photo_camera</span>
+                  <span>{{ cameraActive() ? 'التقاط السيلفي الآن' : 'تشغيل الكاميرا الحية' }}</span>
+                </button>
+                <div *ngIf="selfieCaptureError()" class="text-danger small mt-2">{{ selfieCaptureError() }}</div>
+
+  
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 d-flex flex-column flex-md-row align-items-center justify-content-between gap-4 mb-4">
+          <button
+            class="btn w-100 w-md-auto px-5 py-3 fw-bold rounded-3 shadow-lg d-flex align-items-center justify-content-center gap-2 transition-all btn-submit-custom"
+            [class.btn-corporate-gold]="formState() !== 'success' && formState() !== 'error'"
+            [class.btn-corporate-success]="formState() === 'success'" [class.btn-danger]="formState() === 'error'"
+             type="submit">
+
+            @if (formState() === 'loading') {
+            <span class="material-symbols-outlined animate-spin fs-5">progress_activity</span>
+            <span>جاري المزامنة والأرشفة السحابية الآمنة...</span>
+            } @else if (formState() === 'success') {
+            <span class="material-symbols-outlined fs-5 animate-bounce">verified</span>
+            <span>تم إرسال الملفات والمراجعة جارية</span>
+            } @else if (formState() === 'error') {
+            <span class="material-symbols-outlined fs-5">error</span>
+            <span>إعادة محاولة الإرسال</span>
+            } @else {
+            <span class="material-symbols-outlined fs-5">send_and_archive</span>
+            <span>إرسال البيانات للمراجعة الاستثمارية</span>
+            }
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+
+
+

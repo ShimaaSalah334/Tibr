@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../../core/services/product-service';
 import { CategoryService } from '../../../core/services/category-service';
@@ -6,14 +6,16 @@ import { IProduct } from '../../../core/interfaces/iproduct';
 import { IPaginatedResult } from '../../../core/interfaces/ipagination';
 import { IProductFilter, SortOption } from '../../../core/interfaces/iproduct-filter';
 import { ICategory } from '../../../core/interfaces/icategory';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
-  imports: [],
+  imports: [CommonModule,FormsModule],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
-export class Products {
+export class Products implements OnInit, OnDestroy {
   private productService  = inject(ProductService);
   private categoryService = inject(CategoryService);
   private route           = inject(ActivatedRoute);
@@ -33,11 +35,15 @@ export class Products {
    // Filter state 
   selectedMetalType    = signal<string>('');        // '' = all, '0' = gold, '1' = silver
   selectedCategory     = signal<string>('');        // '' = all
-  searchKeyword        = signal<string>('');
   sortBy               = signal<SortOption>('newest');
   currentPage          = signal<number>(1);
   pageSize             = signal<number>(12);
   includeOutOfStock    = signal<boolean>(false);
+
+//  Search state 
+  searchKeyword  = signal<string>('');
+  private searchTimeout: any;
+  private lastSearchValue: string = '';
 
   // Range filters
   minPrice  = signal<number | null>(null);
@@ -89,11 +95,14 @@ export class Products {
   ];
 
   ngOnInit(): void {
-    // this.setupSearchDebounce();
     this.loadCategories();
     this.readQueryParams();
     this.loadProducts();
   }
+
+  ngOnDestroy(): void {
+  clearTimeout(this.searchTimeout);
+}
 
   // Read query params from URL (from home category click) 
   private readQueryParams(): void {
@@ -156,11 +165,27 @@ export class Products {
   }
 
 
-  //  Filter actions 
-  // onSearchInput(value: string): void {
-  //   this.searchSubject.next(value);
-  // }
+ //  Search 
+  onSearchChange(value: string): void {
+  clearTimeout(this.searchTimeout);
+  this.searchTimeout = setTimeout(() => {
+    if (value === this.lastSearchValue) return;
+    this.lastSearchValue = value;
+    this.searchKeyword.set(value);
+    this.currentPage.set(1);
+    this.loadProducts();
+  }, 500);
+}
 
+clearSearch(): void {
+  this.searchKeyword.set('');
+  this.lastSearchValue = '';
+  clearTimeout(this.searchTimeout);
+  this.currentPage.set(1);
+  this.loadProducts();
+}
+
+  //  Filter actions 
    onMetalTypeChange(metalType: string): void {
     // Toggle — if same clicked again, deselect
     this.selectedMetalType.set(

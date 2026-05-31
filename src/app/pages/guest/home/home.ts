@@ -1,17 +1,18 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../../core/services/product-service';
 import { CategoryService } from '../../../core/services/category-service';
 import { Router } from '@angular/router';
 import { ICategory } from '../../../core/interfaces/icategory';
 import { IProduct } from '../../../core/interfaces/iproduct';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
+export class Home implements OnInit {
 
   private productService = inject(ProductService);
   private categoryService = inject(CategoryService);

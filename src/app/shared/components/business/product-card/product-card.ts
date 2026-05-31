@@ -1,9 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { IProduct } from '../../../../core/interfaces/iproduct';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
@@ -16,7 +17,28 @@ export class ProductCard {
   addToCart     = output<number>();
   addToFavorite = output<number>();
 
-  // ── Actions ───────────────────────────────────────────────
+//  Computed helpers 
+  get isGold(): boolean {
+    return this.product().metalType === 'Gold';
+  }
+
+  get isSilver(): boolean {
+    return this.product().metalType === 'Silver';
+  }
+
+ get isOutOfStock(): boolean {
+    return this.product().stock === 0;
+  }
+
+  get isLowStock(): boolean {
+    return this.product().stock > 0 && this.product().stock <= 10;
+  }
+
+  get stockPercentage(): number {
+    return Math.min((this.product().stock / 1000) * 100, 100);
+  }
+
+  //  Actions 
   onViewDetails(): void {
     this.viewDetails.emit(this.product().id);
   }

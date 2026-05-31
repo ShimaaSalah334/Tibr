@@ -16,7 +16,6 @@ export const routes: Routes = [
     component: App,
     pathMatch: 'full'
   },
-  
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'verfiy-account', component: VerfiyAccount },

@@ -1,282 +1,176 @@
-<div class="luxury-bg-wrapper">
-  <!-- Interactive Ambient Glow Spots -->
-  <div class="ambient-glow glow-gold"></div>
-  <div class="ambient-glow glow-navy"></div>
-
-  <div class="container py-5 content-container">
-    <!-- Header Block -->
-    <header class="mb-5 text-start">
-      <nav class="breadcrumb-nav mb-2">
-        <a routerLink="/" class="breadcrumb-link">Tibr Platform</a>
-        <span class="breadcrumb-separator">/</span>
-        <span class="breadcrumb-current">Vault Cart</span>
-      </nav>
-      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
-        <div>
-          <h1 class="luxury-title">Vaulted Assets</h1>
-          <p class="luxury-subtitle">Secure your gold and precious metal allocations in deep-storage vaults.</p>
-        </div>
-        <div class="cart-badge-container">
-          <span class="badge-label">Active Allocations</span>
-          <span class="badge-value">{{ totalItemsCount }}</span>
+<div class="container-fluid content-container px-4 px-lg-5">
+  <!-- البانر الخاص بالتراجع عن الحذف (Undo) -->
+  @if (recentlyRemovedItem) {
+    <div class="row mb-4 animate-fade-in">
+      <div class="col-12">
+        <div class="glass-card undo-toast-banner rounded-4">
+          <div class="toast-content">
+            <div class="toast-icon-wrapper">
+              <i class="fa-solid fa-arrow-rotate-left text-gold"></i>
+            </div>
+            <span class="toast-text">
+              Removed <strong>{{ recentlyRemovedItem.name }}</strong> from your vault.
+            </span>
+          </div>
+          <button class="btn-undo-action" (click)="undoRemove()">Undo</button>
         </div>
       </div>
-    </header>
+    </div>
+  }
 
-    <!-- Undo Action Toast Banner -->
-    @if (recentlyRemovedItem) {
-      <div class="undo-toast-banner glass-card animate-fade-in mb-4">
-        <div class="toast-content">
-          <div class="toast-icon-wrapper">
-            <fa-icon [icon]="['fas', 'trash']" class="text-gold" />
-          </div>
-          <div class="toast-text">
-            <strong>Removed from Vault:</strong> {{ recentlyRemovedItem.name }} ({{ recentlyRemovedItem.weight }}) has been removed.
-          </div>
-        </div>
-        <button class="btn-undo-action" (click)="undoRemove()">
-          <fa-icon [icon]="['fas', 'check']" class="me-2" /> UNDO REMOVAL
-        </button>
-      </div>
-    }
-
-    <!-- Main Grid Content -->
-    <div class="row g-5">
-      <!-- Left Column: Cart Items List -->
-      <div class="col-lg-8">
-        
-        <!-- Active Items Panel -->
+  @if (cartItems.length > 0) {
+    <div class="row g-4">
+      <!-- العمود الأيسر: عناصر السلة والمنتجات المحفوظة -->
+      <div class="col-xl-8 col-lg-7">
         <div class="items-list-container">
-          @for (item of activeItems; track item.id) {
-            <div class="cart-item-row glass-card">
+          @for (item of cartItems; track item.id) {
+            <div class="cart-item-row glass-card animate-fade-in">
               
-              <!-- Premium Pure CSS/SVG Physical Metal Bar Representation -->
+              <!-- 1. نموذج سبيكة المعدن ثلاثية الأبعاد (Pure CSS 3D Model) -->
               <div class="metal-visual-column">
-                @if (item.metalType === 'Gold') {
+                <!-- نستخدم toLowerCase() لضمان عدم تأثر الكود بحالة الأحرف القادمة من الـ API -->
+                @if (item.metalType?.toLowerCase() === 'gold') {
                   <div class="metal-bar-3d gold-bar-gradient">
                     <div class="bar-shine"></div>
-                    <div class="bar-brand">TIBR</div>
-                    <div class="bar-spec">{{ item.weight }}</div>
-                    <div class="bar-metal">GOLD</div>
-                    <div class="bar-purity">999.9</div>
+                    <span class="bar-brand">TIBR</span>
+                    <span class="bar-spec">{{ item.weight ? item.weight + 'g' : '10g' }}</span>
+                    <span class="bar-metal">GOLD</span>
+                    <span class="bar-purity">999.9</span>
                   </div>
                 } @else {
                   <div class="metal-bar-3d silver-bar-gradient">
                     <div class="bar-shine"></div>
-                    <div class="bar-brand">TIBR</div>
-                    <div class="bar-spec">{{ item.weight }}</div>
-                    <div class="bar-metal">SILVER</div>
-                    <div class="bar-purity">999</div>
+                    <span class="bar-brand">TIBR</span>
+                    <span class="bar-spec">{{ item.weight ? item.weight + 'g' : '1Kg' }}</span>
+                    <span class="bar-metal">SILVER</span>
+                    <span class="bar-purity">999.0</span>
                   </div>
                 }
               </div>
 
-              <!-- Product Details -->
-              <div class="item-details-column flex-grow-1">
-                <div class="d-flex justify-content-between align-items-start gap-2">
+              <!-- 2. تفاصيل المنتج والتحكم (مفتوحة لجميع المنتجات دون شروط معقدة) -->
+              <div class="flex-grow-1 d-flex flex-column gap-2">
+                <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
                   <div>
-                    <span class="metal-badge" [ngClass]="item.metalType === 'Gold' ? 'badge-gold' : 'badge-silver'">
-                      {{ item.category }}
+                    <span class="metal-badge" [ngClass]="item.metalType?.toLowerCase() === 'gold' ? 'badge-gold' : 'badge-silver'">
+                      {{ item.category || 'Precious Metal' }}
                     </span>
-                    <h3 class="product-name">{{ item.name }}</h3>
+                    <h3 class="product-name mb-1">{{ item.name }}</h3>
                     <div class="purity-sku-row">
-                      <span class="purity-text">{{ item.purity }}</span>
-                      <span class="divider-dot"></span>
-                      <span class="sku-text">SKU: {{ item.sku }}</span>
+                      <span>Purity: {{ item.purity || '999.9' }}</span>
+                      <div class="divider-dot"></div>
+                      <span>SKU: {{ item.sku || 'TBR-MET-01' }}</span>
                     </div>
                   </div>
                   
-                  <!-- Responsive Price (shows on right side of header in desktop) -->
+                  <!-- حساب الأسعار والعملة -->
                   <div class="price-block text-end">
-                    <div class="item-unit-price">EGP {{ item.price | number:'1.0-0' }}</div>
-                    @if (item.quantity > 1) {
-                      <div class="item-total-price">Total: EGP {{ (item.price * item.quantity) | number:'1.0-0' }}</div>
-                    }
+                    <div class="item-unit-price">EGP {{ item.price | number:'1.0-2' }}</div>
+                    <div class="item-total-price">Total: EGP {{ (item.price * item.quantity) | number:'1.0-2' }}</div>
                   </div>
                 </div>
 
-                <!-- Footer of row: Controls & Action Triggers -->
-                <div class="item-actions-row mt-4 d-flex align-items-center justify-content-between gap-3 flex-wrap">
-                  
-                  <!-- Smooth Quantitative Selector -->
+                <!-- أزرار التحكم في الكمية والإجراءات السريعة -->
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-3 pt-3 border-top-glass">
                   <div class="qty-selector-glass">
-                    <button class="qty-btn" (click)="decrementQuantity(item)" [disabled]="item.quantity <= 1" aria-label="Decrease quantity">
-                      <fa-icon [icon]="['fas', 'minus']" />
+                    <button class="qty-btn" [disabled]="item.quantity <= 1" (click)="decrementQuantity(item)">
+                      <i class="fa-solid fa-minus"></i>
                     </button>
-                    <input type="text" class="qty-input" [value]="item.quantity" (change)="onQuantityChange(item, $event)" readonly />
-                    <button class="qty-btn" (click)="incrementQuantity(item)" [disabled]="item.quantity >= 99" aria-label="Increase quantity">
-                      <fa-icon [icon]="['fas', 'plus']" />
+                    <input type="text" class="qty-input" [value]="item.quantity" readonly>
+                    <button class="qty-btn" [disabled]="item.quantity >= 99" (click)="incrementQuantity(item)">
+                      <i class="fa-solid fa-plus"></i>
                     </button>
                   </div>
 
-                  <!-- Quick Action Buttons -->
                   <div class="action-buttons-group">
-                    <button class="action-btn btn-save" (click)="saveForLater(item)" title="Save for Later">
-                      <fa-icon [icon]="['fas', 'bookmark']" class="me-2 text-gold-muted" /> Save for Later
+                    <button class="action-btn btn-save" (click)="moveToSaved(item)">
+                      <i class="fa-regular fa-bookmark me-2 text-gold-muted"></i>Save for later
                     </button>
-                    <span class="action-divider"></span>
-                    <button class="action-btn btn-remove" (click)="removeItem(item)" title="Remove Item">
-                      <fa-icon [icon]="['fas', 'trash']" class="me-2 text-danger-muted" /> Remove
+                    <div class="action-divider"></div>
+                    <button class="action-btn btn-remove" (click)="removeItem(item)">
+                      <i class="fa-regular fa-trash-can me-2 text-danger-muted"></i>Remove
                     </button>
                   </div>
-
                 </div>
               </div>
 
-            </div>
-          } @empty {
-            <!-- Luxury Empty Cart State -->
-            <div class="empty-cart-container glass-card text-center py-5 animate-fade-in">
-              <div class="empty-icon-vault">
-                <div class="vault-inner-circle">
-                  <fa-icon [icon]="['fas', 'shopping-cart']" size="3x" class="gold-text-glow" />
-                </div>
-              </div>
-              <h2 class="empty-title mt-4">Your Vault is Empty</h2>
-              <p class="empty-description mx-auto max-width-md">
-                You have not designated any precious metals for acquisition yet. 
-                Begin browsing our physical gold bars, silver bullion, and sovereign coins to build your wealth reserve.
-              </p>
-              <a routerLink="/" class="btn-luxury-primary mt-4 py-3 px-5 d-inline-block">
-                BROWSE GOLD & METALS
-              </a>
             </div>
           }
         </div>
-
-        <!-- Saved for Later Panel -->
-        @if (cartItems.length > activeItems.length) {
-          <div class="saved-items-container mt-5 pt-3 animate-fade-in">
-            <h3 class="saved-title mb-4">
-              <fa-icon [icon]="['fas', 'bookmark']" class="text-gold me-2" /> Saved for Later
-            </h3>
-            <div class="row g-4">
-              @for (item of cartItems; track item.id) {
-                @if (item.isSavedForLater) {
-                  <div class="col-md-6">
-                    <div class="saved-item-card glass-card">
-                      <div class="d-flex gap-3">
-                        <div class="saved-visual">
-                          <div class="saved-bar" [ngClass]="item.metalType === 'Gold' ? 'gold-bar-flat' : 'silver-bar-flat'"></div>
-                        </div>
-                        <div class="flex-grow-1">
-                          <span class="saved-category">{{ item.category }}</span>
-                          <h4 class="saved-name">{{ item.name }}</h4>
-                          <div class="saved-price">EGP {{ item.price | number:'1.0-0' }}</div>
-                          
-                          <div class="d-flex align-items-center justify-content-between mt-3">
-                            <button class="btn-restore" (click)="moveToCart(item)">
-                              ADD TO CART
-                            </button>
-                            <button class="btn-delete-saved" (click)="removeItem(item)" title="Delete permanent">
-                              <fa-icon [icon]="['fas', 'trash']" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                }
-              }
-            </div>
-          </div>
-        }
-
       </div>
 
-      <!-- Right Column: Order Summary Sidebar -->
-      <div class="col-lg-4">
-        <div class="sidebar-wrapper position-sticky">
-          
-          <!-- Order Summary Card -->
-          <div class="summary-card glass-card mb-4">
-            <h2 class="summary-header">Vault Summary</h2>
-            <div class="summary-divider mb-4"></div>
-
+      <!-- العمود الأيمن: ملخص الطلب + أسعار السوق المباشرة -->
+      <div class="col-xl-4 col-lg-5 position-relative">
+        <div class="sidebar-wrapper d-flex flex-column gap-4">
+          <!-- كارت الحسابات والملخص -->
+          <div class="glass-card summary-card animate-fade-in">
+            <h2 class="summary-header">Order Summary</h2>
+            <div class="summary-divider my-3"></div>
+            
             <div class="summary-row">
-              <span class="summary-label">Metal Subtotal</span>
-              <span class="summary-value">EGP {{ subtotal | number:'1.0-0' }}</span>
+              <span class="summary-label">Subtotal</span>
+              <span class="summary-value">EGP {{ getSubtotal() | number:'1.0-2' }}</span>
             </div>
-
             <div class="summary-row">
-              <span class="summary-label d-flex align-items-center">
-                Insured Delivery
-                <span class="info-tooltip-badge" title="Tibr partners with secure cash-in-transit armored vehicle providers for full insurance from vault to door.">?</span>
+              <span class="summary-label">
+                Vault Vaulting Fee
+                <span class="info-tooltip-badge" title="Insured luxury vault storage fee">?</span>
               </span>
               <span class="summary-value text-gold-accent">FREE</span>
             </div>
-
             <div class="summary-row">
-              <span class="summary-label">VAT (14%)</span>
-              <span class="summary-value">EGP {{ vat | number:'1.0-0' }}</span>
+              <span class="summary-label">Estimated VAT (14%)</span>
+              <span class="summary-value">EGP {{ getVat() | number:'1.0-2' }}</span>
             </div>
-
-            <div class="summary-divider my-4"></div>
-
-            <div class="summary-row row-total mb-4">
-              <span class="total-label">Total Allocation</span>
-              <div class="total-price-block">
-                <span class="total-value-egp">EGP {{ total | number:'1.0-0' }}</span>
-                <span class="vat-inclusive-sub">VAT inclusive</span>
-              </div>
-            </div>
-
-            <!-- Premium Proceed Button -->
-            <button class="btn-checkout-luxury w-100 py-3 mb-4" (click)="proceedToCheckout()" [disabled]="activeItems.length === 0">
-              <span class="btn-content-inner">
-                <fa-icon [icon]="['fas', 'lock']" class="me-2 lock-icon-shift" />
-                SECURE CHECKOUT
-              </span>
-              <span class="btn-glare"></span>
-            </button>
-
-            <!-- Secure and Guarantee badges -->
-            <div class="secure-guarantee-badges">
-              <div class="guarantee-badge">
-                <fa-icon [icon]="['fas', 'check']" class="badge-icon" />
-                <span>100% physically backed by London Bullion Market Association (LBMA) approved bars.</span>
-              </div>
-              <div class="guarantee-badge mt-2">
-                <fa-icon [icon]="['fas', 'check']" class="badge-icon" />
-                <span>Fully insured transit and vaulted allocation guarantee.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Market Spot Rates Ticker Widget -->
-          <div class="market-ticker-card glass-card">
-            <div class="d-flex align-items-center justify-content-between mb-3">
-              <h3 class="ticker-title">Live Spot Rates</h3>
-              <div class="live-indicator">
-                <span class="pulse-dot"></span>
-                <span>LIVE</span>
-              </div>
-            </div>
-            <p class="ticker-disclaimer">Tibr updates spot bullion rates every 60 seconds with global retail market benchmarks.</p>
             
-            <div class="ticker-rates-list mt-3">
-              @for (rate of liveMetalPrices; track rate.metal + rate.purity) {
-                <div class="ticker-rate-row d-flex align-items-center justify-content-between py-2 border-bottom-glass">
-                  <div class="d-flex align-items-center">
-                    <span class="metal-dot" [ngClass]="rate.metal === 'Gold' ? 'dot-gold' : 'dot-silver'"></span>
-                    <span class="metal-label-text">{{ rate.metal }} {{ rate.purity }}</span>
-                  </div>
-                  <div class="text-end">
-                    <div class="rate-price">EGP {{ rate.pricePerGram | number:'1.2-2' }}/g</div>
-                    <div class="rate-change" [ngClass]="rate.isPositive ? 'change-positive' : 'change-negative'">
-                      @if (rate.isPositive) {
-                        <fa-icon [icon]="['fas', 'chart-line']" class="me-1" />
-                      }
-                      {{ rate.isPositive ? '+' : '' }}{{ rate.changePercent }}%
-                    </div>
-                  </div>
-                </div>
-              }
+            <div class="summary-divider my-4"></div>
+            
+            <div class="summary-row row-total">
+              <span class="total-label">Total Amount</span>
+              <div class="total-price-block">
+                <span class="total-value-egp">EGP {{ getTotal() | number:'1.0-2' }}</span>
+                <span class="vat-inclusive-sub">Inclusive of all taxes</span>
+              </div>
             </div>
+            
+            <button class="btn-checkout-luxury w-100 py-3 mt-3" (click)="proceedToCheckout()">
+              <div class="btn-content-inner">
+                <i class="fa-solid fa-shield-halved me-2 lock-icon-shift"></i>
+                Secure Vault Checkout
+              </div>
+              <div class="btn-glare"></div>
+            </button>
           </div>
 
+          <!-- أدوات الضمان والأمان -->
+          <div class="secure-guarantee-badges px-2">
+            <div class="guarantee-badge">
+              <i class="fa-solid fa-ribbon badge-icon"></i>
+              <span>All metals are certified 24K / 999.9 pure and stamped by the Egyptian Assay Authority.</span>
+            </div>
+            <div class="guarantee-badge">
+              <i class="fa-solid fa-truck-ramp-box badge-icon"></i>
+              <span>Fully insured armored transport delivery or physical pickup from partner bank vaults.</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  } @else {
+    <!-- واجهة السلة الفارغة المتميزة -->
+    <div class="row justify-content-center animate-fade-in">
+      <div class="col-md-6 text-center">
+        <div class="glass-card empty-cart-container d-flex flex-direction-column align-items-center p-5 rounded-4">
+          <div class="empty-icon-vault mb-4">
+            <i class="fa-solid fa-vault fa-3x gold-text-glow"></i>
+          </div>
+          <h3 class="empty-title mb-2">Your Digital Vault is Empty</h3>
+          <p class="empty-description mb-4 mx-auto">You haven't allocated any precious metals to your investment basket yet.</p>
+          <a routerLink="/marketplace" class="btn btn-luxury-primary px-4 py-2.5">
+            Explore Precious Metals
+          </a>
+        </div>
+      </div>
+    </div>
+  }
 </div>

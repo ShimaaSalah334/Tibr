@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CartService, BackendCartItem } from '../../../core/services/cart.service';
 
 export interface CartItem {
   id: string;
@@ -36,51 +37,12 @@ export interface MetalPrice {
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
   private router = inject(Router);
+  private cartService = inject(CartService);
 
   // Active items in the cart
-  cartItems: CartItem[] = [
-    {
-      id: 'item-1',
-      name: 'Gold Bar - 10g',
-      category: '24K Gold',
-      metalType: 'Gold',
-      purity: '999.9 Fine Gold',
-      sku: 'TIBR-AU-010G',
-      price: 18450,
-      quantity: 1,
-      inStock: true,
-      weight: '10g',
-      isSavedForLater: false,
-    },
-    {
-      id: 'item-2',
-      name: 'Silver Bar - 100g',
-      category: 'Silver 999',
-      metalType: 'Silver',
-      purity: '999 Fine Silver',
-      sku: 'TIBR-AG-100G',
-      price: 3890,
-      quantity: 1,
-      inStock: true,
-      weight: '100g',
-      isSavedForLater: false,
-    },
-    {
-      id: 'item-3',
-      name: 'Egyptian Gold Pound',
-      category: 'Au Coin',
-      metalType: 'Gold',
-      purity: '21K Gold (87.5% Pure)',
-      sku: 'TIBR-AU-EGP8G',
-      price: 14200,
-      quantity: 1,
-      inStock: true,
-      weight: '8g',
-      isSavedForLater: false,
-    },
-  ];
+  cartItems: CartItem[] = [];
 
   // Saved items list
   savedItems: CartItem[] = [];
@@ -114,6 +76,37 @@ export class CartComponent {
   recentlyRemovedItem: CartItem | null = null;
   undoTimeout: any = null;
 
+  ngOnInit(): void {
+    this.loadCartItems();
+  }
+
+  loadCartItems(): void {
+    this.cartService.getCartItems().subscribe({
+      next: (items) => {
+        this.cartItems = items.map((item) => this.mapBackendItemToCartItem(item));
+      },
+      error: (err) => {
+        console.error('Failed to load cart items from API', err);
+      },
+    });
+  }
+
+  private mapBackendItemToCartItem(item: BackendCartItem): CartItem {
+    return {
+      id: item.id.toString(),
+      name: item.product?.name || '',
+      category: item.product?.category?.name || '24K Gold',
+      metalType: item.product?.metalType === 0 ? 'Gold' : 'Silver',
+      purity: item.product?.purity ? item.product.purity.toString() : '999.9',
+      sku: item.product?.id ? item.product.id.toString() : '',
+      price: item.unitPrice,
+      quantity: item.quantity,
+      inStock: item.product ? item.product.stock > 0 : false,
+      weight: item.product?.weight ? item.product.weight.toString() + 'g' : '10g',
+      isSavedForLater: false,
+    };
+  }
+
   // Active items helper (filtered for non-saved items)
   get activeItems(): CartItem[] {
     return this.cartItems.filter(item => !item.isSavedForLater);
@@ -124,29 +117,47 @@ export class CartComponent {
     return this.activeItems.reduce((count, item) => count + item.quantity, 0);
   }
 
-  // Price calculations
-  get subtotal(): number {
+  /* ==========================================================================
+     تعديل مسميات الحسابات لتطابق الـ HTML بأقواس الميثود ()
+     ========================================================================== */
+  getSubtotal(): number {
     return this.activeItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
-  get vat(): number {
-    return Math.round(this.subtotal * 0.14);
+  getVat(): number {
+    return Math.round(this.getSubtotal() * 0.14);
   }
 
-  get total(): number {
-    return this.subtotal + this.vat;
+  getTotal(): number {
+    return this.getSubtotal() + this.getVat();
   }
 
   // Quantity Management
   incrementQuantity(item: CartItem): void {
     if (item.quantity < 99) {
-      item.quantity++;
+      const newQuantity = item.quantity + 1;
+      this.cartService.updateCartItem(Number(item.id), newQuantity).subscribe({
+        next: () => {
+          item.quantity = newQuantity;
+        },
+        error: (err) => {
+          console.error('Failed to increment quantity', err);
+        },
+      });
     }
   }
 
   decrementQuantity(item: CartItem): void {
     if (item.quantity > 1) {
-      item.quantity--;
+      const newQuantity = item.quantity - 1;
+      this.cartService.updateCartItem(Number(item.id), newQuantity).subscribe({
+        next: () => {
+          item.quantity = newQuantity;
+        },
+        error: (err) => {
+          console.error('Failed to decrement quantity', err);
+        },
+      });
     }
   }
 
@@ -154,7 +165,15 @@ export class CartComponent {
     const input = event.target as HTMLInputElement;
     const value = parseInt(input.value, 10);
     if (!isNaN(value) && value >= 1 && value <= 99) {
-      item.quantity = value;
+      this.cartService.updateCartItem(Number(item.id), value).subscribe({
+        next: () => {
+          item.quantity = value;
+        },
+        error: (err) => {
+          console.error('Failed to update quantity', err);
+          input.value = item.quantity.toString();
+        },
+      });
     } else {
       input.value = item.quantity.toString();
     }
@@ -162,38 +181,53 @@ export class CartComponent {
 
   // Remove Item
   removeItem(item: CartItem): void {
-    // Save for undo
-    this.recentlyRemovedItem = { ...item };
-    
-    // Clear previous timeout
-    if (this.undoTimeout) {
-      clearTimeout(this.undoTimeout);
-    }
-    
-    // Remove from array
-    this.cartItems = this.cartItems.filter(i => i.id !== item.id);
-    
-    // Set auto-dismiss timeout for undo banner (5 seconds)
-    this.undoTimeout = setTimeout(() => {
-      this.recentlyRemovedItem = null;
-    }, 5000);
+    this.cartService.deleteCartItem(Number(item.id)).subscribe({
+      next: () => {
+        this.recentlyRemovedItem = { ...item };
+        
+        if (this.undoTimeout) {
+          clearTimeout(this.undoTimeout);
+        }
+        
+        this.cartItems = this.cartItems.filter(i => i.id !== item.id);
+        
+        this.undoTimeout = setTimeout(() => {
+          this.recentlyRemovedItem = null;
+        }, 5000);
+      },
+      error: (err) => {
+        console.error('Failed to remove item', err);
+      },
+    });
   }
 
   // Undo removal
   undoRemove(): void {
     if (this.recentlyRemovedItem) {
-      this.cartItems.push(this.recentlyRemovedItem);
-      // Sort items back to original order or custom order
-      this.cartItems.sort((a, b) => a.id.localeCompare(b.id));
-      this.recentlyRemovedItem = null;
-      if (this.undoTimeout) {
-        clearTimeout(this.undoTimeout);
-      }
+      const itemToRestore = { ...this.recentlyRemovedItem };
+      const productId = Number(itemToRestore.sku);
+      
+      this.cartService.addToCart(productId, itemToRestore.quantity).subscribe({
+        next: (newBackendItem) => {
+          const restoredItem = this.mapBackendItemToCartItem(newBackendItem);
+          this.cartItems.push(restoredItem);
+          this.cartItems.sort((a, b) => a.id.localeCompare(b.id));
+          this.recentlyRemovedItem = null;
+          if (this.undoTimeout) {
+            clearTimeout(this.undoTimeout);
+          }
+        },
+        error: (err) => {
+          console.error('Failed to restore item', err);
+        },
+      });
     }
   }
 
-  // Save for Later
-  saveForLater(item: CartItem): void {
+  /* ==========================================================================
+     تعديل اسم الدالة لتطابق (click)="moveToSaved(item)" اللي في الـ HTML
+     ========================================================================== */
+  moveToSaved(item: CartItem): void {
     item.isSavedForLater = true;
   }
 

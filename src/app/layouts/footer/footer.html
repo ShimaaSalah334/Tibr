@@ -1,0 +1,94 @@
+<footer class="site-footer">
+
+  <!-- Top border glow -->
+  <div class="footer-glow-line"></div>
+
+  <div class="footer-container">
+
+    <!-- Brand column -->
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <span class="logo-ar">ثروة</span>
+        <span class="logo-en">Tharwa</span>
+      </div>
+      <p class="footer-tagline">
+        Egypt's premier platform for fractional precious metals investment.
+        Start with any amount, own real gold and silver.
+      </p>
+      <!-- Social links -->
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Twitter/X" aria-label="Twitter">
+          <i class="bi bi-twitter-x"></i>
+        </a>
+        <a href="#" class="social-btn" title="Instagram" aria-label="Instagram">
+          <i class="bi bi-instagram"></i>
+        </a>
+        <a href="#" class="social-btn" title="LinkedIn" aria-label="LinkedIn">
+          <i class="bi bi-linkedin"></i>
+        </a>
+        <a href="#" class="social-btn" title="Facebook" aria-label="Facebook">
+          <i class="bi bi-facebook"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Invest column -->
+    <div class="footer-col">
+      <h4 class="footer-heading">Invest</h4>
+      <ul class="footer-links">
+        <li><a routerLink="/products" [queryParams]="{ metalType: '0' }">Gold Products</a></li>
+        <li><a routerLink="/products" [queryParams]="{ metalType: '1' }">Silver Products</a></li>
+        <li><a routerLink="/products" [queryParams]="{ categoryName: 'Bars' }">Bars</a></li>
+        <li><a routerLink="/products" [queryParams]="{ categoryName: 'Coins' }">Coins</a></li>
+        <li><a routerLink="/products" [queryParams]="{ sortBy: 'popularity' }">Popular</a></li>
+      </ul>
+    </div>
+
+    <!-- Company column -->
+    <div class="footer-col">
+      <h4 class="footer-heading">Company</h4>
+      <ul class="footer-links">
+        <li><a routerLink="/about">About Tharwa</a></li>
+        <li><a routerLink="/how-it-works">How It Works</a></li>
+        <li><a routerLink="/security">Security</a></li>
+        <li><a routerLink="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Legal column -->
+    <div class="footer-col">
+      <h4 class="footer-heading">Legal</h4>
+      <ul class="footer-links">
+        <li><a routerLink="/terms">Terms & Conditions</a></li>
+        <li><a routerLink="/privacy">Privacy Policy</a></li>
+        <li><a routerLink="/risk">Risk Disclosure</a></li>
+        <li><a routerLink="/licenses">Licenses</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <span class="footer-copy">
+        © 2025 Tharwa Digital Investment. All rights reserved.
+      </span>
+      <div class="footer-badges">
+        <span class="trust-badge">
+          <i class="bi bi-shield-check"></i>
+          Licensed
+        </span>
+        <span class="trust-badge">
+          <i class="bi bi-lock-fill"></i>
+          256-bit SSL
+        </span>
+        <span class="trust-badge">
+          <i class="bi bi-patch-check-fill gold"></i>
+          Regulated
+        </span>
+      </div>
+    </div>
+  </div>
+
+</footer>

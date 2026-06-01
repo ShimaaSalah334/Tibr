@@ -87,6 +87,11 @@ import {
   faFilter,
   faSearch,
   faSpinner,
+  faPlus,
+  faMinus,
+  faLock,
+  faBookmark,
+  faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 
 export function registerIcons(library: FaIconLibrary): void {
@@ -102,5 +107,10 @@ export function registerIcons(library: FaIconLibrary): void {
     faFilter,
     faSearch,
     faSpinner,
+    faPlus,
+    faMinus,
+    faLock,
+    faBookmark,
+    faChartLine,
   );
 }

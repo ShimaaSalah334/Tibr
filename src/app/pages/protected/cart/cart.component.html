@@ -264,7 +264,9 @@
                   <div class="text-end">
                     <div class="rate-price">EGP {{ rate.pricePerGram | number:'1.2-2' }}/g</div>
                     <div class="rate-change" [ngClass]="rate.isPositive ? 'change-positive' : 'change-negative'">
-                      <fa-icon [icon]="['fas', 'chart-line']" class="me-1" *ngIf="rate.isPositive" />
+                      @if (rate.isPositive) {
+                        <fa-icon [icon]="['fas', 'chart-line']" class="me-1" />
+                      }
                       {{ rate.isPositive ? '+' : '' }}{{ rate.changePercent }}%
                     </div>
                   </div>

@@ -1,0 +1,158 @@
+/* الألوان الأساسية الثابتة */
+:host {
+  --corporate-navy: #0A192F;
+  --corporate-gold: #96742E;
+  --corporate-gold-hover: #7D5F22;
+  --bg-soft-gray: #F4F6F8;
+  --border-light: #DCE2E6;
+}
+
+.login-page-bg {
+  min-height: 100vh;
+  background-color: var(--bg-soft-gray);
+  position: relative;
+  overflow: hidden;
+}
+
+/* رفع طبقة المحتوى فوق تأثيرات الأنميشن لسهولة الاستخدام */
+.z-index-form {
+  z-index: 10;
+}
+
+/* ==========================================
+   ✨ تأثيرات الأنميشن والخلفية الديناميكية ✨
+   ========================================== */
+
+/* 1. التوهج الملون العائم خلف الكارت */
+.animated-bg-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.08) 0%, rgba(10, 25, 47, 0.04) 50%, transparent 100%);
+  top: -10%;
+  right: -10%;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: floatGlow 12s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes floatGlow {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-80px, 50px) scale(1.2); }
+}
+
+/* 2. حاوية الجزيئات الذهبية العائمة */
+.particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.4) 0%, rgba(150, 116, 46, 0) 70%);
+  border-radius: 50%;
+  animation: floatParticles infinite linear;
+}
+
+/* تخصيص جزيئات مختلفة الأحجام والسرعات لمنع الملل البصري */
+.particle.p1 { width: 120px; height: 120px; bottom: -10%; left: 10%; animation-duration: 18s; }
+.particle.p2 { width: 80px; height: 80px; top: 15%; left: 45%; animation-duration: 25s; opacity: 0.7; }
+.particle.p3 { width: 150px; height: 150px; bottom: 20%; right: 5%; animation-duration: 22s; opacity: 0.5; }
+.particle.p4 { width: 60px; height: 60px; top: -5%; left: 20%; animation-duration: 15s; }
+
+@keyframes floatParticles {
+  0% { transform: translateY(100vh) translateX(0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-120vh) translateX(50px) scale(0.8); opacity: 0; }
+}
+
+/* ==========================================
+   تنسيقات الكارت والعناصر (مستقرة واحترافية)
+   ========================================== */
+.main-card {
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(10, 25, 47, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  max-width: 1050px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px); /* لمسة زجاجية خفيفة متناسقة مع الأنميشن */
+}
+
+.brand-logo-wrapper {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.logo-navy { color: var(--corporate-navy); }
+.logo-gold { color: var(--corporate-gold); position: relative; margin-right: -4px; }
+.text-navy { color: var(--corporate-navy); }
+.text-gold-dark { color: var(--corporate-gold); }
+.text-secondary-muted { color: #6E7E8B; }
+
+/* الحقول المدخلة */
+.form-control-corporate {
+  background-color: #FFFFFF !important;
+  border: 1px solid var(--border-light) !important;
+  color: var(--corporate-navy) !important;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.25s ease-in-out;
+}
+.form-control-corporate:focus, .field-focused {
+  border-color: var(--corporate-gold) !important;
+  box-shadow: 0 0 0 4px rgba(150, 116, 46, 0.12) !important;
+  outline: none;
+}
+.form-control-corporate::placeholder { color: #A0AEC0; }
+
+.small-link { font-size: 0.85rem; transition: color 0.2s; }
+.small-link:hover { color: var(--corporate-gold-hover); }
+
+.password-toggle { left: 10px; right: auto; z-index: 5; background: none; padding: 0; }
+
+.form-check-corporate {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  accent-color: var(--corporate-gold);
+  cursor: pointer;
+}
+
+/* أزرار تفاعلية ناعمة */
+.btn-corporate-gold {
+  background-color: var(--corporate-gold);
+  border: none;
+  color: #FFFFFF !important;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-corporate-gold:hover {
+  background-color: var(--corporate-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(150, 116, 46, 0.25);
+}
+
+/* جانب العرض الأيسر */
+.left-branding-panel { background-color: #FFFFFF; border-right: 1px solid #F0F2F5; }
+.brand-image-box {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0A1526;
+  overflow: hidden;
+  max-height: 440px;
+}
+.brand-image-box img { width: 100%; height: 100%; object-fit: cover; }
+.bg-light-gray { background-color: #FAFBFB; }
+.brand-text-box { min-height: 130px; }
+.form-label { font-size: 0.88rem; }

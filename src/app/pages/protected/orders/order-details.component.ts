@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Order } from '../../../core/interfaces/order.interface';
 import { OrdersService } from '../../../core/services/orders.service';
 import { StatusBadgeComponent } from '../../../shared/components/ui/status-badge/status-badge.component';
@@ -14,7 +13,6 @@ import { OrderItemsTableComponent } from '../../../shared/components/business/or
     RouterLink,
     DatePipe,
     CurrencyPipe,
-    FontAwesomeModule,
     StatusBadgeComponent,
     LoadingSpinnerComponent,
     OrderItemsTableComponent,
@@ -31,11 +29,11 @@ export class OrderDetailsComponent implements OnInit {
   isLoading = true;
   error: string | null = null;
   paymentNotification: { type: 'success' | 'failed'; message: string } | null = null;
-  private orderId = 0;
+  private orderId = '';
 
   ngOnInit(): void {
-    this.orderId = Number(this.route.snapshot.paramMap.get('id'));
-    if (isNaN(this.orderId) || this.orderId <= 0) {
+    this.orderId = this.route.snapshot.paramMap.get('id') ?? '';
+    if (!this.orderId) {
       this.error = 'Invalid order ID.';
       this.isLoading = false;
       return;

@@ -3,7 +3,7 @@
 
   <div class="d-flex gap-3 mb-4">
     <div class="d-flex align-items-center gap-2">
-      <fa-icon [icon]="['fas', 'filter']" />
+      <i class="fas fa-filter"></i>
       <select
         class="form-select"
         [value]="selectedStatus"
@@ -30,7 +30,7 @@
 
   @if (error && !isLoading) {
     <div class="alert alert-danger d-flex align-items-center gap-2">
-      <fa-icon [icon]="['fas', 'times']" />
+      <i class="fas fa-times"></i>
       <span>{{ error }}</span>
       <button class="btn btn-outline-danger btn-sm ms-auto" (click)="loadOrders()">
         Retry

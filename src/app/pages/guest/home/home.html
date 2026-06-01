@@ -1,1 +1,456 @@
-<p>home works!</p>
+<div class="home-page">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <canvas id="particle-canvas" class="particle-canvas"></canvas>
+
+    <!-- Background image -->
+    <div class="hero-bg">
+      <div class="hero-bg-overlay"></div>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero-content container-main">
+      <div class="hero-badge reveal">
+        <span class="badge-dot-pulse"></span>
+        Live Market Prices Active
+      </div>
+
+      <h1 class="hero-title reveal">
+        Invest in <span class="gold-shine">Gold & Silver</span><br/>
+        with Smart Precision
+      </h1>
+
+      <p class="hero-sub reveal">
+        Own real precious metals by the gram. Tharwa gives you access to
+        authentic gold and silver bullion at live market prices — no
+        experience needed, starting from any amount.
+      </p>
+
+      <div class="hero-ctas reveal">
+        <button class="btn-gold-lg" routerLink="/auth/register">
+          Start Investing
+          <i class="bi bi-arrow-right"></i>
+        </button>
+        <button class="btn-ghost-lg" routerLink="/how-it-works">
+          How It Works
+        </button>
+      </div>
+
+      <!-- Trust row -->
+      <div class="hero-trust reveal">
+        <div class="trust-item">
+          <i class="bi bi-shield-check"></i>
+          <span>Licensed & Regulated</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <i class="bi bi-lock-fill"></i>
+          <span>Bank-Level Security</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <i class="bi bi-graph-up"></i>
+          <span>Real-Time Prices</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STATS COUNTER SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="stats-section">
+    <div class="container-main">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <span class="stat-num counter" data-target="15000">0</span>
+          <span class="stat-suffix">+</span>
+          <p class="stat-label">Active Investors</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item reveal" style="transition-delay: 100ms">
+          <span class="stat-num counter" data-target="500">0</span>
+          <span class="stat-suffix">KG</span>
+          <p class="stat-label">Gold Traded</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item reveal" style="transition-delay: 200ms">
+          <span class="stat-num counter" data-target="99">0</span>
+          <span class="stat-suffix">%</span>
+          <p class="stat-label">Uptime</p>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item reveal" style="transition-delay: 300ms">
+          <span class="stat-num counter" data-target="4">0</span>
+          <span class="stat-suffix">+</span>
+          <p class="stat-label">Years Trusted</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       WHY THARWA SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="why-section">
+    <div class="container-main">
+      <div class="section-header reveal">
+        <span class="section-tag">Why Tharwa?</span>
+        <h2 class="section-title">Gold investing<br/>made simple</h2>
+      </div>
+
+      <div class="why-grid">
+        <div class="why-card glass-card reveal">
+          <div class="why-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h4>Inflation Protection</h4>
+          <p>Preserve your wealth against currency fluctuations with real, tangible assets backed by physical bullion.</p>
+          <div class="card-corner-glow"></div>
+        </div>
+
+        <div class="why-card glass-card reveal" style="transition-delay: 100ms">
+          <div class="why-icon">
+            <i class="bi bi-pie-chart-fill"></i>
+          </div>
+          <h4>Fractional Ownership</h4>
+          <p>No need to buy a full bar. Start with any amount and own fractions of gold and silver — accessible to everyone.</p>
+          <div class="card-corner-glow"></div>
+        </div>
+
+        <div class="why-card glass-card reveal" style="transition-delay: 200ms">
+          <div class="why-icon">
+            <i class="bi bi-lightning-fill"></i>
+          </div>
+          <h4>Live Market Prices</h4>
+          <p>Always trade at real spot prices. Our rates update every minute directly from international exchanges.</p>
+          <div class="card-corner-glow"></div>
+        </div>
+
+        <div class="why-card glass-card reveal" style="transition-delay: 300ms">
+          <div class="why-icon">
+            <i class="bi bi-repeat"></i>
+          </div>
+          <h4>Auto Investment</h4>
+          <p>Set up recurring purchases and build your portfolio automatically — weekly, monthly, on your schedule.</p>
+          <div class="card-corner-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CATEGORIES SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="categories-section">
+    <div class="container-main">
+      <div class="section-header reveal">
+        <span class="section-tag">Browse by Type</span>
+        <h2 class="section-title">Choose Your<br/>Investment</h2>
+      </div>
+
+      <!-- Loading state -->
+      <div class="categories-grid" *ngIf="!isLoadingCategories()">
+        <div
+          class="category-card glass-card reveal"
+          *ngFor="let cat of categories(); let i = index"
+          [style.transition-delay]="(i * 80) + 'ms'"
+          (click)="goToProductsByCategory(cat.name)"
+          role="button"
+          tabindex="0"
+        >
+          <div class="cat-icon">
+            <i [class]="getCategoryIcon(cat.name)"></i>
+          </div>
+          <div class="cat-info">
+            <h4 class="cat-name">{{ cat.name }}</h4>
+            <p class="cat-count">{{ cat.productCount }} products</p>
+          </div>
+          <div class="cat-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </div>
+          <div class="cat-glow"></div>
+        </div>
+
+        <!-- Skeleton if loading -->
+      </div>
+
+      <div class="categories-grid" *ngIf="isLoadingCategories()">
+        <div class="category-card skeleton" *ngFor="let _ of [1,2,3,4]"></div>
+      </div>
+
+      <!-- Metal type quick filters -->
+      <div class="metal-filters reveal">
+        <button
+          class="metal-btn gold-btn"
+          [class.active]="true"
+          (click)="goToProductsByMetal('0')"
+        >
+          <span class="metal-icon">🥇</span>
+          <span>Gold Products</span>
+          <span class="metal-arrow"><i class="bi bi-arrow-right"></i></span>
+        </button>
+        <button
+          class="metal-btn silver-btn"
+          (click)="goToProductsByMetal('1')"
+        >
+          <span class="metal-icon">🥈</span>
+          <span>Silver Products</span>
+          <span class="metal-arrow"><i class="bi bi-arrow-right"></i></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       NEWEST PRODUCTS SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="products-section">
+    <div class="container-main">
+
+      <div class="section-row-header reveal">
+        <div>
+          <span class="section-tag">Just Added</span>
+          <h2 class="section-title-sm">Newest Arrivals</h2>
+        </div>
+        <button class="btn-text-gold" routerLink="/products" [queryParams]="{ sortBy: 'newest' }">
+          View All <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Error state -->
+      <div class="error-state" *ngIf="errorNewest()">
+        <i class="bi bi-exclamation-triangle"></i>
+        <p>{{ errorNewest() }}</p>
+      </div>
+
+      <!-- Loading skeleton -->
+      <div class="products-scroll" *ngIf="isLoadingNewest()">
+        <div class="product-card-skeleton" *ngFor="let _ of [1,2,3,4]"></div>
+      </div>
+
+      <!-- Products carousel -->
+      <div class="products-scroll" *ngIf="!isLoadingNewest() && newestProducts().length > 0">
+        <div
+          class="product-card glass-card reveal"
+          *ngFor="let product of newestProducts(); let i = index"
+          [style.transition-delay]="(i * 80) + 'ms'"
+          (click)="goToProductDetails(product.id)"
+          role="button"
+        >
+          <!-- Metal badge -->
+          <span class="metal-badge" [class.gold-badge]="product.metalType === 'Gold'" [class.silver-badge]="product.metalType === 'Silver'">
+            {{ product.metalType }}
+          </span>
+
+          <!-- Stock badge -->
+          <span class="stock-badge" [class.out]="product.stock === 0" *ngIf="product.stock === 0">
+            Out of Stock
+          </span>
+
+          <!-- Product image area -->
+          <div class="product-img-wrap">
+            <img
+              [src]="product.imageUrl || 'assets/images/placeholder-gold.png'"
+              [alt]="product.name"
+              class="product-img"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Product info -->
+          <div class="product-info">
+            <h5 class="product-name">{{ product.name }}</h5>
+            <p class="product-cat">{{ product.categoryName }}</p>
+
+            <div class="product-prices">
+              <div class="price-row">
+                <span class="price-label">Buy</span>
+                <span class="price-val buy-price">{{ product.buyPrice | number:'1.0-0' }} EGP</span>
+              </div>
+              <div class="price-row">
+                <span class="price-label">Sell</span>
+                <span class="price-val sell-price">{{ product.sellPrice | number:'1.0-0' }} EGP</span>
+              </div>
+            </div>
+
+            <button
+              class="btn-card-gold"
+              [disabled]="product.stock === 0"
+              (click)="goToProductDetails(product.id); $event.stopPropagation()"
+            >
+              {{ product.stock === 0 ? 'Out of Stock' : 'View Details' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" *ngIf="!isLoadingNewest() && newestProducts().length === 0">
+        <p>No products available yet.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       POPULAR PRODUCTS SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="products-section popular-section">
+    <div class="container-main">
+
+      <div class="section-row-header reveal">
+        <div>
+          <span class="section-tag">Trending Now</span>
+          <h2 class="section-title-sm">Most Popular</h2>
+        </div>
+        <button class="btn-text-gold" routerLink="/products" [queryParams]="{ sortBy: 'popularity' }">
+          View All <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Loading skeleton -->
+      <div class="products-scroll" *ngIf="isLoadingPopular()">
+        <div class="product-card-skeleton" *ngFor="let _ of [1,2,3,4]"></div>
+      </div>
+
+      <!-- Products carousel -->
+      <div class="products-scroll" *ngIf="!isLoadingPopular() && popularProducts().length > 0">
+        <div
+          class="product-card glass-card reveal"
+          *ngFor="let product of popularProducts(); let i = index"
+          [style.transition-delay]="(i * 80) + 'ms'"
+          (click)="goToProductDetails(product.id)"
+          role="button"
+        >
+          <span class="popular-crown">
+            <i class="bi bi-star-fill"></i> Popular
+          </span>
+
+          <span class="metal-badge" [class.gold-badge]="product.metalType === 'Gold'" [class.silver-badge]="product.metalType === 'Silver'">
+            {{ product.metalType }}
+          </span>
+
+          <div class="product-img-wrap">
+            <img
+              [src]="product.imageUrl || 'assets/images/placeholder-gold.png'"
+              [alt]="product.name"
+              class="product-img"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="product-info">
+            <h5 class="product-name">{{ product.name }}</h5>
+            <p class="product-cat">{{ product.categoryName }}</p>
+
+            <div class="product-prices">
+              <div class="price-row">
+                <span class="price-label">Buy</span>
+                <span class="price-val buy-price">{{ product.buyPrice | number:'1.0-0' }} EGP</span>
+              </div>
+              <div class="price-row">
+                <span class="price-label">Sell</span>
+                <span class="price-val sell-price">{{ product.sellPrice | number:'1.0-0' }} EGP</span>
+              </div>
+            </div>
+
+            <button
+              class="btn-card-gold"
+              [disabled]="product.stock === 0"
+              (click)="goToProductDetails(product.id); $event.stopPropagation()"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       HOW IT WORKS SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="how-section">
+    <div class="container-main">
+      <div class="section-header reveal">
+        <span class="section-tag">Simple Process</span>
+        <h2 class="section-title">Start in 3 Steps</h2>
+      </div>
+
+      <div class="steps-container">
+        <!-- Connecting line -->
+        <div class="steps-line"></div>
+
+        <div class="step reveal">
+          <div class="step-number">01</div>
+          <div class="step-content glass-card">
+            <div class="step-icon">
+              <i class="bi bi-person-plus-fill"></i>
+            </div>
+            <h4>Create Account</h4>
+            <p>Register with your name, phone, and email. Verify your identity with your national ID in under 2 minutes.</p>
+          </div>
+        </div>
+
+        <div class="step reveal" style="transition-delay: 150ms">
+          <div class="step-number">02</div>
+          <div class="step-content glass-card">
+            <div class="step-icon">
+              <i class="bi bi-search"></i>
+            </div>
+            <h4>Browse Products</h4>
+            <p>Explore our curated collection of gold and silver bars, coins, rounds, and granules at live market prices.</p>
+          </div>
+        </div>
+
+        <div class="step reveal" style="transition-delay: 300ms">
+          <div class="step-number active">03</div>
+          <div class="step-content glass-card">
+            <div class="step-icon gold-icon">
+              <i class="bi bi-graph-up-arrow"></i>
+            </div>
+            <h4>Invest & Track</h4>
+            <p>Purchase any amount, monitor your portfolio's performance, and watch your wealth grow in real time.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CTA SECTION
+  ════════════════════════════════════════════════════════ -->
+  <section class="cta-section reveal">
+    <div class="cta-glow-left"></div>
+    <div class="cta-glow-right"></div>
+    <div class="container-main">
+      <div class="cta-inner glass-card">
+        <div class="cta-text">
+          <h2>Ready to protect your<br/><span class="gold-shine">wealth with gold?</span></h2>
+          <p>Join thousands of Egyptians who are already investing in precious metals through Tharwa.</p>
+        </div>
+        <div class="cta-actions">
+          <button class="btn-gold-lg" routerLink="/auth/register">
+            Get Started Free
+            <i class="bi bi-arrow-right"></i>
+          </button>
+          <button class="btn-ghost-lg" routerLink="/products">
+            Browse Products
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

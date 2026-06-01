@@ -1,57 +1,67 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, AfterViewInit, signal } from '@angular/core';
+import { CommonModule, DecimalPipe } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../core/services/product-service';
 import { CategoryService } from '../../../core/services/category-service';
-import { Router } from '@angular/router';
-import { ICategory } from '../../../core/interfaces/icategory';
 import { IProduct } from '../../../core/interfaces/iproduct';
-import { CommonModule } from '@angular/common';
+import { ICategory } from '../../../core/interfaces/icategory';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterLink, DecimalPipe],
   templateUrl: './home.html',
-  styleUrl: './home.css',
+  styleUrl: './home.css'
 })
-export class Home implements OnInit {
+export class Home implements OnInit, AfterViewInit, OnDestroy {
 
-  private productService = inject(ProductService);
+  private productService  = inject(ProductService);
   private categoryService = inject(CategoryService);
   private router          = inject(Router);
 
-  //  State signals
-  categories       = signal<ICategory[]>([]);
-  newestProducts   = signal<IProduct[]>([]);
-  popularProducts  = signal<IProduct[]>([]);
+  // ── State signals ─────────────────────────────────────────
+  categories        = signal<ICategory[]>([]);
+  newestProducts    = signal<IProduct[]>([]);
+  popularProducts   = signal<IProduct[]>([]);
 
   isLoadingCategories = signal<boolean>(false);
   isLoadingNewest     = signal<boolean>(false);
   isLoadingPopular    = signal<boolean>(false);
 
-  errorCategories  = signal<string | null>(null);
-  errorNewest      = signal<string | null>(null);
-  errorPopular     = signal<string | null>(null);
+  errorNewest   = signal<string | null>(null);
+  errorPopular  = signal<string | null>(null);
 
-  // Lifecycle
+  // ── Particle animation ────────────────────────────────────
+  private animationId: number | null = null;
+  private particles: any[] = [];
+
+  // ── Lifecycle ─────────────────────────────────────────────
   ngOnInit(): void {
     this.loadCategories();
     this.loadNewestProducts();
     this.loadPopularProducts();
   }
 
-  // Data loaders
+  ngAfterViewInit(): void {
+    this.initParticles();
+    this.initScrollReveal();
+    this.initCounters();
+  }
+
+  ngOnDestroy(): void {
+    if (this.animationId !== null)
+      cancelAnimationFrame(this.animationId);
+  }
+
+  // ── Data loaders ──────────────────────────────────────────
   private loadCategories(): void {
     this.isLoadingCategories.set(true);
-    this.errorCategories.set(null);
-
     this.categoryService.getAllCategories().subscribe({
       next: (data) => {
         this.categories.set(data);
         this.isLoadingCategories.set(false);
       },
-      error: (err) => {
-        this.errorCategories.set('Failed to load categories');
-        this.isLoadingCategories.set(false);
-      }
+      error: () => this.isLoadingCategories.set(false)
     });
   }
 
@@ -69,8 +79,8 @@ export class Home implements OnInit {
         this.newestProducts.set(data.items);
         this.isLoadingNewest.set(false);
       },
-      error: (err) => {
-        this.errorNewest.set('Failed to load newest products');
+      error: () => {
+        this.errorNewest.set('Failed to load products. Please try again.');
         this.isLoadingNewest.set(false);
       }
     });
@@ -78,7 +88,6 @@ export class Home implements OnInit {
 
   private loadPopularProducts(): void {
     this.isLoadingPopular.set(true);
-    this.errorPopular.set(null);
 
     this.productService.getProducts({
       sortBy: 'popularity',
@@ -90,16 +99,13 @@ export class Home implements OnInit {
         this.popularProducts.set(data.items);
         this.isLoadingPopular.set(false);
       },
-      error: (err) => {
-        this.errorPopular.set('Failed to load popular products');
-        this.isLoadingPopular.set(false);
-      }
+      error: () => this.isLoadingPopular.set(false)
     });
   }
 
-  // Navigation
-  goToProducts(): void {
-    this.router.navigate(['/products']);
+  // ── Navigation ────────────────────────────────────────────
+  goToProductDetails(id: number): void {
+    this.router.navigate(['/products', id]);
   }
 
   goToProductsByCategory(categoryName: string): void {
@@ -108,7 +114,121 @@ export class Home implements OnInit {
     });
   }
 
-  goToProductDetails(id: number): void {
-    this.router.navigate(['/products', id]);
+  goToProductsByMetal(metalType: string): void {
+    this.router.navigate(['/products'], {
+      queryParams: { metalType }
+    });
+  }
+
+  // ── Category icon helper ──────────────────────────────────
+  getCategoryIcon(categoryName: string): string {
+    const icons: Record<string, string> = {
+      'Bars':      'bi bi-square-fill',
+      'Coins':     'bi bi-circle-fill',
+      'Rounds':    'bi bi-record-circle',
+      'Granules':  'bi bi-droplet-fill',
+    };
+    return icons[categoryName] ?? 'bi bi-gem';
+  }
+
+  // ── Particle canvas ───────────────────────────────────────
+  private initParticles(): void {
+    const canvas = document.getElementById('particle-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Create particles
+    this.particles = Array.from({ length: 70 }, () => ({
+      x:      Math.random() * canvas.width,
+      y:      Math.random() * canvas.height,
+      size:   Math.random() * 1.5 + 0.3,
+      speedX: Math.random() * 0.4 - 0.2,
+      speedY: -(Math.random() * 0.4 + 0.1),
+      opacity: Math.random() * 0.4 + 0.1,
+      color:  Math.random() > 0.5 ? '#D4AF37' : '#C0C0C0'
+    }));
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      this.particles.forEach(p => {
+        ctx.globalAlpha = p.opacity;
+        ctx.fillStyle   = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        p.x += p.speedX;
+        p.y += p.speedY;
+
+        if (p.y < -10)              p.y = canvas.height + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
+        if (p.x < -10)               p.x = canvas.width + 10;
+      });
+
+      this.animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+  }
+
+  // ── Scroll reveal ─────────────────────────────────────────
+  private initScrollReveal(): void {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting)
+            entry.target.classList.add('active');
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  // ── Counters ──────────────────────────────────────────────
+  private initCounters(): void {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el     = entry.target as HTMLElement;
+            const target = parseInt(el.dataset['target'] || '0');
+            this.animateCounter(el, target);
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll('.counter').forEach(el => observer.observe(el));
+  }
+
+  private animateCounter(el: HTMLElement, target: number): void {
+    let current  = 0;
+    const duration = 1800;
+    const step   = target / (duration / 16);
+
+    const run = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        el.textContent = target.toLocaleString();
+        clearInterval(run);
+      } else {
+        el.textContent = Math.floor(current).toLocaleString();
+      }
+    }, 16);
   }
 }

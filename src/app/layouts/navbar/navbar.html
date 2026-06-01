@@ -1,1 +1,146 @@
-<p>navbar works!</p>
+<!-- Price Ticker - above navbar -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <!-- Duplicated for seamless loop -->
+    <div class="ticker-items" *ngFor="let _ of [1,2]">
+      <span class="ticker-item">
+        Gold 24K <span class="ticker-value gold">3,500 EGP</span>
+        <span class="ticker-change up">↑ 1.2%</span>
+      </span>
+      <span class="ticker-sep">|</span>
+      <span class="ticker-item">
+        Gold 21K <span class="ticker-value gold">3,060 EGP</span>
+      </span>
+      <span class="ticker-sep">|</span>
+      <span class="ticker-item">
+        Gold 18K <span class="ticker-value gold">2,625 EGP</span>
+      </span>
+      <span class="ticker-sep">|</span>
+      <span class="ticker-item">
+        Silver Raw <span class="ticker-value silver">45 EGP</span>
+        <span class="ticker-change down">↓ 0.3%</span>
+      </span>
+      <span class="ticker-sep">|</span>
+      <span class="ticker-item">
+        Gold 24K <span class="ticker-value gold">3,500 EGP</span>
+        <span class="ticker-change up">↑ 0.8%</span>
+      </span>
+      <span class="ticker-sep">|</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main Navbar -->
+<nav class="navbar-main">
+  <div class="nav-container">
+
+    <!-- Logo -->
+    <a class="nav-logo" routerLink="/">
+      <span class="logo-ar">ثروة</span>
+      <span class="logo-divider"></span>
+      <span class="logo-en">Tharwa</span>
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="nav-links d-none d-lg-flex">
+      <li>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Home
+        </a>
+      </li>
+      <li>
+        <a routerLink="/products" routerLinkActive="active">
+          Products
+        </a>
+      </li>
+      <li>
+        <a routerLink="/about" routerLinkActive="active">
+          About
+        </a>
+      </li>
+      <li>
+        <a routerLink="/how-it-works" routerLinkActive="active">
+          How It Works
+        </a>
+      </li>
+    </ul>
+
+    <!-- Nav Actions -->
+    <div class="nav-actions">
+      <!-- Cart -->
+      <a routerLink="/cart" class="nav-icon-btn d-none d-md-flex" title="Cart">
+        <i class="bi bi-bag"></i>
+        <span class="badge-dot" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
+      </a>
+
+      <!-- Wishlist -->
+      <a routerLink="/wishlist" class="nav-icon-btn d-none d-md-flex" title="Wishlist">
+        <i class="bi bi-heart"></i>
+      </a>
+
+      <!-- Auth buttons — show when logged out -->
+      <ng-container *ngIf="!isLoggedIn()">
+        <a routerLink="/auth/login" class="btn-ghost d-none d-md-inline-flex">
+          Sign In
+        </a>
+        <a routerLink="/auth/register" class="btn-gold">
+          Start Investing
+        </a>
+      </ng-container>
+
+      <!-- User menu — show when logged in -->
+      <ng-container *ngIf="isLoggedIn()">
+        <div class="user-menu" (click)="toggleUserMenu()" [class.open]="userMenuOpen()">
+          <div class="user-avatar">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <div class="user-dropdown" *ngIf="userMenuOpen()">
+            <a routerLink="/profile" (click)="closeUserMenu()">
+              <i class="bi bi-person"></i> Profile
+            </a>
+            <a routerLink="/orders" (click)="closeUserMenu()">
+              <i class="bi bi-receipt"></i> Orders
+            </a>
+            <a routerLink="/wallet" (click)="closeUserMenu()">
+              <i class="bi bi-wallet2"></i> Wallet
+            </a>
+            <div class="dropdown-divider"></div>
+            <button (click)="logout()">
+              <i class="bi bi-box-arrow-right"></i> Sign Out
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger d-lg-none" (click)="toggleMobileMenu()" [class.open]="mobileMenuOpen()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="mobileMenuOpen()">
+    <ul>
+      <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
+      <li><a routerLink="/products" (click)="closeMobileMenu()">Products</a></li>
+      <li><a routerLink="/about" (click)="closeMobileMenu()">About</a></li>
+      <li><a routerLink="/how-it-works" (click)="closeMobileMenu()">How It Works</a></li>
+      <li class="mobile-divider"></li>
+      <li *ngIf="!isLoggedIn()">
+        <a routerLink="/auth/login" (click)="closeMobileMenu()">Sign In</a>
+      </li>
+      <li *ngIf="!isLoggedIn()">
+        <a routerLink="/auth/register" (click)="closeMobileMenu()" class="btn-gold-full">Start Investing</a>
+      </li>
+      <li *ngIf="isLoggedIn()">
+        <a routerLink="/profile" (click)="closeMobileMenu()">Profile</a>
+      </li>
+      <li *ngIf="isLoggedIn()">
+        <button (click)="logout()">Sign Out</button>
+      </li>
+    </ul>
+  </div>
+</nav>

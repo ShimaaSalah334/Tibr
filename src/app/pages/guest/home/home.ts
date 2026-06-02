@@ -66,7 +66,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
     this.isLoadingNewest.set(true);
     this.errorNewest.set(null);
     this.productService.getProducts({ sortBy: 'newest', pageSize: 8, pageNumber: 1 }).subscribe({
-      next: data => { this.newestProducts.set(data.items); this.isLoadingNewest.set(false); },
+      next: data => { this.newestProducts.set(data.items); this.isLoadingNewest.set(false);console.log(data) },
       error: () => { this.errorNewest.set('Failed to load.'); this.isLoadingNewest.set(false); }
     });
   }

@@ -1,30 +1,28 @@
 <div class="home-page">
 
-  <!-- ═══════════════════════════════════════════════════════
-       HERO — kept from v1, only badge changed
-  ════════════════════════════════════════════════════════ -->
+  <!-- 
+       HERO  -->
   <section class="hero-section">
     <canvas id="particle-canvas" class="particle-canvas"></canvas>
 
     <div class="hero-bg">
-      <div class="hero-bg-overlay"></div>
+  <img
+    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH6P1kXxGv2V9EPLyTJHk8jPsjoC0gbHhGXBMT5GJgDayuvUNWaDWagbyaHeSPjh8AboQIecLfz_ZkQHLCJwD3jX5JBN7_Z5gbUCyW-ksIgH7z6hLm34D7ngy74blIC1cGoGe1EtQy-SBcmenhAUujCyhuOhJJw3xdpsA5SLuZOLn-nZuCxWmKMF--RU9XL17VRYvhl8lq9nu7mpy1sjkGmfJxGXwzMIopXgPILJPYb8X_JF9CdnYpCUjt0FjfgdSD49NbbVDOwwA"
+    alt="Gold and Silver Background"
+    class="hero-bg-image"
+  />      <div class="hero-bg-overlay"></div>
     </div>
 
     <div class="hero-content container-main">
 
-      <!-- NEW BADGE from second design -->
-      <div class="hero-badge reveal">
-        <i class="fa-solid fa-sparkles"></i>
-        <span>Precision Wealth Preservation</span>
-      </div>
 
       <h1 class="hero-title reveal">
-        Invest in <span class="liquid-shimmer">Gold & Silver</span><br/>
-        with Smart Precision
-      </h1>
+  Invest in <span class="liquid-shimmer">Gold and Silver</span><br />
+  with Smart Precision
+</h1>
 
       <p class="hero-sub reveal">
-        Own real precious metals by the gram. Tharwa gives you access to
+        Own real precious metals by the gram. Tibr gives you access to
         authentic gold and silver bullion at live market prices —
         no experience needed, starting from any amount.
       </p>
@@ -68,7 +66,7 @@
     <div class="container-main">
       <div class="features-bar-grid">
         <div class="feature-bar-item reveal">
-          <div class="fbi-icon"><i class="fa-solid fa-shield-check"></i></div>
+          <div class="fbi-icon"><i class="fa-solid fa-lock"></i></div>
           <div class="fbi-text">
             <strong>Secure & Trusted</strong>
             <span>Regulated storage with full insurance</span>
@@ -132,7 +130,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
-       BENTO GRID — WHY THARWA (from new design)
+       BENTO GRID — WHY Tibr (from new design)
   ════════════════════════════════════════════════════════ -->
   <section class="bento-section">
     <div class="container-main">
@@ -140,7 +138,7 @@
       <div class="bento-header reveal">
         <div>
           <span class="section-tag">PRECISION & LEGACY</span>
-          <h2 class="section-title">Why Tharwa?</h2>
+          <h2 class="section-title">Why Tibr?</h2>
         </div>
         <p class="bento-sub">
           We redefine investment by merging the physical stability of gold
@@ -155,7 +153,7 @@
              (mousemove)="onCardMouseMove($event)"
              (mouseleave)="onCardMouseLeave($event)">
           <div class="bento-card-inner">
-            <div class="bento-icon-wrap"><i class="fa-solid fa-vault"></i></div>
+            <div class="bento-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
             <h4>Fully Verified Storage</h4>
             <p>All your physical assets are stored in high-security certified vaults with real-time blockchain audit trail — verifiable at any moment.</p>
             <button class="btn-text-gold" routerLink="/security">
@@ -170,7 +168,7 @@
              style="transition-delay:100ms"
              (mousemove)="onCardMouseMove($event)"
              (mouseleave)="onCardMouseLeave($event)">
-          <div class="bento-icon-wrap secondary"><i class="fa-solid fa-chart-mixed"></i></div>
+          <div class="bento-icon-wrap secondary"><i class="fa-solid fa-chart-line"></i></div>
           <h4>Live Analytics</h4>
           <p>Monitor your portfolio performance with precision through real-time market data dashboards.</p>
         </div>
@@ -180,7 +178,7 @@
              style="transition-delay:150ms"
              (mousemove)="onCardMouseMove($event)"
              (mouseleave)="onCardMouseLeave($event)">
-          <div class="bento-icon-wrap tertiary"><i class="fa-solid fa-bolt-lightning"></i></div>
+          <div class="bento-icon-wrap tertiary"><i class="fa-solid fa-rocket"></i></div>
           <h4>Instant Execution</h4>
           <p>Global liquidity lets you buy and sell in milliseconds at live spot prices.</p>
         </div>
@@ -225,15 +223,20 @@
     </div>
 
     <!-- Loading skeleton -->
-    <div class="showcase-scroll px-main" *ngIf="isLoadingNewest()">
-      <div class="showcase-skeleton" *ngFor="let _ of [1,2,3,4]"></div>
+      @if (isLoadingNewest()) {
+    <div class="showcase-scroll px-main" >
+       @for (_ of [1, 2, 3, 4]; track $index) {
+        <div class="showcase-skeleton"></div>
+      }
     </div>
+  }
 
     <!-- Carousel -->
-    <div class="showcase-scroll px-main" *ngIf="!isLoadingNewest() && newestProducts().length > 0">
+      @if (!isLoadingNewest() && newestProducts().length > 0) {
+    <div class="showcase-scroll px-main" >
+       @for (product of newestProducts(); track product.id; let i = $index) {
       <div
         class="showcase-card magnetic-card"
-        *ngFor="let product of newestProducts(); let i = index"
         [class.reveal]="true"
         [style.transition-delay]="(i * 80) + 'ms'"
         (click)="goToProductDetails(product.id)"
@@ -267,12 +270,17 @@
             <div class="sp-row">
               <span class="sp-label">Buy</span>
               <span class="sp-val gold-text">{{ product.buyPrice | number:'1.0-0' }} EGP</span>
-              <span class="sp-change up" *ngIf="product.metalType === 'Gold'">
-                <i class="fa-solid fa-caret-up"></i> +1.18%
-              </span>
-              <span class="sp-change down" *ngIf="product.metalType === 'Silver'">
-                <i class="fa-solid fa-caret-down"></i> -0.12%
-              </span>
+              @if (product.metalType === 'Gold') {
+  <span class="sp-change up">
+    <i class="fa-solid fa-caret-up"></i>
+    +1.18%
+  </span>
+} @else {
+  <span class="sp-change down">
+    <i class="fa-solid fa-caret-down"></i>
+    -0.12%
+  </span>
+}
             </div>
             <div class="sp-row">
               <span class="sp-label">Sell</span>
@@ -286,12 +294,16 @@
           </button>
         </div>
       </div>
+      }
     </div>
+  }
 
     <!-- Empty -->
-    <div class="empty-state" *ngIf="!isLoadingNewest() && newestProducts().length === 0">
+    @if (!isLoadingNewest() && newestProducts().length === 0) {
+    <div class="empty-state">
       <p>No products available yet.</p>
     </div>
+  }
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -306,10 +318,11 @@
         </div>
       </div>
 
-      <div class="categories-grid" *ngIf="!isLoadingCategories()">
+      @if (!isLoadingCategories()) {
+      <div class="categories-grid">
+        @for (cat of categories(); track cat.id; let i = $index) {
         <div
           class="category-card magnetic-card reveal"
-          *ngFor="let cat of categories(); let i = index"
           [style.transition-delay]="(i * 80) + 'ms'"
           (click)="goToProductsByCategory(cat.name)"
           (mousemove)="onCardMouseMove($event)"
@@ -326,7 +339,7 @@
           <i class="fa-solid fa-arrow-right cat-arrow"></i>
           <div class="cat-bg-glow"></div>
         </div>
-
+      }
         <!-- Metal filter buttons -->
         <div class="metal-filter-card gold-filter magnetic-card reveal"
              style="transition-delay:320ms"
@@ -356,11 +369,16 @@
           <i class="fa-solid fa-arrow-right"></i>
         </div>
       </div>
+    }
 
       <!-- Loading skeleton -->
-      <div class="categories-grid" *ngIf="isLoadingCategories()">
-        <div class="cat-skeleton" *ngFor="let _ of [1,2,3,4]"></div>
+       @else {
+      <div class="categories-grid">
+        @for (_ of [1, 2, 3, 4]; track $index) {
+          <div class="cat-skeleton"></div>
+        }
       </div>
+    }
     </div>
   </section>
 
@@ -371,7 +389,7 @@
     <div class="container-main">
       <div class="section-header reveal">
         <span class="section-tag">Simple Process</span>
-        <h2 class="section-title">Your Investment Journey,<br/>Simple & Smart</h2>
+        <h2 class="section-title">Your Investment Journey,<br/>Simple and Smart</h2>
       </div>
 
       <div class="journey-track">
@@ -382,7 +400,7 @@
           <div class="js-card glass-card magnetic-card"
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
-            <div class="js-icon"><i class="fa-solid fa-user-plus"></i></div>
+            <div class="js-icon"><i class="fa-solid fa-crosshairs"></i></div>
             <h4>Set Your Goals</h4>
             <p>Tell us your investment goals, risk level, and preferred metals. Takes less than 2 minutes.</p>
           </div>
@@ -393,7 +411,7 @@
           <div class="js-card glass-card magnetic-card"
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
-            <div class="js-icon"><i class="fa-solid fa-coins"></i></div>
+            <div class="js-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
             <h4>Invest with Ease</h4>
             <p>Start with any amount in Egyptian Pounds. Buy fractional gold and silver instantly.</p>
           </div>
@@ -404,7 +422,7 @@
           <div class="js-card glass-card magnetic-card"
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
-            <div class="js-icon gold-icon"><i class="fa-solid fa-chart-line-up"></i></div>
+            <div class="js-icon gold-icon"><i class="fa-solid fa-seedling"></i></div>
             <h4>Grow Your Wealth</h4>
             <p>Track your portfolio's real-time performance and watch your savings grow securely.</p>
           </div>
@@ -415,8 +433,8 @@
           <div class="js-card glass-card magnetic-card"
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
-            <div class="js-icon"><i class="fa-solid fa-repeat"></i></div>
-            <h4>Automate & Scale</h4>
+            <div class="js-icon"><i class="fa-solid fa-gears"></i></div>
+            <h4>Automate and Scale</h4>
             <p>Set up recurring investments and let smart automation build your portfolio over time.</p>
           </div>
         </div>
@@ -455,7 +473,7 @@
               </div>
             </div>
             <div class="trust-feature">
-              <div class="tf-icon"><i class="fa-solid fa-id-card-clip"></i></div>
+              <div class="tf-icon"><i class="fa-solid fa-user-check"></i></div>
               <div>
                 <h5>Identity Verified</h5>
                 <p>KYC-compliant onboarding ensures full compliance with Egyptian financial regulations.</p>
@@ -506,11 +524,16 @@
       </div>
     </div>
 
-    <div class="showcase-scroll px-main" *ngIf="isLoadingPopular()">
-      <div class="showcase-skeleton" *ngFor="let _ of [1,2,3,4]"></div>
-    </div>
+      @if (isLoadingPopular()) {
+    <div class="showcase-scroll px-main" >
+  @for (_ of [1, 2, 3, 4]; track $index) {
+        <div class="showcase-skeleton"></div>
+      }    </div>
+  }
 
-    <div class="showcase-scroll px-main" *ngIf="!isLoadingPopular() && popularProducts().length > 0">
+   @if (!isLoadingPopular() && popularProducts().length > 0) {
+    <div class="showcase-scroll px-main">
+        @for (product of popularProducts(); track product.id; let i = $index) {
       <div
         class="showcase-card magnetic-card"
         *ngFor="let product of popularProducts(); let i = index"
@@ -549,7 +572,9 @@
           </button>
         </div>
       </div>
+    }
     </div>
+  }
   </section>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -564,7 +589,7 @@
            (mouseleave)="onCardMouseLeave($event)">
         <div class="cta-text">
           <h2>Ready to protect your<br/><span class="liquid-shimmer">wealth with gold?</span></h2>
-          <p>Join thousands of Egyptians already investing in precious metals through Tharwa.</p>
+          <p>Join thousands of Egyptians already investing in precious metals through Tibr.</p>
         </div>
         <div class="cta-actions">
           <button class="btn-gold-lg btn-liquid" routerLink="/auth/register">

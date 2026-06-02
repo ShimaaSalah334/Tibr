@@ -1,67 +1,61 @@
-<!-- Price Ticker - above navbar -->
-<div class="ticker-bar">
+<!-- Price Ticker -->
+<div class="ticker-bar" [class.ticker-scrolled]="isScrolled()">
   <div class="ticker-track">
-    <!-- Duplicated for seamless loop -->
-    <div class="ticker-items" *ngFor="let _ of [1,2]">
+    @for (_ of [1, 2]; track $index) {
+    <div class="ticker-items">
       <span class="ticker-item">
-        Gold 24K <span class="ticker-value gold">3,500 EGP</span>
-        <span class="ticker-change up">↑ 1.2%</span>
+        <span class="ticker-label">GOLD 24K</span>
+        <span class="ticker-value gold">3,500 EGP</span>
+        <span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> 1.24%</span>
       </span>
-      <span class="ticker-sep">|</span>
+      <span class="ticker-sep">·</span>
       <span class="ticker-item">
-        Gold 21K <span class="ticker-value gold">3,060 EGP</span>
+        <span class="ticker-label">GOLD 21K</span>
+        <span class="ticker-value gold">3,062 EGP</span>
+        <span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> 0.85%</span>
       </span>
-      <span class="ticker-sep">|</span>
+      <span class="ticker-sep">·</span>
       <span class="ticker-item">
-        Gold 18K <span class="ticker-value gold">2,625 EGP</span>
+        <span class="ticker-label">GOLD 18K</span>
+        <span class="ticker-value gold">2,625 EGP</span>
       </span>
-      <span class="ticker-sep">|</span>
+      <span class="ticker-sep">·</span>
       <span class="ticker-item">
-        Silver Raw <span class="ticker-value silver">45 EGP</span>
-        <span class="ticker-change down">↓ 0.3%</span>
+        <span class="ticker-label">SILVER</span>
+        <span class="ticker-value silver">28.65 EGP</span>
+        <span class="ticker-change down"><i class="fa-solid fa-caret-down"></i> 0.12%</span>
       </span>
-      <span class="ticker-sep">|</span>
-      <span class="ticker-item">
-        Gold 24K <span class="ticker-value gold">3,500 EGP</span>
-        <span class="ticker-change up">↑ 0.8%</span>
-      </span>
-      <span class="ticker-sep">|</span>
+      <span class="ticker-sep">·</span>
     </div>
+  }
   </div>
 </div>
 
 <!-- Main Navbar -->
-<nav class="navbar-main">
+<nav class="navbar-main" [class.nav-scrolled]="isScrolled()">
   <div class="nav-container">
 
     <!-- Logo -->
     <a class="nav-logo" routerLink="/">
-      <span class="logo-ar">ثروة</span>
-      <span class="logo-divider"></span>
-      <span class="logo-en">Tharwa</span>
+      <span class="logo-en">Tibr</span>
+      <!-- <span class="logo-divider"></span>
+      <span class="logo-en">Tibr</span> -->
     </a>
 
     <!-- Desktop Links -->
     <ul class="nav-links d-none d-lg-flex">
       <li>
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          Home
-        </a>
+        <a routerLink="/" routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">Home</a>
       </li>
       <li>
-        <a routerLink="/products" routerLinkActive="active">
-          Products
-        </a>
+        <a routerLink="/products" routerLinkActive="active">Products</a>
       </li>
       <li>
-        <a routerLink="/about" routerLinkActive="active">
-          About
-        </a>
+        <a routerLink="/how-it-works" routerLinkActive="active">How It Works</a>
       </li>
       <li>
-        <a routerLink="/how-it-works" routerLinkActive="active">
-          How It Works
-        </a>
+        <a routerLink="/about" routerLinkActive="active">About</a>
       </li>
     </ul>
 
@@ -69,54 +63,60 @@
     <div class="nav-actions">
       <!-- Cart -->
       <a routerLink="/cart" class="nav-icon-btn d-none d-md-flex" title="Cart">
-        <i class="bi bi-bag"></i>
-        <span class="badge-dot" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
+        <i class="fa-solid fa-bag-shopping"></i>
+        @if (cartCount() > 0) {
+  <span class="badge-dot">
+    {{ cartCount() }}
+  </span>
+}
       </a>
 
       <!-- Wishlist -->
       <a routerLink="/wishlist" class="nav-icon-btn d-none d-md-flex" title="Wishlist">
-        <i class="bi bi-heart"></i>
+        <i class="fa-regular fa-heart"></i>
       </a>
 
-      <!-- Auth buttons — show when logged out -->
-      <ng-container *ngIf="!isLoggedIn()">
-        <a routerLink="/auth/login" class="btn-ghost d-none d-md-inline-flex">
-          Sign In
-        </a>
-        <a routerLink="/auth/register" class="btn-gold">
-          Start Investing
-        </a>
-      </ng-container>
+      <!-- Auth buttons -->
+      @if (!isLoggedIn()) {
+  <a routerLink="/auth/login" class="btn-ghost d-none d-md-inline-flex">
+    Sign In
+  </a>
 
-      <!-- User menu — show when logged in -->
-      <ng-container *ngIf="isLoggedIn()">
-        <div class="user-menu" (click)="toggleUserMenu()" [class.open]="userMenuOpen()">
+  <a routerLink="/auth/register" class="btn-gold btn-liquid">
+    Start Investing
+  </a>
+}
+
+      <!-- User menu -->
+@if (isLoggedIn()) {
+          <div class="user-menu" (click)="toggleUserMenu()" [class.open]="userMenuOpen()">
           <div class="user-avatar">
-            <i class="bi bi-person-fill"></i>
+            <i class="fa-solid fa-user"></i>
           </div>
-          <div class="user-dropdown" *ngIf="userMenuOpen()">
+           @if (userMenuOpen()) {
+          <div class="user-dropdown" >
             <a routerLink="/profile" (click)="closeUserMenu()">
-              <i class="bi bi-person"></i> Profile
+              <i class="fa-regular fa-user"></i> Profile
             </a>
             <a routerLink="/orders" (click)="closeUserMenu()">
-              <i class="bi bi-receipt"></i> Orders
+              <i class="fa-regular fa-receipt"></i> Orders
             </a>
             <a routerLink="/wallet" (click)="closeUserMenu()">
-              <i class="bi bi-wallet2"></i> Wallet
+              <i class="fa-regular fa-wallet"></i> Wallet
             </a>
             <div class="dropdown-divider"></div>
             <button (click)="logout()">
-              <i class="bi bi-box-arrow-right"></i> Sign Out
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
             </button>
           </div>
+        }
         </div>
-      </ng-container>
-
-      <!-- Mobile hamburger -->
-      <button class="hamburger d-lg-none" (click)="toggleMobileMenu()" [class.open]="mobileMenuOpen()">
-        <span></span>
-        <span></span>
-        <span></span>
+      }
+      <!-- Hamburger -->
+      <button class="hamburger d-lg-none"
+              (click)="toggleMobileMenu()"
+              [class.open]="mobileMenuOpen()">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </div>
@@ -124,23 +124,29 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu" [class.open]="mobileMenuOpen()">
     <ul>
-      <li><a routerLink="/" (click)="closeMobileMenu()">Home</a></li>
-      <li><a routerLink="/products" (click)="closeMobileMenu()">Products</a></li>
-      <li><a routerLink="/about" (click)="closeMobileMenu()">About</a></li>
+      <li><a routerLink="/"           (click)="closeMobileMenu()">Market</a></li>
+      <li><a routerLink="/products"   (click)="closeMobileMenu()">Products</a></li>
       <li><a routerLink="/how-it-works" (click)="closeMobileMenu()">How It Works</a></li>
+      <li><a routerLink="/about"      (click)="closeMobileMenu()">About</a></li>
       <li class="mobile-divider"></li>
-      <li *ngIf="!isLoggedIn()">
-        <a routerLink="/auth/login" (click)="closeMobileMenu()">Sign In</a>
+      @if (!isLoggedIn()) {
+      <li >
+        <a routerLink="/auth/login"    (click)="closeMobileMenu()">Sign In</a>
       </li>
-      <li *ngIf="!isLoggedIn()">
-        <a routerLink="/auth/register" (click)="closeMobileMenu()" class="btn-gold-full">Start Investing</a>
+      <li >
+        <a routerLink="/auth/register" (click)="closeMobileMenu()" class="btn-gold-full">
+          Start Investing
+        </a>
       </li>
-      <li *ngIf="isLoggedIn()">
-        <a routerLink="/profile" (click)="closeMobileMenu()">Profile</a>
+    }
+      @if (isLoggedIn()) {
+      <li >
+        <a routerLink="/profile"   (click)="closeMobileMenu()">Profile</a>
       </li>
-      <li *ngIf="isLoggedIn()">
+      <li>
         <button (click)="logout()">Sign Out</button>
       </li>
+    }
     </ul>
   </div>
 </nav>

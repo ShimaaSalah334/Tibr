@@ -1,0 +1,471 @@
+<div class="products-page">
+
+  <!-- ── Page Header ──────────────────────────────────────── -->
+  <section class="page-header">
+    <div class="header-glow"></div>
+    <div class="container-main">
+      <div class="header-inner">
+        <div class="header-text">
+          <span class="section-tag">Live Market</span>
+          <h1 class="page-title">Precious Metals</h1>
+          <p class="page-sub">
+            Curated institutional-grade bullion bars and coins.
+            Secure your wealth in physical assets at live market prices.
+          </p>
+        </div>
+        <div class="header-right">
+          <!-- Results summary -->
+          <div class="results-summary" *ngIf="paginationData()">
+            <span class="rs-count">{{ paginationData()!.totalCount }}</span>
+            <span class="rs-label">products found</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Main Content ──────────────────────────────────────── -->
+  <div class="products-layout">
+    <div class="container-main">
+      <div class="layout-inner">
+
+        <!-- ══════════════════════════════════════════
+             SIDEBAR FILTERS
+        ══════════════════════════════════════════ -->
+        <aside class="sidebar" [class.sidebar-open]="sidebarOpen()">
+
+          <!-- Mobile close -->
+          <div class="sidebar-header">
+            <span class="sidebar-title">Filters</span>
+            <button class="sidebar-close d-lg-none" (click)="closeSidebar()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Metal Type -->
+          <div class="filter-block">
+            <h4 class="filter-label">Metal Type</h4>
+            <div class="metal-toggles">
+              <button
+                class="metal-toggle gold-toggle"
+                [class.active]="selectedMetalType() === '0'"
+                (click)="onMetalTypeChange('0')"
+              >
+                <span class="mt-emoji">🥇</span>
+                <span class="mt-name">Gold</span>
+                <i class="fa-solid fa-check mt-check" *ngIf="selectedMetalType() === '0'"></i>
+              </button>
+              <button
+                class="metal-toggle silver-toggle"
+                [class.active]="selectedMetalType() === '1'"
+                (click)="onMetalTypeChange('1')"
+              >
+                <span class="mt-emoji">🥈</span>
+                <span class="mt-name">Silver</span>
+                <i class="fa-solid fa-check mt-check" *ngIf="selectedMetalType() === '1'"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Price Range -->
+          <div class="filter-block">
+            <h4 class="filter-label">
+              Price Range (EGP)
+              <span class="filter-value">{{ minPriceInput }} – {{ maxPriceInput }}</span>
+            </h4>
+            <div class="range-inputs">
+              <input
+                type="range"
+                class="range-slider"
+                min="0"
+                max="1000000"
+                step="1000"
+                [(ngModel)]="minPriceInput"
+                (change)="onPriceRangeChange()"
+              />
+              <input
+                type="range"
+                class="range-slider"
+                min="0"
+                max="1000000"
+                step="1000"
+                [(ngModel)]="maxPriceInput"
+                (change)="onPriceRangeChange()"
+              />
+            </div>
+            <div class="range-labels">
+              <span>{{ minPriceInput | number }} EGP</span>
+              <span>{{ maxPriceInput | number }} EGP</span>
+            </div>
+          </div>
+
+          <!-- Weight Range -->
+          <div class="filter-block">
+            <h4 class="filter-label">
+              Weight (grams)
+              <span class="filter-value">{{ minWeightInput }}g – {{ maxWeightInput }}g</span>
+            </h4>
+            <div class="range-inputs">
+              <input
+                type="range"
+                class="range-slider"
+                min="0"
+                max="1000"
+                step="1"
+                [(ngModel)]="minWeightInput"
+                (change)="onWeightRangeChange()"
+              />
+              <input
+                type="range"
+                class="range-slider"
+                min="0"
+                max="1000"
+                step="1"
+                [(ngModel)]="maxWeightInput"
+                (change)="onWeightRangeChange()"
+              />
+            </div>
+            <div class="range-labels">
+              <span>{{ minWeightInput }}g</span>
+              <span>{{ maxWeightInput }}g</span>
+            </div>
+          </div>
+
+          <!-- Purity -->
+          <div class="filter-block">
+            <h4 class="filter-label">Purity (عيار)</h4>
+            <div class="purity-chips">
+              <button
+                class="purity-chip"
+                *ngFor="let p of purityOptions"
+                [class.active]="selectedPurity() === p.value"
+                (click)="onPuritySelect(p.value)"
+              >
+                {{ p.label }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Stock toggle -->
+          <div class="filter-block">
+            <div class="stock-toggle-row">
+              <span class="filter-label mb-0">Hide out of stock</span>
+              <label class="toggle-switch">
+                <input
+                  type="checkbox"
+                  [checked]="!includeOutOfStock()"
+                  (change)="onStockToggle()"
+                />
+                <span class="toggle-track">
+                  <span class="toggle-thumb"></span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Clear filters -->
+          <button
+            class="btn-clear-filters"
+            *ngIf="hasActiveFilters()"
+            (click)="clearAllFilters()"
+          >
+            <i class="fa-solid fa-rotate-left"></i>
+            Clear All Filters
+          </button>
+
+        </aside>
+
+        <!-- Sidebar overlay mobile -->
+        <div class="sidebar-overlay d-lg-none"
+             [class.active]="sidebarOpen()"
+             (click)="closeSidebar()">
+        </div>
+
+        <!-- ══════════════════════════════════════════
+             MAIN PRODUCTS AREA
+        ══════════════════════════════════════════ -->
+        <main class="products-main">
+
+          <!-- ── Toolbar ────────────────────────────────── -->
+          <div class="toolbar">
+
+            <!-- Search -->
+            <div class="search-wrap">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input
+                type="text"
+                class="search-input"
+                placeholder="Search bars, coins, or purity..."
+                [ngModel]="searchKeyword()"
+                (ngModelChange)="onSearchChange($event)"
+              />
+              <button class="search-clear" *ngIf="searchKeyword()" (click)="clearSearch()">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <!-- Category chips -->
+            <div class="category-chips">
+              <button
+                class="cat-chip"
+                [class.active]="selectedCategory() === ''"
+                (click)="onCategoryChange('')"
+              >
+                All
+              </button>
+              <button
+                class="cat-chip"
+                *ngFor="let cat of categories()"
+                [class.active]="selectedCategory() === cat.name"
+                (click)="onCategoryChange(cat.name)"
+              >
+                {{ cat.name }}
+              </button>
+            </div>
+
+            <!-- Sort + Filter toggle -->
+            <div class="toolbar-right">
+              <!-- Filter toggle (mobile) -->
+              <button class="btn-filter-toggle d-lg-none" (click)="openSidebar()">
+                <i class="fa-solid fa-sliders"></i>
+                Filters
+                <span class="filter-count-badge" *ngIf="activeFilters().length > 0">
+                  {{ activeFilters().length }}
+                </span>
+              </button>
+
+              <!-- Sort -->
+              <div class="sort-wrap">
+                <span class="sort-label">Sort by</span>
+                <div class="sort-select-wrap">
+                  <select
+                    class="sort-select"
+                    [ngModel]="sortBy()"
+                    (ngModelChange)="onSortChange($event)"
+                  >
+                    <option *ngFor="let opt of sortOptions" [value]="opt.value">
+                      {{ opt.label }}
+                    </option>
+                  </select>
+                  <i class="fa-solid fa-chevron-down sort-arrow"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Active filters chips ───────────────────── -->
+          <div class="active-filters-row" *ngIf="hasActiveFilters()">
+            <span class="af-label">Active:</span>
+            <div class="af-chips">
+              <div
+                class="af-chip"
+                *ngFor="let f of activeFilters()"
+                (click)="removeFilter(f.key)"
+              >
+                {{ f.label }}
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+            </div>
+            <button class="af-clear" (click)="clearAllFilters()">Clear all</button>
+          </div>
+
+          <!-- ── Loading skeleton ───────────────────────── -->
+          <div class="products-grid" *ngIf="isLoadingProducts()">
+            <div class="product-skeleton" *ngFor="let _ of [1,2,3,4,5,6]"></div>
+          </div>
+
+          <!-- ── Products grid ──────────────────────────── -->
+          <div class="products-grid" *ngIf="!isLoadingProducts() && products().length > 0">
+            <div
+              class="product-card tilt-card"
+              *ngFor="let product of products(); let i = index"
+              [class.reveal]="true"
+              [style.transition-delay]="(i % 6 * 60) + 'ms'"
+              (mousemove)="onCardTilt($event)"
+              (mouseleave)="onCardResetTilt($event)"
+              (click)="goToProductDetails(product.id)"
+            >
+              <!-- Metal shimmer overlay on hover -->
+              <div class="metal-shimmer-overlay"></div>
+
+              <!-- Top badges row -->
+              <div class="card-badges">
+                <span
+                  class="badge-metal"
+                  [class.badge-gold]="product.metalType === 'Gold'"
+                  [class.badge-silver]="product.metalType === 'Silver'"
+                >
+                  {{ product.metalType }}
+                </span>
+                <span
+                  class="badge-status"
+                  [class.badge-available]="product.stock > 0"
+                  [class.badge-oos]="product.stock === 0"
+                >
+                  {{ product.stock > 0 ? 'Available' : 'Out of Stock' }}
+                </span>
+              </div>
+
+              <!-- Product SKU -->
+              <div class="card-sku">
+                <!-- <span class="sku-label">{{ getCategoryCode(product) }}</span> -->
+              </div>
+
+              <!-- Image -->
+              <div class="card-img-wrap">
+                <div class="img-glow"
+                     [class.img-glow-gold]="product.metalType === 'Gold'"
+                     [class.img-glow-silver]="product.metalType === 'Silver'">
+                </div>
+                <img
+                  [src]="product.imageUrl || 'assets/images/placeholder-gold.png'"
+                  [alt]="product.name"
+                  class="card-img"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Info -->
+              <div class="card-info">
+                <h3 class="card-name">{{ product.name }}</h3>
+                <p class="card-meta">
+                  <!-- {{ product.weight }}G / {{ product.purity * 1000 | number:'1.0-1' }} -->
+                  {{ product.metalType === 'Gold' ? 'FINE GOLD' : 'FINE SILVER' }}
+                </p>
+
+                <!-- Prices -->
+                <div class="card-prices">
+                  <div class="price-col">
+                    <span class="price-lbl">Buy Price</span>
+                    <span class="price-val buy-val">
+                      {{ product.buyPrice | number:'1.0-0' }}
+                      <span class="price-cur">EGP</span>
+                    </span>
+                  </div>
+                  <div class="price-divider"></div>
+                  <div class="price-col">
+                    <span class="price-lbl">Sell Price</span>
+                    <span class="price-val sell-val">
+                      {{ product.sellPrice | number:'1.0-0' }}
+                      <span class="price-cur">EGP</span>
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Change indicator -->
+                <div class="card-change">
+                  <i class="fa-solid fa-arrow-trend-up change-icon up"
+                     *ngIf="product.metalType === 'Gold'"></i>
+                  <i class="fa-solid fa-arrow-trend-down change-icon down"
+                     *ngIf="product.metalType === 'Silver'"></i>
+                  <span class="change-val up" *ngIf="product.metalType === 'Gold'">+1.24%</span>
+                  <span class="change-val down" *ngIf="product.metalType === 'Silver'">-0.12%</span>
+                  <span class="change-label">LIVE MARKET</span>
+                </div>
+
+                <!-- CTA -->
+                <button
+                  class="btn-card btn-liquid"
+                  [class.btn-card-disabled]="product.stock === 0"
+                  [disabled]="product.stock === 0"
+                  (click)="goToProductDetails(product.id); $event.stopPropagation()"
+                >
+                  {{ product.stock === 0 ? 'Out of Stock' : 'View Details' }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Error state ────────────────────────────── -->
+          <div class="error-state" *ngIf="errorProducts() && !isLoadingProducts()">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <p>{{ errorProducts() }}</p>
+            <button class="btn-retry" (click)="loadProducts()">
+              <i class="fa-solid fa-rotate-right"></i> Try Again
+            </button>
+          </div>
+
+          <!-- ── Empty state ─────────────────────────────── -->
+          <div class="empty-state" *ngIf="!isLoadingProducts() && products().length === 0 && !errorProducts()">
+            <div class="empty-icon">
+              <i class="fa-solid fa-gem"></i>
+            </div>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search term.</p>
+            <button class="btn-ghost-sm" (click)="clearAllFilters()">
+              Clear All Filters
+            </button>
+          </div>
+
+          <!-- ── Pagination ──────────────────────────────── -->
+          <div class="pagination" *ngIf="paginationData() && paginationData()!.totalPages > 1">
+
+            <!-- Info -->
+            <span class="page-info">
+              {{ (currentPage() - 1) * pageSize() + 1 }}–{{
+                min(currentPage() * pageSize(), paginationData()!.totalCount)
+              }}
+              of {{ paginationData()!.totalCount }}
+            </span>
+
+            <div class="page-buttons">
+              <!-- Prev -->
+              <button
+                class="page-btn page-nav"
+                [disabled]="!paginationData()!.hasPreviousPage"
+                (click)="prevPage()"
+              >
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <!-- Page numbers -->
+              <ng-container *ngFor="let p of getPageNumbers()">
+                <!-- Show first, last, current ±1, and ellipsis -->
+                <ng-container *ngIf="shouldShowPage(p)">
+                  <button
+                    class="page-btn"
+                    [class.page-active]="p === currentPage()"
+                    (click)="goToPage(p)"
+                  >
+                    {{ p }}
+                  </button>
+                </ng-container>
+                <span class="page-ellipsis"
+                      *ngIf="shouldShowEllipsis(p)">...</span>
+              </ng-container>
+
+              <!-- Next -->
+              <button
+                class="page-btn page-nav"
+                [disabled]="!paginationData()!.hasNextPage"
+                (click)="nextPage()"
+              >
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CTA Banner ─────────────────────────────────────── -->
+  <section class="cta-banner">
+    <div class="cta-glow-blob"></div>
+    <div class="container-main">
+      <div class="cta-banner-inner glass-card">
+        <div class="cta-text">
+          <h2>Can't find the perfect allocation?</h2>
+          <p>Our smart platform can guide you toward a balanced precious metals portfolio tailored to your budget and risk appetite.</p>
+        </div>
+        <button class="btn-gold-cta btn-liquid" routerLink="/auth/register">
+          Start Investing
+          <i class="fa-solid fa-sparkles"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</div>

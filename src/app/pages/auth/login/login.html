@@ -26,9 +26,11 @@
 
         <!-- الفورم المدعوم بالـ FormGroup والـ Signals -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div *ngIf="errorMessage()" class="alert alert-danger rounded-3 py-2 px-3 mb-4">
-            {{ errorMessage() }}
-          </div>
+          @if (errorMessage()) {
+            <div class="alert alert-danger rounded-3 py-2 px-3 mb-4">
+              {{ errorMessage() }}
+            </div>
+          }
           
           <!-- حقل البريد الإلكتروني أو اسم المستخدم -->
           <div class="mb-3">
@@ -79,7 +81,9 @@
 
           <!-- زر تسجيل الدخول -->
           <button class="btn btn-corporate-gold w-100 py-2.5 fw-semibold shadow-sm" type="submit" [disabled]="formState() === 'loading'">
-            <span *ngIf="formState() === 'loading'" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            @if (formState() === 'loading') {
+              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            }
             {{ formState() === 'loading' ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول' }}
           </button>
         </form>

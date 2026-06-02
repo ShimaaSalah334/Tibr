@@ -11,6 +11,7 @@ import { ReastPassword } from './pages/auth/reast-password/reast-password';
 import { OrdersListComponent } from './pages/protected/orders/orders-list.component';
 import { OrderDetailsComponent } from './pages/protected/orders/order-details.component';
 import { CheckoutComponent } from './pages/protected/checkout/checkout.component';
+import { CartComponent } from './pages/protected/cart/cart.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,8 @@ export const routes: Routes = [
   },
   { path: 'products', component: Products },
   { path: 'products/:id', component: ProductDetails },
+  { path: 'cart', component: CartComponent, pathMatch: 'full' },
+  // { path: 'dashboard', redirectTo: '' },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'verfiy-account', component: VerfiyAccount },

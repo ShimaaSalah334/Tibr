@@ -1,0 +1,176 @@
+<div class="container-fluid content-container px-4 px-lg-5">
+  <!-- البانر الخاص بالتراجع عن الحذف (Undo) -->
+  @if (recentlyRemovedItem) {
+    <div class="row mb-4 animate-fade-in">
+      <div class="col-12">
+        <div class="glass-card undo-toast-banner rounded-4">
+          <div class="toast-content">
+            <div class="toast-icon-wrapper">
+              <i class="fa-solid fa-arrow-rotate-left text-gold"></i>
+            </div>
+            <span class="toast-text">
+              Removed <strong>{{ recentlyRemovedItem.name }}</strong> from your vault.
+            </span>
+          </div>
+          <button class="btn-undo-action" (click)="undoRemove()">Undo</button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (cartItems.length > 0) {
+    <div class="row g-4">
+      <!-- العمود الأيسر: عناصر السلة والمنتجات المحفوظة -->
+      <div class="col-xl-8 col-lg-7">
+        <div class="items-list-container">
+          @for (item of cartItems; track item.id) {
+            <div class="cart-item-row glass-card animate-fade-in">
+              
+              <!-- 1. نموذج سبيكة المعدن ثلاثية الأبعاد (Pure CSS 3D Model) -->
+              <div class="metal-visual-column">
+                <!-- نستخدم toLowerCase() لضمان عدم تأثر الكود بحالة الأحرف القادمة من الـ API -->
+                @if (item.metalType?.toLowerCase() === 'gold') {
+                  <div class="metal-bar-3d gold-bar-gradient">
+                    <div class="bar-shine"></div>
+                    <span class="bar-brand">TIBR</span>
+                    <span class="bar-spec">{{ item.weight ? item.weight + 'g' : '10g' }}</span>
+                    <span class="bar-metal">GOLD</span>
+                    <span class="bar-purity">999.9</span>
+                  </div>
+                } @else {
+                  <div class="metal-bar-3d silver-bar-gradient">
+                    <div class="bar-shine"></div>
+                    <span class="bar-brand">TIBR</span>
+                    <span class="bar-spec">{{ item.weight ? item.weight + 'g' : '1Kg' }}</span>
+                    <span class="bar-metal">SILVER</span>
+                    <span class="bar-purity">999.0</span>
+                  </div>
+                }
+              </div>
+
+              <!-- 2. تفاصيل المنتج والتحكم (مفتوحة لجميع المنتجات دون شروط معقدة) -->
+              <div class="flex-grow-1 d-flex flex-column gap-2">
+                <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
+                  <div>
+                    <span class="metal-badge" [ngClass]="item.metalType?.toLowerCase() === 'gold' ? 'badge-gold' : 'badge-silver'">
+                      {{ item.category || 'Precious Metal' }}
+                    </span>
+                    <h3 class="product-name mb-1">{{ item.name }}</h3>
+                    <div class="purity-sku-row">
+                      <span>Purity: {{ item.purity || '999.9' }}</span>
+                      <div class="divider-dot"></div>
+                      <span>SKU: {{ item.sku || 'TBR-MET-01' }}</span>
+                    </div>
+                  </div>
+                  
+                  <!-- حساب الأسعار والعملة -->
+                  <div class="price-block text-end">
+                    <div class="item-unit-price">EGP {{ item.price | number:'1.0-2' }}</div>
+                    <div class="item-total-price">Total: EGP {{ (item.price * item.quantity) | number:'1.0-2' }}</div>
+                  </div>
+                </div>
+
+                <!-- أزرار التحكم في الكمية والإجراءات السريعة -->
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-3 pt-3 border-top-glass">
+                  <div class="qty-selector-glass">
+                    <button class="qty-btn" [disabled]="item.quantity <= 1" (click)="decrementQuantity(item)">
+                      <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <input type="text" class="qty-input" [value]="item.quantity" readonly>
+                    <button class="qty-btn" [disabled]="item.quantity >= 99" (click)="incrementQuantity(item)">
+                      <i class="fa-solid fa-plus"></i>
+                    </button>
+                  </div>
+
+                  <div class="action-buttons-group">
+                    <button class="action-btn btn-save" (click)="moveToSaved(item)">
+                      <i class="fa-regular fa-bookmark me-2 text-gold-muted"></i>Save for later
+                    </button>
+                    <div class="action-divider"></div>
+                    <button class="action-btn btn-remove" (click)="removeItem(item)">
+                      <i class="fa-regular fa-trash-can me-2 text-danger-muted"></i>Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- العمود الأيمن: ملخص الطلب + أسعار السوق المباشرة -->
+      <div class="col-xl-4 col-lg-5 position-relative">
+        <div class="sidebar-wrapper d-flex flex-column gap-4">
+          <!-- كارت الحسابات والملخص -->
+          <div class="glass-card summary-card animate-fade-in">
+            <h2 class="summary-header">Order Summary</h2>
+            <div class="summary-divider my-3"></div>
+            
+            <div class="summary-row">
+              <span class="summary-label">Subtotal</span>
+              <span class="summary-value">EGP {{ getSubtotal() | number:'1.0-2' }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">
+                Vault Vaulting Fee
+                <span class="info-tooltip-badge" title="Insured luxury vault storage fee">?</span>
+              </span>
+              <span class="summary-value text-gold-accent">FREE</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Estimated VAT (14%)</span>
+              <span class="summary-value">EGP {{ getVat() | number:'1.0-2' }}</span>
+            </div>
+            
+            <div class="summary-divider my-4"></div>
+            
+            <div class="summary-row row-total">
+              <span class="total-label">Total Amount</span>
+              <div class="total-price-block">
+                <span class="total-value-egp">EGP {{ getTotal() | number:'1.0-2' }}</span>
+                <span class="vat-inclusive-sub">Inclusive of all taxes</span>
+              </div>
+            </div>
+            
+            <button class="btn-checkout-luxury w-100 py-3 mt-3" (click)="proceedToCheckout()">
+              <div class="btn-content-inner">
+                <i class="fa-solid fa-shield-halved me-2 lock-icon-shift"></i>
+                Secure Vault Checkout
+              </div>
+              <div class="btn-glare"></div>
+            </button>
+          </div>
+
+          <!-- أدوات الضمان والأمان -->
+          <div class="secure-guarantee-badges px-2">
+            <div class="guarantee-badge">
+              <i class="fa-solid fa-ribbon badge-icon"></i>
+              <span>All metals are certified 24K / 999.9 pure and stamped by the Egyptian Assay Authority.</span>
+            </div>
+            <div class="guarantee-badge">
+              <i class="fa-solid fa-truck-ramp-box badge-icon"></i>
+              <span>Fully insured armored transport delivery or physical pickup from partner bank vaults.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <!-- واجهة السلة الفارغة المتميزة -->
+    <div class="row justify-content-center animate-fade-in">
+      <div class="col-md-6 text-center">
+        <div class="glass-card empty-cart-container d-flex flex-direction-column align-items-center p-5 rounded-4">
+          <div class="empty-icon-vault mb-4">
+            <i class="fa-solid fa-vault fa-3x gold-text-glow"></i>
+          </div>
+          <h3 class="empty-title mb-2">Your Digital Vault is Empty</h3>
+          <p class="empty-description mb-4 mx-auto">You haven't allocated any precious metals to your investment basket yet.</p>
+          <a routerLink="/marketplace" class="btn btn-luxury-primary px-4 py-2.5">
+            Explore Precious Metals
+          </a>
+        </div>
+      </div>
+    </div>
+  }
+</div>

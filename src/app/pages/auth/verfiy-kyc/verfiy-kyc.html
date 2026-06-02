@@ -198,7 +198,9 @@
                   <span class="material-symbols-outlined fs-5">photo_camera</span>
                   <span>{{ cameraActive() ? 'التقاط السيلفي الآن' : 'تشغيل الكاميرا الحية' }}</span>
                 </button>
-                <div *ngIf="selfieCaptureError()" class="text-danger small mt-2">{{ selfieCaptureError() }}</div>
+                @if (selfieCaptureError()) {
+                  <div class="text-danger small mt-2">{{ selfieCaptureError() }}</div>
+                }
 
   
               </div>

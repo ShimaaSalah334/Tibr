@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -11,36 +11,30 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class Navbar {
 
-  // ── State ─────────────────────────────────────────────────
-  isLoggedIn    = signal<boolean>(false);   // replace with auth service
-  cartCount     = signal<number>(0);        // replace with cart service
+  isLoggedIn     = signal<boolean>(false);
+  cartCount      = signal<number>(0);
   mobileMenuOpen = signal<boolean>(false);
   userMenuOpen   = signal<boolean>(false);
+  isScrolled     = signal<boolean>(false);
 
-  // ── Mobile menu ───────────────────────────────────────────
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.isScrolled.set(window.scrollY > 50);
+  }
+
   toggleMobileMenu(): void {
     this.mobileMenuOpen.update(v => !v);
     if (this.mobileMenuOpen()) this.userMenuOpen.set(false);
   }
 
-  closeMobileMenu(): void {
-    this.mobileMenuOpen.set(false);
-  }
+  closeMobileMenu(): void { this.mobileMenuOpen.set(false); }
 
-  // ── User menu ─────────────────────────────────────────────
-  toggleUserMenu(): void {
-    this.userMenuOpen.update(v => !v);
-  }
+  toggleUserMenu(): void  { this.userMenuOpen.update(v => !v); }
+  closeUserMenu(): void   { this.userMenuOpen.set(false); }
 
-  closeUserMenu(): void {
-    this.userMenuOpen.set(false);
-  }
-
-  // ── Auth ──────────────────────────────────────────────────
   logout(): void {
     this.isLoggedIn.set(false);
     this.closeUserMenu();
     this.closeMobileMenu();
-    // TODO: call auth service logout + redirect
   }
 }

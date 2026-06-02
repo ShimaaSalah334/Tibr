@@ -1,64 +1,77 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../../core/services/product-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IProduct, IProductDetails } from '../../../core/interfaces/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
 export class ProductDetails implements OnInit {
-private productService = inject(ProductService);
-private route          = inject(ActivatedRoute);
-private router         = inject(Router);
+  private productService = inject(ProductService);
+  private route          = inject(ActivatedRoute);
+  private router         = inject(Router);
 
-  // Product state 
-  product      = signal<IProductDetails | null>(null);
-  isLoading    = signal<boolean>(false);
-  error        = signal<string | null>(null);
+  // ── Product state ──────────────────────────────────────
+  product    = signal<IProductDetails | null>(null);
+  isLoading  = signal<boolean>(false);
+  error      = signal<string | null>(null);
 
- //  Related products 
-  relatedProducts    = signal<IProduct[]>([]);
-  isLoadingRelated   = signal<boolean>(false);
+  // ── Related products ───────────────────────────────────
+  relatedProducts  = signal<IProduct[]>([]);
+  isLoadingRelated = signal<boolean>(false);
 
- // Stock state 
-  stockLevel      = signal<number>(0);
-  isLoadingStock  = signal<boolean>(false);
+  // ── Favorite ───────────────────────────────────────────
+  isFavorite = signal<boolean>(false);
 
-  //  Investment calculator 
-  calculatorMode   = signal<'grams' | 'egp'>('egp');  // toggle mode
-  calculatorInput  = signal<number>(0);
+  // ── Quantity slider ────────────────────────────────────
+  // quantityGrams holds the current slider value (multiple of product.weight)
+  quantityGrams = signal<number>(0);
 
-    // Computed result based on mode and buy price
+  // Max purchasable quantity: min of stock and an arbitrary display cap
+  maxQuantity = computed(() => {
+    const stock = this.product()?.stock ?? 0;
+    const weight = this.product()?.weight ?? 1;
+    // Cap at 100 bars or available stock, whichever is lower
+    return Math.min(stock, weight * 100);
+  });
+
+  // How many "bars" (units of product.weight) the user selected
+  quantityBars = computed(() => {
+    const weight = this.product()?.weight ?? 1;
+    return Math.round(this.quantityGrams() / weight);
+  });
+
+  // Percentage for the glow-fill track overlay
+  quantityPercent = computed(() => {
+    const max = this.maxQuantity();
+    if (!max) return 0;
+    return (this.quantityGrams() / max) * 100;
+  });
+
+  // ── Investment calculator ──────────────────────────────
+  calculatorMode  = signal<'grams' | 'egp'>('egp');
+  calculatorInput = signal<number>(0);
+
   calculatorResult = computed(() => {
     const p = this.product();
     if (!p || !this.calculatorInput()) return null;
 
     if (this.calculatorMode() === 'egp') {
-      // User enters EGP → get grams
       const grams = this.calculatorInput() / p.buyPrice;
-      return {
-        label: 'You get',
-        value: grams.toFixed(4),
-        unit: 'grams'
-      };
+      return { label: 'You get', value: grams.toFixed(4), unit: 'grams' };
     } else {
-      // User enters grams → get EGP
       const egp = this.calculatorInput() * p.buyPrice;
-      return {
-        label: 'You pay',
-        value: egp.toFixed(2),
-        unit: 'EGP'
-      };
+      return { label: 'You pay', value: egp.toFixed(2), unit: 'EGP' };
     }
   });
 
-    //  Computed helpers 
-  isOutOfStock = computed(() => this.product()?.stock === 0);
+  // ── Computed helpers ───────────────────────────────────
+  isOutOfStock = computed(() => (this.product()?.stock ?? 0) === 0);
 
   isLowStock = computed(() => {
     const stock = this.product()?.stock ?? 0;
@@ -67,24 +80,18 @@ private router         = inject(Router);
 
   stockPercentage = computed(() => {
     const stock = this.product()?.stock ?? 0;
-    // Assume 1000g max for percentage bar
     return Math.min((stock / 1000) * 100, 100);
   });
 
-  metalLabel = computed(() =>
-    this.product()?.metalType === 'Gold' ? ' Gold' : ' Silver'
-  );
-
-ngOnInit(): void {
+  // ── Lifecycle ──────────────────────────────────────────
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = Number(params['id']);
-      if (id) {
-        this.loadProduct(id);
-      }
+      if (id) this.loadProduct(id);
     });
   }
 
-  //  Data loaders 
+  // ── Data loaders ───────────────────────────────────────
   private loadProduct(id: number): void {
     this.isLoading.set(true);
     this.error.set(null);
@@ -92,10 +99,12 @@ ngOnInit(): void {
     this.productService.getProductById(id).subscribe({
       next: (data) => {
         this.product.set(data);
+        // Init quantity slider to 1 bar (product.weight)
+        this.quantityGrams.set(data.weight);
         this.isLoading.set(false);
         this.loadRelatedProducts(data.metalType, data.categoryName);
       },
-      error: (err) => {
+      error: () => {
         this.error.set('Product not found');
         this.isLoading.set(false);
       }
@@ -104,9 +113,6 @@ ngOnInit(): void {
 
   private loadRelatedProducts(metalType: string, categoryName: string): void {
     this.isLoadingRelated.set(true);
-
-    // metalType from API is "Gold"/"Silver" string
-    // API expects "0" for Gold, "1" for Silver
     const metalTypeParam = metalType === 'Gold' ? '0' : '1';
 
     this.productService.getProducts({
@@ -116,18 +122,45 @@ ngOnInit(): void {
       pageNumber:   1,
     }).subscribe({
       next: (data) => {
-        // Exclude current product from related
         const currentId = this.product()?.id;
-        this.relatedProducts.set(
-          data.items.filter(p => p.id !== currentId)
-        );
+        this.relatedProducts.set(data.items.filter(p => p.id !== currentId));
         this.isLoadingRelated.set(false);
       },
       error: () => this.isLoadingRelated.set(false)
     });
   }
 
-  // Calculator actions 
+  // ── Quantity slider ────────────────────────────────────
+  onQuantityChange(event: Event): void {
+    const val = Number((event.target as HTMLInputElement).value);
+    this.quantityGrams.set(val);
+  }
+
+  // ── Cart & Purchase ────────────────────────────────────
+  addToCart(): void {
+    // TODO: wire to CartService when available
+    const p = this.product();
+    if (!p) return;
+    console.log('Add to cart:', { productId: p.id, grams: this.quantityGrams() });
+    // Example: this.cartService.addItem(p.id, this.quantityGrams()).subscribe(...)
+  }
+
+  buyNow(): void {
+    // TODO: wire to checkout flow
+    const p = this.product();
+    if (!p) return;
+    console.log('Buy now:', { productId: p.id, grams: this.quantityGrams() });
+    // Example: this.router.navigate(['/checkout'], { queryParams: { productId: p.id, grams: this.quantityGrams() } });
+  }
+
+  // ── Favorite ───────────────────────────────────────────
+  toggleFavorite(): void {
+    this.isFavorite.update(v => !v);
+    // TODO: wire to FavoriteService when available
+    // Example: this.favoriteService.toggle(this.product()!.id).subscribe(...)
+  }
+
+  // ── Calculator ─────────────────────────────────────────
   setCalculatorMode(mode: 'grams' | 'egp'): void {
     this.calculatorMode.set(mode);
     this.calculatorInput.set(0);
@@ -137,21 +170,17 @@ ngOnInit(): void {
     this.calculatorInput.set(value);
   }
 
-  //  Navigation 
+  // ── Navigation ─────────────────────────────────────────
   goToProducts(): void {
     this.router.navigate(['/products']);
   }
 
   goToRelatedProduct(id: number): void {
     this.router.navigate(['/products', id]);
-    // Scroll to top when navigating to related product
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   goToProductsByCategory(categoryName: string): void {
-    this.router.navigate(['/products'], {
-      queryParams: { categoryName }
-    });
+    this.router.navigate(['/products'], { queryParams: { categoryName } });
   }
-
 }

@@ -55,7 +55,6 @@ export class Register {
       const { firstName, lastName, countryCode, phone, email, password, confirmPassword } = this.registerForm.value;
       const fullPhoneNumber = `${countryCode}${phone}`;
 
-    // 3. بناء الـ Payload النهائي بنفس هيكلة الـ Interface تماماً
     const payload: RegisterPayload = {
       email,
       phone: fullPhoneNumber,
@@ -70,13 +69,13 @@ export class Register {
           this.formState.set('success');
           this.registerForm.reset({ countryCode: '+20', terms: false });
           
-          alert('تم إنشاء الحساب بنجاح! سيتم توجيهك الآن إلى لوحة التحكم الأمنية.');
+          alert('Account created successfully! You will now be directed to the security control panel.');
           localStorage.setItem('registeredEmail', email);
           this.router.navigate(['/verfiy-account']); 
         },
         error: (err) => {
           this.formState.set('error');
-          this.errorMessage.set(err.error?.message || 'حدث خطأ ما أثناء التسجيل. يرجى المحاولة مرة أخرى.');
+          this.errorMessage.set(err.error?.message || 'An error occurred during recording. Please try again.');
           console.error('Registration error:', err);
         }
       });

@@ -1,1 +1,152 @@
-<p>navbar works!</p>
+<!-- Price Ticker -->
+<div class="ticker-bar" [class.ticker-scrolled]="isScrolled()">
+  <div class="ticker-track">
+    @for (_ of [1, 2]; track $index) {
+    <div class="ticker-items">
+      <span class="ticker-item">
+        <span class="ticker-label">GOLD 24K</span>
+        <span class="ticker-value gold">3,500 EGP</span>
+        <span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> 1.24%</span>
+      </span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item">
+        <span class="ticker-label">GOLD 21K</span>
+        <span class="ticker-value gold">3,062 EGP</span>
+        <span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> 0.85%</span>
+      </span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item">
+        <span class="ticker-label">GOLD 18K</span>
+        <span class="ticker-value gold">2,625 EGP</span>
+      </span>
+      <span class="ticker-sep">·</span>
+      <span class="ticker-item">
+        <span class="ticker-label">SILVER</span>
+        <span class="ticker-value silver">28.65 EGP</span>
+        <span class="ticker-change down"><i class="fa-solid fa-caret-down"></i> 0.12%</span>
+      </span>
+      <span class="ticker-sep">·</span>
+    </div>
+  }
+  </div>
+</div>
+
+<!-- Main Navbar -->
+<nav class="navbar-main" [class.nav-scrolled]="isScrolled()">
+  <div class="nav-container">
+
+    <!-- Logo -->
+    <a class="nav-logo" routerLink="/">
+      <span class="logo-en">Tibr</span>
+      <!-- <span class="logo-divider"></span>
+      <span class="logo-en">Tibr</span> -->
+    </a>
+
+    <!-- Desktop Links -->
+    <ul class="nav-links d-none d-lg-flex">
+      <li>
+        <a routerLink="/" routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      </li>
+      <li>
+        <a routerLink="/products" routerLinkActive="active">Products</a>
+      </li>
+      <li>
+        <a routerLink="/how-it-works" routerLinkActive="active">How It Works</a>
+      </li>
+      <li>
+        <a routerLink="/about" routerLinkActive="active">About</a>
+      </li>
+    </ul>
+
+    <!-- Nav Actions -->
+    <div class="nav-actions">
+      <!-- Cart -->
+      <a routerLink="/cart" class="nav-icon-btn d-none d-md-flex" title="Cart">
+        <i class="fa-solid fa-bag-shopping"></i>
+        @if (cartCount() > 0) {
+  <span class="badge-dot">
+    {{ cartCount() }}
+  </span>
+}
+      </a>
+
+      <!-- Wishlist -->
+      <a routerLink="/wishlist" class="nav-icon-btn d-none d-md-flex" title="Wishlist">
+        <i class="fa-regular fa-heart"></i>
+      </a>
+
+      <!-- Auth buttons -->
+      @if (!isLoggedIn()) {
+  <a routerLink="/login" class="btn-ghost d-none d-md-inline-flex">
+    Sign In
+  </a>
+
+  <a routerLink="/register" class="btn-gold btn-liquid">
+    Start Investing
+  </a>
+}
+
+      <!-- User menu -->
+@if (isLoggedIn()) {
+          <div class="user-menu" (click)="toggleUserMenu()" [class.open]="userMenuOpen()">
+          <div class="user-avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+           @if (userMenuOpen()) {
+          <div class="user-dropdown" >
+            <a routerLink="/profile" (click)="closeUserMenu()">
+              <i class="fa-regular fa-user"></i> Profile
+            </a>
+            <a routerLink="/orders" (click)="closeUserMenu()">
+              <i class="fa-solid  fa-receipt"></i> Orders
+            </a>
+            <a routerLink="/wallet" (click)="closeUserMenu()">
+              <i class="fa-solid  fa-wallet"></i> Wallet
+            </a>
+            <div class="dropdown-divider"></div>
+            <button (click)="logout()">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+            </button>
+          </div>
+        }
+        </div>
+      }
+      <!-- Hamburger -->
+      <button class="hamburger d-lg-none"
+              (click)="toggleMobileMenu()"
+              [class.open]="mobileMenuOpen()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="mobileMenuOpen()">
+    <ul>
+      <li><a routerLink="/"           (click)="closeMobileMenu()">Market</a></li>
+      <li><a routerLink="/products"   (click)="closeMobileMenu()">Products</a></li>
+      <li><a routerLink="/how-it-works" (click)="closeMobileMenu()">How It Works</a></li>
+      <li><a routerLink="/about"      (click)="closeMobileMenu()">About</a></li>
+      <li class="mobile-divider"></li>
+      @if (!isLoggedIn()) {
+      <li >
+        <a routerLink="/auth/login"    (click)="closeMobileMenu()">Sign In</a>
+      </li>
+      <li >
+        <a routerLink="/auth/register" (click)="closeMobileMenu()" class="btn-gold-full">
+          Start Investing
+        </a>
+      </li>
+    }
+      @if (isLoggedIn()) {
+      <li >
+        <a routerLink="/profile"   (click)="closeMobileMenu()">Profile</a>
+      </li>
+      <li>
+        <button (click)="logout()">Sign Out</button>
+      </li>
+    }
+    </ul>
+  </div>
+</nav>

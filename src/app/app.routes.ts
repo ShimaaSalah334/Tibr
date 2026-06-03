@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { Home } from './pages/guest/home/home';
+import { Products } from './pages/guest/products/products';
+import { ProductDetails } from './pages/guest/product-details/product-details';
 import { Login } from './pages/auth/login/login';
 import { Register } from './pages/auth/register/register';
 import { VerfiyAccount } from './pages/auth/verfiy-account/verfiy-account';
@@ -13,10 +16,13 @@ import { CartComponent } from './pages/protected/cart/cart.component';
 export const routes: Routes = [
   {
     path: '',
-    component: CartComponent,
+    component: Home,
     pathMatch: 'full'
   },
-  { path: 'dashboard', redirectTo: '' },
+  { path: 'products', component: Products },
+  { path: 'products/:id', component: ProductDetails },
+  { path: 'cart', component: CartComponent, pathMatch: 'full' },
+  // { path: 'dashboard', redirectTo: '' },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'verfiy-account', component: VerfiyAccount },

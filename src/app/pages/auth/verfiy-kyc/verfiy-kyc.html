@@ -1,11 +1,11 @@
-<main class="container-fluid px-3 px-md-5 py-5 pb-5 mb-5" dir="rtl" style="font-family: 'Cairo', sans-serif;">
+<main class="container-fluid px-3 px-md-5 py-5 pb-5 mb-5" dir="ltr" style="font-family: 'Cairo', sans-serif;">
 
-  <!-- رسائل الخطأ والنجاح -->
+  <!-- Error and success messages -->
   @if (errorMessage()) {
   <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-3 mb-4" role="alert">
     <span class="material-symbols-outlined text-danger fs-3">error_circle</span>
     <div class="flex-grow-1">
-      <strong>خطأ:</strong>
+      <strong>Error:</strong>
       <span class="d-block text-dark">{{ errorMessage() }}</span>
     </div>
     <button type="button" class="btn-close" (click)="errorMessage.set(null)"></button>
@@ -18,7 +18,7 @@
     <span class="material-symbols-outlined text-success fs-3"
       style="font-variation-settings: 'FILL' 1;">check_circle</span>
     <div class="flex-grow-1">
-      <strong>نجاح:</strong>
+      <strong>Success:</strong>
       <span class="d-block text-dark">{{ successMessage() }}</span>
     </div>
     <button type="button" class="btn-close" (click)="successMessage.set(null)"></button>
@@ -31,19 +31,19 @@
         <h1
           class="h2 fw-extrabold text-navy mb-2 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
           <span class="material-symbols-outlined text-gold-dark fs-3 animate-pulse">verified_user</span>
-          التحقق من الهوية
+          Identity Verification
         </h1>
       </div>
     </div>
   </section>
 
-  <!-- جسم الفورم الرئيسي -->
+  <!-- Main form body -->
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10 d-flex flex-column gap-4">
 
       <form [formGroup]="kycForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
 
-        <!-- القسم الأول: البيانات الشخصية للمستثمر -->
+        <!-- First section: investor personal information -->
         <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
           <div class="d-flex align-items-center gap-3 mb-4">
             <div
@@ -52,38 +52,38 @@
               <span class="material-symbols-outlined fs-3">person_pin</span>
             </div>
             <div>
-              <h2 class="h5 fw-bold text-navy mb-1">البيانات الشخصية للمستثمر</h2>
-              <p class="text-muted small mb-0">يرجى إدخال البيانات بدقة لتفادي تأخير مراجعة الحساب</p>
+              <h2 class="h5 fw-bold text-navy mb-1">Personal Investor Information</h2>
+              <p class="text-muted small mb-0">Please enter your information accurately to avoid delays in account review</p>
             </div>
           </div>
 
           <div class="row g-4">
             <div class="col-12 col-md-6">
-              <label class="form-label small fw-bold text-navy mb-2">نوع الوثيقة</label>
+              <label class="form-label small fw-bold text-navy mb-2">Document Type</label>
               <div class="input-group">
                 <span class="input-group-text bg-light text-muted"><span
                     class="material-symbols-outlined fs-5">assignment</span></span>
 
                  <input formControlName="documentType"
-                  class="form-control form-control-corporate p-3 border-end-0 fs-6" value="NATIONAL_ID" 
+                  class="form-control form-control-corporate p-3 border-end-0 fs-6" value="NATIONAL ID" placeholder="Select document type" readonly 
                   type="text" />
               </div>
             </div>
 
             <div class="col-12 col-md-6">
-              <label class="form-label small fw-bold text-navy mb-2">رقم الوثيقة</label>
+              <label class="form-label small fw-bold text-navy mb-2">Document Number</label>
               <div class="input-group">
                 <span class="input-group-text bg-light border-start-0 text-muted"><span
                     class="material-symbols-outlined fs-5">numbers</span></span>
                 <input formControlName="documentNumber"
-                  class="form-control form-control-corporate p-3 border-end-0 fs-6" placeholder="أدخل رقم الوثيقة"
-                  type="text" />
+                  class="form-control form-control-corporate p-3 border-end-0 fs-6" placeholder="Enter document number"
+                  type="text" maxlength="14" />
               </div>
             </div>
           </div>
         </div>
 
-        <!-- القسم الثاني: منطقة سحب وإفلات الوثائق الرسمية -->
+        <!-- Section two: official document drag-and-drop area -->
         <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
           <div class="d-flex align-items-center gap-3 mb-4">
             <div
@@ -92,15 +92,14 @@
               <span class="material-symbols-outlined fs-3">upload_file</span>
             </div>
             <div>
-              <h2 class="h5 fw-bold text-navy mb-1">تحميل الوثائق الرسمية</h2>
-              <p class="text-muted small mb-0">يرجى تحميل نسخة رقمية واضحة وعالية الدقة من الهوية الوطنية أو جواز السفر
-              </p>
+              <h2 class="h5 fw-bold text-navy mb-1">Upload Official Documents</h2>
+              <p class="text-muted small mb-0">Please upload a clear, high-resolution digital copy of your ID or passport.</p>
             </div>
           </div>
 
           <div class="row g-3">
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">صورة الهوية (أمام)</label>
+              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Front)</label>
               <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
                 <input id="frontUpload" type="file" accept="image/png, image/jpeg"
                   (change)="onFileSelected($event,'front')"
@@ -108,7 +107,7 @@
                 @if (!documentFrontName()) {
                 <div class="upload-icon-box mb-2 mx-auto"><span
                     class="material-symbols-outlined text-gold-dark fs-2">camera_front</span></div>
-                <div class="small text-muted">PNG, JPG — أقل من 5 ميجابايت</div>
+                <div class="small text-muted">PNG, JPG — under 5 MB</div>
                 } @else {
                 <div class="success-icon-box mb-2 mx-auto"><span
                     class="material-symbols-outlined text-success fs-2">check_circle</span></div>
@@ -118,7 +117,7 @@
             </div>
 
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">صورة الهوية (خلف)</label>
+              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Back)</label>
               <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
                 <input id="backUpload" type="file" accept="image/png, image/jpeg"
                   (change)="onFileSelected($event,'back')"
@@ -126,7 +125,7 @@
                 @if (!documentBackName()) {
                 <div class="upload-icon-box mb-2 mx-auto"><span
                     class="material-symbols-outlined text-gold-dark fs-2">photo_library</span></div>
-                <div class="small text-muted">PNG, JPG — أقل من 5 ميجابايت</div>
+                <div class="small text-muted">PNG, JPG — under 5 MB</div>
                 } @else {
                 <div class="success-icon-box mb-2 mx-auto"><span
                     class="material-symbols-outlined text-success fs-2">check_circle</span></div>
@@ -136,7 +135,7 @@
             </div>
 
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">صورة السيلفي مع البطاقة</label>
+              <label class="form-label small fw-bold text-navy mb-2">Selfie with ID</label>
               <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
                 <input id="selfieUpload" type="file" accept="image/png, image/jpeg"
                   (change)="onFileSelected($event,'selfie')"
@@ -144,7 +143,7 @@
                 @if (!selfieFileName()) {
                 <div class="upload-icon-box mb-2 mx-auto"><span
                     class="material-symbols-outlined text-gold-dark fs-2">portrait</span></div>
-                <div class="small text-muted">التقط صورة واضحة وأنت تمسك البطاقة</div>
+                <div class="small text-muted">Capture a clear photo while holding your ID</div>
                 } @else {
                 <div class="success-icon-box mb-2 mx-auto"><span
                     class="material-symbols-outlined text-success fs-2">check_circle</span></div>
@@ -155,7 +154,7 @@
           </div>
         </div>
 
-        <!-- القسم الثالث: نظام التحقق بالصورة الحية (Selfie Component) -->
+        <!-- Section three: live selfie verification system -->
         <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
           <div class="d-flex align-items-center gap-3 mb-4">
             <div
@@ -164,14 +163,14 @@
               <span class="material-symbols-outlined fs-3">center_focus_strong</span>
             </div>
             <div>
-              <h2 class="h5 fw-bold text-navy mb-1">التحقق بالصورة الشخصية</h2>
+              <h2 class="h5 fw-bold text-navy mb-1">Selfie Verification</h2>
             </div>
           </div>
 
           <div class="p-4 rounded-4 bg-light border border-light-subtle">
             <div class="d-flex flex-column flex-md-row gap-4 align-items-center">
 
-              <!-- إطار الكاميرا الدائري المتطور -->
+              <!-- Advanced circular camera frame -->
               <div class="camera-frame-container position-relative flex-shrink-0">
                 <div
                   class="rounded-circle border border-4 border-white bg-white shadow d-flex align-items-center justify-content-center overflow-hidden position-relative inner-frame"
@@ -189,14 +188,13 @@
               </div>
 
               <div class="flex-grow-1 text-center text-md-start w-100">
-                <p class="text-secondary-muted small mb-3 lh-lg">التقط صورة واضحة ومباشرة لوجهك الكريم؛ تأكد من جودة
-                  الإضاءة المحيطة، وعدم ارتداء أي قبعات أو نظارات حجب رؤية لتجنب رفض النظام التلقائي.</p>
+                <p class="text-secondary-muted small mb-3 lh-lg">Take a clear, straight-on photo of your face; ensure good lighting and avoid hats or glasses that may block your features.</p>
 
                 <button
                   class="btn btn-corporate-outline d-inline-flex align-items-center gap-2 px-4 py-3 small fw-bold rounded-3 shadow-sm transition-all text-nowrap"
                   (click)="triggerSelfieCapture()" type="button">
                   <span class="material-symbols-outlined fs-5">photo_camera</span>
-                  <span>{{ cameraActive() ? 'التقاط السيلفي الآن' : 'تشغيل الكاميرا الحية' }}</span>
+                  <span>{{ cameraActive() ? 'Capture selfie now' : 'Start live camera' }}</span>
                 </button>
                 @if (selfieCaptureError()) {
                   <div class="text-danger small mt-2">{{ selfieCaptureError() }}</div>
@@ -217,16 +215,16 @@
 
             @if (formState() === 'loading') {
             <span class="material-symbols-outlined animate-spin fs-5">progress_activity</span>
-            <span>جاري المزامنة والأرشفة السحابية الآمنة...</span>
+            <span>Syncing and securely archiving...</span>
             } @else if (formState() === 'success') {
             <span class="material-symbols-outlined fs-5 animate-bounce">verified</span>
-            <span>تم إرسال الملفات والمراجعة جارية</span>
+            <span>Files submitted, review in progress</span>
             } @else if (formState() === 'error') {
             <span class="material-symbols-outlined fs-5">error</span>
-            <span>إعادة محاولة الإرسال</span>
+            <span>Retry submission</span>
             } @else {
             <span class="material-symbols-outlined fs-5">send_and_archive</span>
-            <span>إرسال البيانات للمراجعة الاستثمارية</span>
+            <span>Submit data for review</span>
             }
           </button>
         </div>

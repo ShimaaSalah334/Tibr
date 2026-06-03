@@ -158,18 +158,19 @@
     </div>
   } @else {
     <!-- واجهة السلة الفارغة المتميزة -->
-    <div class="row justify-content-center animate-fade-in">
-      <div class="col-md-6 text-center">
-        <div class="glass-card empty-cart-container d-flex flex-direction-column align-items-center p-5 rounded-4">
+    <div class=" mt-5 row justify-content-center animate-fade-in">
+      <div class="col-md-6 text-center glass-card ">
+        <div class="d-flex flex-direction-column align-items-center p-3 rounded-4 gap-3">
           <div class="empty-icon-vault mb-4">
             <i class="fa-solid fa-vault fa-3x gold-text-glow"></i>
           </div>
-          <h3 class="empty-title mb-2">Your Digital Vault is Empty</h3>
+          <h3 class="empty-title">Your Digital Vault is Empty</h3>
+        </div>
           <p class="empty-description mb-4 mx-auto">You haven't allocated any precious metals to your investment basket yet.</p>
-          <a routerLink="/marketplace" class="btn btn-luxury-primary px-4 py-2.5">
+
+         <a routerLink="/marketplace" class="btn btn-luxury-primary px-4 py-2.5 mb-5">
             Explore Precious Metals
           </a>
-        </div>
       </div>
     </div>
   }

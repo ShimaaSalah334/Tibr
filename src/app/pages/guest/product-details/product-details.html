@@ -1,0 +1,317 @@
+<!-- Breadcrumbs -->
+<nav class="pd-breadcrumb">
+  <a routerLink="/">Home</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  <a routerLink="/products">Products</a>
+  <i class="fa-solid fa-chevron-right"></i>
+  @if (product()) {
+    <a routerLink="/products" [queryParams]="{categoryName: product()!.categoryName}">
+      {{ product()!.categoryName }}
+    </a>
+    <i class="fa-solid fa-chevron-right"></i>
+    <span>{{ product()!.name }}</span>
+  }
+</nav>
+
+<!-- ═══════════════ LOADING ═══════════════ -->
+@if (isLoading()) {
+  <div class="pd-loading">
+    <div class="pd-spinner"></div>
+    <span>Loading product...</span>
+  </div>
+}
+
+<!-- ═══════════════ ERROR ═══════════════ -->
+@if (error()) {
+  <div class="pd-error">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <h3>{{ error() }}</h3>
+    <button class="btn-gold" (click)="goToProducts()">Back to Products</button>
+  </div>
+}
+
+<!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+@if (!isLoading() && product()) {
+  <main class="pd-main">
+
+    <!-- ── LEFT: Image Gallery ── -->
+    <div class="pd-gallery">
+      <div class="pd-img-main glass-card metallic-shine">
+        <img
+          [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'"
+          [alt]="product()!.name"
+          class="pd-main-img" />
+
+        <!-- Metal badge -->
+        <span class="pd-metal-badge"
+              [class.gold-badge]="product()!.metalType === 'Gold'"
+              [class.silver-badge]="product()!.metalType === 'Silver'">
+          <i [class]="product()!.metalType === 'Gold' ? 'fa-solid fa-coins' : 'fa-solid fa-circle-dot'"></i>
+          {{ product()!.metalType }}
+        </span>
+
+        <!-- Stock badge -->
+        @if (isOutOfStock()) {
+          <span class="pd-stock-badge out-of-stock">
+            <i class="fa-solid fa-ban"></i> Out of Stock
+          </span>
+        } @else if (isLowStock()) {
+          <span class="pd-stock-badge low-stock">
+            <i class="fa-solid fa-fire"></i> Only {{ product()!.stock }}g left
+          </span>
+        }
+      </div>
+
+      <!-- Thumbnail strip (static UI placeholders) -->
+      <div class="pd-thumbnails">
+        <div class="pd-thumb active">
+          <img [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'" [alt]="product()!.name" />
+        </div>
+        <div class="pd-thumb">
+          <img [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'" [alt]="product()!.name" />
+        </div>
+        <div class="pd-thumb">
+          <img [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'" [alt]="product()!.name" />
+        </div>
+        <div class="pd-thumb">
+          <img [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'" [alt]="product()!.name" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: Details Panel ── -->
+    <div class="pd-details">
+
+      <!-- Category + Purity tag -->
+      <div class="pd-tags">
+        <span class="pd-tag">{{ product()!.categoryName }}</span>
+        <span class="pd-tag gold-tag">{{ product()!.metalType }} · {{ product()!.purity }}‰</span>
+      </div>
+
+      <!-- Title + Weight -->
+      <h1 class="pd-title">{{ product()!.name }}</h1>
+      <p class="pd-weight">
+        <i class="fa-solid fa-weight-hanging"></i>
+        Weight: <strong>{{ product()!.weight }}g</strong>
+      </p>
+
+      <!-- Price cards -->
+      <div class="pd-prices">
+        <div class="pd-price-card glass-card gold-border">
+          <div class="price-label">
+            <span>Buy Price</span>
+            <i class="fa-solid fa-arrow-trend-up gold-text"></i>
+          </div>
+          <div class="price-value gold-text">
+            {{ product()!.buyPrice | number:'1.0-0' }}
+            <span class="price-currency">EGP</span>
+          </div>
+        </div>
+        <div class="pd-price-card glass-card">
+          <div class="price-label">
+            <span>Sell Price</span>
+            <i class="fa-solid fa-arrow-trend-down silver-text"></i>
+          </div>
+          <div class="price-value">
+            {{ product()!.sellPrice | number:'1.0-0' }}
+            <span class="price-currency">EGP</span>
+          </div>
+        </div>
+        <div class="pd-price-update">
+          <i class="fa-regular fa-clock"></i> Updated 5 minutes ago
+        </div>
+      </div>
+
+      <!-- Stock bar -->
+      <div class="pd-stock-bar">
+        <div class="stock-bar-header">
+          <span class="stock-bar-label">
+            <i class="fa-solid fa-warehouse"></i> Availability
+          </span>
+          <span class="stock-bar-value"
+                [class.stock-ok]="!isOutOfStock() && !isLowStock()"
+                [class.stock-low]="isLowStock()"
+                [class.stock-out]="isOutOfStock()">
+            @if (isOutOfStock()) { Out of Stock }
+            @else if (isLowStock()) { Low Stock · {{ product()!.stock }}g }
+            @else { In Stock · {{ product()!.stock }}g }
+          </span>
+        </div>
+        <div class="stock-track">
+          <div class="stock-fill"
+               [style.width.%]="stockPercentage()"
+               [class.fill-ok]="!isLowStock()"
+               [class.fill-low]="isLowStock()"></div>
+        </div>
+      </div>
+
+      <!-- ── QUANTITY SLIDER ── -->
+      <div class="pd-quantity-block glass-card">
+        <div class="qty-header">
+          <span class="qty-label">QUANTITY</span>
+          <span class="qty-display gold-text">
+            {{ quantityGrams() | number:'1.0-2' }}g
+            <span class="qty-bars">({{ quantityBars() }} {{ quantityBars() === 1 ? 'BAR' : 'BARS' }})</span>
+          </span>
+        </div>
+        <div class="qty-slider-wrap">
+          <input
+            type="range"
+            class="qty-slider"
+            [min]="product()!.weight"
+            [max]="maxQuantity()"
+            [step]="product()!.weight"
+            [value]="quantityGrams()"
+            (input)="onQuantityChange($event)" />
+          <div class="qty-slider-track-fill"
+               [style.width.%]="quantityPercent()"></div>
+        </div>
+        <div class="qty-limits">
+          <span>Min: {{ product()!.weight }}g</span>
+          <span>Max: {{ maxQuantity() }}g</span>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="pd-actions">
+        <button class="btn-gold btn-add-cart"
+                [disabled]="isOutOfStock()"
+                (click)="addToCart()">
+          <i class="fa-solid fa-cart-plus"></i>
+          Add to Cart
+        </button>
+        <button class="btn-buy-now"
+                [disabled]="isOutOfStock()"
+                (click)="buyNow()">
+          <i class="fa-solid fa-bolt"></i>
+          Buy Now
+        </button>
+        <button class="btn-fav" (click)="toggleFavorite()" [class.active]="isFavorite()">
+          <i [class]="isFavorite() ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+        </button>
+      </div>
+
+      <!-- ── AI Advisor Widget ── -->
+      <div class="pd-ai-widget">
+        <div class="ai-widget-glow"></div>
+        <div class="ai-widget-inner">
+          <div class="ai-icon">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="ai-body">
+            <div class="ai-header-row">
+              <span class="ai-name">Tharwa AI Advisor</span>
+              <span class="ai-confidence">
+                <i class="fa-solid fa-circle-check"></i> 92% Confidence
+              </span>
+            </div>
+            <p class="ai-insight">
+              "Based on current global gold trends and market signals, this is an optimal entry point before the expected rally in the upcoming quarter."
+            </p>
+            <button class="ai-cta" routerLink="/ai-advisor">
+              Ask the Advisor <i class="fa-solid fa-arrow-left"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Investment Calculator ── -->
+      <div class="pd-calculator glass-card">
+        <h3 class="calc-title">
+          <i class="fa-solid fa-calculator gold-text"></i>
+          Calculate Your Investment
+        </h3>
+
+        <!-- Mode toggle -->
+        <div class="calc-mode-toggle">
+          <button [class.active]="calculatorMode() === 'egp'"
+                  (click)="setCalculatorMode('egp')">
+            EGP → Grams
+          </button>
+          <button [class.active]="calculatorMode() === 'grams'"
+                  (click)="setCalculatorMode('grams')">
+            Grams → EGP
+          </button>
+        </div>
+
+        <!-- Input -->
+        <div class="calc-input-wrap">
+          <input
+            type="number"
+            class="calc-input"
+            [placeholder]="calculatorMode() === 'egp' ? 'Enter amount in EGP' : 'Enter weight in grams'"
+            [value]="calculatorInput()"
+            (input)="onCalculatorInput(+$any($event.target).value)" />
+          <span class="calc-unit">
+            {{ calculatorMode() === 'egp' ? 'EGP' : 'g' }}
+          </span>
+        </div>
+
+        <!-- Result -->
+        @if (calculatorResult()) {
+          <div class="calc-result">
+            <span class="calc-result-label">{{ calculatorResult()!.label }}</span>
+            <div class="calc-result-value gold-text">
+              {{ calculatorResult()!.value | number:'1.0-4' }}
+              <span class="calc-result-unit">{{ calculatorResult()!.unit }}</span>
+            </div>
+          </div>
+        } @else {
+          <div class="calc-result calc-result-empty">
+            <span class="calc-result-label">
+              Enter a value above to see your {{ calculatorMode() === 'egp' ? 'grams' : 'total' }}
+            </span>
+          </div>
+        }
+      </div>
+
+    </div>
+    <!-- ── End Right Panel ── -->
+  </main>
+
+  <!-- ═══════════════ RELATED PRODUCTS ═══════════════ -->
+  <section class="pd-related">
+    <div class="related-header">
+      <h2 class="related-title">You Might Also Like</h2>
+      <button class="btn-outline-gold" (click)="goToProducts()">
+        View All <i class="fa-solid fa-arrow-left"></i>
+      </button>
+    </div>
+
+    @if (isLoadingRelated()) {
+      <div class="pd-loading">
+        <div class="pd-spinner"></div>
+      </div>
+    }
+
+    @if (!isLoadingRelated() && relatedProducts().length > 0) {
+      <div class="related-scroll">
+        @for (rp of relatedProducts(); track rp.id) {
+          <div class="related-card glass-card" (click)="goToRelatedProduct(rp.id)">
+            <div class="related-img-wrap">
+              <img
+                [src]="rp.imageUrl || 'assets/images/gold-placeholder.jpg'"
+                [alt]="rp.name"
+                class="related-img" />
+            </div>
+            <div class="related-body">
+              <h4 class="related-name">{{ rp.name }}</h4>
+              <div class="related-meta">
+                <span class="related-price"
+                      [class.gold-text]="rp.metalType === 'Gold'"
+                      [class.silver-text]="rp.metalType === 'Silver'">
+                  {{ rp.sellPrice | number:'1.0-0' }} EGP
+                </span>
+                <span class="related-weight">{{ rp.weight }}g</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (!isLoadingRelated() && relatedProducts().length === 0) {
+      <p class="related-empty">No related products found.</p>
+    }
+  </section>
+}

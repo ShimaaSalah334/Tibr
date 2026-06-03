@@ -1,6 +1,6 @@
-<main class="login-page-bg d-flex align-items-center justify-content-center py-5" dir="rtl">
+<main class="login-page-bg d-flex align-items-center justify-content-center py-5" dir="ltr">
   
-  <!-- تأثيرات الأنميشن والخلفية الديناميكية الجديدة -->
+  <!-- New animation effects and dynamic background -->
   <div class="animated-bg-glow"></div>
   <div class="particles-container">
     <div class="particle p1"></div>
@@ -12,19 +12,19 @@
   <div class="container-xl position-relative z-index-form">
     <div class="row g-0 main-card overflow-hidden">
       
-      <!-- القسم الأيمن: نموذج تسجيل الدخول النظيف والأنيق -->
+      <!-- Right section: clean and elegant login form -->
       <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5 bg-white">
         
-        <!-- اللوجو والهيدر -->
+        <!-- Logo and header -->
         <div class="text-center mb-4">
           <div class="brand-logo-wrapper mb-3">
             <span >TIBR</span>
           </div>
-          <h1 class="h3 fw-bold text-navy mb-2">مرحباً بك مجدداً</h1>
-          <p class="text-secondary-muted small">سجل الدخول للوصول إلى محفظتك الاستثمارية</p>
+          <h1 class="h3 fw-bold text-navy mb-2">Welcome Back</h1>
+          <p class="text-secondary-muted small">Sign in to access your investment wallet</p>
         </div>
 
-        <!-- الفورم المدعوم بالـ FormGroup والـ Signals -->
+        <!-- Form powered by FormGroup and Signals -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           @if (errorMessage()) {
             <div class="alert alert-danger rounded-3 py-2 px-3 mb-4">
@@ -32,9 +32,9 @@
             </div>
           }
           
-          <!-- حقل البريد الإلكتروني أو اسم المستخدم -->
+          <!-- Email or username field -->
           <div class="mb-3">
-            <label class="form-label text-navy fw-medium" for="email">البريد الإلكتروني أو اسم المستخدم</label>
+            <label class="form-label text-navy fw-medium" for="email">Email</label>
             <input 
               formControlName="email"
               (focus)="isEmailFocused.set(true)"
@@ -42,15 +42,15 @@
               class="form-control form-control-corporate" 
               [class.field-focused]="isEmailFocused()"
               id="email" 
-              placeholder="اسم المستخدم" 
+              placeholder="Email" 
               type="text">
           </div>
 
-          <!-- حقل كلمة المرور -->
+          <!-- Password field -->
           <div class="mb-3">
             <div class="d-flex justify-content-between align-items-center mb-1">
-              <label class="form-label text-navy fw-medium mb-0" for="password">كلمة المرور</label>
-              <a class="small-link text-gold-dark text-decoration-none fw-semibold" routerLink="/forget-password">نسيت كلمة المرور؟</a>
+              <label class="form-label text-navy fw-medium mb-0" for="password">Password</label>
+              <a class="small-link text-gold-dark text-decoration-none fw-semibold" routerLink="/forget-password">Forgot Password?</a>
             </div>
             <div class="position-relative d-flex align-items-center">
               <input 
@@ -62,47 +62,47 @@
                 [class.field-focused]="isPasswordFocused()"
                 id="password" 
                 placeholder="••••••••">
-              <button 
-                class="btn border-0 position-absolute password-toggle" 
+              <!-- <button 
+                class="btn border-0 position-absolute text-end password-toggle" 
                 (click)="togglePasswordView()" 
                 type="button">
                 <span class="material-symbols-outlined align-middle fs-5 text-muted">
                   {{ hidePassword() ? 'visibility' : 'visibility_off' }}
                 </span>
-              </button>
+              </button> -->
             </div>
           </div>
 
-          <!-- خيار تذكرني -->
+          <!-- Remember me option -->
           <div class="form-check d-flex align-items-center gap-2 mb-4 justify-content-start">
             <input formControlName="remember" class="form-check-corporate" id="remember" type="checkbox">
-            <label class="form-check-label text-navy small fw-medium" for="remember">تذكرني</label>
+            <label class="form-check-label text-navy small fw-medium" for="remember">Remember me</label>
           </div>
 
-          <!-- زر تسجيل الدخول -->
+          <!-- Login button -->
           <button class="btn btn-corporate-gold w-100 py-2.5 fw-semibold shadow-sm" type="submit" [disabled]="formState() === 'loading'">
             @if (formState() === 'loading') {
               <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
             }
-            {{ formState() === 'loading' ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول' }}
+            {{ formState() === 'loading' ? 'Signing in...' : 'Sign In' }}
           </button>
         </form>
 
         <div class="mt-4 text-center">
           <p class="small text-muted mb-0">
-            ليس لديك حساب؟ 
-<a class="text-gold-dark fw-bold text-decoration-none ms-1" [routerLink]="['/register']">أنشئ حساباً جديداً</a>          </p>
+            Don't have an account? 
+<a class="text-gold-dark fw-bold text-decoration-none ms-1" [routerLink]="['/register']">Create a new account</a>          </p>
         </div>
       </div>
 
-      <!-- القسم الأيسر: عرض السبائك والعملات -->
+      <!-- Left section: bullion and currency showcase -->
       <div class="col-md-6 d-none d-md-flex flex-column justify-content-between text-center left-branding-panel p-0">
         <div class="brand-image-box">
           <img alt="Gold and Silver Bars" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnr4fNIf4H4dFfwZikTz5dj6izdwV0bnYrD-wjM3R3dsVfGcKz69KjzDXsVG1aVAdZrL15FSO1CFHa5M02jNUjNcmYQNexXA7LCeI_jtzHGLmLO2xVGQg4dI2eFID2BGpxFxezvp1dyLuxXlM5nOFXvlcwCZtd55X3CIXWe_2s_q_2uloU_xnfXLM9hEatjafgSUpSGPmAQXz4apYHj-x7GLMMPZAnrtKQIlmjLIgg8b7tidGGUb33qAG6ta7uU3LHkAKKJip5bH8b">
         </div>
         <div class="brand-text-box p-4 bg-light-gray border-top">
-          <h2 class="h4 fw-bold text-navy mb-2">استثمر بذكاء، استثمر في الذهب والفضة</h2>
-          <p class="text-muted small mb-0">افتح حسابك اليوم واضمن أمان أصولك الاستثمارية</p>
+          <h2 class="h4 fw-bold text-navy mb-2">Invest smartly with gold and silver</h2>
+          <p class="text-muted small mb-0">Open your account today and secure your investment assets</p>
         </div>
       </div>
 

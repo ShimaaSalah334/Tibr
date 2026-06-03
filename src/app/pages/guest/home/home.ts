@@ -57,7 +57,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   private loadCategories(): void {
     this.isLoadingCategories.set(true);
     this.categoryService.getAllCategories().subscribe({
-      next: data => { this.categories.set(data); this.isLoadingCategories.set(false); },
+      next: data => { this.categories.set(data); this.isLoadingCategories.set(false); console.log(data) },
       error: ()  => this.isLoadingCategories.set(false)
     });
   }
@@ -74,7 +74,7 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
   private loadPopularProducts(): void {
     this.isLoadingPopular.set(true);
     this.productService.getProducts({ sortBy: 'popularity', pageSize: 8, pageNumber: 1 }).subscribe({
-      next: data => { this.popularProducts.set(data.items); this.isLoadingPopular.set(false); },
+      next: data => { this.popularProducts.set(data.items); this.isLoadingPopular.set(false);console.log(data)  },
       error: () => this.isLoadingPopular.set(false)
     });
   }

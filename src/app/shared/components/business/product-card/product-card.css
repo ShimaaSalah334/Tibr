@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Geist:wght@400;500;600&display=swap');
+
+:host {
+  --gold:        #D4AF37;
+  --gold-glow:   rgba(212,175,55,0.25);
+  --gold-subtle: rgba(212,175,55,0.08);
+  --silver:      #C0C0C0;
+  --silver-glow: rgba(192,192,192,0.15);
+  --bg-card:     #1c1b1b;
+  --border:      rgba(255,255,255,0.07);
+  --text:        #E5E2E1;
+  --text-muted:  #A0A0A0;
+  --success:     #10B981;
+  --danger:      #EF4444;
+  --warning:     #F59E0B;
+  display: block;
+}
+
+/* ── Liquid button ────────────────────────────────────────── */
+.btn-liquid {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.btn-liquid::before {
+  content: '';
+  position: absolute;
+  top: 100%; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255,255,255,0.15);
+  transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+  z-index: -1;
+  border-radius: 50% 50% 0 0;
+}
+.btn-liquid:hover::before { top: 0; border-radius: 0; }
+
+/* ════════════════════════════════════════════════════════════
+   CARD WRAPPER
+════════════════════════════════════════════════════════════ */
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(212,175,55,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: border-color 0.4s ease,
+              box-shadow 0.4s ease,
+              transform 0.4s cubic-bezier(0.2,1,0.3,1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card:hover {
+  border-color: rgba(212,175,55,0.3);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.55),
+              0 0 40px rgba(212,175,55,0.08);
+}
+
+.gold-card:hover   { border-color: rgba(212,175,55,0.35); }
+.silver-card:hover { border-color: rgba(192,192,192,0.25); }
+
+/* ── Metal shimmer overlay ────────────────────────────────── */
+.metal-shimmer-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0)    0%,
+    rgba(255,255,255,0.04) 50%,
+    rgba(255,255,255,0)    100%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  animation: shimmerPass 3s linear infinite;
+  transition: opacity 0.4s ease;
+}
+
+.shimmer-gold   { background-image: linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.08) 50%, rgba(212,175,55,0) 100%); background-size: 200% 100%; }
+.shimmer-silver { background-image: linear-gradient(90deg, rgba(192,192,192,0) 0%, rgba(192,192,192,0.06) 50%, rgba(192,192,192,0) 100%); background-size: 200% 100%; }
+
+.product-card:hover .metal-shimmer-overlay { opacity: 1; }
+
+@keyframes shimmerPass {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Badges ───────────────────────────────────────────────── */
+.card-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.badge-metal {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: 'Geist', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.badge-gold   { background: var(--gold); color: #000; }
+.badge-silver { background: var(--silver); color: #111; }
+
+.badge-status {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'Geist', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.badge-available {
+  background: rgba(16,185,129,0.12);
+  border: 1px solid rgba(16,185,129,0.25);
+  color: var(--success);
+}
+.badge-low {
+  background: rgba(245,158,11,0.12);
+  border: 1px solid rgba(245,158,11,0.25);
+  color: var(--warning);
+}
+.badge-oos {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.22);
+  color: var(--danger);
+}
+
+/* ── SKU ──────────────────────────────────────────────────── */
+.card-sku {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  font-family: 'Geist', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(160,160,160,0.3);
+}
+
+/* ── Image area ───────────────────────────────────────────── */
+.card-img-wrap {
+  position: relative;
+  aspect-ratio: 1 / 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.02) 0%,
+    rgba(255,255,255,0.01) 100%);
+  overflow: hidden;
+  padding: 16px;
+  flex-shrink: 0;
+}
+
+.img-glow {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 0;
+  transition: all 0.6s ease;
+}
+.img-glow-gold   { background: rgba(212,175,55,0.07); }
+.img-glow-silver { background: rgba(192,192,192,0.05); }
+
+.product-card:hover .img-glow-gold   { background: rgba(212,175,55,0.18); }
+.product-card:hover .img-glow-silver { background: rgba(192,192,192,0.12); }
+
+.card-img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
+  transition: transform 0.7s cubic-bezier(0.4,0,0.2,1),
+              filter 0.5s ease;
+}
+.product-card:hover .card-img {
+  transform: scale(1.1) translateY(-4px);
+  filter: drop-shadow(0 28px 48px rgba(0,0,0,0.8));
+}
+
+/* Wishlist button */
+.btn-wishlist {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 6;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13,13,13,0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  opacity: 0;
+  transform: translateY(4px);
+}
+.product-card:hover .btn-wishlist {
+  opacity: 1;
+  transform: translateY(0);
+}
+.btn-wishlist:hover {
+  color: var(--danger);
+  border-color: rgba(239,68,68,0.3);
+  background: rgba(239,68,68,0.1);
+}
+
+/* ── Card info ────────────────────────────────────────────── */
+.card-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+/* Name row */
+.card-name-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+  flex: 1;
+  transition: color 0.25s ease;
+}
+.product-card:hover .card-name { color: var(--gold); }
+
+.card-purity {
+  font-family: 'Geist', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.gold-text   { color: var(--gold); }
+.silver-text { color: var(--silver); }
+
+.card-meta {
+  font-family: 'Geist', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(160,160,160,0.4);
+  margin: 0;
+}
+
+/* Prices */
+.card-prices {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-top: 1px solid rgba(212,175,55,0.07);
+}
+
+.price-col {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.price-lbl {
+  font-family: 'Geist', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(160,160,160,0.35);
+}
+
+.price-val {
+  font-family: 'Geist', monospace;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+.price-cur {
+  font-size: 10px;
+  font-weight: 500;
+  opacity: 0.55;
+}
+
+.buy-val  { color: var(--gold); }
+.sell-val { color: var(--silver); }
+
+.price-divider {
+  width: 1px;
+  height: 34px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* Stock bar */
+.stock-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stock-bar-track {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.stock-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+.fill-gold   { background: linear-gradient(90deg, #C9A84C, #D4AF37); }
+.fill-silver { background: linear-gradient(90deg, #9CA3AF, #C0C0C0); }
+.fill-low    { background: linear-gradient(90deg, #D97706, #F59E0B); }
+
+.stock-label {
+  font-family: 'Geist', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgba(160,160,160,0.4);
+}
+.stock-label.label-low { color: var(--warning); }
+
+/* Change row */
+.card-change {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.change-icon { font-size: 12px; }
+.change-icon.up   { color: var(--success); }
+.change-icon.down { color: var(--danger); }
+
+.change-val {
+  font-family: 'Geist', monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+.change-val.up   { color: var(--success); }
+.change-val.down { color: var(--danger); }
+
+.change-label {
+  font-family: 'Geist', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(160,160,160,0.25);
+  margin-left: auto;
+}
+
+/* ── Actions ──────────────────────────────────────────────── */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.btn-details {
+  flex: 1;
+  padding: 11px;
+  background: transparent;
+  color: var(--gold);
+  font-family: 'Geist', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-details:hover {
+  background: rgba(212,175,55,0.1);
+  border-color: var(--gold);
+  box-shadow: 0 0 16px var(--gold-glow);
+}
+.btn-details:active { transform: scale(0.97); }
+
+.btn-cart {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212,175,55,0.06);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px;
+  color: rgba(212,175,55,0.6);
+  font-size: 15px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+.btn-cart:hover {
+  background: rgba(212,175,55,0.14);
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+.btn-cart:active { transform: scale(0.9); }
+
+.btn-disabled {
+  opacity: 0.28;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.btn-cart-loading {
+  opacity: 0.7;
+  cursor: wait !important;
+}
+
+.btn-cart-success {
+  background: rgba(16,185,129,0.15) !important;
+  border-color: rgba(16,185,129,0.4) !important;
+  color: var(--success) !important;
+  box-shadow: 0 0 12px rgba(16,185,129,0.2) !important;
+}

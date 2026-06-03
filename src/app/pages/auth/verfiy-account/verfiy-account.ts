@@ -155,7 +155,7 @@ resendCode(): void {
       setTimeout(() => {
         this.formState.set('idle');
 
-        alert('تم تأكيد الحساب بنجاح');
+        alert('Account successfully verified');
          localStorage.removeItem('registeredEmail');
          localStorage.setItem('userId',response.userId);
         this.router.navigate(['/verfiy-kyc']);
@@ -170,7 +170,7 @@ resendCode(): void {
 
       alert(
         error?.error?.message ||
-        'رمز التحقق غير صحيح'
+        'Verification code is invalid'
       );
     }
   });

@@ -1,6 +1,6 @@
-<main class="login-page-bg d-flex align-items-center justify-content-center py-5" dir="rtl">
+<main class="login-page-bg d-flex align-items-center justify-content-center py-5" dir="ltr">
   
-  <!-- تأثيرات الأنميشن والخلفية الديناميكية الفاخرة -->
+  <!-- Luxury animation effects and dynamic background -->
   <div class="animated-bg-glow"></div>
   <div class="particles-container">
     <div class="particle p1"></div>
@@ -12,23 +12,23 @@
   <div class="container-xl position-relative z-index-form">
     <div class="row g-0 main-card overflow-hidden">
       
-      <!-- القسم الأيمن: نموذج إنشاء الحساب النظيف -->
+      <!-- Right section: clean account creation form -->
       <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5 bg-white">
         
-        <!-- الهيدر واللوجو -->
+        <!-- Header and logo -->
         <div class="text-center text-md-start mb-4">
           <div class="brand-logo-wrapper mb-3 text-center text-md-center">
             <span>TIBR</span>
           </div>
-          <h2 class="h3 fw-bold text-center">إنشاء حساب جديد</h2>
-          <p class="text-secondary-muted small mt-2 text-center">يرجى إدخال تفاصيل بياناتك للبدء في حماية وإدارة مدخراتك الثمينة.</p>
+          <h2 class="h3 fw-bold text-center">Create a New Account</h2>
+          <p class="text-secondary-muted small mt-2 text-center">Enter your details to start protecting and managing your valuable savings.</p>
         </div>
         
-        <!-- فورم الأنجولار المتكامل -->
+        <!-- Integrated Angular form -->
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="row g-3 mb-3">
             <div class="col-12 col-sm-6">
-              <label class="form-label text-navy fw-medium" for="firstName">الاسم الأول</label>
+              <label class="form-label text-navy fw-medium" for="firstName">First Name</label>
               <input
                 formControlName="firstName"
                 (focus)="isFirstNameFocused.set(true)"
@@ -36,11 +36,11 @@
                 class="form-control form-control-corporate" 
                 [class.field-focused]="isFirstNameFocused()"
                 id="firstName" 
-                placeholder="الاسم الأول" 
+                placeholder="First Name" 
                 type="text">
             </div>
             <div class="col-12 col-sm-6">
-              <label class="form-label text-navy fw-medium" for="lastName">الاسم الأخير</label>
+              <label class="form-label text-navy fw-medium" for="lastName">Last Name</label>
               <input 
                 formControlName="lastName"
                 (focus)="isLastNameFocused.set(true)"
@@ -48,15 +48,15 @@
                 class="form-control form-control-corporate" 
                 [class.field-focused]="isLastNameFocused()"
                 id="lastName" 
-                placeholder="الاسم الأخير" 
+                placeholder="Last Name" 
                 type="text">
 
           </div>
           </div>
 
-          <!-- حقل البريد الإلكتروني -->
+          <!-- Email field -->
           <div class="mb-3">
-            <label class="form-label text-navy fw-medium" for="email">البريد الإلكتروني</label>
+            <label class="form-label text-navy fw-medium" for="email">Email</label>
             <input 
               formControlName="email"
               (focus)="isEmailFocused.set(true)"
@@ -68,9 +68,9 @@
               type="email">
           </div>
           
-          <!-- حقل رقم الهاتف الموجه ذكياً للـ RTL -->
+          <!-- Phone field optimized for RTL -->
           <div class="mb-3">
-            <label class="form-label text-navy fw-medium" for="phone">رقم الهاتف</label>
+            <label class="form-label text-navy fw-medium" for="phone">Phone Number</label>
             <div class="input-group d-flex flex-row-reverse" style="direction: ltr;">
               <input 
                 formControlName="phone"
@@ -88,10 +88,10 @@
             </div>
           </div>
           
-          <!-- حقول كلمات المرور المتجاوبة -->
+          <!-- Responsive password fields -->
           <div class="row g-3 mb-3">
             <div class="col-12 col-sm-6">
-              <label class="form-label text-navy fw-medium" for="password">كلمة المرور</label>
+              <label class="form-label text-navy fw-medium" for="password">Password</label>
               <input 
                 formControlName="password"
                 (focus)="isPasswordFocused.set(true)"
@@ -103,7 +103,7 @@
                 type="password">
             </div>
             <div class="col-12 col-sm-6">
-              <label class="form-label text-navy fw-medium" for="confirmPassword">تأكيد كلمة المرور</label>
+              <label class="form-label text-navy fw-medium" for="confirmPassword">Confirm Password</label>
               <input 
                 formControlName="confirmPassword"
                 (focus)="isConfirmPasswordFocused.set(true)"
@@ -116,15 +116,15 @@
             </div>
           </div>
           
-          <!-- الشروط والأحكام -->
+          <!-- Terms and conditions -->
           <div class="form-check d-flex align-items-start gap-2 mb-4 justify-content-start">
             <input formControlName="terms" class="form-check-corporate mt-1" id="terms" type="checkbox">
             <label class="form-check-label small text-secondary-muted" for="terms">
-              أوافق على <a class="text-gold-dark fw-bold text-decoration-none" href="#">الشروط والأحكام</a> و <a class="text-gold-dark fw-bold text-decoration-none" href="#">سياسة الخصوصية</a> الخاصة بـ TIBR.
+              I agree to the <a class="text-gold-dark fw-bold text-decoration-none" href="#">Terms and Conditions</a> and <a class="text-gold-dark fw-bold text-decoration-none" href="#">Privacy Policy</a> of TIBR.
             </label>
           </div>
           
-          <!-- زر الإرسال التفاعلي الديناميكي لدعم حالات التحميل والنجاح -->
+          <!-- Dynamic submit button supporting loading and success states -->
           <button 
             class="btn w-100 py-2.5 fw-semibold shadow-sm d-flex align-items-center justify-content-center gap-2"
             [class.btn-corporate-gold]="formState() !== 'success'"
@@ -134,57 +134,57 @@
             
             @if (formState() === 'loading') {
               <span class="material-symbols-outlined animate-spin fs-5">sync</span>
-              <span>جاري معالجة البيانات...</span>
+              <span>Processing your information...</span>
             } @else if (formState() === 'success') {
               <span class="material-symbols-outlined fs-5">check_circle</span>
-              <span>تم إنشاء الحساب بنجاح</span>
+              <span>Account created successfully</span>
             } @else {
-              <span>إنشاء حساب آمن</span>
+              <span>Create secure account</span>
             }
           </button>
           
           <div class="text-center pt-4">
-            <span class="small text-muted">لديك حساب بالفعل؟</span>
-            <a class="small text-gold-dark fw-bold text-decoration-none me-2" routerLink="/login">تسجيل الدخول</a>
+            <span class="small text-muted">Already have an account?</span>
+            <a class="small text-gold-dark fw-bold text-decoration-none me-2" routerLink="/login">Log in</a>
           </div>
         </form>
         
-        <!-- شارات الأمان السفلية النظيفة -->
+        <!-- Clean security badges -->
         <div class="pt-4 d-flex align-items-center justify-content-center gap-4 text-secondary-muted opacity-75 border-top border-light mt-4">
           <div class="d-flex align-items-center gap-1">
             <span class="material-symbols-outlined fs-5 text-navy">verified_user</span>
-            <span class="small-caption">تشفير AES-256</span>
+            <span class="small-caption">AES-256 encryption</span>
           </div>
           <div class="d-flex align-items-center gap-1">
             <span class="material-symbols-outlined fs-5 text-navy">lock</span>
-            <span class="small-caption">اتصال SSL آمن</span>
+            <span class="small-caption">Secure SSL connection</span>
           </div>
         </div>
       </div>
 
-      <!-- القسم الأيسر: واجهة السبائك التفاعلية والإحصائيات البنكية -->
+      <!-- Left section: interactive bullion interface and banking stats -->
       <div class="col-md-6 d-none d-md-flex flex-column justify-content-between text-center left-branding-panel p-0">
         <div class="brand-image-box position-relative">
           <img alt="Gold Bars Vault" class="w-100 h-100 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwhiFEN116f7R-jXlZo2Vv6RglIoM-cmJOLrC8HhhcKzAu6HrIEuxSRj_qtOU0cX_QS-Pl62L_FDC_j-duMri5Ms8ywBvOjsurxA_aUOmUVRhZo_4RpMFkNCfG872JcgvWkOCxfW8U_QgSZS8UDo1OKsZXqPyFYRcPIOAcyAxSlmIEB9IljyEjLtBtYmb2A3ceqOW80NT0zIgW6PpTIiMwhv7Dst-pSEV1-4P8SuItnYUUjyfSfRvCrPuT7vNf9c4yfxpPA97i9ARl">
           <div class="position-absolute inset-0 image-overlay-gradient"></div>
           
-          <!-- كروت البيانات الفاخرة فوق الصورة -->
+          <!-- Luxury data cards over the image -->
           <div class="position-absolute z-index-form w-100 p-4 bottom-0 start-50 translate-middle-x">
             <span class="material-symbols-outlined text-gold-light display-4 mb-2">shield_lock</span>
-            <h3 class="h4 text-white fw-bold mb-4">ابدأ رحلتك في الاستثمار الآمن</h3>
+            <h3 class="h4 text-white fw-bold mb-4">Begin your secure investment journey</h3>
             
             <div class="d-flex justify-content-center align-items-center gap-3 pt-2">
               <div class="text-center px-2">
                 <div class="text-gold-light fw-bold fs-5">99.9%</div>
-                <div class="micro-text text-white-50">نقاء مضمون</div>
+                <div class="micro-text text-white-50">Guaranteed purity</div>
               </div>
               <div class="text-center border-start border-end border-white-20 px-3">
                 <div class="text-gold-light fw-bold fs-5">SSL</div>
-                <div class="micro-text text-white-50">تشفير سيبراني</div>
+                <div class="micro-text text-white-50">Cyber encryption</div>
               </div>
               <div class="text-center px-2">
                 <div class="text-gold-light fw-bold fs-5">24/7</div>
-                <div class="micro-text text-white-50">تداول فوري</div>
+                <div class="micro-text text-white-50">Instant trading</div>
               </div>
             </div>
           </div>

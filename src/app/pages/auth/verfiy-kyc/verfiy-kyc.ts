@@ -60,7 +60,6 @@ export class VerfiyKYC implements OnInit {
     private router: Router
   ) {}
 
-  // Expose a plain property for template bindings to avoid calling functions in templates
   get cameraCaptured(): boolean {
     return this.isCameraCaptured();
   }
@@ -72,12 +71,11 @@ export class VerfiyKYC implements OnInit {
 
   private initForm(): void {
     this.kycForm = this.fb.group({
-      documentType: ['NATIONAL_ID', [Validators.required]],
+      documentType: ['NATIONAL ID', [Validators.required]],
       documentNumber: ['', [Validators.required, Validators.minLength(10)]]
     });
   }
 
-  // تتبع المدخلات لتحديث مؤشر تقدم العملية أولاً بأول للأداء السلس
   private trackFormChanges(): void {
     this.kycForm.get('fullName')?.valueChanges.subscribe(value => {
       this.fullNameFilled.set(!!value && value.trim().length >= 6);
@@ -111,7 +109,7 @@ export class VerfiyKYC implements OnInit {
           this.selfieFileName.set(file.name);
         }
       } else {
-        alert('حجم الملف المرفق يتجاوز الحد المسموح به (5 ميجابايت).');
+        alert('The size of the attached file exceeds the allowed limit (5 MB). Please choose a smaller file.');
         if (field === 'front') {
           this.documentFrontFile.set(null);
           this.documentFrontName.set(null);
@@ -138,7 +136,7 @@ export class VerfiyKYC implements OnInit {
 
   private async startCamera(): Promise<void> {
     if (!navigator.mediaDevices?.getUserMedia) {
-      this.selfieCaptureError.set('متصفحك لا يدعم الكاميرا.');
+      this.selfieCaptureError.set('Your browser does not support the camera.');
       return;
     }
 
@@ -157,7 +155,7 @@ export class VerfiyKYC implements OnInit {
       }
     } catch (error) {
       console.error('Camera access error:', error);
-      this.selfieCaptureError.set('تعذّر الوصول إلى الكاميرا. تأكد من إذن المتصفح وحاول مرة أخرى.');
+      this.selfieCaptureError.set('Camera could not be accessed. Check your browser permissions and try again.');
     }
   }
 
@@ -176,7 +174,7 @@ export class VerfiyKYC implements OnInit {
     const canvas = this.selfieCanvas?.nativeElement;
 
     if (!video || !canvas) {
-      this.selfieCaptureError.set('حدث خطأ داخلي أثناء التقاط الصورة.');
+      this.selfieCaptureError.set('An internal error occurred while taking the picture.');
       return;
     }
 
@@ -185,7 +183,7 @@ export class VerfiyKYC implements OnInit {
     const context = canvas.getContext('2d');
 
     if (!context) {
-      this.selfieCaptureError.set('لا يمكن الوصول إلى كاميرا الرسم.');
+      this.selfieCaptureError.set('The drawing camera is inaccessible.');
       return;
     }
 
@@ -193,7 +191,7 @@ export class VerfiyKYC implements OnInit {
 
     canvas.toBlob(blob => {
       if (!blob) {
-        this.selfieCaptureError.set('فشل إنشاء صورة السيلفي. حاول مرة أخرى.');
+        this.selfieCaptureError.set('Selfie creation failed. Please try again.');
         return;
       }
 
@@ -213,7 +211,7 @@ export class VerfiyKYC implements OnInit {
     const selfie = this.selfieFile();
 
     if (!this.kycForm.valid || !front || !back || !selfie || this.formState() !== 'idle') {
-      this.errorMessage.set('الرجاء تعبئة الحقول المطلوبة ورفع صور الوثيقة (أمام/خلف) وصورة السيلفي.');
+      this.errorMessage.set('Please complete all required fields and attach all necessary documents before submitting.');
       this.kycForm.markAllAsTouched();
       return;
     }
@@ -225,7 +223,7 @@ export class VerfiyKYC implements OnInit {
     const formData = new FormData();
     // استخدم معرف المستخدم الفعلي من الجلسة هنا بدلاً من 1
     formData.append('userId', parseInt(localStorage.getItem('userId') || '0', 10).toString());
-    formData.append('documentType', this.kycForm.get('documentType')?.value || 'NATIONAL_ID');
+    formData.append('documentType','NATIONAL_ID');
     formData.append('documentNumber', this.kycForm.get('documentNumber')?.value || '');
     formData.append('status', 'Pending');
 
@@ -236,12 +234,12 @@ export class VerfiyKYC implements OnInit {
     this.authService.verifyKYC(formData).subscribe({
       next: (response) => {
         this.formState.set('success');
-        this.successMessage.set('تم إرسال بياناتك للمراجعة بنجاح. سيتم التحقق من وثائقك خلال 24 ساعة.');
+        this.successMessage.set('Your data has been submitted for review successfully. Your documents will be verified within 24 hours.');
         setTimeout(() => this.router.navigate(['/dashboard']), 2000);
       },
       error: (error) => {
         this.formState.set('error');
-        this.errorMessage.set(error?.error?.message || 'حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.');
+        this.errorMessage.set(error?.error?.message || 'An error occurred while submitting your data. Please try again later.');
         console.error('KYC Verification Error:', error);
       }
     });

@@ -65,12 +65,12 @@ export class Login {
           localStorage.setItem('userId', String(userId));
         }
 
-        
+        window.dispatchEvent(new Event('authStateChanged'));
         this.router.navigate(['/']);
       },
       error: (error) => {
         this.formState.set('error');
-        this.errorMessage.set(error?.error?.message || 'حدث خطأ أثناء تسجيل الدخول. تأكد من بياناتك وحاول مرة أخرى.');
+        this.errorMessage.set(error?.error?.message || 'An error occurred while logging in. Please check your details and try again.');
         console.error('Login failed:', error);
       }
     });

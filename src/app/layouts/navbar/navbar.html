@@ -78,11 +78,11 @@
 
       <!-- Auth buttons -->
       @if (!isLoggedIn()) {
-  <a routerLink="/auth/login" class="btn-ghost d-none d-md-inline-flex">
+  <a routerLink="/login" class="btn-ghost d-none d-md-inline-flex">
     Sign In
   </a>
 
-  <a routerLink="/auth/register" class="btn-gold btn-liquid">
+  <a routerLink="/register" class="btn-gold btn-liquid">
     Start Investing
   </a>
 }
@@ -99,10 +99,10 @@
               <i class="fa-regular fa-user"></i> Profile
             </a>
             <a routerLink="/orders" (click)="closeUserMenu()">
-              <i class="fa-regular fa-receipt"></i> Orders
+              <i class="fa-solid  fa-receipt"></i> Orders
             </a>
             <a routerLink="/wallet" (click)="closeUserMenu()">
-              <i class="fa-regular fa-wallet"></i> Wallet
+              <i class="fa-solid  fa-wallet"></i> Wallet
             </a>
             <div class="dropdown-divider"></div>
             <button (click)="logout()">

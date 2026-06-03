@@ -536,7 +536,6 @@
         @for (product of popularProducts(); track product.id; let i = $index) {
       <div
         class="showcase-card magnetic-card"
-        *ngFor="let product of popularProducts(); let i = index"
         [style.transition-delay]="(i * 80) + 'ms'"
         (click)="goToProductDetails(product.id)"
         (mousemove)="onCardMouseMove($event)"

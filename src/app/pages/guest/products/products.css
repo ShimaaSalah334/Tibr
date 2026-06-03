@@ -1249,3 +1249,11 @@
   transform: translateY(-2px);
 }
 .btn-gold-cta i { font-size: 14px; }
+
+.gold-icon {
+  color: #D4AF37;
+}
+
+.silver-icon {
+  color: #C0C0C0;
+}

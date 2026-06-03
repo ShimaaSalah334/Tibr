@@ -7,15 +7,17 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { ProductService }  from '../../../core/services/product-service';
 import { CategoryService } from '../../../core/services/category-service';
+import { ProductCard }     from '../../../shared/components/business/product-card/product-card';
 import { IProduct }        from '../../../core/interfaces/iproduct';
 import { ICategory }       from '../../../core/interfaces/icategory';
 import { IPaginatedResult } from '../../../core/interfaces/ipagination';
 import { IProductFilter, SortOption } from '../../../core/interfaces/iproduct-filter';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, DecimalPipe],
+  imports: [CommonModule, FormsModule, RouterLink, DecimalPipe, ProductCard],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
@@ -23,6 +25,7 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
 
   private productService  = inject(ProductService);
   private categoryService = inject(CategoryService);
+  private cartService     = inject(CartService);    
   private router          = inject(Router);
   private route           = inject(ActivatedRoute);
 
@@ -32,10 +35,12 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
   isLoadingProducts = signal<boolean>(false);
   errorProducts     = signal<string | null>(null);
 
-  categories          = signal<ICategory[]>([]);
-  isLoadingCategories = signal<boolean>(false);
+  categories = signal<ICategory[]>([]);
 
-  // Sidebar
+ // Cart state
+  addingToCart = signal<number | null>(null);  // holds id being added
+  cartSuccess  = signal<number | null>(null);  // holds id just added (for feedback)
+
   sidebarOpen = signal<boolean>(false);
 
   // Filters
@@ -47,7 +52,7 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
   pageSize          = signal<number>(12);
   includeOutOfStock = signal<boolean>(true);
 
-  // Range filter state (for sliders — ngModel)
+  // Range filters (for ngModel with sliders)
   minPriceInput:  number = 0;
   maxPriceInput:  number = 1000000;
   minWeightInput: number = 0;
@@ -79,7 +84,7 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
     { value: 'popularity',  label: 'Most Popular' },
   ];
 
-  // ── Computed active filters ────────────────────────────────
+  // ── Active filters computed ────────────────────────────────
   activeFilters = computed(() => {
     const f: { label: string; key: string }[] = [];
     if (this.selectedMetalType())
@@ -114,7 +119,7 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
     clearTimeout(this.searchTimeout);
   }
 
-  // ── Query params (from home page category/metal click) ─────
+  // ── Query params ───────────────────────────────────────────
   private readQueryParams(): void {
     this.route.queryParams.subscribe(params => {
       if (params['categoryName']) this.selectedCategory.set(params['categoryName']);
@@ -138,10 +143,13 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
     if (this.searchKeyword())     filter.searchKeyword = this.searchKeyword();
     if (this.selectedMetalType()) filter.metalType     = this.selectedMetalType();
     if (this.selectedCategory())  filter.categoryName  = this.selectedCategory();
-    if (this.selectedPurity())    { filter.minPurity = this.selectedPurity()!; filter.maxPurity = this.selectedPurity()! + 0.001; }
-    if (this.minPriceInput > 0)   filter.minPrice      = this.minPriceInput;
+    if (this.selectedPurity()) {
+      filter.minPurity = this.selectedPurity()!;
+      filter.maxPurity = this.selectedPurity()! + 0.001;
+    }
+    if (this.minPriceInput > 0)       filter.minPrice  = this.minPriceInput;
     if (this.maxPriceInput < 1000000) filter.maxPrice  = this.maxPriceInput;
-    if (this.minWeightInput > 0)  filter.minWeight     = this.minWeightInput;
+    if (this.minWeightInput > 0)      filter.minWeight = this.minWeightInput;
     if (this.maxWeightInput < 1000)   filter.maxWeight = this.maxWeightInput;
 
     this.productService.getProducts(filter).subscribe({
@@ -149,8 +157,7 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
         this.products.set(data.items);
         this.paginationData.set(data);
         this.isLoadingProducts.set(false);
-        // Re-run scroll reveal after new cards render
-        setTimeout(() => this.initScrollReveal(), 100);
+        setTimeout(() => this.initScrollReveal(), 80);
       },
       error: () => {
         this.errorProducts.set('Failed to load products. Please try again.');
@@ -161,8 +168,8 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
 
   private loadCategories(): void {
     this.categoryService.getAllCategories().subscribe({
-      next: data  => this.categories.set(data),
-      error: ()   => {}
+      next: data => this.categories.set(data),
+      error: ()  => {}
     });
   }
 
@@ -186,7 +193,7 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
     this.loadProducts();
   }
 
-  // ── Filters ────────────────────────────────────────────────
+  // ── Filter actions ─────────────────────────────────────────
   onMetalTypeChange(type: string): void {
     this.selectedMetalType.set(this.selectedMetalType() === type ? '' : type);
     this.currentPage.set(1);
@@ -229,12 +236,12 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
 
   removeFilter(key: string): void {
     switch (key) {
-      case 'metalType':    this.selectedMetalType.set('');    break;
-      case 'categoryName': this.selectedCategory.set('');     break;
+      case 'metalType':    this.selectedMetalType.set('');  break;
+      case 'categoryName': this.selectedCategory.set('');   break;
       case 'search':       this.clearSearch(); return;
-      case 'purity':       this.selectedPurity.set(null);     break;
-      case 'minPrice':     this.minPriceInput = 0;            break;
-      case 'maxPrice':     this.maxPriceInput = 1000000;      break;
+      case 'purity':       this.selectedPurity.set(null);   break;
+      case 'minPrice':     this.minPriceInput = 0;          break;
+      case 'maxPrice':     this.maxPriceInput = 1000000;    break;
     }
     this.currentPage.set(1);
     this.loadProducts();
@@ -302,40 +309,46 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
     this.router.navigate(['/products', id]);
   }
 
-  // ── Card tilt effect (from code.html) ──────────────────────
-  onCardTilt(event: MouseEvent): void {
-    const card = event.currentTarget as HTMLElement;
-    const rect = card.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const cx = rect.width  / 2;
-    const cy = rect.height / 2;
-    const rotX = (y - cy) / 20;
-    const rotY = (cx - x) / 20;
-    card.style.transform =
-      `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02,1.02,1.02)`;
+  // ── Card output handlers ───────────────────────────────────
+  onAddToCart(productId: number): void {
+    if (this.addingToCart() !== null) return; // prevent double click
+
+    this.addingToCart.set(productId);
+
+    this.cartService.addToCart(productId, 1).subscribe({
+      next: () => {
+        this.addingToCart.set(null);
+        this.cartSuccess.set(productId);
+
+        // Clear success state after 2s
+        setTimeout(() => {
+          if (this.cartSuccess() === productId)
+            this.cartSuccess.set(null);
+        }, 2000);
+      },
+      error: (err) => {
+        this.addingToCart.set(null);
+        console.error('Failed to add to cart:', err);
+        // TODO: show toast notification
+      }
+    });
   }
 
-  onCardResetTilt(event: MouseEvent): void {
-    const card = event.currentTarget as HTMLElement;
-    card.style.transform =
-      'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+  onAddToFavorite(id: number): void {
+    // TODO: inject WishlistService and toggle
+    console.log('Add to favorite:', id);
   }
 
   // ── Helpers ────────────────────────────────────────────────
-  // getCategoryCode(product: IProductDetails): string {
-  //   const metalCode = product.metalType === 'Gold' ? 'AU' : 'AG';
-  //   const purityStr = Math.round(product.purity * 1000).toString();
-  //   return `#${metalCode}-${purityStr}-${product.id.toString().padStart(2, '0')}`;
-  // }
-
   min(a: number, b: number): number { return Math.min(a, b); }
 
   // ── Scroll reveal ──────────────────────────────────────────
   private initScrollReveal(): void {
     const observer = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }),
-      { threshold: 0.08 }
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('active');
+      }),
+      { threshold: 0.06 }
     );
     document.querySelectorAll('.reveal:not(.active)').forEach(el => observer.observe(el));
   }

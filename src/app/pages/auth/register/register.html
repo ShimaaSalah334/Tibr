@@ -26,6 +26,12 @@
         
         <!-- Integrated Angular form -->
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          @if (formState() === 'error') {
+          <div class="alert alert-danger mb-4">
+            {{ errorMessage() }}
+          </div>
+          }
+
           <div class="row g-3 mb-3">
             <div class="col-12 col-sm-6">
               <label class="form-label text-navy fw-medium" for="firstName">First Name</label>
@@ -38,6 +44,12 @@
                 id="firstName" 
                 placeholder="First Name" 
                 type="text">
+              @if (registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty)) {
+              <div class="invalid-feedback d-block">
+                @if (registerForm.get('firstName')?.hasError('required')) { First name is required. }
+                @else if (registerForm.get('firstName')?.hasError('minlength')) { First name must be at least 2 characters. }
+              </div>
+              }
             </div>
             <div class="col-12 col-sm-6">
               <label class="form-label text-navy fw-medium" for="lastName">Last Name</label>
@@ -50,8 +62,13 @@
                 id="lastName" 
                 placeholder="Last Name" 
                 type="text">
-
-          </div>
+              @if (registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty)) {
+              <div class="invalid-feedback d-block">
+                @if (registerForm.get('lastName')?.hasError('required')) { Last name is required. }
+                @else if (registerForm.get('lastName')?.hasError('minlength')) { Last name must be at least 2 characters. }
+              </div>
+              }
+            </div>
           </div>
 
           <!-- Email field -->
@@ -66,6 +83,12 @@
               id="email" 
               placeholder="example@domain.com" 
               type="email">
+            @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)) {
+            <div class="invalid-feedback d-block">
+              @if (registerForm.get('email')?.hasError('required')) { Email is required. }
+              @else if (registerForm.get('email')?.hasError('email')) { Enter a valid email address. }
+            </div>
+            }
           </div>
           
           <!-- Phone field optimized for RTL -->
@@ -86,6 +109,12 @@
                 <option value="+20" >+20</option>
               </select>
             </div>
+            @if (registerForm.get('phone')?.invalid && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)) {
+            <div class="invalid-feedback d-block">
+              @if (registerForm.get('phone')?.hasError('required')) { Phone number is required. }
+              @else if (registerForm.get('phone')?.hasError('pattern')) { Enter phone digits only. }
+            </div>
+            }
           </div>
           
           <!-- Responsive password fields -->
@@ -101,6 +130,12 @@
                 id="password" 
                 placeholder="••••••••" 
                 type="password">
+              @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)) {
+              <div class="invalid-feedback d-block">
+                @if (registerForm.get('password')?.hasError('required')) { Password is required. }
+                @else if (registerForm.get('password')?.hasError('minlength')) { Password must be at least 8 characters. }
+              </div>
+              }
             </div>
             <div class="col-12 col-sm-6">
               <label class="form-label text-navy fw-medium" for="confirmPassword">Confirm Password</label>
@@ -113,6 +148,11 @@
                 id="confirmPassword" 
                 placeholder="••••••••" 
                 type="password">
+              @if ((registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty) && registerForm.errors?.['mismatch']) {
+              <div class="invalid-feedback d-block">
+                Passwords do not match.
+              </div>
+              }
             </div>
           </div>
           
@@ -123,6 +163,11 @@
               I agree to the <a class="text-gold-dark fw-bold text-decoration-none" href="#">Terms and Conditions</a> and <a class="text-gold-dark fw-bold text-decoration-none" href="#">Privacy Policy</a> of TIBR.
             </label>
           </div>
+          @if (registerForm.get('terms')?.invalid && (registerForm.get('terms')?.touched || registerForm.get('terms')?.dirty)) {
+          <div class="invalid-feedback d-block mb-3">
+            You must accept the terms and conditions.
+          </div>
+          }
           
           <!-- Dynamic submit button supporting loading and success states -->
           <button 

@@ -1,89 +1,137 @@
-<div class="container py-4">
+<div class="checkout-wrapper container-fluid py-5">
   @if (success) {
-    <div class="text-center py-5">
-      <i class="fas fa-check text-success fa-3x"></i>
-      <h3 class="mt-3">Order placed successfully!</h3>
-      <p class="text-muted">Redirecting to payment...</p>
+    <div class="card success-card border-0 p-5 animate-fade-in custom-card">
+      <div class="success-icon-wrapper mb-4">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h3 class="fw-bold mb-2">Order Placed Successfully!</h3>
+      <p class="text-secondary mb-0">Thank you for your purchase. Redirecting you to secure payment gateway...</p>
+      <div class="spinner-grow spinner-grow-sm mt-4" style="color: var(--gold-primary);" role="status"></div>
     </div>
   } @else {
-    <h2 class="mb-4">Checkout</h2>
-
-    <div class="row g-4">
-      <div class="col-lg-8">
-        <div class="card mb-4">
-          <div class="card-header"><strong>Review Items</strong></div>
-          <div class="card-body">
-            @if (cartItems.length === 0) {
-              <p class="text-muted mb-0">Your cart is empty.</p>
-            } @else {
-              <table class="table mb-0">
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th class="text-center">Qty</th>
-                    <th class="text-end">Price</th>
-                    <th class="text-end">Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (item of cartItems; track item.productId) {
-                    <tr>
-                      <td>{{ item.productName }}</td>
-                      <td class="text-center">{{ item.quantity }}</td>
-                      <td class="text-end">{{ item.price | currency }}</td>
-                      <td class="text-end">
-                        {{ item.price * item.quantity | currency }}
-                      </td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            }
-          </div>
-        </div>
-
-        <div class="card mb-4">
-          <div class="card-header"><strong>Shipping Address</strong></div>
-          <div class="card-body">
-            <app-address-form />
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="card position-sticky" style="top: 1rem">
-          <div class="card-header"><strong>Order Summary</strong></div>
-          <div class="card-body">
-            <div class="d-flex justify-content-between mb-2">
-              <span>Subtotal</span>
-              <span>{{ subtotal | currency }}</span>
-            </div>
-            <hr />
-            <div class="d-flex justify-content-between fw-bold fs-5">
-              <span>Total</span>
-              <span>{{ total | currency }}</span>
-            </div>
-            <button
-              class="btn btn-primary w-100 mt-3"
-              (click)="placeOrder()"
-              [disabled]="isSubmitting || cartItems.length === 0"
-            >
-              @if (isSubmitting) {
-                <span
-                  class="spinner-border spinner-border-sm me-1"
-                  role="status"
-                ></span>
-                Processing...
-              } @else {
-                Place Order
-              }
-            </button>
-            @if (error) {
-              <div class="alert alert-danger mt-3 mb-0 py-2">{{ error }}</div>
-            }
-          </div>
-        </div>
-      </div>
+    
+    <div class="checkout-header container max-content-width mb-4">
+      <h2 class="fw-bold mb-1">Checkout</h2>
+      <p class="small">Complete your details to finish your secure transaction.</p>
     </div>
+
+    @if (error()) {
+      <div class="container max-content-width">
+        <div class="alert alert-custom-danger d-flex align-items-center mb-4 shadow-sm" role="alert">
+          <i class="fas fa-exclamation-circle me-3 fs-5"></i>
+          <div>{{ error() }}</div>
+        </div>
+      </div>
+    }
+
+    @if (isLoading()) {
+      <div class="card loader-card text-center p-5 border-0 max-content-width mx-auto custom-card">
+        <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="text-secondary mt-3 mb-0 fw-medium">Assembling your luxury cart items...</p>
+      </div>
+    } @else {
+      
+      <div class="container max-content-width">
+        <div class="row g-4 animate-fade-in">
+          
+          <div class="col-lg-8">
+            
+            <div class="card custom-card border-0 mb-4">
+              <div class="card-header-custom">
+                <i class="fas fa-shopping-bag me-2"></i>
+                <strong>Review Items</strong>
+              </div>
+              <div class="card-body p-0">
+                @if (cartItems().length === 0) {
+                  <div class="p-4 text-center text-secondary">
+                    <i class="fas fa-shopping-cart fa-2x mb-2 opacity-50" style="color: var(--text-muted);"></i>
+                    <p class="mb-0">Your cart is currently empty.</p>
+                  </div>
+                } @else {
+                  <div class="table-responsive">
+                    <table class="table custom-table mb-0 align-middle">
+                      <thead>
+                        <tr>
+                          <th class="ps-4">Product Name</th>
+                          <th class="text-center">Qty</th>
+                          <th class="text-end">Price</th>
+                          <th class="text-end pe-4">Subtotal</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (item of cartItems(); track item.productId) {
+                          <tr>
+                            <td class="fw-medium text-secondary ps-4">{{ item.productName }}</td>
+                            <td class="text-center fw-semibold text-secondary">{{ item.quantity }}</td>
+                            <td class="text-end text-secondary">{{ item.price | currency }}</td>
+                            <td class="text-end text-secondary">
+                              {{ item.price * item.quantity | currency }}
+                            </td>
+                          </tr>
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="card custom-card border-0">
+              <div class="card-header-custom">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                <strong>Shipping Address</strong>
+              </div>
+              <div class="card-body p-4">
+                <app-address-form />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card custom-card sticky-sidebar border-0">
+              <div class="card-header-custom">
+                <i class="fas fa-receipt me-2"></i>
+                <strong>Order Summary</strong>
+              </div>
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between mb-3 text-secondary fs-6">
+                  <span>Subtotal</span>
+                  <span class="fw-medium text-secondary">{{ subtotal | currency }}</span>
+                </div>
+                
+                <div class="summary-divider mb-3"></div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <span class="fw-bold text-dark fs-5">Total</span>
+                  <span class="fw-extrabold text-primary fs-4">{{ total | currency }}</span>
+                </div>
+                
+                <button
+                  class="btn btn-checkout-primary btn-lg w-100 py-3 border-0 position-relative overflow-hidden"
+                  (click)="placeOrder()"
+                  [disabled]="isSubmitting || cartItems().length === 0"
+                >
+                  @if (isSubmitting) {
+                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Processing Transaction...
+                  } @else {
+                    <span class="btn-text">Place Order</span>
+                    <i class="fas fa-arrow-right ms-2 transition-icon"></i>
+                  }
+                </button>
+                
+                <div class="d-flex justify-content-center align-items-center gap-2 mt-3 text-secondary text-center" style="font-size: 0.78rem;">
+                  <i class="fas fa-lock" style="color: #22c55e;"></i>
+                  <span>SSL Encrypted Secured Checkout</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    }
   }
 </div>

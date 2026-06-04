@@ -45,7 +45,7 @@ export class ProductCard {
   // e.g. #AU-999-03
   get skuCode(): string {
   const metalCode = this.isGold ? 'AU' : 'AG';
-  return `#${metalCode}-${this.product().weight}G-${this.product().id.toString().padStart(2, '0')}`;
+  return `#${metalCode}-${this.product().weight}G-${this.product().id}`;
 }
 
   // ── Actions ───────────────────────────────────────────────

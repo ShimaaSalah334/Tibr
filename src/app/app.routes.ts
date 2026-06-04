@@ -12,6 +12,8 @@ import { OrdersListComponent } from './pages/protected/orders/orders-list.compon
 import { OrderDetailsComponent } from './pages/protected/orders/order-details.component';
 import { CheckoutComponent } from './pages/protected/checkout/checkout.component';
 import { CartComponent } from './pages/protected/cart/cart.component';
+import { Favorite } from './pages/protected/favorite/favorite/favorite';
+import { PaymentCallbackComponent } from './pages/protected/payment-callback-component/payment-callback-component';
 
 export const routes: Routes = [
   {
@@ -21,7 +23,8 @@ export const routes: Routes = [
   },
   { path: 'products', component: Products },
   { path: 'products/:id', component: ProductDetails },
-  { path: 'cart', component: CartComponent, pathMatch: 'full' },
+  { path: 'cart', component: CartComponent },
+  { path: 'wishlist', component: Favorite },
   // { path: 'dashboard', redirectTo: '' },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
@@ -32,5 +35,9 @@ export const routes: Routes = [
   { path: 'orders', component: OrdersListComponent },
   { path: 'orders/:id', component: OrderDetailsComponent },
   { path: 'checkout', component: CheckoutComponent },
+  {
+  path: 'payment/callback/response',
+  component: PaymentCallbackComponent
+},
   { path: '**', redirectTo: '' }
 ];

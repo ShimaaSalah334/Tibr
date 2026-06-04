@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+/* --- الألوان الافتراضية ومتغيرات القالب الفاخر --- */
+:host {
+  --font-display: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  
+  --bg-dark: #07090e;
+  --gold-primary: #d4af37;
+  --gold-bright: #f3e5ab;
+  --gold-dark: #aa7c11;
+  
+  --glass-bg: rgba(15, 23, 42, 0.45);
+  --glass-border: rgba(212, 175, 55, 0.08);
+  --glass-border-hover: rgba(212, 175, 55, 0.22);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+/* --- الهيكل العام والخطوط --- */
+.order-details-wrapper {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.max-content-width {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+/* زر العودة المخصص الفخم */
+.btn-back-luxury {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-back-luxury:hover {
+  color: var(--gold-primary);
+  border-color: var(--gold-primary);
+  background: rgba(214, 175, 55, 0.02);
+}
+
+/* العناوين الرئيسية */
+.order-meta-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-primary);
+  display: block;
+}
+
+.order-title-luxury {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-main);
+}
+
+/* --- بطاقات التأثير الزجاجي (Glassmorphism) --- */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  transition: border-color 0.4s ease;
+}
+
+.glass-card:hover {
+  border-color: var(--glass-border-hover);
+}
+
+.card-header-custom {
+  background-color: rgba(255, 255, 255, 0.02);
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 1.05rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+}
+
+.card-header-custom i {
+  color: var(--gold-primary);
+}
+
+/* الفواصل الفاخرة */
+.summary-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.15) 0%, rgba(255,255,255,0.01) 100%);
+  border: none;
+}
+
+/* البنية الفوقية لمعلومات الفاتورة */
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.meta-icon {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+.meta-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.meta-value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+/* --- الجزء المالي والأزرار الجانبية --- */
+.sticky-sidebar {
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+}
+
+.bg-black-opacity {
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.total-amount-luxury {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px rgba(243, 229, 171, 0.25);
+}
+
+/* أزرار التحكم والعمليات */
+.btn-cancel-luxury {
+  background: transparent;
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  color: #f43f5e;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel-luxury:hover {
+  background: rgba(244, 63, 94, 0.08);
+  border-color: #f43f5e;
+  color: #ff4e6e;
+}
+
+.btn-secondary-luxury {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-main);
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary-luxury:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* --- صناديق الإشعارات والتنبيهات المخصصة --- */
+.alert-custom-success {
+  background-color: rgba(34, 197, 94, 0.06);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.15) !important;
+  border-left: 4px solid #22c55e !important;
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+}
+
+.alert-custom-danger {
+  background-color: rgba(244, 63, 94, 0.06);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.15) !important;
+  border-left: 4px solid #f43f5e !important;
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+}
+
+.btn-close-custom {
+  background: transparent;
+  border: none;
+  color: inherit;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.btn-close-custom:hover {
+  opacity: 1;
+}
+
+.btn-retry-luxury {
+  background-color: transparent;
+  border: 1px solid #f43f5e;
+  color: #f43f5e;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.35rem 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.btn-retry-luxury:hover {
+  background-color: #f43f5e;
+  color: #ffffff;
+}
+
+/* واجهة العرض الفارغة */
+.empty-details-container {
+  padding: 4rem 2rem;
+  max-width: 600px;
+  margin: 3rem auto;
+}
+
+.text-gold-glow {
+  color: var(--gold-primary);
+  filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
+}
+
+.btn-luxury-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+  color: #07090e;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-luxury-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.4);
+  color: #07090e;
+}
+
+.text-muted-custom {
+  color: var(--text-muted);
+}
+
+/* --- حركات التمرير والظهور الأنيميشن --- */
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

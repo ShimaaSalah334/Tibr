@@ -1,0 +1,357 @@
+/* --- إعداد المتغيرات المخصصة داخل النطاق --- */
+:host {
+  --gold:         #f2ca50;
+  --gold-rich:    #D4AF37;
+  --gold-dim:     rgba(212,175,55,0.15);
+  --gold-glow:    0 0 24px rgba(212,175,55,0.25);
+  --silver:       #C0C0C0;
+  --bg:           #0a0a0a;
+  --bg-card:      rgba(17,17,17,0.85);
+  --bg-input:     #161616;
+  --border:       rgba(255,255,255,0.08);
+  --border-gold:  rgba(212,175,55,0.3);
+  --text:         #e5e2e1;
+  --text-dim:     #a0a0a0;
+  --success:      #10B981;
+  --danger:       #EF4444;
+  --warning:      #f59e0b;
+  
+  --radius-sm:    8px;
+  --radius-md:    14px;
+  --radius-lg:    20px;
+  --transition:   all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  display: block;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Geist', 'Hanken Grotesk', sans-serif;
+  min-height: 100vh;
+}
+
+/* الحاوية الكلية للصفحة */
+.favorite-page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* --- الهيدر (رأس الصفحة) --- */
+.favorite-header {
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--gold-dim);
+  color: var(--gold);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  border: 1px solid rgba(242, 202, 80, 0.2);
+}
+
+.section-title-sm {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.section-desc {
+  color: var(--text-dim);
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* --- شبكة الكروت (Grid System) --- */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+/* --- كارت المنتج الفاخر (Favorite Card) --- */
+.favorite-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px); /* تأثير الزجاج الضبابي الفخم */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeInUp 0.5s forwards ease-out;
+}
+
+/* تأثير الحوم فوق الكارت */
+.favorite-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-gold);
+  box-shadow: var(--gold-glow);
+}
+
+/* صورة الكارت */
+.favorite-card-image {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background-color: var(--bg-input);
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.favorite-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.favorite-card:hover .favorite-card-image img {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* تفاصيل الكارت من الداخل */
+.favorite-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.favorite-card-header {
+  margin-bottom: 20px;
+}
+
+.favorite-card-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+  height: 2.8em;
+}
+
+.favorite-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gold); /* السعر بالذهبي المشرق */
+  display: block;
+}
+
+/* أزرار التحكم والعمليات */
+.favorite-card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.btn-details, .btn-fav {
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+/* زر عرض التفاصيل الفضي الفخم */
+.btn-details {
+  background-color: var(--bg-input);
+  color: var(--silver);
+  border: 1px solid var(--border);
+  flex-grow: 2;
+}
+
+.btn-details:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: var(--silver);
+}
+
+/* زر الحذف من المفضلة */
+.btn-fav.remove {
+  background-color: transparent;
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  flex-grow: 1;
+}
+
+.btn-fav.remove:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--danger);
+}
+
+/* --- حالة تحميل الصفحة (Skeleton Loader) الداكن --- */
+.product-skeleton {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 200px;
+  background-color: var(--bg-input);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-text {
+  background-color: var(--bg-input);
+  border-radius: var(--radius-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-text.title {
+  width: 80%;
+  height: 22px;
+  margin-top: 16px;
+}
+
+.skeleton-text.price {
+  width: 45%;
+  height: 18px;
+  margin-top: 12px;
+}
+
+/* وميض متناسق مع الخلفية الداكنة */
+.skeleton-image::after, .skeleton-text::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+  animation: shimmer 1.6s infinite linear;
+}
+
+/* --- حالة الصفحة فارغة (Empty State) --- */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-gold);
+  max-width: 480px;
+  margin: 60px auto;
+  box-shadow: var(--gold-glow);
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  color: var(--gold-rich);
+  margin-bottom: 24px;
+  animation: pulseHeart 2s infinite ease-in-out;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+
+.empty-state p {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 28px 0;
+}
+
+/* زر التصفح الذهبي بالكامل */
+.btn-browse {
+  background-color: var(--gold-rich);
+  color: var(--bg);
+  border: none;
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.btn-browse:hover {
+  background-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: var(--gold-glow);
+}
+
+/* --- حالة الخطأ (Error State) --- */
+.error-state {
+  text-align: center;
+  padding: 40px 20px;
+  max-width: 400px;
+  margin: 60px auto;
+}
+
+.error-icon {
+  font-size: 3rem;
+  color: var(--danger);
+  margin-bottom: 16px;
+}
+
+.error-message {
+  color: var(--text-dim);
+  margin: 0 0 24px 0;
+}
+
+.btn-retry {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.btn-retry:hover {
+  background: var(--danger);
+  color: #ffffff;
+}
+
+/* --- الأنيميشن (Animations) --- */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseHeart {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 12px var(--gold-rich)); }
+}

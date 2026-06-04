@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_ENDPOINTS } from '../constants/api_endpoints';
 
 export interface BackendCategory {
   id: number;
@@ -9,16 +10,14 @@ export interface BackendCategory {
 
 export interface BackendProduct {
   id: number;
-  categoryId: number;
   name: string;
-  metalType: number; // 0 for Gold, 1 for Silver
+  metalType: string; // "Gold" or "Silver"
   purity: number;
   weight: number;
   sellPrice: number;
+  imageUrl: string;
   stock: number;
-  category?: BackendCategory;
 }
-
 export interface BackendCartItem {
   id: number;
   cartId: number;
@@ -28,26 +27,53 @@ export interface BackendCartItem {
   product: BackendProduct;
 }
 
+export interface BackendCartResponse {
+  userId: number;
+  cartItems: BackendCartItem[];
+  totalAmount: number;
+}
+
+export interface AddToCartDto {
+  productId: number;
+  quantity: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'https://localhost:7231/api/Cart';
 
-  getCartItems(): Observable<BackendCartItem[]> {
-    return this.http.get<BackendCartItem[]>(this.baseUrl);
+  getCartItems(): Observable<BackendCartResponse> {
+    return this.http.get<BackendCartResponse>(API_ENDPOINTS.cart.getAll, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`
+      }
+    });
   }
 
-  addToCart(productId: number, quantity: number): Observable<BackendCartItem> {
-    return this.http.post<BackendCartItem>(this.baseUrl, { productId, quantity });
+  addToCart(productId: number, quantity: number): Observable<BackendCartResponse> {
+    const dto: AddToCartDto = { productId, quantity };
+    return this.http.post<BackendCartResponse>(API_ENDPOINTS.cart.addItem, dto, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`
+      }
+    });
   }
 
-  updateCartItem(id: number, quantity: number): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${id}`, { id, quantity });
+  removeCartItem(cartItemId: number): Observable<BackendCartResponse> {
+    return this.http.delete<BackendCartResponse>(API_ENDPOINTS.cart.removeItem(cartItemId), {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`
+      }
+    });
   }
 
-  deleteCartItem(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  clearCart(): Observable<void> {
+    return this.http.delete<void>(API_ENDPOINTS.cart.clear, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`
+      }
+    });
   }
 }

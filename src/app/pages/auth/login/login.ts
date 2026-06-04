@@ -29,6 +29,13 @@ export class Login {
       password: ['', [Validators.required]],
       remember: [false]
     });
+
+    this.loginForm.valueChanges.subscribe(() => {
+      if (this.formState() === 'error') {
+        this.formState.set('idle');
+        this.errorMessage.set(null);
+      }
+    });
   }
 
   togglePasswordView(): void {
@@ -36,7 +43,7 @@ export class Login {
   }
 
   onSubmit(): void {
-    if (!this.loginForm.valid || this.formState() !== 'idle') {
+    if (!this.loginForm.valid || this.formState() === 'loading') {
       this.loginForm.markAllAsTouched();
       return;
     }

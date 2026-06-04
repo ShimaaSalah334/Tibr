@@ -1,0 +1,84 @@
+/* --- حقول الإدخال الفاخرة للنموذج --- */
+.luxury-form {
+  position: relative;
+}
+
+.form-group-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* تصميم العناوين فوق الحقول */
+.luxury-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+/* حاوية الحقل لإضافة الأيقونة داخلها */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* الأيقونات الجانبية داخل الحقول */
+.input-icon {
+  position: absolute;
+  left: 1.25rem;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.95rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* تصميم الحقل نفسه بالتأثير الزجاجي المستدق */
+.luxury-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 0.9rem 1rem 0.9rem 2.8rem; /* مسافة إضافية من اليسار للأيقونة */
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* نصوص التلميح المسبق Placeholder */
+.luxury-input::placeholder {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* --- التأثير التفاعلي الساحر عند الضغط داخل الحقل (Focus) --- */
+.luxury-input:focus {
+  border-color: var(--gold-primary);
+  background: rgba(214, 175, 55, 0.02);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.08), 
+              inset 0 0 8px rgba(212, 175, 55, 0.03);
+}
+
+/* تغيير لون العنوان والأيقونة عند تفعيل الحقل */
+.form-group-custom:focus-within .luxury-label {
+  color: var(--gold-bright);
+}
+
+.form-group-custom:focus-within .input-icon {
+  color: var(--gold-primary);
+  transform: scale(1.05);
+}
+
+/* تحسين استجابة الأنيميشن عند التحميل */
+.animate-fade-in {
+  animation: fadeInForm 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInForm {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

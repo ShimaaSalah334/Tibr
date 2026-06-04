@@ -235,26 +235,20 @@
       @if (!isLoadingNewest() && newestProducts().length > 0) {
     <div class="showcase-scroll px-main" >
        @for (product of newestProducts(); track product.id; let i = $index) {
-      <div
+        <div
         class="showcase-card magnetic-card"
-        [class.reveal]="true"
         [style.transition-delay]="(i * 80) + 'ms'"
         (click)="goToProductDetails(product.id)"
         (mousemove)="onCardMouseMove($event)"
         (mouseleave)="onCardMouseLeave($event)"
       >
-        <!-- Image -->
+        <div class="popular-crown">
+          <i class="fa-solid fa-fire"></i> newest
+        </div>
         <div class="showcase-img-wrap">
-          <img
-            [src]="product.imageUrl || 'assets/images/placeholder.png'"
-            [alt]="product.name"
-            class="showcase-img"
-            loading="lazy"
-          />
+          <img [src]="product.imageUrl || 'assets/images/placeholder.png'" [alt]="product.name" class="showcase-img" loading="lazy"/>
           <div class="showcase-img-overlay"></div>
         </div>
-
-        <!-- Info -->
         <div class="showcase-info">
           <div class="showcase-info-top">
             <h5 class="showcase-name">{{ product.name }}</h5>
@@ -262,35 +256,19 @@
               {{ product.metalType === 'Gold' ? '999.9 Au' : '999.0 Ag' }}
             </span>
           </div>
-          <p class="showcase-desc">
-            {{ product.categoryName }} · {{ product.weight }}g ·
-            {{ product.metalType === 'Gold' ? 'Gold' : 'Silver' }} bullion at live market price
-          </p>
+          <p class="showcase-desc">{{ product.categoryName }} · {{ product.weight }}g</p>
           <div class="showcase-prices">
-            <div class="sp-row">
+            <!-- <div class="sp-row">
               <span class="sp-label">Buy</span>
               <span class="sp-val gold-text">{{ product.buyPrice | number:'1.0-0' }} EGP</span>
-              @if (product.metalType === 'Gold') {
-  <span class="sp-change up">
-    <i class="fa-solid fa-caret-up"></i>
-    +1.18%
-  </span>
-} @else {
-  <span class="sp-change down">
-    <i class="fa-solid fa-caret-down"></i>
-    -0.12%
-  </span>
-}
-            </div>
+            </div> -->
             <div class="sp-row">
               <span class="sp-label">Sell</span>
               <span class="sp-val silver-text">{{ product.sellPrice | number:'1.0-0' }} EGP</span>
             </div>
           </div>
-          <button class="btn-showcase-outline btn-liquid"
-                  [disabled]="product.stock === 0"
-                  (click)="goToProductDetails(product.id); $event.stopPropagation()">
-            {{ product.stock === 0 ? 'Out of Stock' : 'View Details' }}
+          <button class="btn-showcase-outline btn-liquid" (click)="goToProductDetails(product.id); $event.stopPropagation()">
+            View Details
           </button>
         </div>
       </div>
@@ -317,12 +295,12 @@
           <h2 class="section-title-sm">Choose Your Investment</h2>
         </div>
       </div>
-
+          
       @if (!isLoadingCategories()) {
       <div class="categories-grid">
         @for (cat of categories(); track cat.id; let i = $index) {
         <div
-          class="category-card magnetic-card reveal"
+          class="category-card magnetic-card"
           [style.transition-delay]="(i * 80) + 'ms'"
           (click)="goToProductsByCategory(cat.name)"
           (mousemove)="onCardMouseMove($event)"

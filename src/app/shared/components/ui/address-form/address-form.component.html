@@ -1,22 +1,55 @@
-<form [formGroup]="form">
-  <div class="mb-3">
-    <label for="street" class="form-label">Street</label>
-    <input id="street" type="text" class="form-control" formControlName="street" />
+<form [formGroup]="form" class="luxury-form animate-fade-in">
+  
+  <div class="form-group-custom mb-4">
+    <label for="street" class="luxury-label">Street Address</label>
+    <div class="input-wrapper">
+      <i class="fas fa-road input-icon"></i>
+      <input id="street" type="text" class="luxury-input" formControlName="street" placeholder="e.g. 123 El Horreya St." />
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="city" class="form-label">City</label>
-    <input id="city" type="text" class="form-control" formControlName="city" />
+
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <div class="form-group-custom">
+        <label for="city" class="luxury-label">City</label>
+        <div class="input-wrapper">
+          <i class="fas fa-city input-icon"></i>
+          <input id="city" type="text" class="luxury-input" formControlName="city" placeholder="e.g. Cairo" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="form-group-custom">
+        <label for="state" class="luxury-label">State / Region</label>
+        <div class="input-wrapper">
+          <i class="fas fa-map input-icon"></i>
+          <input id="state" type="text" class="luxury-input" formControlName="state" placeholder="e.g. Giza" />
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="state" class="form-label">State</label>
-    <input id="state" type="text" class="form-control" formControlName="state" />
+
+  <div class="row g-4">
+    <div class="col-md-6">
+      <div class="form-group-custom">
+        <label for="zip" class="luxury-label">ZIP / Postal Code</label>
+        <div class="input-wrapper">
+          <i class="fas fa-mail-bulk input-icon"></i>
+          <input id="zip" type="text" class="luxury-input" formControlName="zip" placeholder="e.g. 11511" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="form-group-custom">
+        <label for="country" class="luxury-label">Country</label>
+        <div class="input-wrapper">
+          <i class="fas fa-globe input-icon"></i>
+          <input id="country" type="text" class="luxury-input" formControlName="country" placeholder="e.g. Egypt" />
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="zip" class="form-label">ZIP Code</label>
-    <input id="zip" type="text" class="form-control" formControlName="zip" />
-  </div>
-  <div class="mb-3">
-    <label for="country" class="form-label">Country</label>
-    <input id="country" type="text" class="form-control" formControlName="country" />
-  </div>
+
 </form>

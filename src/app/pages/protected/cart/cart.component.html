@@ -1,177 +1,131 @@
-<div class="container-fluid content-container px-4 px-lg-5">
-  <!-- البانر الخاص بالتراجع عن الحذف (Undo) -->
-  @if (recentlyRemovedItem) {
-    <div class="row mb-4 animate-fade-in">
-      <div class="col-12">
-        <div class="glass-card undo-toast-banner rounded-4">
-          <div class="toast-content">
-            <div class="toast-icon-wrapper">
-              <i class="fa-solid fa-arrow-rotate-left text-gold"></i>
-            </div>
-            <span class="toast-text">
-              Removed <strong>{{ recentlyRemovedItem.name }}</strong> from your vault.
-            </span>
-          </div>
-          <button class="btn-undo-action" (click)="undoRemove()">Undo</button>
-        </div>
-      </div>
+﻿<div class="luxury-bg-wrapper">
+  <div class="ambient-glow glow-gold"></div>
+  <div class="ambient-glow glow-navy"></div>
+
+  <section class="content-container">
+    <nav class="breadcrumb-nav">
+      <a routerLink="/" class="breadcrumb-link">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Cart</span>
+    </nav>
+
+    <h1 class="luxury-title">Shopping Cart</h1>
+    <p class="luxury-subtitle">Review your selected luxury metals and proceed to a secure checkout.</p>
+
+    <div *ngIf="error()" class="glass-card summary-card animate-fade-in" style="margin-bottom: 1.5rem;">
+      <p class="text-danger-muted">{{ error() }}</p>
     </div>
-  }
 
-  @if (cartItems.length > 0) {
-    <div class="row g-4">
-      <!-- العمود الأيسر: عناصر السلة والمنتجات المحفوظة -->
-      <div class="col-xl-8 col-lg-7">
-        <div class="items-list-container">
-          @for (item of cartItems; track item.id) {
-            <div class="cart-item-row glass-card animate-fade-in">
-              
-              <!-- 1. نموذج سبيكة المعدن ثلاثية الأبعاد (Pure CSS 3D Model) -->
-              <div class="metal-visual-column">
-                <!-- نستخدم toLowerCase() لضمان عدم تأثر الكود بحالة الأحرف القادمة من الـ API -->
-                @if (item.metalType?.toLowerCase() === 'gold') {
-                  <div class="metal-bar-3d gold-bar-gradient">
-                    <div class="bar-shine"></div>
-                    <span class="bar-brand">TIBR</span>
-                    <span class="bar-spec">{{ item.weight ? item.weight + 'g' : '10g' }}</span>
-                    <span class="bar-metal">GOLD</span>
-                    <span class="bar-purity">999.9</span>
-                  </div>
-                } @else {
-                  <div class="metal-bar-3d silver-bar-gradient">
-                    <div class="bar-shine"></div>
-                    <span class="bar-brand">TIBR</span>
-                    <span class="bar-spec">{{ item.weight ? item.weight + 'g' : '1Kg' }}</span>
-                    <span class="bar-metal">SILVER</span>
-                    <span class="bar-purity">999.0</span>
-                  </div>
-                }
-              </div>
+    <div *ngIf="info()" class="glass-card summary-card animate-fade-in" style="margin-bottom: 1.5rem;">
+      <p class="text-gold">{{ info() }}</p>
+    </div>
 
-              <!-- 2. تفاصيل المنتج والتحكم (مفتوحة لجميع المنتجات دون شروط معقدة) -->
-              <div class="flex-grow-1 d-flex flex-column gap-2">
-                <div class="d-flex justify-content-between align-items-start gap-3 flex-wrap">
-                  <div>
-                    <span class="metal-badge" [ngClass]="item.metalType?.toLowerCase() === 'gold' ? 'badge-gold' : 'badge-silver'">
-                      {{ item.category || 'Precious Metal' }}
-                    </span>
-                    <h3 class="product-name mb-1">{{ item.name }}</h3>
-                    <div class="purity-sku-row">
-                      <span>Purity: {{ item.purity || '999.9' }}</span>
-                      <div class="divider-dot"></div>
-                      <span>SKU: {{ item.sku || 'TBR-MET-01' }}</span>
-                    </div>
-                  </div>
-                  
-                  <!-- حساب الأسعار والعملة -->
-                  <div class="price-block text-end">
-                    <div class="item-unit-price">EGP {{ item.price | number:'1.0-2' }}</div>
-                    <div class="item-total-price">Total: EGP {{ (item.price * item.quantity) | number:'1.0-2' }}</div>
-                  </div>
-                </div>
-
-                <!-- أزرار التحكم في الكمية والإجراءات السريعة -->
-                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-3 pt-3 border-top-glass">
-                  <div class="qty-selector-glass">
-                    <button class="qty-btn" [disabled]="item.quantity <= 1" (click)="decrementQuantity(item)">
-                      <i class="fa-solid fa-minus"></i>
-                    </button>
-                    <input type="text" class="qty-input" [value]="item.quantity" readonly>
-                    <button class="qty-btn" [disabled]="item.quantity >= 99" (click)="incrementQuantity(item)">
-                      <i class="fa-solid fa-plus"></i>
-                    </button>
-                  </div>
-
-                  <div class="action-buttons-group">
-                    <button class="action-btn btn-save" (click)="moveToSaved(item)">
-                      <i class="fa-regular fa-bookmark me-2 text-gold-muted"></i>Save for later
-                    </button>
-                    <div class="action-divider"></div>
-                    <button class="action-btn btn-remove" (click)="removeItem(item)">
-                      <i class="fa-regular fa-trash-can me-2 text-danger-muted"></i>Remove
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          }
-        </div>
+    <div *ngIf="!isLoading() && !error() && !hasItems" class="glass-card empty-cart-container animate-fade-in">
+      <div class="empty-icon-vault">
+        <i class="fa-solid fa-sack-dollar fa-2x text-gold-glow"></i>
       </div>
+      <h2 class="empty-title">Your cart is empty</h2>
+      <p class="empty-description">
+        Discover premium gold and silver pieces, then add them to your cart for a seamless, luxury checkout experience.
+      </p>
+      <a routerLink="/products" class="btn-luxury-primary">Continue shopping</a>
+    </div>
 
-      <!-- العمود الأيمن: ملخص الطلب + أسعار السوق المباشرة -->
-      <div class="col-xl-4 col-lg-5 position-relative">
-        <div class="sidebar-wrapper d-flex flex-column gap-4">
-          <!-- كارت الحسابات والملخص -->
-          <div class="glass-card summary-card animate-fade-in">
-            <h2 class="summary-header">Order Summary</h2>
-            <div class="summary-divider my-3"></div>
-            
-            <div class="summary-row">
-              <span class="summary-label">Subtotal</span>
-              <span class="summary-value">EGP {{ getSubtotal() | number:'1.0-2' }}</span>
-            </div>
-            <div class="summary-row">
-              <span class="summary-label">
-                Vault Vaulting Fee
-                <span class="info-tooltip-badge" title="Insured luxury vault storage fee">?</span>
-              </span>
-              <span class="summary-value text-gold-accent">FREE</span>
-            </div>
-            <div class="summary-row">
-              <span class="summary-label">Estimated VAT (14%)</span>
-              <span class="summary-value">EGP {{ getVat() | number:'1.0-2' }}</span>
-            </div>
-            
-            <div class="summary-divider my-4"></div>
-            
-            <div class="summary-row row-total">
-              <span class="total-label">Total Amount</span>
-              <div class="total-price-block">
-                <span class="total-value-egp">EGP {{ getTotal() | number:'1.0-2' }}</span>
-                <span class="vat-inclusive-sub">Inclusive of all taxes</span>
-              </div>
-            </div>
-            
-            <button class="btn-checkout-luxury w-100 py-3 mt-3" (click)="proceedToCheckout()">
-              <div class="btn-content-inner">
-                <i class="fa-solid fa-shield-halved me-2 lock-icon-shift"></i>
-                Secure Vault Checkout
-              </div>
-              <div class="btn-glare"></div>
+    <div *ngIf="isLoading() && !error()" class="glass-card empty-cart-container animate-fade-in">
+      <p class="empty-description">Loading your cart items…</p>
+    </div>
+
+    <div *ngIf="hasItems" class="animate-fade-in cart-layout-grid">
+      
+      <div class="glass-card items-list-main-container">
+        <div class="cart-header-actions">
+          <div class="cart-badge-container">
+            <span class="badge-label">In Cart</span>
+            <span class="badge-value">{{ itemCount }}</span>
+          </div>
+
+          <div class="action-buttons-group">
+            <button class="action-btn" (click)="clearCart()" [disabled]="isClearing()">
+              <span *ngIf="!isClearing()">Clear cart</span>
+              <span *ngIf="isClearing()">Clearing...</span>
             </button>
+            <a routerLink="/products" class="action-btn">Continue shopping</a>
           </div>
+        </div>
 
-          <!-- أدوات الضمان والأمان -->
-          <div class="secure-guarantee-badges px-2">
-            <div class="guarantee-badge">
-              <i class="fa-solid fa-ribbon badge-icon"></i>
-              <span>All metals are certified 24K / 999.9 pure and stamped by the Egyptian Assay Authority.</span>
+        <div class="items-rows-wrapper">
+          <div *ngFor="let item of cart()?.cartItems; trackBy: trackByCartItem" class="cart-item-row">
+            
+            <div class="metal-visual-column">
+              <div class="metal-bar-3d"
+                [class.gold-bar-gradient]="item.product.metalType === 'Gold'"
+                [class.silver-bar-gradient]="item.product.metalType === 'Silver'">
+                <span class="metal-label-text">{{ item.product.metalType }}</span>
+                <span class="rate-price">{{ item.product.weight }}g</span>
+              </div>
             </div>
-            <div class="guarantee-badge">
-              <i class="fa-solid fa-truck-ramp-box badge-icon"></i>
-              <span>Fully insured armored transport delivery or physical pickup from partner bank vaults.</span>
+
+            <div class="item-details-column">
+              <p class="saved-category">{{ item.product.purity }}K • {{ item.product.stock }} available</p>
+              <h3 class="saved-name">{{ item.product.name }}</h3>
+              
+              <div class="item-pricing-meta">
+                <p class="metal-label-text">Unit price: <span>{{ item.unitPrice | currency:'EGP':'symbol':'1.0-0' }}</span></p>
+                <p class="metal-label-text">Quantity: <span>{{ item.quantity }}</span></p>
+                <p class="metal-label-text highlight-total">Total: <span>{{ getItemTotal(item) | currency:'EGP':'symbol':'1.0-0' }}</span></p>
+              </div>
+
+              <div class="action-buttons-group" style="margin-top: 1.2rem; gap: 0.75rem;">
+                <button
+                  class="action-btn btn-remove"
+                  type="button"
+                  (click)="removeItem(item.id)"
+                  [disabled]="removingItemId() === item.id">
+                  <i class="fa-solid fa-trash-can"></i>
+                  <span>{{ removingItemId() === item.id ? 'Removing...' : 'Remove' }}</span>
+                </button>
+                <button class="action-btn btn-save" type="button" (click)="viewProduct(item.productId)">
+                  View product
+                </button>
+              </div>
             </div>
+
           </div>
         </div>
       </div>
-    </div>
-  } @else {
-    <!-- واجهة السلة الفارغة المتميزة -->
-    <div class=" mt-5 row justify-content-center animate-fade-in">
-      <div class="col-md-6 text-center glass-card ">
-        <div class="d-flex flex-direction-column align-items-center p-3 rounded-4 gap-3">
-          <div class="empty-icon-vault mb-4">
-            <i class="fa-solid fa-vault fa-3x gold-text-glow"></i>
-          </div>
-          <h3 class="empty-title">Your Digital Vault is Empty</h3>
-        </div>
-          <p class="empty-description mb-4 mx-auto">You haven't allocated any precious metals to your investment basket yet.</p>
 
-         <a routerLink="/marketplace" class="btn btn-luxury-primary px-4 py-2.5 mb-5">
-            Explore Precious Metals
-          </a>
-      </div>
+      <aside class="summary-card glass-card sidebar-wrapper">
+        <div class="summary-header">Order summary</div>
+        <div class="summary-divider" style="margin: 1rem 0 1.25rem;"></div>
+
+        <div class="summary-row">
+          <span class="summary-label">Items</span>
+          <span class="summary-value">{{ itemCount }} pieces</span>
+        </div>
+
+        <div class="summary-row">
+          <span class="summary-label">Subtotal</span>
+          <span class="summary-value text-gold-accent">{{ subtotal | currency:'EGP':'symbol':'1.0-0' }}</span>
+        </div>
+
+        <div class="summary-row row-total">
+          <span class="total-label">Total</span>
+          <span class="total-value-egp">{{ subtotal | currency:'EGP':'symbol':'1.0-0' }}</span>
+        </div>
+
+        <p class="vat-inclusive-sub">Taxes and duties are calculated at checkout.</p>
+
+        <button class="btn-checkout-luxury" type="button" (click)="checkout()" [disabled]="!hasItems">
+          <span class="btn-content-inner">Proceed to Checkout</span>
+          <span class="btn-glare"></span>
+        </button>
+
+        <div class="secure-guarantee-badges" style="margin-top: 1.5rem;">
+          <div class="guarantee-badge"><span class="badge-icon">✓</span> Secure checkout</div>
+          <div class="guarantee-badge"><span class="badge-icon">✓</span> Premium customer support</div>
+        </div>
+      </aside>
+
     </div>
-  }
+  </section>
 </div>

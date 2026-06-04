@@ -63,7 +63,7 @@
       </div>
 
       <!-- Thumbnail strip (static UI placeholders) -->
-      <div class="pd-thumbnails">
+      <!-- <div class="pd-thumbnails">
         <div class="pd-thumb active">
           <img [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'" [alt]="product()!.name" />
         </div>
@@ -76,7 +76,7 @@
         <div class="pd-thumb">
           <img [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'" [alt]="product()!.name" />
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- ── RIGHT: Details Panel ── -->
@@ -97,7 +97,7 @@
 
       <!-- Price cards -->
       <div class="pd-prices">
-        <div class="pd-price-card glass-card gold-border">
+        <!-- <div class="pd-price-card glass-card gold-border">
           <div class="price-label">
             <span>Buy Price</span>
             <i class="fa-solid fa-arrow-trend-up gold-text"></i>
@@ -106,7 +106,7 @@
             {{ product()!.buyPrice | number:'1.0-0' }}
             <span class="price-currency">EGP</span>
           </div>
-        </div>
+        </div> -->
         <div class="pd-price-card glass-card">
           <div class="price-label">
             <span>Sell Price</span>
@@ -180,16 +180,29 @@
           <i class="fa-solid fa-cart-plus"></i>
           Add to Cart
         </button>
-        <button class="btn-buy-now"
+        <!-- <button class="btn-buy-now"
                 [disabled]="isOutOfStock()"
                 (click)="buyNow()">
           <i class="fa-solid fa-bolt"></i>
           Buy Now
-        </button>
+        </button> -->
         <button class="btn-fav" (click)="toggleFavorite()" [class.active]="isFavorite()">
           <i [class]="isFavorite() ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
         </button>
       </div>
+
+      @if (cartSuccess()) {
+      <div class="pd-cart-toast toast-success">
+        <i class="fa-solid fa-circle-check"></i>
+        Product added to cart successfully.
+      </div>
+      }
+      @if (cartError()) {
+      <div class="pd-cart-toast toast-error">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        {{ cartError() }}
+      </div>
+      }
 
       <!-- ── AI Advisor Widget ── -->
       <div class="pd-ai-widget">
@@ -216,14 +229,14 @@
       </div>
 
       <!-- ── Investment Calculator ── -->
-      <div class="pd-calculator glass-card">
-        <h3 class="calc-title">
+      <!-- <div class="pd-calculator glass-card"> -->
+        <!-- <h3 class="calc-title">
           <i class="fa-solid fa-calculator gold-text"></i>
           Calculate Your Investment
-        </h3>
+        </h3> -->
 
         <!-- Mode toggle -->
-        <div class="calc-mode-toggle">
+        <!-- <div class="calc-mode-toggle">
           <button [class.active]="calculatorMode() === 'egp'"
                   (click)="setCalculatorMode('egp')">
             EGP → Grams
@@ -232,10 +245,10 @@
                   (click)="setCalculatorMode('grams')">
             Grams → EGP
           </button>
-        </div>
+        </div> -->
 
         <!-- Input -->
-        <div class="calc-input-wrap">
+        <!-- <div class="calc-input-wrap">
           <input
             type="number"
             class="calc-input"
@@ -245,10 +258,10 @@
           <span class="calc-unit">
             {{ calculatorMode() === 'egp' ? 'EGP' : 'g' }}
           </span>
-        </div>
+        </div> -->
 
         <!-- Result -->
-        @if (calculatorResult()) {
+        <!-- @if (calculatorResult()) {
           <div class="calc-result">
             <span class="calc-result-label">{{ calculatorResult()!.label }}</span>
             <div class="calc-result-value gold-text">
@@ -262,8 +275,8 @@
               Enter a value above to see your {{ calculatorMode() === 'egp' ? 'grams' : 'total' }}
             </span>
           </div>
-        }
-      </div>
+        } -->
+      <!-- </div> -->
 
     </div>
     <!-- ── End Right Panel ── -->

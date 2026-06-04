@@ -1,13 +1,15 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../../core/services/product-service';
-import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { FavoriteService } from '../../../core/services/favorite-service';
+import { CartService } from '../../../core/services/cart.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IProduct, IProductDetails } from '../../../core/interfaces/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })
@@ -15,11 +17,18 @@ export class ProductDetails implements OnInit {
   private productService = inject(ProductService);
   private route          = inject(ActivatedRoute);
   private router         = inject(Router);
+  private favoriteService = inject(FavoriteService);
+  private cartService    = inject(CartService);
 
   // ── Product state ──────────────────────────────────────
   product    = signal<IProductDetails | null>(null);
   isLoading  = signal<boolean>(false);
   error      = signal<string | null>(null);
+
+  // ── Cart state ─────────────────────────────────────────
+  isAddingToCart = signal<boolean>(false);
+  cartError      = signal<string | null>(null);
+  cartSuccess    = signal<boolean>(false);
 
   // ── Related products ───────────────────────────────────
   relatedProducts  = signal<IProduct[]>([]);
@@ -103,6 +112,7 @@ export class ProductDetails implements OnInit {
         this.quantityGrams.set(data.weight);
         this.isLoading.set(false);
         this.loadRelatedProducts(data.metalType, data.categoryName);
+        this.loadFavoriteState(data.id);
       },
       error: () => {
         this.error.set('Product not found');
@@ -130,6 +140,18 @@ export class ProductDetails implements OnInit {
     });
   }
 
+  private loadFavoriteState(productId: number): void {
+    this.favoriteService.isFavorite(productId).subscribe({
+      next: (result) => {
+        console.log('Favorite state for product', productId, ':', result);
+        this.isFavorite.set(result)},
+      error: (err) => {
+        console.warn('Unable to load favorite state', err);
+        this.isFavorite.set(false);
+      }
+    });
+  }
+
   // ── Quantity slider ────────────────────────────────────
   onQuantityChange(event: Event): void {
     const val = Number((event.target as HTMLInputElement).value);
@@ -138,26 +160,67 @@ export class ProductDetails implements OnInit {
 
   // ── Cart & Purchase ────────────────────────────────────
   addToCart(): void {
-    // TODO: wire to CartService when available
     const p = this.product();
     if (!p) return;
-    console.log('Add to cart:', { productId: p.id, grams: this.quantityGrams() });
-    // Example: this.cartService.addItem(p.id, this.quantityGrams()).subscribe(...)
+
+    this.isAddingToCart.set(true);
+    this.cartError.set(null);
+    this.cartSuccess.set(false);
+
+    this.cartService.addToCart(p.id, this.quantityGrams()).subscribe({
+      next: () => {
+        this.cartSuccess.set(true);
+        this.isAddingToCart.set(false);
+        // Clear success message after 3 seconds
+        setTimeout(() => this.cartSuccess.set(false), 3000);
+      },
+      error: (err) => {
+        console.error('Failed to add to cart:', err);
+        this.cartError.set(err?.error?.error || 'Failed to add item to cart');
+        this.isAddingToCart.set(false);
+      }
+    });
   }
 
   buyNow(): void {
-    // TODO: wire to checkout flow
     const p = this.product();
     if (!p) return;
-    console.log('Buy now:', { productId: p.id, grams: this.quantityGrams() });
-    // Example: this.router.navigate(['/checkout'], { queryParams: { productId: p.id, grams: this.quantityGrams() } });
+
+    this.isAddingToCart.set(true);
+    this.cartError.set(null);
+
+    this.cartService.addToCart(p.id, this.quantityGrams()).subscribe({
+      next: () => {
+        this.isAddingToCart.set(false);
+        this.router.navigate(['/checkout']);
+      },
+      error: (err) => {
+        console.error('Failed to add to cart:', err);
+        this.cartError.set(err?.error?.error || 'Failed to proceed with purchase');
+        this.isAddingToCart.set(false);
+      }
+    });
   }
 
   // ── Favorite ───────────────────────────────────────────
   toggleFavorite(): void {
-    this.isFavorite.update(v => !v);
-    // TODO: wire to FavoriteService when available
-    // Example: this.favoriteService.toggle(this.product()!.id).subscribe(...)
+    const p = this.product();
+    if (!p) return;
+
+    // Optimistic update
+    const previous = this.isFavorite();
+    this.isFavorite.set(!previous);
+
+    this.favoriteService.toggleFavorite(p.id).subscribe({
+      next: () => {
+        // success - keep optimistic state
+      },
+      error: (err) => {
+        // revert optimistic update on error
+        console.error('Failed to toggle favorite', err);
+        this.isFavorite.set(previous);
+      }
+    });
   }
 
   // ── Calculator ─────────────────────────────────────────

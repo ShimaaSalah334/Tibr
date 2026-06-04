@@ -1,0 +1,70 @@
+<div class="favorite-page">
+  <div class="favorite-header">
+    <span class="section-tag">My Favorites</span>
+    <h2 class="section-title-sm">Saved products</h2>
+    <p class="section-desc">Review the products you bookmarked and manage your favorites list.</p>
+  </div>
+
+  @if (isLoading()) {
+  <div class="products-grid">
+    @for (_ of [1, 2, 3, 4, 5, 6]; track $index) {
+    <div class="product-skeleton">
+      <div class="skeleton-image"></div>
+      <div class="skeleton-text title"></div>
+      <div class="skeleton-text price"></div>
+    </div>
+    }
+  </div>
+  }
+
+  @if (!isLoading() && error()) {
+  <div class="error-state">
+    <div class="error-icon">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+    </div>
+    <p class="error-message">{{ error() }}</p>
+    <button class="btn-retry" (click)="loadFavorites()">
+      <i class="fa-solid fa-rotate-right"></i> Try Again
+    </button>
+  </div>
+  }
+
+  @if (!isLoading() && !error() && favorites().length > 0) {
+  <div class="products-grid">
+    @for (product of favorites(); track product.productId; let i = $index) {
+      <div class="favorite-card reveal" [style.transition-delay]="(i % 6 * 55) + 'ms'">
+        <div class="favorite-card-image">
+          <img [src]="product.imageUrl || 'assets/images/placeholder.png'" [alt]="product.productName" loading="lazy" />
+        </div>
+        <div class="favorite-card-body">
+          <div class="favorite-card-header">
+            <h3>{{ product.productName }}</h3>
+            <span class="favorite-price">{{ product.price | number:'1.0-0' }} EGP</span>
+          </div>
+          <div class="favorite-card-actions">
+            <button class="btn-details" (click)="onViewDetails(product.productId)">
+              View Details
+            </button>
+            <button class="btn-fav remove" (click)="onToggleFavorite(product.productId)">
+              <i class="fa-solid fa-heart-crack"></i> Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  }
+
+  @if (!isLoading() && !error() && favorites().length === 0) {
+  <div class="empty-state">
+    <div class="empty-icon">
+      <i class="fa-solid fa-heart"></i>
+    </div>
+    <h3>No favorites yet</h3>
+    <p>You haven’t saved any products yet. Browse the store and add items to your favorites list.</p>
+    <button class="btn-browse" routerLink="/products">
+      <i class="fa-solid fa-bag-shopping"></i> Browse products
+    </button>
+  </div>
+  }
+</div>

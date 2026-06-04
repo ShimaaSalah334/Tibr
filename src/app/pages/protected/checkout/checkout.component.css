@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+/* --- الألوان الافتراضية ومتغيرات القالب الفاخر --- */
+:host {
+  --font-display: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  
+  --bg-dark: #07090e;
+  --gold-primary: #d4af37;
+  --gold-bright: #f3e5ab;
+  --gold-dark: #aa7c11;
+  --silver-primary: #cbd5e1;
+  --silver-bright: #f8fafc;
+  
+  --glass-bg: rgba(15, 23, 42, 0.45);
+  --glass-border: rgba(212, 175, 55, 0.08);
+  --glass-border-hover: rgba(212, 175, 55, 0.22);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+/* --- الخلفية العامة وتنسيق الخطوط وحجم الشاشات --- */
+.checkout-wrapper {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  position: relative;
+  padding: 3rem 1rem;
+}
+
+.max-content-width {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+/* عناوين الصفحة الرئيسية */
+.checkout-header h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #ffffff 30%, var(--gold-bright) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.checkout-header p {
+  color: var(--text-muted);
+}
+
+/* --- بطاقات التأثير الزجاجي الفاخر (Glassmorphism) --- */
+.custom-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.custom-card:hover {
+  border-color: var(--glass-border-hover);
+}
+
+/* ترويسة البطاقات الجانبية والداخلية */
+.card-header-custom {
+  background-color: rgba(255, 255, 255, 0.02);
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 1.05rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+}
+
+.card-header-custom i {
+  color: var(--gold-primary) !important;
+}
+
+/* --- تنسيق جدول مراجعة المنتجات --- */
+.custom-table thead th {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--gold-primary);
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.custom-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.custom-table tbody td {
+  padding: 1.25rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.custom-table tbody td.text-dark, 
+.custom-table tbody td.fw-bold {
+  color: var(--text-main) !important;
+}
+
+.custom-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- الجزء الخاص بملخص الفاتورة الجانبي --- */
+.sticky-sidebar {
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+}
+
+.summary-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.2) 0%, rgba(255,255,255,0.01) 100%);
+  border: none;
+}
+
+.text-secondary {
+  color: var(--text-muted) !important;
+}
+
+.text-dark {
+  color: var(--text-main) !important;
+}
+
+.fw-extrabold.text-primary {
+  color: var(--gold-bright) !important;
+  text-shadow: 0 0 10px rgba(243, 229, 171, 0.25);
+}
+
+/* --- زر إتمام الطلب اللامع (Shimmer Golden Button) --- */
+.btn-checkout-primary {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+  color: #07090e;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 25px rgba(212, 175, 55, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-checkout-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-bright) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(212, 175, 55, 0.4);
+}
+
+.btn-checkout-primary:hover:not(:disabled) .transition-icon {
+  transform: translateX(4px);
+}
+
+.btn-checkout-primary:disabled {
+  background: #1e293b;
+  color: #475569;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.transition-icon {
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.btn-checkout-primary .spinner-border {
+  color: #07090e !important;
+}
+
+/* --- واجهة نجاح العملية (Success State) --- */
+.success-card {
+  max-width: 550px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.success-icon-wrapper i {
+  font-size: 5rem;
+  background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+  animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --- واجهة جاري التحميل (Loader State) --- */
+.loader-card {
+  border-radius: 12px;
+}
+
+.loader-card .spinner-border {
+  color: var(--gold-primary) !important;
+}
+
+/* --- صندوق الأخطاء المخصص --- */
+.alert-custom-danger {
+  background-color: rgba(244, 63, 94, 0.06);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.15) !important;
+  border-left: 4px solid #f43f5e !important;
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+}
+
+/* --- حركات الأنيميشن --- */
+.animate-fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

@@ -40,7 +40,16 @@ export class Register {
       confirmPassword: ['', [Validators.required]],
       terms: [false, [Validators.requiredTrue]]
     }, { validators: this.passwordMatchValidator });
+
+    this.registerForm.valueChanges.subscribe(() => {
+      if (this.formState() === 'error') {
+        this.formState.set('idle');
+        this.errorMessage.set('');
+      }
+    });
   }
+
+
 
   passwordMatchValidator(g: FormGroup) {
     return g.get('password')?.value === g.get('confirmPassword')?.value
@@ -48,21 +57,21 @@ export class Register {
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid && this.formState() === 'idle') {
+    if (this.registerForm.valid && this.formState() !== 'loading') {
       this.formState.set('loading');
       this.errorMessage.set('');
 
       const { firstName, lastName, countryCode, phone, email, password, confirmPassword } = this.registerForm.value;
       const fullPhoneNumber = `${countryCode}${phone}`;
 
-    const payload: RegisterPayload = {
-      email,
-      phone: fullPhoneNumber,
-      password,
-      confirmPassword,
-      firstName,
-      lastName
-    };
+      const payload: RegisterPayload = {
+        email,
+        phone: fullPhoneNumber,
+        password,
+        confirmPassword,
+        firstName,
+        lastName
+      };
       
       this.authService.register(payload).subscribe({
         next: (response) => {
@@ -75,7 +84,7 @@ export class Register {
         },
         error: (err) => {
           this.formState.set('error');
-          this.errorMessage.set(err.error?.message || 'An error occurred during recording. Please try again.');
+          this.errorMessage.set(err.error?.message || 'An error occurred during registration. Please try again.');
           console.error('Registration error:', err);
         }
       });

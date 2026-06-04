@@ -73,8 +73,8 @@ export class Home implements OnInit, AfterViewInit, OnDestroy {
 
   private loadPopularProducts(): void {
     this.isLoadingPopular.set(true);
-    this.productService.getProducts({ sortBy: 'popularity', pageSize: 8, pageNumber: 1 }).subscribe({
-      next: data => { this.popularProducts.set(data.items); this.isLoadingPopular.set(false);console.log(data)  },
+    this.productService.getProducts({ sortBy: 'newest', pageSize: 8, pageNumber: 1 }).subscribe({
+      next: data => { this.popularProducts.set(data.items); this.isLoadingPopular.set(false); console.log(data); },
       error: () => this.isLoadingPopular.set(false)
     });
   }

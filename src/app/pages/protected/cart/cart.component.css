@@ -1,640 +1,474 @@
-/* ==========================================================================
-   Tibr Luxury Gold & Precious Metals - Cart Stylesheet
-   Design Paradigm: Dark Luxury + Ultra-Glassmorphism
-   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
 
-/* Host and Main Wrapper Layout */
+/* --- الألوان الافتراضية والمتغيرات Luxury Theme --- */
 :host {
-  display: block;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  color: #f8f9fa;
-  min-height: 100vh;
-  background-color: #08080f;
-  overflow-x: hidden;
+  --font-display: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  
+  --bg-dark: #07090e;
+  --gold-primary: #d4af37;
+  --gold-bright: #f3e5ab;
+  --gold-dark: #aa7c11;
+  --silver-primary: #cbd5e1;
+  --silver-bright: #f8fafc;
+  
+  --glass-bg: rgba(15, 23, 42, 0.45);
+  --glass-border: rgba(212, 175, 55, 0.08);
+  --glass-border-hover: rgba(212, 175, 55, 0.22);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
 }
 
+/* --- الحاوية الأساسية والإضاءة الخلفية --- */
 .luxury-bg-wrapper {
-  position: relative;
+  background-color: var(--bg-dark);
+  font-family: var(--font-sans);
+  color: var(--text-main);
   min-height: 100vh;
-  width: 100%;
-  background: radial-gradient(circle at 50% 50%, #0f0f1c 0%, #06060a 100%);
-  padding-bottom: 5rem;
+  position: relative;
   overflow: hidden;
+  padding: 2.5rem 1.25rem;
 }
 
-/* Ambient glow effects behind glass cards */
 .ambient-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.15;
-  pointer-events: none;
+  filter: blur(150px);
+  opacity: 0.12;
   z-index: 0;
+  pointer-events: none;
 }
 
 .glow-gold {
-  top: 15%;
-  right: 10%;
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle, rgba(191, 161, 95, 0.4) 0%, rgba(0, 0, 0, 0) 70%);
+  top: -10%;
+  right: -5%;
+  width: 550px;
+  height: 550px;
+  background: var(--gold-primary);
 }
 
 .glow-navy {
-  bottom: 20%;
-  left: 5%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(26, 54, 93, 0.6) 0%, rgba(0, 0, 0, 0) 70%);
+  bottom: -10%;
+  left: -5%;
+  width: 650px;
+  height: 650px;
+  background: #1e3a8a;
 }
 
 .content-container {
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  max-width: 1250px;
+  margin: 0 auto;
 }
 
-/* ==========================================================================
-   Typography & Elements
-   ========================================================================== */
-
+/* --- النصوص والعناوين الفاخرة --- */
 .luxury-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
   font-weight: 700;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #ffffff 0%, #dcdcdc 50%, #a2a2a2 100%);
+  letter-spacing: 2px;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #ffffff 30%, var(--gold-bright) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 0.5rem;
 }
 
 .luxury-subtitle {
-  color: #a0aec0;
-  font-size: 1.05rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin-bottom: 3rem;
   font-weight: 300;
-  max-width: 600px;
+  letter-spacing: 0.5px;
 }
 
-/* Breadcrumb Navigation */
+/* --- Breadcrumbs (روابط التنقل الفرعية) --- */
 .breadcrumb-nav {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.85rem;
+  margin-bottom: 1.5rem;
   letter-spacing: 1px;
-  text-transform: uppercase;
 }
 
 .breadcrumb-link {
-  color: #bfa15f;
+  color: var(--text-muted);
   text-decoration: none;
-  font-weight: 600;
   transition: color 0.3s ease;
 }
 
 .breadcrumb-link:hover {
-  color: #ffd984;
+  color: var(--gold-primary);
 }
 
 .breadcrumb-separator {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.15);
 }
 
 .breadcrumb-current {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--gold-primary);
 }
 
-/* Cart Allocation Badge */
-.cart-badge-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 0.6rem 1.4rem;
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-}
-
-.badge-label {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #a0aec0;
-}
-
-.badge-value {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #bfa15f;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  line-height: 1.2;
-}
-
-/* ==========================================================================
-   Advanced Glassmorphism Cards
-   ========================================================================== */
-
+/* --- بطاقات التأثير الزجاجي Glassmorphism --- */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
-  box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.4);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* ==========================================================================
-   Cart Item Rows (Left Column)
-   ========================================================================== */
-
-.items-list-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.cart-item-row {
-  display: flex;
-  gap: 2rem;
   padding: 2rem;
-  align-items: center;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.cart-item-row:hover {
-  transform: translateY(-5px);
-  border-color: rgba(191, 161, 95, 0.22);
-  box-shadow: 0 20px 45px 0 rgba(0, 0, 0, 0.45), 
-              0 0 30px 0 rgba(191, 161, 95, 0.05);
+.glass-card:hover {
+  border-color: var(--glass-border-hover);
 }
 
-/* 3D Physical Metal Bar Models in Pure CSS */
-.metal-visual-column {
-  flex-shrink: 0;
-  width: 110px;
-  min-width: 110px;
-  height: 140px;
+/* --- تصميم التقسيم لعمودين (Grid Layout) --- */
+.cart-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .cart-layout-grid {
+    grid-template-columns: 1fr 380px;
+  }
+}
+
+/* --- ترويسة أزرار التحكم بالسلة --- */
+.cart-header-actions {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.metal-bar-3d {
-  position: relative;
-  width: 80px;
-  height: 120px;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: space-between;
-  padding: 12px 6px;
-  font-family: 'Playfair Display', serif;
-  box-shadow: 
-    0 10px 25px rgba(0,0,0,0.5),
-    inset 0 1px 1px rgba(255,255,255,0.4),
-    inset 0 -2px 3px rgba(0,0,0,0.3);
-  overflow: hidden;
-  transition: transform 0.4s ease;
+  align-items: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1.5rem;
 }
 
-.cart-item-row:hover .metal-bar-3d {
-  transform: scale(1.05) rotate(2deg);
-}
-
-/* Gold Bar Specific Texture */
-.gold-bar-gradient {
-  background: linear-gradient(145deg, #d4af37 0%, #bfa15f 30%, #9a7d3e 70%, #80632a 100%);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-}
-
-/* Silver Bar Specific Texture */
-.silver-bar-gradient {
-  background: linear-gradient(145deg, #ffffff 0%, #e2e8f0 30%, #cbd5e0 60%, #718096 100%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-/* Light Reflecting Sweeping Shiny Glare Effect */
-.bar-shine {
-  position: absolute;
-  top: 0;
-  left: -150%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.2) 50%,
-    rgba(255,255,255,0) 100%
-  );
-  transform: skewX(-25deg);
-  pointer-events: none;
-}
-
-@keyframes shine-sweep {
-  0% { left: -150%; }
-  100% { left: 150%; }
-}
-
-.cart-item-row:hover .bar-shine {
-  animation: shine-sweep 1.8s infinite ease-in-out;
-}
-
-/* Stamped Engravings on Metal Bars */
-.bar-brand {
-  font-size: 0.7rem;
-  font-weight: 900;
-  letter-spacing: 2px;
-  opacity: 0.8;
-  text-shadow: 1px 1px 1px rgba(255,255,255,0.1), -1px -1px 1px rgba(0,0,0,0.4);
-}
-
-.gold-bar-gradient .bar-brand,
-.gold-bar-gradient .bar-spec,
-.gold-bar-gradient .bar-metal,
-.gold-bar-gradient .bar-purity {
-  color: #3b2b07;
-}
-
-.silver-bar-gradient .bar-brand,
-.silver-bar-gradient .bar-spec,
-.silver-bar-gradient .bar-metal,
-.silver-bar-gradient .bar-purity {
-  color: #2d3748;
-}
-
-.bar-spec {
-  font-size: 0.95rem;
-  font-weight: 700;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  margin: 4px 0;
-  text-shadow: 1px 1px 1px rgba(255,255,255,0.1), -1px -1px 1px rgba(0,0,0,0.3);
-}
-
-.bar-metal {
-  font-size: 0.55rem;
-  letter-spacing: 1.5px;
-  font-weight: 700;
-  opacity: 0.75;
-}
-
-.bar-purity {
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  text-shadow: 1px 1px 1px rgba(255,255,255,0.1);
-}
-
-/* Row Details */
-.product-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin: 0.3rem 0;
-  color: #ffffff;
-  transition: color 0.3s ease;
-}
-
-.cart-item-row:hover .product-name {
-  color: #ffd984;
-}
-
-.metal-badge {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  font-weight: 700;
-}
-
-.badge-gold {
-  background: rgba(191, 161, 95, 0.12);
-  color: #dfba6b;
-  border: 1px solid rgba(191, 161, 95, 0.2);
-}
-
-.badge-silver {
-  background: rgba(226, 232, 240, 0.08);
-  color: #cbd5e0;
-  border: 1px solid rgba(226, 232, 240, 0.15);
-}
-
-.purity-sku-row {
+.cart-badge-container {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 0.8rem;
-  color: #a0aec0;
-  margin-top: 0.15rem;
 }
 
-.divider-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: rgba(255,255,255,0.15);
+.badge-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
 }
 
-/* Individual Price Tags */
-.item-unit-price {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #bfa15f;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  letter-spacing: -0.2px;
+.badge-value {
+  background: rgba(214, 175, 55, 0.12);
+  color: var(--gold-primary);
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(214, 175, 55, 0.25);
 }
 
-.item-total-price {
-  font-size: 0.8rem;
-  color: #a0aec0;
-  margin-top: 0.1rem;
-}
-
-/* ==========================================================================
-   Custom Quantity Toggle Controllers
-   ========================================================================== */
-
-.qty-selector-glass {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 4px;
-  border-radius: 30px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.qty-btn {
-  background: transparent;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #a0aec0;
-  font-size: 0.75rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-}
-
-.qty-btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.06);
-  color: #bfa15f;
-  transform: scale(1.1);
-}
-
-.qty-btn:active:not(:disabled) {
-  transform: scale(0.9);
-}
-
-.qty-btn:disabled {
-  opacity: 0.25;
-  cursor: not-allowed;
-}
-
-.qty-input {
-  width: 35px;
-  background: transparent;
-  border: none;
-  text-align: center;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.95rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-.qty-input:focus {
-  outline: none;
-}
-
-/* Quick Action Row Elements */
+/* --- الأزرار التفاعلية --- */
 .action-buttons-group {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.action-divider {
-  width: 1px;
-  height: 14px;
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
 .action-btn {
   background: transparent;
-  border: none;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: #a0aec0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  padding: 6px 12px;
-  border-radius: 6px;
   transition: all 0.3s ease;
+  font-family: var(--font-sans);
+  text-decoration: none;
 }
 
-.text-gold-muted { color: #bfa15f; opacity: 0.7; }
-.text-danger-muted { color: #f56565; opacity: 0.7; }
-
-.action-btn:hover {
-  background-color: rgba(255, 255, 255, 0.04);
-  color: #ffffff;
+.action-btn:hover:not([disabled]) {
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.btn-remove:hover {
-  background-color: rgba(245, 101, 101, 0.08);
-  color: #feb2b2;
+.btn-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #f43f5e;
+  border-color: rgba(244, 63, 94, 0.15);
 }
 
-.btn-save:hover {
-  background-color: rgba(191, 161, 95, 0.08);
-  color: #ffd984;
+.btn-remove:hover:not([disabled]) {
+  color: #ff4e6e;
+  background: rgba(244, 63, 94, 0.08);
+  border-color: rgba(244, 63, 94, 0.4);
 }
 
-/* ==========================================================================
-   Order Summary Sidebar (Right Column)
-   ========================================================================== */
+.btn-save {
+  color: var(--gold-primary);
+  border-color: rgba(214, 175, 55, 0.18);
+}
 
+.btn-save:hover:not([disabled]) {
+  color: var(--gold-bright);
+  background: rgba(214, 175, 55, 0.08);
+  border-color: var(--gold-primary);
+}
+
+/* --- قائمة المنتجات والصفوف --- */
+.items-rows-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cart-item-row:first-child {
+  padding-top: 0.5rem;
+}
+
+.cart-item-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+@media (min-width: 576px) {
+  .cart-item-row {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.item-details-column {
+  flex: 1;
+}
+
+.saved-category {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-primary);
+  margin: 0 0 0.4rem 0;
+}
+
+.saved-name {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0 0 0.85rem 0;
+  color: var(--text-main);
+  letter-spacing: 0.5px;
+}
+
+.item-pricing-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.item-pricing-meta .metal-label-text {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.item-pricing-meta span {
+  color: var(--text-main);
+  font-weight: 500;
+  margin-left: 0.2rem;
+}
+
+.item-pricing-meta .highlight-total span {
+  color: var(--gold-bright);
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(243, 229, 171, 0.2);
+}
+
+/* --- السبائك المعدنية ثلاثية الأبعاد (Gold & Silver Bars) --- */
+.metal-visual-column {
+  display: flex;
+  justify-content: center;
+}
+
+.metal-bar-3d {
+  width: 140px;
+  height: 85px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 
+    inset 0 1px 1px rgba(255,255,255,0.4),
+    0 12px 24px rgba(0,0,0,0.5);
+  transform: perspective(400px) rotateX(12deg);
+  border: 1px solid rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.cart-item-row:hover .metal-bar-3d {
+  transform: perspective(400px) rotateX(15deg) translateY(-2px);
+}
+
+.gold-bar-gradient {
+  background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.silver-bar-gradient {
+  background: linear-gradient(135deg, #94a3b8 0%, #f8fafc 25%, #64748b 50%, #e2e8f0 75%, #475569 100%);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.metal-label-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  color: rgba(15, 23, 42, 0.85);
+}
+
+.rate-price {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 0.3rem;
+  color: rgba(15, 23, 42, 0.7);
+}
+
+/* --- ملخص الطلب الجانبي (Sidebar Summary) --- */
 .sidebar-wrapper {
+  position: sticky;
   top: 2rem;
-  z-index: 10;
-}
-
-.summary-card {
-  padding: 2.2rem;
 }
 
 .summary-header {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 0.2rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: 1px;
+  color: var(--text-main);
 }
 
 .summary-divider {
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.2) 0%, rgba(255,255,255,0.01) 100%);
 }
 
 .summary-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 1.1rem;
   font-size: 0.95rem;
 }
 
 .summary-label {
-  color: #a0aec0;
-  font-weight: 400;
-}
-
-.info-tooltip-badge {
-  display: inline-flex;
-  width: 14px;
-  height: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #a0aec0;
-  border-radius: 50%;
-  font-size: 0.65rem;
-  justify-content: center;
-  align-items: center;
-  margin-left: 6px;
-  cursor: help;
+  color: var(--text-muted);
 }
 
 .summary-value {
-  color: #ffffff;
-  font-weight: 600;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text-main);
+  font-weight: 500;
 }
 
 .text-gold-accent {
-  color: #bfa15f;
-  letter-spacing: 0.5px;
+  color: var(--gold-primary);
 }
 
 .row-total {
-  align-items: flex-start;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
 }
 
 .total-label {
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 1.05rem;
-}
-
-.total-price-block {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  font-size: 1.15rem;
+  font-weight: 500;
 }
 
 .total-value-egp {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #bfa15f;
-  text-shadow: 0 0 20px rgba(191, 161, 95, 0.15);
-  letter-spacing: -0.5px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px rgba(243, 229, 171, 0.25);
 }
 
 .vat-inclusive-sub {
-  font-size: 0.72rem;
-  color: #a0aec0;
-  font-weight: 300;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin: 1.5rem 0;
+  font-style: italic;
 }
 
-/* ==========================================================================
-   Premium Shimmering Gold CTA Button
-   ========================================================================== */
-
+/* --- زر التوجه للدفع اللامع (Shimmer Animation Button) --- */
 .btn-checkout-luxury {
-  position: relative;
-  background: linear-gradient(135deg, #dfba6b 0%, #bfa15f 50%, #9a7d3e 100%);
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+  color: #07090e;
   border: none;
-  border-radius: 12px;
-  color: #211905;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  font-size: 0.88rem;
-  text-transform: uppercase;
-  box-shadow: 
-    0 4px 15px rgba(154, 125, 62, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  padding: 1.1rem;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 1px;
   cursor: pointer;
+  position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 25px rgba(212, 175, 55, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-checkout-luxury:hover:not(:disabled) {
-  background: linear-gradient(135deg, #ffd984 0%, #dfba6b 50%, #bfa15f 100%);
+.btn-checkout-luxury:hover:not([disabled]) {
   transform: translateY(-2px);
-  box-shadow: 
-    0 10px 25px rgba(191, 161, 95, 0.4),
-    0 0 35px rgba(191, 161, 95, 0.15);
+  box-shadow: 0 6px 30px rgba(212, 175, 55, 0.45);
 }
 
-.btn-checkout-luxury:active:not(:disabled) {
-  transform: translateY(1px);
+.btn-checkout-luxury:active {
+  transform: translateY(0);
 }
 
 .btn-checkout-luxury:disabled {
-  opacity: 0.3;
+  background: #1e293b;
+  color: #475569;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-.btn-content-inner {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.lock-icon-shift {
-  transition: transform 0.3s ease;
-}
-
-.btn-checkout-luxury:hover:not(:disabled) .lock-icon-shift {
-  transform: scale(1.15) rotate(5deg);
-}
-
-/* Button sweep specular glint highlight */
 .btn-glare {
   position: absolute;
   top: 0;
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.4) 50%,
-    rgba(255,255,255,0) 100%
-  );
-  transform: skewX(-20deg);
-  pointer-events: none;
-  z-index: 1;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-25deg);
+  transition: none;
 }
 
-@keyframes glint-sweep {
-  0% { left: -100%; }
-  100% { left: 200%; }
+.btn-checkout-luxury:hover:not([disabled]) .btn-glare {
+  left: 150%;
+  transition: left 0.9s ease-in-out;
 }
 
-.btn-checkout-luxury:hover:not(:disabled) .btn-glare {
-  animation: glint-sweep 1.6s infinite cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Secure Seals badges */
+/* --- شارات الأمان والموثوقية --- */
 .secure-guarantee-badges {
   display: flex;
   flex-direction: column;
@@ -643,406 +477,71 @@
 
 .guarantee-badge {
   display: flex;
-  gap: 0.6rem;
-  font-size: 0.72rem;
-  color: #a0aec0;
-  line-height: 1.4;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 .badge-icon {
-  color: #bfa15f;
-  flex-shrink: 0;
-  margin-top: 1px;
+  color: var(--gold-primary);
+  font-weight: bold;
 }
 
-/* ==========================================================================
-   Live Precious Metals Market Rates Widget
-   ========================================================================== */
-
-.market-ticker-card {
-  padding: 1.5rem 1.8rem;
-}
-
-.ticker-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 0;
-}
-
-.live-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.65rem;
-  letter-spacing: 1px;
-  font-weight: 700;
-  color: #48bb78;
-  background: rgba(72, 187, 120, 0.08);
-  border: 1px solid rgba(72, 187, 120, 0.15);
-  padding: 0.15rem 0.5rem;
-  border-radius: 20px;
-}
-
-.pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #48bb78;
-  box-shadow: 0 0 8px #48bb78;
-  animation: pulse-ring 2s infinite ease-in-out;
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.9); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.4; }
-  100% { transform: scale(0.9); opacity: 1; }
-}
-
-.ticker-disclaimer {
-  font-size: 0.7rem;
-  color: #a0aec0;
-  margin-bottom: 0;
-  line-height: 1.3;
-}
-
-.border-bottom-glass {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.ticker-rate-row:last-child {
-  border: none;
-}
-
-.metal-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-right: 0.6rem;
-}
-
-.dot-gold {
-  background-color: #d4af37;
-  box-shadow: 0 0 6px #d4af37;
-}
-
-.dot-silver {
-  background-color: #cbd5e0;
-  box-shadow: 0 0 6px #cbd5e0;
-}
-
-.metal-label-text {
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: #e2e8f0;
-}
-
-.rate-price {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ffffff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-.rate-change {
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-
-.change-positive {
-  color: #48bb78;
-}
-
-.change-negative {
-  color: #f56565;
-}
-
-/* ==========================================================================
-   Saved Items List (Left Bottom Column)
-   ========================================================================== */
-
-.saved-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #ffffff;
-}
-
-.saved-item-card {
-  padding: 1.3rem;
-}
-
-.saved-item-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.saved-visual {
-  flex-shrink: 0;
-  width: 45px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0.25);
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-.saved-bar {
-  width: 25px;
-  height: 50px;
-  border-radius: 3px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.gold-bar-flat {
-  background: linear-gradient(135deg, #d4af37 0%, #9a7d3e 100%);
-}
-
-.silver-bar-flat {
-  background: linear-gradient(135deg, #e2e8f0 0%, #718096 100%);
-}
-
-.saved-category {
-  font-size: 0.65rem;
-  color: #a0aec0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.saved-name {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin: 0;
-}
-
-.saved-price {
-  font-size: 0.95rem;
-  color: #bfa15f;
-  font-weight: 700;
-  margin-top: 0.15rem;
-}
-
-.btn-restore {
-  background: rgba(191, 161, 95, 0.08);
-  border: 1px solid rgba(191, 161, 95, 0.2);
-  color: #dfba6b;
-  padding: 0.35rem 0.9rem;
-  border-radius: 6px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-restore:hover {
-  background: linear-gradient(135deg, #dfba6b 0%, #9a7d3e 100%);
-  color: #211905;
-  box-shadow: 0 0 10px rgba(191,161,95,0.25);
-  transform: translateY(-1px);
-}
-
-.btn-delete-saved {
-  background: transparent;
-  border: none;
-  color: rgba(245, 101, 101, 0.6);
-  cursor: pointer;
-  font-size: 0.8rem;
-  padding: 6px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.btn-delete-saved:hover {
-  color: #f56565;
-  background-color: rgba(245, 101, 101, 0.08);
-}
-
-/* ==========================================================================
-   Luxury Empty State
-   ========================================================================== */
-
+/* --- واجهة السلة الفارغة المخصصة --- */
 .empty-cart-container {
-  padding: 4.5rem !important;
+  text-align: center;
+  padding: 4.5rem 2rem;
+  max-width: 520px;
+  margin: 4rem auto;
 }
 
 .empty-icon-vault {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(191, 161, 95, 0.08) 0%, rgba(0, 0, 0, 0) 70%);
-  border: 1px dashed rgba(191, 161, 95, 0.2);
-}
-
-.gold-text-glow {
-  color: #bfa15f;
-  filter: drop-shadow(0 0 8px rgba(191, 161, 95, 0.4));
+  margin-bottom: 1.5rem;
+  color: var(--gold-primary);
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.35));
 }
 
 .empty-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5px;
 }
 
 .empty-description {
-  color: #a0aec0;
+  color: var(--text-muted);
   font-size: 0.95rem;
   line-height: 1.6;
-  max-width: 440px;
+  margin-bottom: 2.2rem;
 }
 
 .btn-luxury-primary {
-  background: linear-gradient(135deg, #dfba6b 0%, #bfa15f 100%);
-  color: #211905;
-  font-weight: 700;
+  display: inline-block;
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  padding: 0.8rem 2.2rem;
   border-radius: 8px;
-  border: none;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
 }
 
 .btn-luxury-primary:hover {
-  box-shadow: 0 10px 20px rgba(191, 161, 95, 0.3);
-  transform: translateY(-2px);
-  color: #000000;
+  background: var(--gold-primary);
+  color: #07090e;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
-/* ==========================================================================
-   Action Undo Banner Notifications
-   ========================================================================== */
-
-.undo-toast-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.6rem;
-  border-color: rgba(191, 161, 95, 0.3) !important;
-  background: rgba(191, 161, 95, 0.04) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-}
-
-.toast-content {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.toast-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(191, 161, 95, 0.1);
-  border: 1px solid rgba(191, 161, 95, 0.2);
-}
-
-.text-gold {
-  color: #dfba6b;
-}
-
-.toast-text {
-  font-size: 0.92rem;
-  color: #e2e8f0;
-}
-
-.btn-undo-action {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  padding: 0.45rem 1.1rem;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-undo-action:hover {
-  background: #ffffff;
-  color: #06060a;
-}
-
-/* ==========================================================================
-   Utility Animations
-   ========================================================================== */
+.text-danger-muted { color: #f43f5e; font-weight: 500; margin: 0; }
+.text-gold { color: var(--gold-primary); font-weight: 500; margin: 0; }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-
-@media (max-width: 991px) {
-  .cart-item-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.5rem;
-    padding: 1.4rem;
-  }
-  
-  .metal-visual-column {
-    width: 100%;
-    min-width: 0;
-    height: auto;
-    justify-content: flex-start;
-  }
-
-  .metal-bar-3d {
-    width: 100%;
-    max-width: 190px;
-    height: 90px;
-    flex-direction: row;
-    padding: 10px 14px;
-  }
-
-  .cart-item-row:hover .metal-bar-3d {
-    transform: scale(1.02);
-  }
-
-  .bar-spec {
-    font-size: 1.05rem;
-    margin: 0;
-  }
-
-  .price-block {
-    text-align: left !important;
-    width: 100%;
-  }
-
-  .action-buttons-group {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .summary-card {
-    padding: 1.5rem;
-  }
-
-  .sidebar-wrapper {
-    position: static;
-    top: auto;
-    width: 100%;
-  }
-
-  .luxury-title {
-    font-size: 2.2rem;
-  }
 }

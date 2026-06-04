@@ -44,6 +44,11 @@
               id="email" 
               placeholder="Email" 
               type="text">
+            @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)) {
+            <div class="invalid-feedback d-block">
+              @if (loginForm.get('email')?.hasError('required')) { Email is required. }
+            </div>
+            }
           </div>
 
           <!-- Password field -->
@@ -62,7 +67,13 @@
                 [class.field-focused]="isPasswordFocused()"
                 id="password" 
                 placeholder="••••••••">
-              <!-- <button 
+            </div>
+            @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)) {
+            <div class="invalid-feedback d-block">
+              @if (loginForm.get('password')?.hasError('required')) { Password is required. }
+            </div>
+            }
+            <!-- <button 
                 class="btn border-0 position-absolute text-end password-toggle" 
                 (click)="togglePasswordView()" 
                 type="button">
@@ -70,7 +81,6 @@
                   {{ hidePassword() ? 'visibility' : 'visibility_off' }}
                 </span>
               </button> -->
-            </div>
           </div>
 
           <!-- Remember me option -->

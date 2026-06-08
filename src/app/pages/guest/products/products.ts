@@ -5,24 +5,27 @@ import {
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
-import { ProductService }  from '../../../core/services/product-service';
-import { CategoryService } from '../../../core/services/category-service';
+import { ProductService }  from '../../../core/services/product.service';
+import { CategoryService } from '../../../core/services/category.service';
 import { ProductCard }     from '../../../shared/components/business/product-card/product-card';
+import { TranslatePipe }   from '../../../shared/pipes/translate.pipe';
 import { IProduct }        from '../../../core/interfaces/iproduct';
 import { ICategory }       from '../../../core/interfaces/icategory';
 import { IPaginatedResult } from '../../../core/interfaces/ipagination';
 import { IProductFilter, SortOption } from '../../../core/interfaces/iproduct-filter';
 import { CartService } from '../../../core/services/cart.service';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, DecimalPipe, ProductCard],
+  imports: [CommonModule, FormsModule, RouterLink, DecimalPipe, ProductCard, TranslatePipe],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
 export class Products implements OnInit, OnDestroy, AfterViewInit {
 
+  private readonly i18nService = inject(I18nService);
   private productService  = inject(ProductService);
   private categoryService = inject(CategoryService);
   private cartService     = inject(CartService);    
@@ -74,31 +77,31 @@ export class Products implements OnInit, OnDestroy, AfterViewInit {
 
   // Sort options
   sortOptions: { value: SortOption; label: string }[] = [
-    { value: 'newest',      label: 'Newest First' },
-    { value: 'price_asc',   label: 'Price: Low to High' },
-    { value: 'price_desc',  label: 'Price: High to Low' },
-    { value: 'weight_asc',  label: 'Weight: Low to High' },
-    { value: 'weight_desc', label: 'Weight: High to Low' },
-    { value: 'purity_asc',  label: 'Purity: Low to High' },
-    { value: 'purity_desc', label: 'Purity: High to Low' },
-    { value: 'popularity',  label: 'Most Popular' },
+    { value: 'newest',      label: 'sort.newest' },
+    { value: 'price_asc',   label: 'sort.priceAsc' },
+    { value: 'price_desc',  label: 'sort.priceDesc' },
+    { value: 'weight_asc',  label: 'sort.weightAsc' },
+    { value: 'weight_desc', label: 'sort.weightDesc' },
+    { value: 'purity_asc',  label: 'sort.purityAsc' },
+    { value: 'purity_desc', label: 'sort.purityDesc' },
+    { value: 'popularity',  label: 'sort.popularity' },
   ];
 
   // ── Active filters computed ────────────────────────────────
   activeFilters = computed(() => {
     const f: { label: string; key: string }[] = [];
     if (this.selectedMetalType())
-      f.push({ label: this.selectedMetalType() === '0' ? 'Gold' : 'Silver', key: 'metalType' });
+      f.push({ label: this.i18nService.translate(this.selectedMetalType() === '0' ? 'filters.gold' : 'filters.silver', this.selectedMetalType() === '0' ? 'Gold' : 'Silver'), key: 'metalType' });
     if (this.selectedCategory())
       f.push({ label: this.selectedCategory(), key: 'categoryName' });
     if (this.searchKeyword())
       f.push({ label: `"${this.searchKeyword()}"`, key: 'search' });
     if (this.selectedPurity())
-      f.push({ label: `Purity ${this.selectedPurity()}`, key: 'purity' });
+      f.push({ label: `${this.i18nService.translate('filters.purity', 'Purity')} ${this.selectedPurity()}`, key: 'purity' });
     if (this.minPriceInput > 0)
-      f.push({ label: `Min ${this.minPriceInput.toLocaleString()} EGP`, key: 'minPrice' });
+      f.push({ label: `${this.i18nService.translate('filters.min', 'Min')} ${this.minPriceInput.toLocaleString()} EGP`, key: 'minPrice' });
     if (this.maxPriceInput < 1000000)
-      f.push({ label: `Max ${this.maxPriceInput.toLocaleString()} EGP`, key: 'maxPrice' });
+      f.push({ label: `${this.i18nService.translate('filters.max', 'Max')} ${this.maxPriceInput.toLocaleString()} EGP`, key: 'maxPrice' });
     return f;
   });
 

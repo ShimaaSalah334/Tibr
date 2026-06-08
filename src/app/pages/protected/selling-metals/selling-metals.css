@@ -1,0 +1,143 @@
+/* الثيم الداكن الفخم */
+.custom-dark-theme {
+  background-color: #0d0f12; /* خلفية داكنة جداً وعميقة */
+  color: #ffffff;
+  font-family: 'Cairo', sans-serif; /* يفضل استخدام خط كايرو متناسق */
+}
+
+/* الكروت الفخمة */
+.premium-card {
+  background: #16191f; /* لون السطح */
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* أزرار اختيار الأصول */
+.asset-btn {
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+/* حالة عدم الاختيار والتحويم */
+.inactive-asset:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02) !important;
+  transform: translateY(-2px);
+}
+
+/* تفعيل الذهب - إنارة ذهبية مطفية فاخرة */
+.active-gold {
+  border-color: #ffca28 !important;
+  background: rgba(255, 202, 40, 0.06) !important;
+  box-shadow: 0 0 20px rgba(255, 202, 40, 0.15);
+}
+.bg-gold-low { background: rgba(255, 202, 40, 0.1); width: 45px; height: 45px; }
+.text-gold-light { color: #ffca28; }
+.text-muted-gold { color: #ffe082; opacity: 0.8; }
+
+/* تفعيل الفضة - إنارة فضية ساحرة */
+.active-silver {
+  border-color: #e0e0e0 !important;
+  background: rgba(224, 224, 224, 0.06) !important;
+  box-shadow: 0 0 20px rgba(224, 224, 224, 0.15);
+}
+.bg-silver-low { background: rgba(224, 224, 224, 0.1); width: 45px; height: 45px; }
+.text-silver-light { color: #f5f5f5; }
+
+/* ضبط المدخلات والأرقام */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.form-control-dark, .form-control-dark-readonly {
+  background-color: #1a1f26 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-radius: 12px !important;
+  width: 100%;
+  transition: all 0.2.s ease;
+}
+
+.form-control-dark:focus {
+  border-color: #ffca28 !important;
+  box-shadow: 0 0 0 3px rgba(255, 202, 40, 0.15) !important;
+}
+
+/* ضبط مكان العملة/الوحدة ليدعم RTL بطريقة أنيقة */
+.input-unit-label {
+  left: 15px; /* من اليسار لأن الأرقام تبدأ من اليمين في الحقول */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-weight: 500;
+}
+
+/* خطوط الفصل */
+.divider-line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  width: 100%;
+}
+
+/* صف الإجمالي المميز */
+.total-row {
+  background: rgba(255, 202, 40, 0.04);
+  border: 1px dashed rgba(255, 202, 40, 0.2);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #ffe082 0%, #ffca28 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* زر التأكيد الرئيسي */
+.btn-premium-submit {
+  background: linear-gradient(135deg, #ffca28 0%, #ffa000 100%);
+  color: #0d0f12 !important;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 24px rgba(255, 160, 0, 0.3) !important;
+  transition: transform 0.1s ease, opacity 0.3s ease;
+}
+
+.btn-premium-submit:hover:not([disabled]) {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(255, 160, 0, 0.4) !important;
+}
+
+.btn-premium-submit:active:not([disabled]) {
+  transform: translateY(1px);
+}
+
+.btn-premium-submit:disabled {
+  background: #2c323b !important;
+  color: rgba(255,255,255,0.2) !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+}
+
+/* تفاصيل صغيرة */
+.font-mono {
+  font-family: 'SF Mono', SFMono-Regular, Consolas, monospace !important;
+}
+
+.tiny-text {
+  font-size: 0.785rem;
+}
+
+.text-error {
+  color: #ff5252;
+}
+
+.hover-underline:hover {
+  text-decoration: underline !important;
+}
+
+.trust-badge {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 12px;
+  border-radius: 20px;
+}

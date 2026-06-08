@@ -2,13 +2,14 @@
 
 :host {
   --gold:       #D4AF37;
-  --gold-glow:  rgba(212,175,55,0.25);
+  --gold-light: #FFE088;
+  --gold-glow:  rgba(212,175,55,0.15);
   --silver:     #C0C0C0;
-  --bg:         #131313;
-  --bg-low:     #0e0e0e;
-  --border:     rgba(255,255,255,0.07);
-  --text:       #E5E2E1;
-  --text-muted: #A0A0A0;
+  --bg:         #0A0A0A;
+  --bg-dropdown:#111111;
+  --border:     rgba(255,255,255,0.06);
+  --text:       #F3F4F6;
+  --text-muted: #9CA3AF;
   --success:    #10B981;
   --danger:     #EF4444;
   display: block;
@@ -17,15 +18,15 @@
   z-index: 1000;
 }
 
-/* ── Ticker ───────────────────────────────────────────────── */
+/* ── Ticker Bar (شريط أسعار الذهب والفضة) ──────────────────────────────── */
 .ticker-bar {
-  background: #0e0e0e;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: #060606;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
   overflow: hidden;
-  height: 34px;
+  height: 38px;
   display: flex;
   align-items: center;
-  transition: height 0.4s ease, opacity 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .ticker-bar.ticker-scrolled {
@@ -37,7 +38,12 @@
 .ticker-track {
   display: flex;
   width: fit-content;
-  animation: tickerScroll 45s linear infinite;
+  animation: tickerScroll 35s linear infinite;
+}
+
+/* يقف مؤقتاً عند مرور الماوس لإعطاء فرصة للقراءة الاحترافية */
+.ticker-track:hover {
+  animation-play-state: paused;
 }
 
 @keyframes tickerScroll {
@@ -48,8 +54,8 @@
 .ticker-items {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 0 20px;
+  gap: 24px;
+  padding: 0 12px;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -57,129 +63,109 @@
 .ticker-item {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-family: 'Geist', monospace;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.03em;
 }
 
-.ticker-label  { color: var(--text-muted); text-transform: uppercase; }
-.ticker-value.gold   { color: #D4AF37; font-weight: 600; }
-.ticker-value.silver { color: #C0C0C0; font-weight: 600; }
-.ticker-change.up    { color: var(--success); font-size: 10px; }
-.ticker-change.down  { color: var(--danger); font-size: 10px; }
-.ticker-sep          { color: rgba(255,255,255,0.12); font-size: 10px; }
+.ticker-label  { color: var(--text-muted); }
+.ticker-value.gold   { color: var(--gold); font-weight: 600; }
+.ticker-value.silver { color: var(--silver); font-weight: 600; }
+.ticker-change { font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;}
+.ticker-change.up    { color: var(--success); }
+.ticker-change.down  { color: var(--danger); }
+.ticker-sep          { color: rgba(255,255,255,0.15); font-size: 12px; font-weight: bold;}
 
-/* ── Main Navbar ─────────────────────────────────────────── */
+/* ── Main Navbar (الناف بار الرئيسي) ─────────────────────────────────── */
 .navbar-main {
-  background: radial-gradient(ellipse at 50% 0%,
-    rgba(212,175,55,0.07) 0%, transparent 60%), #0a0a0a;
-  transition: background 0.5s ease, height 0.4s ease,
-              border-color 0.4s ease;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.05) 0%, transparent 75%), var(--bg);
+  transition: background 0.4s ease, height 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   border-bottom: 1px solid transparent;
-  height: 72px;
+  height: 80px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .navbar-main.nav-scrolled {
-  background: rgba(13,13,13,0.85);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border-color: rgba(212,175,55,0.15);
-  height: 66px;
-  box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-color: rgba(212,175,55,0.12);
+  height: 70px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 .nav-container {
   max-width: 1440px;
-  padding: 0 80px;
-  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
-  flex: 1;
+  gap: 24px;
 }
 
-@media (max-width: 991px) { .nav-container { padding: 0 24px; } }
+@media (max-width: 991px) { .nav-container { padding: 0 20px; } }
 
-/* ── Logo ─────────────────────────────────────────────────── */
+/* ── Logo (اللوجو الهوية) ─────────────────────────────────────────── */
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   text-decoration: none;
-  flex-shrink: 0;
 }
 
 .logo-en {
   font-family: 'Playfair Display', serif;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  background: linear-gradient(135deg, #D4AF37 0%, #FFE088 50%, #C9A84C 100%);
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #D4AF37 0%, #FFF3D1 50%, #A67C1E 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: logoShine 5s linear infinite;
+  animation: logoShine 6s linear infinite;
 }
 
 @keyframes logoShine { to { background-position: 200% center; } }
 
-.logo-divider {
-  width: 1px;
-  height: 18px;
-  background: rgba(255,255,255,0.12);
-}
-
-.logo-ar {
-  font-family: 'Geist', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* ── Nav Links ───────────────────────────────────────────── */
+/* ── Links (روابط النفيجيشن) ──────────────────────────────────────── */
 .nav-links {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   align-items: center;
-  gap: 4px;
-  flex: 1;
-  justify-content: center;
+  gap: 8px;
 }
 
 .nav-links li a {
-  font-family: 'Geist', monospace;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 18px;
+  border-radius: 6px;
   position: relative;
-  transition: color 0.25s ease;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* انميشن خط سفلي ناعم واحترافي جداً */
 .nav-links li a::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: 2px;
   left: 50%;
-  transform: translateX(-50%);
-  width: 0;
+  transform: translateX(-50%) scaleX(0);
+  width: 40%;
   height: 2px;
-  background: var(--gold);
-  border-radius: 2px;
-  transition: width 0.3s cubic-bezier(0.4,0,0.2,1);
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-links li a:hover,
@@ -189,102 +175,115 @@
 
 .nav-links li a:hover::after,
 .nav-links li a.active::after {
-  width: 70%;
+  transform: translateX(-50%) scaleX(1);
 }
 
-/* ── Nav Actions ─────────────────────────────────────────── */
+/* ── Actions (الأزرار والتحكم) ─────────────────────────────────────── */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  gap: 12px;
+}
+
+.lang-btn {
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'Geist', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.lang-btn:hover {
+  border-color: rgba(212,175,55,0.4);
+  color: var(--gold);
+  background: rgba(212,175,55,0.05);
 }
 
 .nav-icon-btn {
   position: relative;
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--text-muted);
   text-decoration: none;
-  transition: all 0.2s ease;
   border: 1px solid transparent;
-  font-size: 17px;
+  font-size: 18px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-icon-btn:hover {
-  color: var(--text);
-  background: rgba(255,255,255,0.05);
+  color: #fff;
+  background: rgba(255,255,255,0.04);
   border-color: var(--border);
 }
 
 .badge-dot {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  min-width: 16px;
-  height: 16px;
+  top: 4px;
+  right: 4px;
+  min-width: 18px;
+  height: 18px;
   background: var(--gold);
   color: #000;
   border-radius: 50%;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 8px rgba(212,175,55,0.5);
 }
 
-/* ── Buttons ─────────────────────────────────────────────── */
+/* ── Luxury Buttons (أزرار الإنضمام والتسجيل الفخمة) ───────────────── */
 .btn-ghost {
-  font-family: 'Geist', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--text);
   text-decoration: none;
-  padding: 8px 18px;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 4px;
+  padding: 10px 20px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
   transition: all 0.25s ease;
-  display: inline-flex;
-  align-items: center;
 }
 
 .btn-ghost:hover {
-  border-color: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.04);
   color: #fff;
 }
 
 .btn-gold {
-  font-family: 'Geist', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
   color: #000 !important;
   text-decoration: none;
-  padding: 8px 22px;
-  background: linear-gradient(180deg, #D4AF37 0%, #C9A84C 100%);
-  border-radius: 4px;
+  padding: 10px 24px;
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  box-shadow: 0 0 20px rgba(212,175,55,0.25);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 15px var(--gold-glow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Liquid button effect */
 .btn-liquid {
   position: relative;
   overflow: hidden;
   z-index: 1;
 }
+
 .btn-liquid::before {
   content: '';
   position: absolute;
@@ -292,63 +291,71 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255,255,255,0.18);
-  transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+  background: rgba(255, 255, 255, 0.25);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: -1;
   border-radius: 50% 50% 0 0;
 }
+
 .btn-liquid:hover::before {
   top: 0;
   border-radius: 0;
 }
 
 .btn-gold:hover {
-  box-shadow: 0 0 32px rgba(212,175,55,0.45);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(212,175,55,0.4);
+  transform: translateY(-1.5px);
 }
 
-/* ── User menu ───────────────────────────────────────────── */
+/* ── User Profile Menu (قائمة المستخدم الاحترافية) ───────────────────── */
 .user-menu {
   position: relative;
-  cursor: pointer;
 }
 
 .user-avatar {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  background: rgba(212,175,55,0.1);
-  border: 1px solid rgba(212,175,55,0.25);
+  background: rgba(212,175,55,0.06);
+  border: 1px solid rgba(212,175,55,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--gold);
   font-size: 16px;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 .user-menu.open .user-avatar,
 .user-menu:hover .user-avatar {
   border-color: var(--gold);
-  box-shadow: 0 0 12px var(--gold-glow);
+  box-shadow: 0 0 14px rgba(212,175,55,0.25);
+  background: rgba(212,175,55,0.1);
 }
 
 .user-dropdown {
   position: absolute;
   top: calc(100% + 12px);
+  /* يدعم الـ LTR والـ RTL تلقائياً بناءً على اتجاه الموقع */
   right: 0;
-  min-width: 200px;
-  background: rgba(13,13,13,0.96);
-  backdrop-filter: blur(24px);
+  [dir="rtl"] & {
+    right: auto;
+    left: 0;
+  }
+  min-width: 220px;
+  background: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 8px;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.6);
-  animation: dropdownIn 0.2s ease;
+  padding: 6px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.05);
+  animation: dropdownIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1100;
 }
 
 @keyframes dropdownIn {
-  from { opacity: 0; transform: translateY(-8px); }
+  from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -356,106 +363,118 @@
 .user-dropdown button {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
-  padding: 9px 12px;
-  border-radius: 4px;
+  padding: 10px 14px;
+  border-radius: 6px;
   font-family: 'Inter', sans-serif;
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--text-muted);
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
-  text-align: left;
   transition: all 0.2s ease;
+  /* ضبط اتجاه الكلام داخل الدبل داون */
+  text-align: start; 
 }
 
 .user-dropdown a:hover,
 .user-dropdown button:hover {
   color: #fff;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.04);
 }
 
 .user-dropdown a i,
 .user-dropdown button i {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--gold);
-  width: 16px;
+  width: 18px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+/* قلب اتجاه السهم تلقائياً في تسجيل الخروج في العربي */
+[dir="rtl"] .rotate-icon {
+  transform: rotate(180deg);
 }
 
 .dropdown-divider {
   height: 1px;
   background: var(--border);
-  margin: 6px 8px;
+  margin: 6px 0;
 }
 
-/* ── Hamburger ───────────────────────────────────────────── */
+.logout-btn:hover {
+  background: rgba(239, 68, 68, 0.08) !important;
+  color: var(--danger) !important;
+}
+.logout-btn:hover i {
+  color: var(--danger) !important;
+}
+
+/* ── Hamburger Menu (الهامبرغر ريسبونسيف) ─────────────────────────── */
 .hamburger {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  background: none;
+  background: rgba(255,255,255,0.02);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  padding: 0;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
 }
-.hamburger:hover { border-color: rgba(255,255,255,0.2); }
+
+.hamburger:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); }
+
 .hamburger span {
   display: block;
-  width: 16px;
-  height: 1.5px;
+  width: 18px;
+  height: 2px;
   background: var(--text);
   border-radius: 2px;
-  transition: all 0.3s ease;
-  transform-origin: center;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ── Mobile Menu ─────────────────────────────────────────── */
+/* ── Mobile Menu (قائمة الموبايل الذكية) ───────────────────────────── */
 .mobile-menu {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
-  border-top: 1px solid transparent;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #0D0D0D;
 }
 .mobile-menu.open {
-  max-height: 420px;
-  border-top-color: var(--border);
+  max-height: 450px;
+  border-top: 1px solid var(--border);
 }
 
 .mobile-menu ul {
   list-style: none;
   margin: 0;
-  padding: 12px 24px 20px;
+  padding: 16px 24px 24px;
 }
-.mobile-menu ul li { border-bottom: 1px solid var(--border); }
-.mobile-menu ul li:last-child { border-bottom: none; }
 
 .mobile-menu ul li a,
 .mobile-menu ul li button {
   display: block;
   width: 100%;
-  padding: 13px 0;
-  font-family: 'Geist', monospace;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  padding: 14px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--text-muted);
   text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   transition: color 0.2s ease;
 }
 .mobile-menu ul li a:hover,
@@ -464,10 +483,21 @@
 .mobile-menu .btn-gold-full {
   display: block;
   text-align: center;
-  background: linear-gradient(180deg, #D4AF37 0%, #C9A84C 100%);
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
   color: #000 !important;
-  border-radius: 4px;
-  margin-top: 4px;
+  font-weight: 600;
+  border-radius: 6px;
+  margin-top: 12px;
   padding: 12px 0 !important;
+  box-shadow: 0 4px 15px var(--gold-glow);
 }
-.mobile-divider { height: 1px !important; border-bottom: none !important; background: var(--border); margin: 4px 0; }
+
+.mobile-logout-btn {
+  color: var(--danger) !important;
+}
+
+.mobile-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}

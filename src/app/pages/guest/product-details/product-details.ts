@@ -1,15 +1,16 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { ProductService } from '../../../core/services/product-service';
-import { FavoriteService } from '../../../core/services/favorite-service';
+import { ProductService } from '../../../core/services/product.service';
+import { FavoriteService } from '../../../core/services/favorite.service';
 import { CartService } from '../../../core/services/cart.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IProduct, IProductDetails } from '../../../core/interfaces/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, TranslatePipe],
   templateUrl: './product-details.html',
   styleUrl: './product-details.css',
 })

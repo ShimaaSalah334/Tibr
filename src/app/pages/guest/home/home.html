@@ -17,39 +17,37 @@
 
 
       <h1 class="hero-title reveal">
-  Invest in <span class="liquid-shimmer">Gold and Silver</span><br />
-  with Smart Precision
+  {{ 'home.heroTitle1' | translate }} <span class="liquid-shimmer">{{ 'home.heroTitleHighlight' | translate }}</span><br />
+  {{ 'home.heroTitle2' | translate }}
 </h1>
 
       <p class="hero-sub reveal">
-        Own real precious metals by the gram. Tibr gives you access to
-        authentic gold and silver bullion at live market prices —
-        no experience needed, starting from any amount.
+        {{ 'home.heroSubtitle' | translate }}
       </p>
 
       <div class="hero-ctas reveal">
         <button class="btn-gold-lg btn-liquid" routerLink="/auth/register">
-          Start Investing <i class="fa-solid fa-arrow-right"></i>
+          {{ 'nav.startInvesting' | translate }} <i class="fa-solid fa-arrow-right"></i>
         </button>
         <button class="btn-ghost-lg" routerLink="/how-it-works">
-          How It Works
+          {{ 'nav.howItWorks' | translate }}
         </button>
       </div>
 
       <div class="hero-trust reveal">
         <div class="trust-item">
           <i class="fa-solid fa-shield-halved"></i>
-          <span>Licensed & Regulated</span>
+          <span>{{ 'home.heroTrustLicensed' | translate }}</span>
         </div>
         <div class="trust-sep"></div>
         <div class="trust-item">
           <i class="fa-solid fa-lock"></i>
-          <span>Bank-Level Security</span>
+          <span>{{ 'home.heroTrustSecurity' | translate }}</span>
         </div>
         <div class="trust-sep"></div>
         <div class="trust-item">
           <i class="fa-solid fa-chart-line"></i>
-          <span>Real-Time Prices</span>
+          <span>{{ 'home.heroTrustRealtime' | translate }}</span>
         </div>
       </div>
     </div>
@@ -68,32 +66,32 @@
         <div class="feature-bar-item reveal">
           <div class="fbi-icon"><i class="fa-solid fa-lock"></i></div>
           <div class="fbi-text">
-            <strong>Secure & Trusted</strong>
-            <span>Regulated storage with full insurance</span>
+            <strong>{{ 'home.features.secureTitle' | translate }}</strong>
+            <span>{{ 'home.features.secureDescription' | translate }}</span>
           </div>
         </div>
         <div class="fbi-divider"></div>
         <div class="feature-bar-item reveal" style="transition-delay:80ms">
           <div class="fbi-icon"><i class="fa-solid fa-circle-nodes"></i></div>
           <div class="fbi-text">
-            <strong>AI-Powered</strong>
-            <span>Smart analytics & investment guidance</span>
+            <strong>{{ 'home.features.aiTitle' | translate }}</strong>
+            <span>{{ 'home.features.aiDescription' | translate }}</span>
           </div>
         </div>
         <div class="fbi-divider"></div>
         <div class="feature-bar-item reveal" style="transition-delay:160ms">
           <div class="fbi-icon"><i class="fa-solid fa-coins"></i></div>
           <div class="fbi-text">
-            <strong>Flexible Investment</strong>
-            <span>Start with any amount, any time</span>
+            <strong>{{ 'home.features.flexibleTitle' | translate }}</strong>
+            <span>{{ 'home.features.flexibleDescription' | translate }}</span>
           </div>
         </div>
         <div class="fbi-divider"></div>
         <div class="feature-bar-item reveal" style="transition-delay:240ms">
           <div class="fbi-icon"><i class="fa-solid fa-bolt"></i></div>
           <div class="fbi-text">
-            <strong>High Liquidity</strong>
-            <span>Buy and sell instantly at market price</span>
+            <strong>{{ 'home.features.liquidityTitle' | translate }}</strong>
+            <span>{{ 'home.features.liquidityDescription' | translate }}</span>
           </div>
         </div>
       </div>
@@ -108,22 +106,22 @@
       <div class="stats-grid">
         <div class="stat-item reveal">
           <span class="stat-num counter" data-target="15000">0</span><span class="stat-suffix">+</span>
-          <p class="stat-label">Active Investors</p>
+          <p class="stat-label">{{ 'home.stats.activeInvestors' | translate }}</p>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item reveal" style="transition-delay:80ms">
           <span class="stat-num counter" data-target="500">0</span><span class="stat-suffix">KG</span>
-          <p class="stat-label">Gold Traded</p>
+          <p class="stat-label">{{ 'home.stats.goldTraded' | translate }}</p>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item reveal" style="transition-delay:160ms">
           <span class="stat-num counter" data-target="99">0</span><span class="stat-suffix">%</span>
-          <p class="stat-label">Platform Uptime</p>
+          <p class="stat-label">{{ 'home.stats.platformUptime' | translate }}</p>
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item reveal" style="transition-delay:240ms">
           <span class="stat-num counter" data-target="4">0</span><span class="stat-suffix">+</span>
-          <p class="stat-label">Years Trusted</p>
+          <p class="stat-label">{{ 'home.stats.yearsTrusted' | translate }}</p>
         </div>
       </div>
     </div>
@@ -137,12 +135,11 @@
 
       <div class="bento-header reveal">
         <div>
-          <span class="section-tag">PRECISION & LEGACY</span>
-          <h2 class="section-title">Why Tibr?</h2>
+          <span class="section-tag">{{ 'home.bento.tag' | translate }}</span>
+          <h2 class="section-title">{{ 'home.bento.title' | translate }}</h2>
         </div>
         <p class="bento-sub">
-          We redefine investment by merging the physical stability of gold
-          with the speed of modern financial technology.
+          {{ 'home.bento.description' | translate }}
         </p>
       </div>
 
@@ -154,10 +151,10 @@
              (mouseleave)="onCardMouseLeave($event)">
           <div class="bento-card-inner">
             <div class="bento-icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
-            <h4>Fully Verified Storage</h4>
-            <p>All your physical assets are stored in high-security certified vaults with real-time blockchain audit trail — verifiable at any moment.</p>
+            <h4>{{ 'home.bento.storageTitle' | translate }}</h4>
+            <p>{{ 'home.bento.storageDescription' | translate }}</p>
             <button class="btn-text-gold" routerLink="/security">
-              Learn about security <i class="fa-solid fa-arrow-right"></i>
+              {{ 'home.bento.learnSecurity' | translate }} <i class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
           <div class="bento-glow-blob"></div>
@@ -169,8 +166,8 @@
              (mousemove)="onCardMouseMove($event)"
              (mouseleave)="onCardMouseLeave($event)">
           <div class="bento-icon-wrap secondary"><i class="fa-solid fa-chart-line"></i></div>
-          <h4>Live Analytics</h4>
-          <p>Monitor your portfolio performance with precision through real-time market data dashboards.</p>
+          <h4>{{ 'home.bento.analyticsTitle' | translate }}</h4>
+          <p>{{ 'home.bento.analyticsDescription' | translate }}</p>
         </div>
 
         <!-- Tertiary — 4 cols -->
@@ -179,8 +176,8 @@
              (mousemove)="onCardMouseMove($event)"
              (mouseleave)="onCardMouseLeave($event)">
           <div class="bento-icon-wrap tertiary"><i class="fa-solid fa-rocket"></i></div>
-          <h4>Instant Execution</h4>
-          <p>Global liquidity lets you buy and sell in milliseconds at live spot prices.</p>
+          <h4>{{ 'home.bento.executionTitle' | translate }}</h4>
+          <p>{{ 'home.bento.executionDescription' | translate }}</p>
         </div>
 
         <!-- Wide card — 8 cols -->
@@ -191,8 +188,8 @@
           <div class="bento-wide-content">
             <div class="bento-wide-text">
               <div class="bento-icon-wrap gold-icon"><i class="fa-solid fa-robot"></i></div>
-              <h4>Smart Investment Advisor</h4>
-              <p>Our platform analyzes market conditions and guides your investment decisions toward more stable, profitable opportunities — right when you need it.</p>
+              <h4>{{ 'home.bento.advisorTitle' | translate }}</h4>
+              <p>{{ 'home.bento.advisorDescription' | translate }}</p>
             </div>
             <div class="bento-pulse-orb luminous-pulse">
               <div class="orb-ring"></div>
@@ -213,11 +210,11 @@
     <div class="container-main">
       <div class="section-row-header reveal">
         <div>
-          <span class="section-tag">Our Products</span>
-          <h2 class="section-title-sm">Invest in Real Assets</h2>
+          <span class="section-tag">{{ 'home.productsTag' | translate }}</span>
+          <h2 class="section-title-sm">{{ 'home.productsTitle' | translate }}</h2>
         </div>
         <button class="btn-text-gold" routerLink="/products">
-          View All Products <i class="fa-solid fa-arrow-right"></i>
+          {{ 'home.viewAllProducts' | translate }} <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </div>
@@ -279,7 +276,7 @@
     <!-- Empty -->
     @if (!isLoadingNewest() && newestProducts().length === 0) {
     <div class="empty-state">
-      <p>No products available yet.</p>
+      <p>{{ 'home.noProductsAvailable' | translate }}</p>
     </div>
   }
   </section>
@@ -291,8 +288,8 @@
     <div class="container-main">
       <div class="section-row-header reveal">
         <div>
-          <span class="section-tag">Browse by Type</span>
-          <h2 class="section-title-sm">Choose Your Investment</h2>
+          <span class="section-tag">{{ 'home.categoriesTag' | translate }}</span>
+          <h2 class="section-title-sm">{{ 'home.categoriesTitle' | translate }}</h2>
         </div>
       </div>
           
@@ -327,8 +324,8 @@
              role="button">
           <span class="metal-emoji">🥇</span>
           <div>
-            <strong>Gold Products</strong>
-            <span>Bars, Coins, Rounds</span>
+            <strong>{{ 'home.goldProducts' | translate }}</strong>
+            <span>{{ 'home.goldProductTypes' | translate }}</span>
           </div>
           <i class="fa-solid fa-arrow-right"></i>
         </div>
@@ -341,8 +338,8 @@
              role="button">
           <span class="metal-emoji">🥈</span>
           <div>
-            <strong>Silver Products</strong>
-            <span>Bars, Coins, Granules</span>
+            <strong>{{ 'home.silverProducts' | translate }}</strong>
+            <span>{{ 'home.silverProductTypes' | translate }}</span>
           </div>
           <i class="fa-solid fa-arrow-right"></i>
         </div>
@@ -366,8 +363,8 @@
   <section class="journey-section">
     <div class="container-main">
       <div class="section-header reveal">
-        <span class="section-tag">Simple Process</span>
-        <h2 class="section-title">Your Investment Journey,<br/>Simple and Smart</h2>
+        <span class="section-tag">{{ 'home.journeyTag' | translate }}</span>
+        <h2 class="section-title">{{ 'home.journeyTitle' | translate }}</h2>
       </div>
 
       <div class="journey-track">
@@ -379,8 +376,8 @@
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
             <div class="js-icon"><i class="fa-solid fa-crosshairs"></i></div>
-            <h4>Set Your Goals</h4>
-            <p>Tell us your investment goals, risk level, and preferred metals. Takes less than 2 minutes.</p>
+            <h4>{{ 'home.journey.step1.title' | translate }}</h4>
+            <p>{{ 'home.journey.step1.description' | translate }}</p>
           </div>
         </div>
 
@@ -390,8 +387,8 @@
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
             <div class="js-icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-            <h4>Invest with Ease</h4>
-            <p>Start with any amount in Egyptian Pounds. Buy fractional gold and silver instantly.</p>
+            <h4>{{ 'home.journey.step2.title' | translate }}</h4>
+            <p>{{ 'home.journey.step2.description' | translate }}</p>
           </div>
         </div>
 
@@ -401,8 +398,8 @@
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
             <div class="js-icon gold-icon"><i class="fa-solid fa-seedling"></i></div>
-            <h4>Grow Your Wealth</h4>
-            <p>Track your portfolio's real-time performance and watch your savings grow securely.</p>
+            <h4>{{ 'home.journey.step3.title' | translate }}</h4>
+            <p>{{ 'home.journey.step3.description' | translate }}</p>
           </div>
         </div>
 
@@ -412,8 +409,8 @@
                (mousemove)="onCardMouseMove($event)"
                (mouseleave)="onCardMouseLeave($event)">
             <div class="js-icon"><i class="fa-solid fa-gears"></i></div>
-            <h4>Automate and Scale</h4>
-            <p>Set up recurring investments and let smart automation build your portfolio over time.</p>
+            <h4>{{ 'home.journey.step4.title' | translate }}</h4>
+            <p>{{ 'home.journey.step4.description' | translate }}</p>
           </div>
         </div>
       </div>
@@ -431,30 +428,30 @@
         <div class="trust-text reveal">
           <div class="trust-eyebrow">
             <i class="fa-solid fa-shield-heart"></i>
-            <span>SECURITY FIRST, ALWAYS</span>
+            <span>{{ 'home.trust.title' | translate }}</span>
           </div>
-          <h2 class="section-title">Built on Trust,<br/>Secured by Design</h2>
+          <h2 class="section-title">{{ 'home.trust.subtitle' | translate }}</h2>
 
           <div class="trust-features">
             <div class="trust-feature">
               <div class="tf-icon"><i class="fa-solid fa-warehouse"></i></div>
               <div>
-                <h5>Certified Storage</h5>
-                <p>All physical assets stored in certified, insured, and independently audited vaults.</p>
+                <h5>{{ 'home.trust.feature1.title' | translate }}</h5>
+                <p>{{ 'home.trust.feature1.description' | translate }}</p>
               </div>
             </div>
             <div class="trust-feature">
               <div class="tf-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
               <div>
-                <h5>Live Audit Trail</h5>
-                <p>Verify your assets at any moment through our encrypted audit gateway.</p>
+                <h5>{{ 'home.trust.feature2.title' | translate }}</h5>
+                <p>{{ 'home.trust.feature2.description' | translate }}</p>
               </div>
             </div>
             <div class="trust-feature">
               <div class="tf-icon"><i class="fa-solid fa-user-check"></i></div>
               <div>
-                <h5>Identity Verified</h5>
-                <p>KYC-compliant onboarding ensures full compliance with Egyptian financial regulations.</p>
+                <h5>{{ 'home.trust.feature3.title' | translate }}</h5>
+                <p>{{ 'home.trust.feature3.description' | translate }}</p>
               </div>
             </div>
           </div>
@@ -493,11 +490,11 @@
     <div class="container-main">
       <div class="section-row-header reveal">
         <div>
-          <span class="section-tag">Trending Now</span>
-          <h2 class="section-title-sm">Most Popular</h2>
+          <span class="section-tag">{{ 'home.popularTag' | translate }}</span>
+          <h2 class="section-title-sm">{{ 'home.popularTitle' | translate }}</h2>
         </div>
         <button class="btn-text-gold" routerLink="/products" [queryParams]="{ sortBy: 'popularity' }">
-          View All <i class="fa-solid fa-arrow-right"></i>
+            {{ 'home.viewAll' | translate }} <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </div>
@@ -565,14 +562,14 @@
            (mousemove)="onCardMouseMove($event)"
            (mouseleave)="onCardMouseLeave($event)">
         <div class="cta-text">
-          <h2>Ready to protect your<br/><span class="liquid-shimmer">wealth with gold?</span></h2>
-          <p>Join thousands of Egyptians already investing in precious metals through Tibr.</p>
+          <h2>{{ 'home.cta.title' | translate }}<br/><span class="liquid-shimmer">{{ 'home.cta.highlight' | translate }}</span></h2>
+          <p>{{ 'home.cta.subtitle' | translate }}</p>
         </div>
         <div class="cta-actions">
           <button class="btn-gold-lg btn-liquid" routerLink="/auth/register">
-            Get Started Free <i class="fa-solid fa-arrow-right"></i>
+            {{ 'home.cta.getStarted' | translate }} <i class="fa-solid fa-arrow-right"></i>
           </button>
-          <button class="btn-ghost-lg" routerLink="/products">Browse Products</button>
+          <button class="btn-ghost-lg" routerLink="/products">{{ 'home.cta.browseProducts' | translate }}</button>
         </div>
       </div>
     </div>

@@ -52,3 +52,59 @@ POST https://localhost:7280/api/auth/reset-password
   "NewPassword": "SecurePassword123!",
   "ConfirmPassword": "SecurePassword123!"
 }
+
+--------------------------------------------------------
+get https://localhost:7280/api/wallet
+get https://localhost:7280/api/wallet/transactions
+-----------------------------
+deposite
+POST  https://localhost:7280/api/deposit/initiate
+{
+  amount:2000,
+  paymentMethod:1
+}
+
+withdraw-funds (pending)
+
+POST  https://localhost:7280/api/withdraw
+{
+  amount:2000,
+  IBAN:1
+}
+
+investment-strategy 
+POST  https://localhost:7280/api/investment-orders/strategy
+{
+assetType:1 or 2,
+orderType:1 or 2,
+ExecutionType:1 or 2 or 3,
+Quantity,
+ExpiryDate,
+Conditions:[ConditionType:1,Operator,TargetValue]
+}
+
+Buy  (pending)
+POST  https://localhost:7280/api/trade/buy
+{
+  assetType
+  quantity,
+  ExpectedPrice
+}
+
+sell (pending)
+POST  https://localhost:7280/api/trade/sell
+{
+  type
+  quantity
+}
+
+delivery
+POST  https://localhost:7280/api/
+
+
+-------------------------------
+https://localhost:7280/api/asset-price/current
+------------------------------
+1- get info for userId
+2- change data user(firstname - lastName - email - phone)
+2- change password (old password - newPassword - confiramPassword)

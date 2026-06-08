@@ -1,0 +1,126 @@
+<main class="container-max mx-auto px-3 px-md-5 main-margin-top pb-5 custom-dark-theme buy-page" dir="rtl">
+  <div class="row g-4">
+    <div class="col-12 col-lg-7 d-flex flex-column gap-4">
+      <div class="premium-card rounded-4 p-4 p-md-5 shadow-lg position-relative overflow-hidden"
+           [ngClass]="currentAsset === 'gold' ? 'gold-accent-active' : 'silver-accent-active'">
+        
+        <h2 class="h3 fw-bold text-white mb-4 flex-grow-1">شراء المعادن الثمينة</h2>
+        
+        <div class="mb-4">
+          <p class="small fw-semibold text-white-50 mb-2">اختر نوع المعدن</p>
+          <div class="d-flex p-3 asset-switcher-bg rounded-3 gap-1">
+            <button type="button" 
+                    class="flex-grow-1 py-3 px-3 rounded-2 border-0 d-flex align-items-center justify-content-center gap-2 transition-base tab-btn"
+                    [ngClass]="currentAsset === 'gold' ? 'tab-gold-active' : 'tab-inactive'"
+                    (click)="setAsset('gold')">
+              <span class="material-symbols-outlined fs-5" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+              <span>ذهب</span>
+            </button>
+            <button type="button" 
+                    class="flex-grow-1 py-3 px-3 rounded-2 border-0 d-flex align-items-center justify-content-center gap-2 transition-base tab-btn"
+                    [ngClass]="currentAsset === 'silver' ? 'tab-silver-active' : 'tab-inactive'"
+                    (click)="setAsset('silver')">
+              <span class="material-symbols-outlined fs-5" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+              <span>فضة</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-12">
+            <label class="small fw-semibold text-white-50 mb-2 d-block">الكمية المطلوبة</label>
+            <div class="position-relative input-wrapper">
+              <input type="number" 
+                     class="form-control form-control-dark font-mono text-end py-3 ps-5 pe-3" 
+                     placeholder="0.00"
+                     [(ngModel)]="inputGrams" 
+                     (input)="calculateFromGrams()" />
+              <span class="input-unit-label position-absolute text-white-50 small">جرام</span>
+            </div>
+          </div>
+          <div class="col-12">
+            <label class="small fw-semibold text-white-50 mb-2 d-block">السعر المتوقع للجرام</label>
+            <div class="position-relative input-wrapper">
+              <input type="number" 
+                     class="form-control form-control-dark font-mono text-white text-end py-3 ps-5 pe-3 field-disabled" 
+                     placeholder="0.00"
+                     [(ngModel)]="expectedPrice" 
+                     (input)="calculateFromExpectedPrice()" 
+                     disabled />
+              <span class="input-unit-label position-absolute text-white-50 small">ج.م</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between p-3 wallet-box rounded-3 border">
+          <div class="d-flex align-items-center gap-3 text-white-50">
+            <span class="material-symbols-outlined text-gold-light">account_balance_wallet</span>
+            <span class="small">الرصيد النقدي المتاح</span>
+          </div>
+          <span class="fs-5 fw-bold text-white font-mono">{{ availableBalance | number:'1.2-2' }} <span class="small text-white-50 fs-6">ج.م</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+      <div class="premium-card rounded-4 p-4 p-md-5 shadow-lg position-sticky sidebar-sticky-top">
+        <h3 class="fs-5 fw-bold text-white mb-4 d-flex align-items-center gap-2">
+          <span class="material-symbols-outlined text-gold-light">receipt_long</span>
+          <span>تفاصيل العملية</span>
+        </h3>
+
+        <div class="d-flex flex-column gap-3 mb-4">
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-translucent-low">
+            <span class="text-white-50 small">سعر الجرام الحالي</span>
+            <span class="fw-semibold text-white font-mono">{{ currentUnitPrice | number:'1.2-2' }} ج.م</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-translucent-low">
+            <span class="text-white-50 small">الكمية الإجمالية</span>
+            <span class="fw-semibold text-white font-mono">{{ totalGrams | number:'1.2-4' }} جرام</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center total-price-row p-3 rounded-3 mt-2">
+            <span class="fs-6 fw-bold text-white">التكلفة الإجمالية</span>
+            <span class="h4 fw-bold text-gold-gradient font-mono mb-0">{{ totalCost | number:'1.2-2' }} ج.م</span>
+          </div>
+        </div>
+
+        <div *ngIf="isBalanceInsufficient" class="mb-4 p-3 error-glow-box text-error rounded-3 d-flex align-items-center gap-3 animate-fade-in">
+          <span class="material-symbols-outlined">error</span>
+          <p class="small mb-0 fw-medium">عذراً، الرصيد المتاح في حسابك غير كافٍ.</p>
+        </div>
+
+        <button type="button"
+                class="w-100 py-3 border-0 rounded-4 fw-bold fs-5 shadow-lg transition-base"
+                [ngClass]="currentAsset === 'gold' ? 'btn-buy-gold' : 'btn-buy-silver'"
+                [disabled]="isConfirmDisabled"
+                (click)="processOrder()">
+          {{ isProcessing ? 'جاري إرسال الطلب...' : 'تأكيد الشراء الفوري' }}
+        </button>
+
+        <div class="mt-4 d-flex flex-column gap-2 text-white-50 opacity-60">
+          <div class="d-flex align-items-center gap-2 tiny-text">
+            <span class="material-symbols-outlined text-success fs-6">verified</span>
+            <span>الأسعار مربوطة بالبورصة العالمية مباشرة.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div *ngIf="showSuccessModal" class="fixed-overlay d-flex align-items-center justify-content-center p-3 z-4">
+  <div class="premium-card rounded-4 p-4 p-md-5 text-center shadow-lg transition-slow modal-box gold-accent-active"
+       [class.scale-100]="successModalScale"
+       [class.scale-95]="!successModalScale"
+       style="max-width: 480px; width: 100%;">
+    <div class="success-pulse-circle d-flex align-items-center justify-content-center mx-auto mb-4 rounded-circle">
+      <span class="material-symbols-outlined display-4 text-gold-light" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+    </div>
+    <h3 class="h4 fw-bold text-white mb-2">تهانينا! تمت العملية</h3>
+    <p class="text-white-50 small mb-4 line-height-md">
+      تم شراء ومحاذاة <br>
+      <span class="fw-bold text-white font-mono fs-5">{{ totalGrams | number:'1.2-4' }}</span> جرام من <span class="text-gold-light fw-bold">{{ currentAsset === 'gold' ? 'الذهب الصافي' : 'الفضة النقية' }}</span> وإضافتها لمحفظتك الاستثمارية.
+    </p>
+    <button type="button" class="w-100 py-3 btn-buy-gold border-0 rounded-4 fw-bold transition-base" (click)="resetWorkflow()">العودة للمحفظة</button>
+  </div>
+</div>

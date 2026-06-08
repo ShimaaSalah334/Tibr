@@ -3,15 +3,16 @@ import {
 } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { ProductService }  from '../../../core/services/product-service';
-import { CategoryService } from '../../../core/services/category-service';
+import { ProductService }  from '../../../core/services/product.service';
+import { CategoryService } from '../../../core/services/category.service';
 import { IProduct }   from '../../../core/interfaces/iproduct';
 import { ICategory }  from '../../../core/interfaces/icategory';
+import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, DecimalPipe],
+  imports: [CommonModule, RouterLink, DecimalPipe, TranslatePipe],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

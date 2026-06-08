@@ -1,0 +1,123 @@
+<main class="container-max mx-auto pt-5 pb-5 px-3 px-md-5 ">
+    <div class="row g-4 ">
+      
+      <aside class="col-12 col-md-4 col-lg-3">
+        <div class="bg-white border rounded-4 vault-shadow p-3 position-sticky top-28">
+          <h1 class="h4 fw-bold mb-4 px-2 text-dark">إعدادات الحساب</h1>
+          <nav class="d-flex flex-column gap-1">
+            <button 
+              (click)="switchTab('personal')"
+              [class.btn-gold-active]="activeTab === 'personal'"
+              [class.btn-outline-custom]="activeTab !== 'personal'"
+              class="btn text-start d-flex align-items-center gap-3 px-3 py-2.5 rounded-3 border-0 transition-all">
+              <span class="material-symbols-outlined">person</span>
+              <span class="small fw-semibold">المعلومات الشخصية</span>
+            </button>
+            
+            <button 
+              (click)="switchTab('security')"
+              [class.btn-gold-active]="activeTab === 'security'"
+              [class.btn-outline-custom]="activeTab !== 'security'"
+              class="btn text-start d-flex align-items-center gap-3 px-3 py-2.5 rounded-3 border-0 transition-all">
+              <span class="material-symbols-outlined">security</span>
+              <span class="small fw-semibold">الأمان والخصوصية</span>
+            </button>
+          </nav>
+        </div>
+      </aside>
+
+      <div class="col-12 col-md-8 col-lg-9">
+        
+        <section *ngIf="activeTab === 'personal'" class="card border-1 rounded-4 vault-shadow p-4 p-md-5 bg-white">
+          <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+            <h2 class="h5 fw-bold text-dark mb-0">المعلومات الشخصية</h2>
+            <span class="small text-muted">إدارة هويتك الأساسية</span>
+          </div>
+          <div class="row g-3">
+            <div class="col-12 col-md-6 d-flex flex-column gap-2">
+              <label class="small fw-semibold text-secondary-variant">الاسم الكامل</label>
+              <div class="position-relative">
+                <input class="form-control form-control-custom py-2.5 px-3 font-body" type="text" [(ngModel)]="userData.fullName"/>
+                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
+                  <span class="material-symbols-outlined fs-5">edit</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex flex-column gap-2">
+              <label class="small fw-semibold text-secondary-variant">الاسم الكامل</label>
+              <div class="position-relative">
+                <input class="form-control form-control-custom py-2.5 px-3 font-body" type="text" [(ngModel)]="userData.fullName"/>
+                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
+                  <span class="material-symbols-outlined fs-5">edit</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex flex-column gap-2">
+              <label class="small fw-semibold text-secondary-variant">البريد الإلكتروني</label>
+              <div class="position-relative">
+                <input class="form-control form-control-custom py-2.5 px-3 font-body" type="email" [(ngModel)]="userData.email"/>
+                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
+                  <span class="material-symbols-outlined fs-5">alternate_email</span>
+                </button>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex flex-column gap-2">
+              <label class="small fw-semibold text-secondary-variant">رقم الجوال</label>
+              <div class="position-relative">
+                <input class="form-control form-control-custom py-2.5 px-3 font-body" dir="ltr" type="tel" [(ngModel)]="userData.phone"/>
+                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
+                  <span class="material-symbols-outlined fs-5">phone_iphone</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-2 d-flex justify-content-end">
+            <button 
+              (click)="saveChanges()" 
+              [disabled]="isSaving"
+              [class.bg-success]="isSaveSuccess"
+              [class.text-white]="isSaveSuccess"
+              class="btn btn-gold px-5 py-2.5 small fw-semibold rounded shadow-none border-0 transition-all">
+              {{ saveButtonText }}
+            </button>
+          </div>
+        </section>
+
+        <section *ngIf="activeTab === 'security'" class="card border-1 rounded-4 vault-shadow p-4 p-md-5 bg-white">
+          <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+            <h2 class="h5 fw-bold text-dark mb-0">الأمان والخصوصية</h2>
+            <span class="small text-muted">حماية أصولك الثمينة</span>
+          </div>
+          <div class="d-flex flex-column gap-3">
+            <div class="d-flex align-items-center justify-content-between p-3 border rounded-3">
+              <div class="d-flex align-items-center gap-3">
+                <div class="w-10 h-10 bg-light rounded-circle d-flex align-items-center justify-content-center text-gold">
+                  <span class="material-symbols-outlined">key</span>
+                </div>
+                <div>
+                  <p class="small fw-semibold text-dark mb-0">كلمة المرور</p>
+                  <p class="small text-muted mb-0">آخر تغيير منذ 3 أشهر</p>
+                </div>
+              </div>
+              <button class="btn btn-outline-gold px-4 py-1.5 small fw-medium transition-all">تغيير</button>
+            </div>
+            <div class="d-flex align-items-center justify-content-between p-3 border rounded-3">
+              <div class="d-flex align-items-center gap-3">
+                <div class="w-10 h-10 bg-light rounded-circle d-flex align-items-center justify-content-center text-gold">
+                  <span class="material-symbols-outlined">verified</span>
+                </div>
+                <div>
+                  <p class="small fw-semibold text-dark mb-0">المصادقة الثنائية (2FA)</p>
+                  <p class="small text-muted mb-0">تأمين إضافي عبر تطبيق التحقق</p>
+                </div>
+              </div>
+              <div class="form-check form-switch p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input custom-switch m-0" type="checkbox" role="switch" [(ngModel)]="userData.twoFactor">
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>

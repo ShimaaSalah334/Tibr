@@ -1,15 +1,22 @@
-import { Component, signal, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal, HostListener, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '../../shared/pipes/translate.pipe';
+import { I18nService, AppLocale } from '../../core/services/i18n.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
 export class Navbar implements OnInit, OnDestroy {
+
+  private readonly i18nService = inject(I18nService);
+
+  readonly currentLang = this.i18nService.currentLang;
+  readonly loadingTranslations = this.i18nService.loading;
 
   isLoggedIn     = signal<boolean>(false);
   cartCount      = signal<number>(0);
@@ -44,6 +51,11 @@ export class Navbar implements OnInit, OnDestroy {
 
   toggleUserMenu(): void  { this.userMenuOpen.update(v => !v); }
   closeUserMenu(): void   { this.userMenuOpen.set(false); }
+
+  switchLanguage(lang: AppLocale): void {
+    this.i18nService.setLanguage(lang);
+    this.closeMobileMenu();
+  }
 
   logout(): void {
     localStorage.clear();

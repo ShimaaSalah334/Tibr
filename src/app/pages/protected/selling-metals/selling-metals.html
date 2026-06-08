@@ -1,0 +1,103 @@
+<main class="main-content-padding px-3 px-md-5 py-5 custom-dark-theme" dir="rtl">
+  <div class="container-max mx-auto">
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-12 col-lg-6 d-flex flex-column gap-4">
+        
+        <!-- كارت اختيار المعدن -->
+        <div class="premium-card p-4 rounded-4 border border-translucent shadow-lg">
+          <label class="small fw-semibold text-white-50 mb-3 d-block">اختر المعدن المراد بيعه</label>
+          <div class="row g-3 py-3">
+            <!-- الذهب -->
+            <div class="col-6">
+              <button type="button" 
+                      class="asset-btn w-100 flex-column text-center p-3 rounded-4 bg-transparent d-flex align-items-center justify-content-center"
+                      [ngClass]="selectedAssetId === 'gold' ? 'active-gold' : 'inactive-asset'"
+                      (click)="selectAsset('gold')">
+                <div class="icon-avatar mb-2 d-flex align-items-center justify-content-center rounded-circle bg-gold-low">
+                  <span class="material-symbols-outlined text-gold-light fs-3" style="font-variation-settings: 'FILL' 1;">stars</span>
+                </div>
+                <span class="fw-bold small text-white d-block mb-1">ذهب</span>
+              </button>
+            </div>
+            <!-- الفضة -->
+            <div class="col-6">
+              <button type="button" 
+                      class="asset-btn w-100 flex-column text-center p-3 rounded-4 bg-transparent d-flex align-items-center justify-content-center"
+                      [ngClass]="selectedAssetId === 'silver' ? 'active-silver' : 'inactive-asset'"
+                      (click)="selectAsset('silver')">
+                <div class="icon-avatar mb-2 d-flex align-items-center justify-content-center rounded-circle bg-silver-low">
+                  <span class="material-symbols-outlined text-silver-light fs-3" style="font-variation-settings: 'FILL' 1;">token</span>
+                </div>
+                <span class="fw-bold small text-white d-block mb-1">فضة</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- كارت الكمية والقيمة -->
+        <div class="premium-card p-4 rounded-4 border border-translucent shadow-lg">
+          <div class="row g-4">
+            <div class="col-12 col-md-6">
+              <label class="small fw-semibold text-white-50 mb-2 d-block">الكمية المراد بيعها</label>
+              <div class="position-relative input-wrapper">
+                <input type="number" 
+                       class="form-control form-control-dark font-mono text-end py-3 ps-5 pe-3" 
+                       step="0.01" 
+                       placeholder="0.00"
+                       [(ngModel)]="sellAmountGrams" />
+                <span class="input-unit-label position-absolute text-white-50 small">جرام</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-2 tiny-text">
+                <span class="text-white-50">سعر البيع المباشر: <span class="text-gold-light font-mono">{{ currentAsset.livePricePerGram | number:'1.2-2' }}</span> ج.م</span>
+              </div>
+            </div>
+            
+            <div class="col-12 col-md-6">
+              <label class="small fw-semibold text-white-50 mb-2 d-block">القيمة التقديرية</label>
+              <div class="position-relative input-wrapper">
+                <div class="form-control-dark-readonly font-mono text-end py-3 ps-5 pe-3 rounded-3">
+                  {{ rawEstimatedValue | number:'1.2-2' }}
+                </div>
+                <span class="input-unit-label position-absolute text-white-50 small">ج.م</span>
+              </div>
+              <p class="tiny-text text-white-50 mt-2 mb-0">القيمة قبل خصم الرسوم</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- كارت ملخص العملية -->
+        <div class="premium-card p-4 rounded-4 border border-translucent shadow-lg">
+          <div class="d-flex flex-column gap-3">
+            <div class="d-flex justify-content-between align-items-center fs-5 total-row p-3 rounded-3">
+              <span class="fw-bold text-white">المبلغ المودع في المحفظة:</span>
+              <span class="fw-bold text-gold-gradient font-mono">{{ finalNetPayout | number:'1.2-2' }} ج.م</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- زر التأكيد الجامد -->
+        <button type="button" 
+                class="w-100 py-3 btn-premium-submit border-0 text-dark font-title fw-bold rounded-4 shadow-lg transition-base"
+                [disabled]="isInputInvalid"
+                (click)="executeLiquidationSale()">
+          تأكيد عملية البيع
+        </button>
+
+        <!-- ثقة وأمان -->
+        <div class="d-flex justify-content-center gap-4 pt-1 flex-wrap">
+          <div class="d-flex align-items-center gap-2 tiny-text text-white-50 trust-badge">
+            <span class="material-symbols-outlined text-success fs-6" style="font-variation-settings: 'FILL' 1;">lock</span>
+            <span>معاملة مشفرة وآمنة</span>
+          </div>
+          <div class="d-flex align-items-center gap-2 tiny-text text-white-50 trust-badge">
+            <span class="material-symbols-outlined text-success fs-6" style="font-variation-settings: 'FILL' 1;">verified</span>
+            <span>معتمد من هيئة التجارة</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>

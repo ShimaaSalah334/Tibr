@@ -10,8 +10,7 @@
         <span class="logo-en">Tibr</span>
       </div>
       <p class="footer-tagline">
-        Egypt's premier platform for fractional precious metals investment.
-        Own real gold and silver — start with any amount.
+        {{ 'footer.tagline' | translate }}
       </p>
       <div class="footer-socials">
         <a href="#" class="social-btn" title="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
@@ -23,36 +22,36 @@
 
     <!-- Invest column -->
     <div class="footer-col">
-      <h4 class="footer-heading">Invest</h4>
+      <h4 class="footer-heading">{{ 'footer.invest' | translate }}</h4>
       <ul class="footer-links">
-        <li><a routerLink="/products" [queryParams]="{ metalType: '0' }">Gold Products</a></li>
-        <li><a routerLink="/products" [queryParams]="{ metalType: '1' }">Silver Products</a></li>
-        <li><a routerLink="/products" [queryParams]="{ categoryName: 'Bars' }">Bars</a></li>
-        <li><a routerLink="/products" [queryParams]="{ categoryName: 'Coins' }">Coins</a></li>
-        <li><a routerLink="/products" [queryParams]="{ sortBy: 'popularity' }">Popular</a></li>
+        <li><a routerLink="/products" [queryParams]="{ metalType: '0' }">{{ 'footer.goldProducts' | translate }}</a></li>
+        <li><a routerLink="/products" [queryParams]="{ metalType: '1' }">{{ 'footer.silverProducts' | translate }}</a></li>
+        <li><a routerLink="/products" [queryParams]="{ categoryName: 'Bars' }">{{ 'footer.bars' | translate }}</a></li>
+        <li><a routerLink="/products" [queryParams]="{ categoryName: 'Coins' }">{{ 'footer.coins' | translate }}</a></li>
+        <li><a routerLink="/products" [queryParams]="{ sortBy: 'popularity' }">{{ 'footer.popular' | translate }}</a></li>
       </ul>
     </div>
 
     <!-- Company column -->
     <div class="footer-col">
-      <h4 class="footer-heading">Platform</h4>
+      <h4 class="footer-heading">{{ 'footer.platform' | translate }}</h4>
       <ul class="footer-links">
-        <li><a routerLink="/about">About Tharwa</a></li>
-        <li><a routerLink="/how-it-works">How It Works</a></li>
-        <li><a routerLink="/security">Security</a></li>
-        <li><a routerLink="/contact">Contact Us</a></li>
-        <li><a routerLink="/faq">FAQ</a></li>
+        <li><a routerLink="/about">{{ 'footer.aboutTharwa' | translate }}</a></li>
+        <li><a routerLink="/how-it-works">{{ 'footer.howItWorks' | translate }}</a></li>
+        <li><a routerLink="/security">{{ 'footer.security' | translate }}</a></li>
+        <li><a routerLink="/contact">{{ 'footer.contactUs' | translate }}</a></li>
+        <li><a routerLink="/faq">{{ 'footer.faq' | translate }}</a></li>
       </ul>
     </div>
 
     <!-- Legal column -->
     <div class="footer-col">
-      <h4 class="footer-heading">Legal</h4>
+      <h4 class="footer-heading">{{ 'footer.legal' | translate }}</h4>
       <ul class="footer-links">
-        <li><a routerLink="/terms">Terms & Conditions</a></li>
-        <li><a routerLink="/privacy">Privacy Policy</a></li>
-        <li><a routerLink="/risk">Risk Disclosure</a></li>
-        <li><a routerLink="/licenses">Licenses</a></li>
+        <li><a routerLink="/terms">{{ 'footer.terms' | translate }}</a></li>
+        <li><a routerLink="/privacy">{{ 'footer.privacy' | translate }}</a></li>
+        <li><a routerLink="/risk">{{ 'footer.risk' | translate }}</a></li>
+        <li><a routerLink="/licenses">{{ 'footer.licenses' | translate }}</a></li>
       </ul>
     </div>
 
@@ -60,7 +59,7 @@
 
   <!-- Partner logos row -->
   <div class="footer-partners">
-    <span class="partners-label">Regulated & Insured By</span>
+    <span class="partners-label">{{ 'footer.regulated' | translate }}</span>
     <div class="partners-row">
       <div class="partner-badge"><i class="fa-solid fa-shield-halved"></i> Central Bank</div>
       <div class="partner-badge"><i class="fa-solid fa-certificate"></i> ISO 9001</div>
@@ -72,16 +71,16 @@
   <!-- Bottom bar -->
   <div class="footer-bottom">
     <div class="footer-bottom-inner">
-      <span class="footer-copy">© 2025 Tharwa Digital Investment. All rights reserved.</span>
+      <span class="footer-copy">{{ 'footer.copy' | translate }}</span>
       <div class="footer-trust-badges">
         <span class="trust-badge">
-          <i class="fa-solid  fa-certificate" style="color:var(--gold)"></i> Licensed
+          <i class="fa-solid  fa-certificate" style="color:var(--gold)"></i> {{ 'footer.badgeLicensed' | translate }}
         </span>
         <span class="trust-badge">
-          <i class="fa-solid fa-lock" style="color:var(--gold)"></i> Secure
+          <i class="fa-solid fa-lock" style="color:var(--gold)"></i> {{ 'footer.badgeSecure' | translate }}
         </span>
         <span class="trust-badge">
-          <i class="fa-solid fa-star" style="color:var(--gold)"></i> Regulated
+          <i class="fa-solid fa-star" style="color:var(--gold)"></i> {{ 'footer.badgeRegulated' | translate }}
         </span>
       </div>
     </div>

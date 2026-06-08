@@ -1,8 +1,8 @@
 <!-- Breadcrumbs -->
 <nav class="pd-breadcrumb">
-  <a routerLink="/">Home</a>
+  <a routerLink="/">{{ 'nav.home' | translate }}</a>
   <i class="fa-solid fa-chevron-right"></i>
-  <a routerLink="/products">Products</a>
+  <a routerLink="/products">{{ 'nav.products' | translate }}</a>
   <i class="fa-solid fa-chevron-right"></i>
   @if (product()) {
     <a routerLink="/products" [queryParams]="{categoryName: product()!.categoryName}">
@@ -17,7 +17,7 @@
 @if (isLoading()) {
   <div class="pd-loading">
     <div class="pd-spinner"></div>
-    <span>Loading product...</span>
+    <span>{{ 'productDetails.loading' | translate }}</span>
   </div>
 }
 
@@ -26,7 +26,7 @@
   <div class="pd-error">
     <i class="fa-solid fa-triangle-exclamation"></i>
     <h3>{{ error() }}</h3>
-    <button class="btn-gold" (click)="goToProducts()">Back to Products</button>
+    <button class="btn-gold" (click)="goToProducts()">{{ 'productDetails.backToProducts' | translate }}</button>
   </div>
 }
 
@@ -53,11 +53,11 @@
         <!-- Stock badge -->
         @if (isOutOfStock()) {
           <span class="pd-stock-badge out-of-stock">
-            <i class="fa-solid fa-ban"></i> Out of Stock
+            <i class="fa-solid fa-ban"></i> {{ 'productDetails.outOfStock' | translate }}
           </span>
         } @else if (isLowStock()) {
           <span class="pd-stock-badge low-stock">
-            <i class="fa-solid fa-fire"></i> Only {{ product()!.stock }}g left
+            <i class="fa-solid fa-fire"></i> {{ 'productDetails.onlyLeft' | translate }} {{ product()!.stock }}g
           </span>
         }
       </div>
@@ -92,7 +92,7 @@
       <h1 class="pd-title">{{ product()!.name }}</h1>
       <p class="pd-weight">
         <i class="fa-solid fa-weight-hanging"></i>
-        Weight: <strong>{{ product()!.weight }}g</strong>
+        {{ 'productDetails.weightLabel' | translate }} <strong>{{ product()!.weight }}g</strong>
       </p>
 
       <!-- Price cards -->
@@ -109,16 +109,16 @@
         </div> -->
         <div class="pd-price-card glass-card">
           <div class="price-label">
-            <span>Sell Price</span>
+            <span>{{ 'productDetails.sellPrice' | translate }}</span>
             <i class="fa-solid fa-arrow-trend-down silver-text"></i>
           </div>
           <div class="price-value">
             {{ product()!.sellPrice | number:'1.0-0' }}
-            <span class="price-currency">EGP</span>
+            <span class="price-currency">{{ 'productDetails.priceCurrency' | translate }}</span>
           </div>
         </div>
         <div class="pd-price-update">
-          <i class="fa-regular fa-clock"></i> Updated 5 minutes ago
+          <i class="fa-regular fa-clock"></i> {{ 'productDetails.priceUpdated' | translate }}
         </div>
       </div>
 
@@ -126,15 +126,15 @@
       <div class="pd-stock-bar">
         <div class="stock-bar-header">
           <span class="stock-bar-label">
-            <i class="fa-solid fa-warehouse"></i> Availability
+            <i class="fa-solid fa-warehouse"></i> {{ 'productDetails.availability' | translate }}
           </span>
           <span class="stock-bar-value"
                 [class.stock-ok]="!isOutOfStock() && !isLowStock()"
                 [class.stock-low]="isLowStock()"
                 [class.stock-out]="isOutOfStock()">
-            @if (isOutOfStock()) { Out of Stock }
-            @else if (isLowStock()) { Low Stock · {{ product()!.stock }}g }
-            @else { In Stock · {{ product()!.stock }}g }
+            @if (isOutOfStock()) { {{ 'productDetails.outOfStock' | translate }} }
+            @else if (isLowStock()) { {{ 'productDetails.lowStock' | translate }} {{ product()!.stock }}g }
+            @else { {{ 'productDetails.inStock' | translate }} {{ product()!.stock }}g }
           </span>
         </div>
         <div class="stock-track">
@@ -148,10 +148,10 @@
       <!-- ── QUANTITY SLIDER ── -->
       <div class="pd-quantity-block glass-card">
         <div class="qty-header">
-          <span class="qty-label">QUANTITY</span>
+          <span class="qty-label">{{ 'productDetails.quantity' | translate }}</span>
           <span class="qty-display gold-text">
             {{ quantityGrams() | number:'1.0-2' }}g
-            <span class="qty-bars">({{ quantityBars() }} {{ quantityBars() === 1 ? 'BAR' : 'BARS' }})</span>
+            <span class="qty-bars">({{ quantityBars() }} {{ quantityBars() === 1 ? ('productDetails.barsSingular' | translate) : ('productDetails.barsPlural' | translate) }})</span>
           </span>
         </div>
         <div class="qty-slider-wrap">
@@ -167,8 +167,8 @@
                [style.width.%]="quantityPercent()"></div>
         </div>
         <div class="qty-limits">
-          <span>Min: {{ product()!.weight }}g</span>
-          <span>Max: {{ maxQuantity() }}g</span>
+          <span>{{ 'productDetails.min' | translate }} {{ product()!.weight }}g</span>
+          <span>{{ 'productDetails.max' | translate }} {{ maxQuantity() }}g</span>
         </div>
       </div>
 
@@ -178,7 +178,7 @@
                 [disabled]="isOutOfStock()"
                 (click)="addToCart()">
           <i class="fa-solid fa-cart-plus"></i>
-          Add to Cart
+          {{ 'productDetails.addToCart' | translate }}
         </button>
         <!-- <button class="btn-buy-now"
                 [disabled]="isOutOfStock()"
@@ -194,7 +194,7 @@
       @if (cartSuccess()) {
       <div class="pd-cart-toast toast-success">
         <i class="fa-solid fa-circle-check"></i>
-        Product added to cart successfully.
+        {{ 'productDetails.addedToCart' | translate }}
       </div>
       }
       @if (cartError()) {
@@ -213,16 +213,16 @@
           </div>
           <div class="ai-body">
             <div class="ai-header-row">
-              <span class="ai-name">Tharwa AI Advisor</span>
+              <span class="ai-name">{{ 'productDetails.aiAdvisor' | translate }}</span>
               <span class="ai-confidence">
-                <i class="fa-solid fa-circle-check"></i> 92% Confidence
+                <i class="fa-solid fa-circle-check"></i> {{ 'productDetails.confidence' | translate }}
               </span>
             </div>
             <p class="ai-insight">
-              "Based on current global gold trends and market signals, this is an optimal entry point before the expected rally in the upcoming quarter."
+              {{ 'productDetails.insight' | translate }}
             </p>
             <button class="ai-cta" routerLink="/ai-advisor">
-              Ask the Advisor <i class="fa-solid fa-arrow-left"></i>
+              {{ 'productDetails.askAdvisor' | translate }} <i class="fa-solid fa-arrow-left"></i>
             </button>
           </div>
         </div>
@@ -285,9 +285,9 @@
   <!-- ═══════════════ RELATED PRODUCTS ═══════════════ -->
   <section class="pd-related">
     <div class="related-header">
-      <h2 class="related-title">You Might Also Like</h2>
+      <h2 class="related-title">{{ 'productDetails.relatedTitle' | translate }}</h2>
       <button class="btn-outline-gold" (click)="goToProducts()">
-        View All <i class="fa-solid fa-arrow-left"></i>
+        {{ 'productDetails.viewAll' | translate }} <i class="fa-solid fa-arrow-left"></i>
       </button>
     </div>
 
@@ -324,7 +324,7 @@
     }
 
     @if (!isLoadingRelated() && relatedProducts().length === 0) {
-      <p class="related-empty">No related products found.</p>
+      <p class="related-empty">{{ 'productDetails.noRelated' | translate }}</p>
     }
   </section>
 }

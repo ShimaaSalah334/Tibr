@@ -3,7 +3,6 @@ import { environment } from "../environments/environment.development";
 const baseUrl = environment.apiUrl;
 
 export const API_ENDPOINTS = {
-
   products: {
     getAll:        `${baseUrl}/product`,           // GET with query params
     getById:       (id: number) => `${baseUrl}/product/${id}`,
@@ -34,5 +33,24 @@ export const API_ENDPOINTS = {
   },
   payment:{
        initiatePayment: `${baseUrl}/payment/initiate`
+  },
+  assetPrice:{
+    getCurrentPrices: `${baseUrl}/asset-price/current`
+  },
+  deposit:{
+    createDeposit: `${baseUrl}/deposit/initiate`
+  },
+  trade:{
+    executeBuyTrade: `${baseUrl}/trade/buy`,
+    executeSellTrade: `${baseUrl}/trade/sell`
+  },
+  Address:{
+    getAll:        `${baseUrl}/address`,
+    create:        `${baseUrl}/address`,
+    delete:   (id: number) => `${baseUrl}/address/${id}`,
+  },
+  Delivery:{
+    create:        `${baseUrl}/delivery`,
+    getById:   (id: number) => `${baseUrl}/delivery/${id}`,
   }
 };

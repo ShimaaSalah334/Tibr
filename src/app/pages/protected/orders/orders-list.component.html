@@ -14,25 +14,6 @@
       </a>
     </div>
 
-    @if (!isLoading && !error && orders.length > 0) {
-      <div class="row g-3 mb-4 animate-fade-in">
-        <div class="col-6 col-md-3">
-          <div class="stat-glass-card">
-            <span class="stat-label">Total Acquisitions</span>
-            <span class="stat-value">{{ orders.length }}</span>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="stat-glass-card">
-            <span class="stat-label">Active Orders</span>
-            <span class="stat-value text-gold-glow">
-              {{ (orders | filterActiveStatusCount) || 1 }}
-            </span>
-          </div>
-        </div>
-      </div>
-    }
-
     <div class="filters-control-panel mb-4 animate-fade-in">
       <div class="filters-scroll-wrapper">
         <div class="status-pills-group">

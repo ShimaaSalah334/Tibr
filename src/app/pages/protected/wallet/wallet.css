@@ -1,0 +1,42 @@
+/* تأثيرات الحواف الدائرية المحسنة للكروت */
+.rounded-4 {
+  border-radius: 1rem !important;
+}
+
+/* تأثير تحويم ناعم للأزرار والكروت الثنائية */
+.transition-hover {
+  transition: all 0.25s ease-in-out !important;
+}
+.transition-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.08) !important;
+  opacity: 0.95;
+}
+
+/* تعديل خلفية كارت المحفظة الرئيسي ليعطي انطباع فخم (ذهبي خفيف متدرج) */
+.background-accent-glow {
+  background: linear-gradient(135deg, #ffffff 0%, #fffdf4 100%) !important;
+  border-right: 4px solid #ffc107 !important; /* لمحة ذهبية جانبية */
+}
+
+/* تدرج ذهبي للنصوص الرقمية الكبيرة */
+.gold-gradient-text {
+  background: linear-gradient(45deg, #aa7c11, #e3b03b, #9a6b0c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* خطوط الاتجاه من اليسار لليمين للمصطلحات الإنجليزية */
+.text-ltr {
+  direction: ltr;
+  display: inline-block;
+}
+
+/* حجم خط إضافي صغير جداً للتفاصيل */
+.fs-7 {
+  font-size: 0.78rem !important;
+}
+.fw-extrabold {
+  font-weight: 800;
+}

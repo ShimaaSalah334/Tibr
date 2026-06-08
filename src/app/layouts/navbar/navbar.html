@@ -27,7 +27,7 @@
       </span>
       <span class="ticker-sep">·</span>
     </div>
-  }
+    }
   </div>
 </div>
 
@@ -38,84 +38,88 @@
     <!-- Logo -->
     <a class="nav-logo" routerLink="/">
       <span class="logo-en">Tibr</span>
-      <!-- <span class="logo-divider"></span>
-      <span class="logo-en">Tibr</span> -->
     </a>
 
     <!-- Desktop Links -->
     <ul class="nav-links d-none d-lg-flex">
       <li>
-        <a routerLink="/" routerLinkActive="active"
-           [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          {{ 'nav.home' | translate }}
+        </a>
       </li>
       <li>
-        <a routerLink="/products" routerLinkActive="active">Products</a>
+        <a routerLink="/products" routerLinkActive="active">{{ 'nav.products' | translate }}</a>
       </li>
       <li>
-        <a routerLink="/how-it-works" routerLinkActive="active">How It Works</a>
+        <a routerLink="/how-it-works" routerLinkActive="active">{{ 'nav.howItWorks' | translate }}</a>
       </li>
       <li>
-        <a routerLink="/about" routerLinkActive="active">About</a>
+        <a routerLink="/about" routerLinkActive="active">{{ 'nav.about' | translate }}</a>
       </li>
     </ul>
 
     <!-- Nav Actions -->
     <div class="nav-actions">
+      <div class="nav-language d-none d-md-flex">
+        <button type="button" class="lang-btn" (click)="switchLanguage(currentLang() === 'en' ? 'ar' : 'en')">
+          {{ currentLang() === 'en' ? 'AR' : 'EN' }}
+        </button>
+      </div>
+
       <!-- Cart -->
-      <a routerLink="/cart" class="nav-icon-btn d-none d-md-flex" title="Cart">
+      <a routerLink="/cart" class="nav-icon-btn d-none d-md-flex" title="{{ 'nav.cart' | translate }}">
         <i class="fa-solid fa-bag-shopping"></i>
         @if (cartCount() > 0) {
-  <span class="badge-dot">
-    {{ cartCount() }}
-  </span>
-}
+        <span class="badge-dot">
+          {{ cartCount() }}
+        </span>
+        }
       </a>
 
       <!-- Wishlist -->
-      <a routerLink="/wishlist" class="nav-icon-btn d-none d-md-flex" title="Wishlist">
+      <a routerLink="/wishlist" class="nav-icon-btn d-none d-md-flex" title="{{ 'nav.wishlist' | translate }}">
         <i class="fa-regular fa-heart"></i>
       </a>
 
       <!-- Auth buttons -->
       @if (!isLoggedIn()) {
-  <a routerLink="/login" class="btn-ghost d-none d-md-inline-flex">
-    Sign In
-  </a>
+      <a routerLink="/login" class="btn-ghost d-none d-md-inline-flex">
+        {{ 'nav.signIn' | translate }}
+      </a>
 
-  <a routerLink="/register" class="btn-gold btn-liquid">
-    Start Investing
-  </a>
-}
+      <a routerLink="/register" class="btn-gold btn-liquid">
+        {{ 'nav.startInvesting' | translate }}
+      </a>
+      }
 
       <!-- User menu -->
-@if (isLoggedIn()) {
-          <div class="user-menu" (click)="toggleUserMenu()" [class.open]="userMenuOpen()">
-          <div class="user-avatar">
-            <i class="fa-solid fa-user"></i>
-          </div>
-           @if (userMenuOpen()) {
-          <div class="user-dropdown" >
-            <a routerLink="/profile" (click)="closeUserMenu()">
-              <i class="fa-regular fa-user"></i> Profile
-            </a>
-            <a routerLink="/orders" (click)="closeUserMenu()">
-              <i class="fa-solid  fa-receipt"></i> Orders
-            </a>
-            <a routerLink="/wallet" (click)="closeUserMenu()">
-              <i class="fa-solid  fa-wallet"></i> Wallet
-            </a>
-            <div class="dropdown-divider"></div>
-            <button (click)="logout()">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
-            </button>
-          </div>
-        }
+      @if (isLoggedIn()) {
+      <div class="user-menu" (click)="toggleUserMenu()" [class.open]="userMenuOpen()">
+        <div class="user-avatar">
+          <i class="fa-solid fa-user"></i>
         </div>
+        @if (userMenuOpen()) {
+        <div class="user-dropdown">
+          <a routerLink="/profile" (click)="closeUserMenu()">
+            <i class="fa-regular fa-user"></i> {{ 'nav.profile' | translate }}
+          </a>
+          <a routerLink="/orders" (click)="closeUserMenu()">
+            <i class="fa-solid fa-receipt"></i> {{ 'nav.orders' | translate }}
+          </a>
+          <a routerLink="/wallet" (click)="closeUserMenu()">
+            <i class="fa-solid fa-wallet"></i> {{ 'nav.wallet' | translate }}
+          </a>
+          <div class="dropdown-divider"></div>
+          <button (click)="logout()" class="logout-btn">
+            <i class="fa-solid fa-arrow-right-from-bracket rotate-icon"></i> {{ 'nav.signOut' | translate }}
+          </button>
+        </div>
+        }
+      </div>
       }
+      
       <!-- Hamburger -->
-      <button class="hamburger d-lg-none"
-              (click)="toggleMobileMenu()"
-              [class.open]="mobileMenuOpen()">
+      <button class="hamburger d-lg-none" (click)="toggleMobileMenu()" [class.open]="mobileMenuOpen()">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -124,29 +128,29 @@
   <!-- Mobile Menu -->
   <div class="mobile-menu" [class.open]="mobileMenuOpen()">
     <ul>
-      <li><a routerLink="/"           (click)="closeMobileMenu()">Market</a></li>
-      <li><a routerLink="/products"   (click)="closeMobileMenu()">Products</a></li>
-      <li><a routerLink="/how-it-works" (click)="closeMobileMenu()">How It Works</a></li>
-      <li><a routerLink="/about"      (click)="closeMobileMenu()">About</a></li>
+      <li><a routerLink="/" (click)="closeMobileMenu()">{{ 'nav.market' | translate }}</a></li>
+      <li><a routerLink="/products" (click)="closeMobileMenu()">{{ 'nav.products' | translate }}</a></li>
+      <li><a routerLink="/how-it-works" (click)="closeMobileMenu()">{{ 'nav.howItWorks' | translate }}</a></li>
+      <li><a routerLink="/about" (click)="closeMobileMenu()">{{ 'nav.about' | translate }}</a></li>
       <li class="mobile-divider"></li>
       @if (!isLoggedIn()) {
-      <li >
-        <a routerLink="/auth/login"    (click)="closeMobileMenu()">Sign In</a>
-      </li>
-      <li >
-        <a routerLink="/auth/register" (click)="closeMobileMenu()" class="btn-gold-full">
-          Start Investing
-        </a>
-      </li>
-    }
-      @if (isLoggedIn()) {
-      <li >
-        <a routerLink="/profile"   (click)="closeMobileMenu()">Profile</a>
+      <li>
+        <a routerLink="/auth/login" (click)="closeMobileMenu()">{{ 'nav.signIn' | translate }}</a>
       </li>
       <li>
-        <button (click)="logout()">Sign Out</button>
+        <a routerLink="/auth/register" (click)="closeMobileMenu()" class="btn-gold-full">
+          {{ 'nav.startInvesting' | translate }}
+        </a>
       </li>
-    }
+      }
+      @if (isLoggedIn()) {
+      <li>
+        <a routerLink="/profile" (click)="closeMobileMenu()">Profile</a>
+      </li>
+      <li>
+        <button (click)="logout()" class="mobile-logout-btn">Sign Out</button>
+      </li>
+      }
     </ul>
   </div>
 </nav>

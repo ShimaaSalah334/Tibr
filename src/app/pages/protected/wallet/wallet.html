@@ -1,0 +1,157 @@
+<main class="min-h-screen pb-5 main-content-wrapper bg-light" dir="rtl">
+  <div class="container-xl py-4 space-y-4">
+    
+    <div class="row g-3 mb-4">
+      
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm p-3 bg-white rounded-4 d-flex flex-row justify-content-between align-items-center asset-card h-100 transition-hover">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-3 bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+              <span class="material-symbols-outlined fs-3 fw-medium">account_balance_wallet</span>
+            </div>
+            <div>
+              <p class="small text-muted mb-0 fw-medium">المحفظة النقدية</p>
+              <h4 class="h5 mb-0 fw-bold text-dark mt-1">{{ cashWalletBalance }} <span class="fs-7 fw-normal text-muted">EGP</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm p-3 bg-white rounded-4 d-flex flex-row justify-content-between align-items-center asset-card h-100 transition-hover">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-3 bg-warning bg-opacity-15 text-warning d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; color: #ff9800 !important;">
+              <span class="material-symbols-outlined fs-3 fw-medium">workspace_premium</span>
+            </div>
+            <div>
+              <p class="small text-muted mb-0 fw-medium">حيازة الذهب</p>
+              <h4 class="h5 mb-0 fw-bold text-dark mt-1">{{ goldHoldings }} <span class="fs-7 fw-normal text-muted">جرام</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="card border-0 shadow-sm p-3 bg-white rounded-4 d-flex flex-row justify-content-between align-items-center asset-card h-100 transition-hover">
+          <div class="d-flex align-items-center gap-3">
+            <div class="rounded-3 bg-secondary bg-opacity-10 text-secondary d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+              <span class="material-symbols-outlined fs-3 fw-medium">blur_circular</span>
+            </div>
+            <div>
+              <p class="small text-muted mb-0 fw-medium">حيازة الفضة</p>
+              <h4 class="h5 mb-0 fw-bold text-dark mt-1">{{ silverHoldings }} <span class="fs-7 fw-normal text-muted">جرام</span></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card border-0 shadow-sm p-4 mb-4 bg-white rounded-4">
+      <h3 class="h6 fw-bold text-dark mb-3 d-flex align-items-center gap-2">
+        <span class="bg-warning rounded-pill d-inline-block" style="width: 4px; height: 16px;"></span>
+        إجراءات سريعة 
+      </h3>
+      <div class="row row-cols-2 row-cols-sm-3 row-cols-md-5 g-3">
+        
+        <div class="col">
+          <button (click)="onAction('deposit')" class="btn btn-action-card w-100 d-flex flex-column align-items-center gap-2 p-3 border-0 rounded-3 bg-light transition-hover shadow-xs">
+            <div class="action-icon-circle bg-white text-dark shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+              <span class="material-symbols-outlined fs-5">add_card</span>
+            </div>
+            <span class="small fw-bold text-dark">إيداع</span>
+          </button>
+        </div>
+
+        <div class="col">
+          <button (click)="onAction('withdraw')" class="btn btn-action-card w-100 d-flex flex-column align-items-center gap-2 p-3 border-0 rounded-3 bg-light transition-hover shadow-xs">
+            <div class="action-icon-circle bg-white text-dark shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+              <span class="material-symbols-outlined fs-5">payments</span>
+            </div>
+            <span class="small fw-bold text-dark">سحب أموال</span>
+          </button>
+        </div>
+
+        <div class="col">
+          <button (click)="onAction('strategy')" class="btn btn-action-card w-100 d-flex flex-column align-items-center gap-2 p-3 border-0 rounded-3 bg-light transition-hover shadow-xs">
+            <div class="action-icon-circle bg-white text-dark shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+              <span class="material-symbols-outlined fs-5">auto_graph</span>
+            </div>
+            <span class="small fw-bold text-dark">استراتيجية</span>
+          </button>
+        </div>
+
+        <div class="col">
+          <button (click)="onAction('buy')" class="btn btn-success w-100 d-flex flex-column align-items-center gap-2 p-3 border-0 rounded-3 transition-hover shadow-sm text-white">
+            <div class="action-icon-circle bg-white text-success shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+              <span class="material-symbols-outlined fs-5">shopping_bag</span>
+            </div>
+            <span class="small fw-bold">شراء</span>
+          </button>
+        </div>
+
+        <div class="col">
+          <button (click)="onAction('sell')" class="btn btn-action-card w-100 d-flex flex-column align-items-center gap-2 p-3 border-0 rounded-3 bg-light transition-hover shadow-xs">
+            <div class="action-icon-circle bg-white text-danger shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+              <span class="material-symbols-outlined fs-5">sell</span>
+            </div>
+            <span class="small fw-bold text-dark">بيع</span>
+          </button>
+        </div>
+
+        <div class="col">
+          <button (click)="onAction('delivery')" class="btn btn-action-card w-100 d-flex flex-column align-items-center gap-2 p-3 border-0 rounded-3 bg-light transition-hover shadow-xs">
+            <div class="action-icon-circle bg-white text-dark shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 42px; height: 42px;">
+              <span class="material-symbols-outlined fs-5">package</span>
+            </div>
+            <span class="small fw-bold text-dark">توصيل</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card border-0 shadow-sm overflow-hidden bg-white rounded-4">
+      <div class="card-body p-4 border-bottom border-light d-flex justify-content-between align-items-center">
+        <h3 class="h6 fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+          <span class="bg-warning rounded-pill d-inline-block" style="width: 4px; height: 16px;"></span>
+          آخر العمليات 
+        </h3>
+        <button (click)="onAction('viewAll')" class="btn btn-link text-warning text-decoration-none small p-0 fw-bold transition-hover">عرض الكل</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 text-end">
+          <thead class="table-light text-secondary">
+            <tr>
+              <th class="px-4 py-3 small fw-bold text-muted border-0" style="font-size: 0.8rem;">العملية</th>
+              <th class="px-4 py-3 small fw-bold text-muted border-0" style="font-size: 0.8rem;">التاريخ</th>
+              <th class="px-4 py-3 small fw-bold text-muted border-0" style="font-size: 0.8rem;">الكمية/القيمة</th>
+              <th class="px-4 py-3 small fw-bold text-muted border-0" style="font-size: 0.8rem;">الحالة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tx of transactions" class="transition-hover">
+              <td class="px-4 py-3.5">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="rounded-circle d-flex align-items-center justify-content-center shadow-xs" [ngClass]="tx.iconColorClass" style="width: 38px; height: 38px;">
+                    <span class="material-symbols-outlined fs-5">{{ tx.icon }}</span>
+                  </div>
+                  <div>
+                    <span class="fw-semibold text-dark d-block">{{ tx.type }}</span>
+                    <span class="small text-muted fs-7 text-ltr opacity-75 d-block">{{ tx.typeEn }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3.5 text-muted small fw-medium">{{ tx.date }}</td>
+              <td class="px-4 py-3.5 fw-bold text-dark">{{ tx.amount }}</td>
+              <td class="px-4 py-3.5">
+                <span class="badge rounded-pill px-3 py-2 small fw-semibold" [ngClass]="tx.statusColorClass" style="font-size: 0.75rem;">{{ tx.status }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</main>

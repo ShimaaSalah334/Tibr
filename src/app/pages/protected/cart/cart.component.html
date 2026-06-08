@@ -56,15 +56,15 @@
         <div class="items-rows-wrapper">
           <div *ngFor="let item of cart()?.cartItems; trackBy: trackByCartItem" class="cart-item-row">
             
-            <div class="metal-visual-column">
+            <!-- <div class="metal-visual-column">
               <div class="metal-bar-3d"
                 [class.gold-bar-gradient]="item.product.metalType === 'Gold'"
                 [class.silver-bar-gradient]="item.product.metalType === 'Silver'">
                 <span class="metal-label-text">{{ item.product.metalType }}</span>
                 <span class="rate-price">{{ item.product.weight }}g</span>
               </div>
-            </div>
-
+            </div> -->
+            <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="product-image" />
             <div class="item-details-column">
               <p class="saved-category">{{ item.product.purity }}K • {{ item.product.stock }} available</p>
               <h3 class="saved-name">{{ item.product.name }}</h3>

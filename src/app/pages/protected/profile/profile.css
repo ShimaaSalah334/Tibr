@@ -1,0 +1,134 @@
+/* Custom Utility Scoping */
+.vault-bg {
+  background-color: #f9f9f9;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  min-height: 100vh;
+}
+
+.container-max {
+  max-width: 1280px;
+}
+
+.h-20 {
+  height: 80px;
+}
+
+.top-28 {
+  top: 112px;
+}
+
+.max-w-md {
+  max-width: 450px;
+}
+
+.line-height-relaxed {
+  line-height: 1.6;
+}
+
+.w-10 { width: 40px; }
+.h-10 { height: 40px; }
+.w-16 { width: 64px; }
+.h-16 { height: 64px; }
+
+/* Custom Component Colors */
+.text-gold {
+  color: #735c00 !important;
+}
+
+.text-secondary-variant {
+  color: #4d4635 !important;
+}
+
+.bg-gold-opacity {
+  background-color: rgba(212, 175, 55, 0.2);
+}
+
+/* Form Styles Override */
+.form-control-custom,
+.form-select-custom {
+  background-color: #ffffff !important;
+  border: 1px solid #d0c5af !important;
+  border-radius: 4px !important;
+}
+
+.form-control-custom:focus,
+.form-select-custom:focus {
+  border-color: #d4af37 !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1) !important;
+}
+
+.select-clean {
+  box-shadow: none !important;
+}
+
+/* Buttons Styles */
+.btn-gold {
+  background: #d4af37;
+  color: #241a00 !important;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(to bottom, #E5C76B, #D4AF37);
+}
+
+.btn-outline-gold {
+  border: 1px solid #735c00 !important;
+  color: #735c00 !important;
+  background-color: transparent;
+}
+
+.btn-outline-gold:hover {
+  background-color: rgba(115, 92, 0, 0.05);
+}
+
+.btn-gold-active {
+  background-color: #d4af37 !important;
+  color: #554300 !important;
+}
+
+.btn-outline-custom {
+  color: #5d5e5f !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-custom:hover {
+  background-color: #eeeeee !important;
+}
+
+/* Interactive Navigation Hooks */
+.hover-gold:hover {
+  color: #d4af37 !important;
+}
+
+.hover-gold-text:hover {
+  color: #735c00 !important;
+}
+
+/* Form Switches Overrides */
+.custom-switch {
+  width: 44px !important;
+  height: 24px !important;
+  cursor: pointer;
+  border-color: #e2e2e2 !important;
+  background-color: #e2e2e2 !important;
+}
+
+.custom-switch:checked {
+  background-color: #d4af37 !important;
+  border-color: #d4af37 !important;
+}
+
+.custom-switch:focus {
+  box-shadow: none !important;
+}
+
+/* Material Icons Setup */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+.vault-shadow {
+  box-shadow: 0px 4px 20px rgba(18, 18, 18, 0.05) !important;
+}

@@ -7,6 +7,7 @@ import { environment } from '../../../core/environments/environment.development'
 import { WalletApiData } from '../../../core/services/wallet.service';
 import { TradeService } from '../../../core/services/trade.service';
 import { Router } from '@angular/router';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-buying-metals',
@@ -32,7 +33,13 @@ export class BuyingMetals implements OnInit {
   successModalScale: boolean = false;
 
 
-  constructor(private http: HttpClient, private assetPriceService: AssetPrice,private tradeService: TradeService,private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private assetPriceService: AssetPrice,
+    private tradeService: TradeService,
+    private router: Router,
+    public i18n: I18nService
+  ) {}
 
   ngOnInit(): void {
     this.fetchPricesFromApi();
@@ -42,7 +49,7 @@ export class BuyingMetals implements OnInit {
         }
       }).subscribe({
         next: (response) => {
-          this.availableBalance = response[0].balance;
+          this.availableBalance = response[0].availableBalance;
         },
         error: (err) => {
           console.error('فشل في جلب الرصيد من الـ API', err);

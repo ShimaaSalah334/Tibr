@@ -6,11 +6,11 @@
     
     <div class="orders-header mb-5 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 animate-fade-in">
       <div>
-        <h2 class="fw-bold mb-1">My Portfolio</h2>
-        <p class="small text-muted-custom mb-0">Track, review, and manage your luxury metal acquisitions and orders.</p>
+        <h2 class="fw-bold mb-1">{{ i18n.translate('orders.titlePage','My Orders') }}</h2>
+        <p class="small text-muted-custom mb-0">{{ i18n.translate('orders.subtitle','Track, review, and manage your luxury metal acquisitions and orders.') }}</p>
       </div>
       <a routerLink="/products" class="btn-explore-shortcut">
-        <i class="fas fa-plus me-2"></i>New Investment
+        <i class="fas fa-plus me-2"></i>{{ i18n.translate('orders.NewInvestment', 'New Investment') }}
       </a>
     </div>
 
@@ -23,7 +23,7 @@
               [class.active]="selectedStatus === status"
               (click)="onStatusChange(status)"
             >
-              {{ status }}
+              {{ i18n.translate('status.' + status, status) }}
             </button>
           }
         </div>
@@ -36,8 +36,8 @@
           [value]="sortOrder"
           (change)="onSortChange($any($event.target).value)"
         >
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
+          <option value="newest">{{ i18n.translate('orders.sort.newest', 'Newest First') }}</option>
+          <option value="oldest">{{ i18n.translate('orders.sort.oldest', 'Oldest First') }}</option>
         </select>
       </div>
     </div>
@@ -53,7 +53,7 @@
         <i class="fas fa-times-circle fs-5"></i>
         <div class="flex-grow-1">{{ error }}</div>
         <button class="btn btn-retry-luxury btn-sm" (click)="loadOrders()">
-          <i class="fas fa-sync-alt me-1"></i> Retry
+          <i class="fas fa-sync-alt me-1"></i> {{ i18n.translate('orders.retry', 'Retry') }}
         </button>
       </div>
     }
@@ -65,9 +65,9 @@
             <i class="fas fa-vault fa-2x text-gold-glow"></i>
           </div>
         </div>
-        <h4 class="fw-bold mb-2">No Acquisitions Yet</h4>
-        <p class="text-muted-custom mb-4 max-w-sm mx-auto">Your investment portfolio is currently empty. Start exploring our verified, premium gold and silver bars.</p>
-        <a routerLink="/products" class="btn btn-luxury-primary">Browse Assets</a>
+        <h4 class="fw-bold mb-2">{{ i18n.translate('orders.empty.title','No Acquisitions Yet') }}</h4>
+        <p class="text-muted-custom mb-4 max-w-sm mx-auto">{{ i18n.translate('orders.empty.subtitle','Your investment portfolio is currently empty. Start exploring our verified, premium gold and silver bars.') }}</p>
+        <a routerLink="/products" class="btn btn-luxury-primary">{{ i18n.translate('orders.empty.cta','Browse Assets') }}</a>
       </div>
     }
 
@@ -76,8 +76,8 @@
         <div class="empty-icon-vault mb-3">
           <i class="fas fa-filter-circle-xmark fa-2x text-gold-glow"></i>
         </div>
-        <h5 class="fw-medium mb-2">No Matching Records</h5>
-        <p class="text-muted-custom mb-0">There are no orders that match the selected status filter.</p>
+        <h5 class="fw-medium mb-2">{{ i18n.translate('orders.empty.filterTitle','No Matching Records') }}</h5>
+        <p class="text-muted-custom mb-0">{{ i18n.translate('orders.empty.filterSubtitle','There are no orders that match the selected status filter.') }}</p>
       </div>
     }
 

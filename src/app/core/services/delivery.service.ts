@@ -19,6 +19,9 @@ export class DeliveryService {
   getAddresses(): Observable<any> {
     return this.http.get(`${API_ENDPOINTS.Address.getAll}`, { headers: this.getHeaders() });
   }
+    getmyDliveries(): Observable<any> {
+    return this.http.get(`${API_ENDPOINTS.Delivery.getAll}`, { headers: this.getHeaders() });
+  }
 
   createAddress(addressData: any): Observable<any> {
     return this.http.post(`${API_ENDPOINTS.Address.create}`, addressData, { headers: this.getHeaders() });

@@ -155,56 +155,7 @@
         </div>
 
         <!-- Section three: live selfie verification system -->
-        <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
-          <div class="d-flex align-items-center gap-3 mb-4">
-            <div
-              class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm"
-              style="width: 52px; height: 52px;">
-              <span class="material-symbols-outlined fs-3">center_focus_strong</span>
-            </div>
-            <div>
-              <h2 class="h5 fw-bold text-navy mb-1">Selfie Verification</h2>
-            </div>
-          </div>
-
-          <div class="p-4 rounded-4 bg-light border border-light-subtle">
-            <div class="d-flex flex-column flex-md-row gap-4 align-items-center">
-
-              <!-- Advanced circular camera frame -->
-              <div class="camera-frame-container position-relative flex-shrink-0">
-                <div
-                  class="rounded-circle border border-4 border-white bg-white shadow d-flex align-items-center justify-content-center overflow-hidden position-relative inner-frame"
-                  style="width: 240px; height: 240px;">
-                  @if (cameraActive()) {
-                  <video #videoPreview class="w-100 h-100 object-cover rounded-circle" autoplay muted playsinline></video>
-                  } @else if (capturedSelfieUrl()) {
-                  <img [src]="capturedSelfieUrl()" class="w-100 h-100 object-cover rounded-circle" alt="Selfie captured" />
-                  } @else {
-                  <span class="material-symbols-outlined text-secondary-subtle"
-                    style="font-size: 100px;">account_circle</span>
-                  }
-                </div>
-                <canvas #selfieCanvas class="d-none"></canvas>
-              </div>
-
-              <div class="flex-grow-1 text-center text-md-start w-100">
-                <p class="text-secondary-muted small mb-3 lh-lg">Take a clear, straight-on photo of your face; ensure good lighting and avoid hats or glasses that may block your features.</p>
-
-                <button
-                  class="btn btn-corporate-outline d-inline-flex align-items-center gap-2 px-4 py-3 small fw-bold rounded-3 shadow-sm transition-all text-nowrap"
-                  (click)="triggerSelfieCapture()" type="button">
-                  <span class="material-symbols-outlined fs-5">photo_camera</span>
-                  <span>{{ cameraActive() ? 'Capture selfie now' : 'Start live camera' }}</span>
-                </button>
-                @if (selfieCaptureError()) {
-                  <div class="text-danger small mt-2">{{ selfieCaptureError() }}</div>
-                }
-
-  
-              </div>
-            </div>
-          </div>
-        </div>
+     
 
         <div class="pt-3 d-flex flex-column flex-md-row align-items-center justify-content-between gap-4 mb-4">
           <button

@@ -1,134 +1,124 @@
-/* Custom Utility Scoping */
-.vault-bg {
-  background-color: #f9f9f9;
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
-  min-height: 100vh;
+/* Layout Wrapper Elements Context */
+.container-profile {
+  background: radial-gradient(circle at top left, #1c2536 0%, #111622 100%) !important;
 }
 
-.container-max {
-  max-width: 1280px;
+/* Luxury Card Structuring Specs */
+.investment-card {
+  background-color: rgba(26, 34, 50, 0.8) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(229, 193, 88, 0.15) !important;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+  overflow: hidden;
 }
 
-.h-20 {
-  height: 80px;
+/* User Identity Profile Frame Graphic */
+.avatar-vault-wrapper {
+  width: 70px;
+  height: 70px;
+  background: rgba(229, 193, 88, 0.08);
+  border: 1px solid rgba(229, 193, 88, 0.25);
+  border-radius: 50%;
+  box-shadow: inset 0 0 15px rgba(229, 193, 88, 0.1);
 }
 
-.top-28 {
-  top: 112px;
+/* Interactive Top Tabs Header Design Matrix */
+.container-tabs-header {
+  background-color: rgba(17, 22, 34, 0.6);
+  border-bottom: 1px solid rgba(229, 193, 88, 0.15) !important;
 }
 
-.max-w-md {
-  max-width: 450px;
+.tab-toggle-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
 }
 
-.line-height-relaxed {
-  line-height: 1.6;
+.tab-toggle-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
-.w-10 { width: 40px; }
-.h-10 { height: 40px; }
-.w-16 { width: 64px; }
-.h-16 { height: 64px; }
-
-/* Custom Component Colors */
-.text-gold {
-  color: #735c00 !important;
+.tab-toggle-btn.active {
+  color: #E5C158;
+  border-bottom-color: #E5C158;
+  background-color: rgba(26, 34, 50, 0.4);
 }
 
-.text-secondary-variant {
-  color: #4d4635 !important;
+/* Text & Contrast Adjustments */
+.text-gold { color: #E5C158 !important; }
+.text-gold-label { color: #DEC172 !important; }
+.text-silver-muted { color: #94A3B8 !important; }
+.text-danger-neon { color: #FF6B6B !important; }
+
+/* Dynamic Multi-State KYC Indicators Configuration */
+.badge-kyc-verified { background-color: rgba(46, 204, 113, 0.15) !important; color: #2ecc71 !important; border: 1px solid rgba(46, 204, 113, 0.3); }
+.badge-kyc-pending { background-color: rgba(230, 126, 34, 0.15) !important; color: #e67e22 !important; border: 1px solid rgba(230, 126, 34, 0.3); }
+.badge-kyc-rejected { background-color: rgba(231, 76, 60, 0.15) !important; color: #e74c3c !important; border: 1px solid rgba(231, 76, 60, 0.3); }
+
+/* Premium Input Fields Design Specs */
+.investment-input {
+  background-color: #111622 !important;
+  border: 1px solid #334155 !important;
+  color: #ffffff !important;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.bg-gold-opacity {
-  background-color: rgba(212, 175, 55, 0.2);
+.investment-input:focus {
+  border-color: #E5C158 !important;
+  box-shadow: 0 0 0 4px rgba(229, 193, 88, 0.15) !important;
 }
 
-/* Form Styles Override */
-.form-control-custom,
-.form-select-custom {
-  background-color: #ffffff !important;
-  border: 1px solid #d0c5af !important;
-  border-radius: 4px !important;
+.investment-input.is-invalid {
+  border-color: #FF6B6B !important;
+  background-image: none !important;
 }
 
-.form-control-custom:focus,
-.form-select-custom:focus {
-  border-color: #d4af37 !important;
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1) !important;
+.invalid-feedback {
+  color: #FF8787 !important;
+  font-size: 0.825rem;
 }
 
-.select-clean {
+/* Luxury Metallic Action Submit Button Styling */
+.btn-investment-submit {
+  background: linear-gradient(135deg, #E5C158 0%, #C29B38 100%);
+  color: #0f172a !important;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(194, 155, 56, 0.2) !important;
+}
+
+.btn-investment-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f0d171 0%, #d1a840 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(194, 155, 56, 0.35) !important;
+}
+
+.btn-investment-submit:disabled {
+  background: #334155 !important;
+  color: #64748B !important;
   box-shadow: none !important;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
-/* Buttons Styles */
-.btn-gold {
-  background: #d4af37;
-  color: #241a00 !important;
-  transition: background 0.2s ease-in-out;
-}
+/* Context Notifications Core Configurations */
+.custom-alert-success { background-color: rgba(229, 193, 88, 0.08) !important; border-right: 4px solid #E5C158 !important; color: #fcebbb !important; border-radius: 10px; }
+.custom-alert-danger { background-color: rgba(255, 107, 107, 0.08) !important; border-right: 4px solid #FF6B6B !important; color: #ffd2d2 !important; border-radius: 10px; }
+.btn-close { filter: invert(1) grayscale(1) brightness(2); }
 
-.btn-gold:hover {
-  background: linear-gradient(to bottom, #E5C76B, #D4AF37);
-}
+/* Standard Transitions & Fluid Animations Settings */
+.transition-all { transition: all 0.25s ease; }
+.animate-fade-in { animation: fadeInUp 0.5s ease-out forwards; }
 
-.btn-outline-gold {
-  border: 1px solid #735c00 !important;
-  color: #735c00 !important;
-  background-color: transparent;
-}
-
-.btn-outline-gold:hover {
-  background-color: rgba(115, 92, 0, 0.05);
-}
-
-.btn-gold-active {
-  background-color: #d4af37 !important;
-  color: #554300 !important;
-}
-
-.btn-outline-custom {
-  color: #5d5e5f !important;
-  background-color: transparent !important;
-}
-
-.btn-outline-custom:hover {
-  background-color: #eeeeee !important;
-}
-
-/* Interactive Navigation Hooks */
-.hover-gold:hover {
-  color: #d4af37 !important;
-}
-
-.hover-gold-text:hover {
-  color: #735c00 !important;
-}
-
-/* Form Switches Overrides */
-.custom-switch {
-  width: 44px !important;
-  height: 24px !important;
-  cursor: pointer;
-  border-color: #e2e2e2 !important;
-  background-color: #e2e2e2 !important;
-}
-
-.custom-switch:checked {
-  background-color: #d4af37 !important;
-  border-color: #d4af37 !important;
-}
-
-.custom-switch:focus {
-  box-shadow: none !important;
-}
-
-/* Material Icons Setup */
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  vertical-align: middle;
-}
-
-.vault-shadow {
-  box-shadow: 0px 4px 20px rgba(18, 18, 18, 0.05) !important;
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }

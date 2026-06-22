@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
+import { I18nService } from '../../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-status-badge',
@@ -8,6 +9,23 @@ import { Component, Input } from '@angular/core';
 })
 export class StatusBadgeComponent {
   @Input({ required: true }) label!: string;
+  private i18n = inject(I18nService);
+
+  get translatedLabel(): string {
+    const statusMap: Record<string, string> = {
+      'Pending': 'status.pending',
+      'Confirmed': 'status.confirmed',
+      'Processing': 'status.processing',
+      'Shipped': 'status.shipped',
+      'Delivered': 'status.delivered',
+      'Cancelled': 'status.cancelled',
+      'Paid': 'status.paid',
+      'Failed': 'status.failed',
+      'Refunded': 'status.refunded',
+    };
+    const key = statusMap[this.label];
+    return key ? this.i18n.translate(key, this.label) : this.label;
+  }
 
   get badgeClass(): string {
     const map: Record<string, string> = {

@@ -2,31 +2,22 @@
 <div class="ticker-bar" [class.ticker-scrolled]="isScrolled()">
   <div class="ticker-track">
     @for (_ of [1, 2]; track $index) {
-    <div class="ticker-items">
-      <span class="ticker-item">
-        <span class="ticker-label">GOLD 24K</span>
-        <span class="ticker-value gold">3,500 EGP</span>
-        <span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> 1.24%</span>
-      </span>
-      <span class="ticker-sep">·</span>
-      <span class="ticker-item">
-        <span class="ticker-label">GOLD 21K</span>
-        <span class="ticker-value gold">3,062 EGP</span>
-        <span class="ticker-change up"><i class="fa-solid fa-caret-up"></i> 0.85%</span>
-      </span>
-      <span class="ticker-sep">·</span>
-      <span class="ticker-item">
-        <span class="ticker-label">GOLD 18K</span>
-        <span class="ticker-value gold">2,625 EGP</span>
-      </span>
-      <span class="ticker-sep">·</span>
-      <span class="ticker-item">
-        <span class="ticker-label">SILVER</span>
-        <span class="ticker-value silver">28.65 EGP</span>
-        <span class="ticker-change down"><i class="fa-solid fa-caret-down"></i> 0.12%</span>
-      </span>
-      <span class="ticker-sep">·</span>
-    </div>
+      <div class="ticker-items">
+        @for (item of tickerData(); track item.label) {
+          <span class="ticker-item">
+            <span class="ticker-label">{{ item.label }}</span>
+            <span class="ticker-value" [ngClass]="item.type">{{ item.value }}</span>
+            
+            @if (item.change) {
+              <span class="ticker-change" [ngClass]="item.isUp ? 'up' : 'down'">
+                <i class="fa-solid" [ngClass]="item.isUp ? 'fa-caret-up' : 'fa-caret-down'"></i> 
+                {{ item.change }}
+              </span>
+            }
+          </span>
+          <span class="ticker-sep">·</span>
+        }
+      </div>
     }
   </div>
 </div>
@@ -94,7 +85,7 @@
 
       <!-- User menu -->
       @if (isLoggedIn()) {
-      <div class="user-menu" (click)="toggleUserMenu()" [class.open]="userMenuOpen()">
+      <div class="user-menu" (click)="toggleUserMenu(); $event.stopPropagation()" [class.open]="userMenuOpen()">
         <div class="user-avatar">
           <i class="fa-solid fa-user"></i>
         </div>
@@ -108,6 +99,9 @@
           </a>
           <a routerLink="/wallet" (click)="closeUserMenu()">
             <i class="fa-solid fa-wallet"></i> {{ 'nav.wallet' | translate }}
+          </a>
+          <a routerLink="/help" (click)="closeUserMenu()">
+            <i class="fa-solid fa-question-circle"></i> {{ 'nav.help' | translate }}
           </a>
           <div class="dropdown-divider"></div>
           <button (click)="logout()" class="logout-btn">

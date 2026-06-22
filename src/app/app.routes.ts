@@ -22,6 +22,7 @@ import { InvestmentStrategy } from './pages/protected/investment-strategy/invest
 import { BuyingMetals } from './pages/protected/buying-metals/buying-metals';
 import { SellingMetals } from './pages/protected/selling-metals/selling-metals';
 import { Delivery } from './pages/protected/delivery/delivery';
+import { Support } from './pages/protected/support/support';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,7 @@ export const routes: Routes = [
   { path: 'reset-password', component: ReastPassword },
   { path: 'orders', component: OrdersListComponent },
   { path: 'wallet', component: Wallet },
+  { path: 'help', component: Support },
   { path: 'profile', component: Profile },
   { path: 'withdraw-funds', component: WithdrawFunds },
   { path: 'depositing-funds', component: DepositingFunds },

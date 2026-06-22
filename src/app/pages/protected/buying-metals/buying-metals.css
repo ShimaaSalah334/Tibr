@@ -1,22 +1,31 @@
-/* الحاوية الرئيسية والخطوط */
+/* Global Styles */
 .buy-page {
   background-color: #0d0f12;
+  color: #ffffff;
+  font-family: 'Rubik', sans-serif;
 }
 
-/* التوهج العلوي الديناميكي للكروت */
+/* Premium Card */
+.premium-card {
+  background-color: #12161b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Accent Styles */
 .gold-accent-active {
   border-top: 3px solid #ffca28 !important;
   box-shadow: 0 15px 35px rgba(255, 202, 40, 0.03) !important;
 }
+
 .silver-accent-active {
   border-top: 3px solid #e0e0e0 !important;
   box-shadow: 0 15px 35px rgba(224, 224, 224, 0.03) !important;
 }
 
-/* شريط التبديل (Tabs switcher) */
-.asset-switcher-bg {
+/* Asset Switcher */
+.asset-switcher {
   background-color: #1a1f26;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .tab-btn {
@@ -24,6 +33,8 @@
   font-weight: 500;
   font-size: 0.95rem;
   background: transparent;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 .tab-gold-active {
@@ -45,34 +56,60 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
-/* صندوق رصيد المحفظة */
-.wallet-box {
-  background: rgba(255, 255, 255, 0.02);
-  border-color: rgba(255, 255, 255, 0.05) !important;
-}
-
-/* صف إجمالي السعر التقديري بالفاتورة */
-.total-price-row {
-  background: rgba(255, 255, 255, 0.02);
+/* Input Fields */
+.form-control-dark {
+  background-color: #1a1f26;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #ffffff;
 }
 
-/* تحسين شكل المدخل الغير نشط */
+.input-unit-label {
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+}
+
 .field-disabled {
   background-color: #12161b !important;
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* أزرار الشراء الفاخرة لكل أصل */
+/* Wallet Box */
+.wallet-box {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Transaction Details */
+.details-item {
+  border-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.total-cost-row {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #ffca28 0%, #ffa000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+.buy-btn {
+  transition: all 0.3s ease;
+}
+
+.buy-btn:hover:not([disabled]) {
+  transform: translateY(-2px);
+}
+
 .btn-buy-gold {
   background: linear-gradient(135deg, #ffca28 0%, #ffa000 100%);
   color: #0d0f12 !important;
   box-shadow: 0 8px 25px rgba(255, 160, 0, 0.25) !important;
-}
-.btn-buy-gold:hover:not([disabled]) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(255, 160, 0, 0.35) !important;
 }
 
 .btn-buy-silver {
@@ -80,19 +117,16 @@
   color: #0d0f12 !important;
   box-shadow: 0 8px 25px rgba(207, 216, 220, 0.25) !important;
 }
-.btn-buy-silver:hover:not([disabled]) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(207, 216, 220, 0.35) !important;
-}
 
-/* صندوق خطأ رصيد غير كافٍ بتأثير نيون ناعم */
+/* Error Box */
 .error-glow-box {
   background: rgba(255, 82, 82, 0.06);
   border: 1px solid rgba(255, 82, 82, 0.2) !important;
+  color: #ff5252;
 }
 
-/* خلفية المودال الضبابية الفخمة */
-.fixed-overlay {
+/* Success Modal */
+.success-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -100,10 +134,13 @@
   bottom: 0;
   background: rgba(5, 7, 10, 0.8);
   backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
-/* تأثير النبض الدائري عند النجاح */
+.modal-box {
+  max-width: 480px;
+  width: 100%;
+}
+
 .success-pulse-circle {
   background: rgba(255, 202, 40, 0.1);
   width: 80px;
@@ -117,10 +154,12 @@
   100% { box-shadow: 0 0 0 0 rgba(255, 202, 40, 0); }
 }
 
-.line-height-md {
-  line-height: 1.6;
+.back-to-wallet-btn {
+  background: linear-gradient(135deg, #ffca28 0%, #ffa000 100%);
+  color: #0d0f12 !important;
+  transition: all 0.3s ease;
 }
 
-.border-translucent-low {
-  border-color: rgba(255, 255, 255, 0.04) !important;
+.back-to-wallet-btn:hover {
+  transform: translateY(-2px);
 }

@@ -3,7 +3,7 @@
     
     <a routerLink="/orders" class="btn-back-luxury mb-4 d-inline-flex align-items-center">
       <i class="fas fa-chevron-left me-2"></i>
-      <span>Back to Orders</span>
+      <span>{{ i18n.translate('orders.backToOrders', 'Back to Orders') }}</span>
     </a>
 
     @if (paymentNotification) {
@@ -44,9 +44,9 @@
         <div class="empty-icon-vault mb-3">
           <i class="fas fa-search-minus fa-3x text-gold-glow"></i>
         </div>
-        <h4 class="fw-bold mb-2">Order Not Found</h4>
-        <p class="text-muted-custom mb-4">The order you are looking for does not exist or has been archived.</p>
-        <a routerLink="/orders" class="btn btn-luxury-primary">View All Orders</a>
+        <h4 class="fw-bold mb-2">{{ i18n.translate('orders.notFound', 'Order Not Found') }}</h4>
+        <p class="text-muted-custom mb-4">{{ i18n.translate('orders.notFoundMsg', 'The order you are looking for does not exist or has been archived.') }}</p>
+        <a routerLink="/orders" class="btn btn-luxury-primary">{{ i18n.translate('orders.viewAll', 'View All Orders') }}</a>
       </div>
     }
 
@@ -58,7 +58,7 @@
           <div class="glass-card p-4 mb-4">
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
               <div>
-                <span class="order-meta-label">Acquisition Code</span>
+                <span class="order-meta-label">{{ i18n.translate('orders.acquisitionCode', 'Acquisition Code') }}</span>
                 <h2 class="order-title-luxury mb-0">Order #{{ order.orderNumber }}</h2>
               </div>
               <div class="d-flex gap-2 align-items-center">
@@ -74,7 +74,7 @@
                 <div class="meta-item">
                   <i class="far fa-calendar-alt meta-icon"></i>
                   <div>
-                    <span class="meta-label">Date Placed</span>
+                    <span class="meta-label">{{ i18n.translate('orders.datePlaced', 'Date Placed') }}</span>
                     <p class="meta-value mb-0">{{ order.createdAt | date: 'medium' }}</p>
                   </div>
                 </div>
@@ -83,7 +83,7 @@
                 <div class="meta-item">
                   <i class="far fa-user meta-icon"></i>
                   <div>
-                    <span class="meta-label">Customer Profile</span>
+                    <span class="meta-label">{{ i18n.translate('orders.customerProfile', 'Customer Profile') }}</span>
                     <p class="meta-value mb-0">{{ order.userFullName }}</p>
                   </div>
                 </div>
@@ -94,7 +94,7 @@
           <div class="glass-card p-0 mb-4 overflow-hidden">
             <div class="card-header-custom px-4 py-3">
               <i class="fas fa-gem me-2"></i>
-              <strong>Acquisition Manifest</strong>
+              <strong>{{ i18n.translate('orders.acquisitionManifest', 'Acquisition Manifest') }}</strong>
             </div>
             <app-order-items-table [items]="order.items" />
           </div>
@@ -104,11 +104,11 @@
           <div class="glass-card sticky-sidebar p-4">
             <div class="card-header-custom p-0 pb-3 mb-3 border-bottom-0">
               <i class="fas fa-calculator me-2"></i>
-              <strong>Financial Summary</strong>
+              <strong>{{ i18n.translate('orders.financialSummary', 'Financial Summary') }}</strong>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-4 p-3 rounded bg-black-opacity">
-              <span class="total-label text-muted-custom">Total Amount</span>
+              <span class="total-label text-muted-custom">{{ i18n.translate('orders.totalAmount', 'Total Amount') }}</span>
               <span class="total-amount-luxury">{{ order.totalAmount | currency }}</span>
             </div>
 
@@ -116,12 +116,12 @@
               @if (canCancel) {
                 <button class="btn btn-cancel-luxury py-2.5" (click)="cancelOrder()">
                   <i class="fas fa-trash-alt me-2"></i>
-                  Cancel Order
+                  {{ i18n.translate('orders.cancelOrder', 'Cancel Order') }}
                 </button>
               }
               <a routerLink="/orders" class="btn btn-secondary-luxury py-2.5 text-center">
                 <i class="fas fa-list-ul me-2"></i>
-                Return to List
+                {{ i18n.translate('orders.backToOrders', 'Back to Orders') }}
               </a>
             </div>
           </div>
@@ -129,6 +129,71 @@
 
       </div>
     }
+ <div class="card border-0 review-section-card mt-4 overflow-hidden position-relative">
+  <div class="asset-glow position-absolute"></div>
+  
+  <div class="card-body p-4 position-relative z-1">
+    
+    <div *ngIf="review">
+      <h5 class="text-gold-metallic mb-3 fw-bold">{{ i18n.translate('orders.review', 'Review') }}</h5>
+      <div class="d-flex align-items-start gap-3">
+        <div class="review-stars-display fs-5">
+          <i *ngFor="let star of [1,2,3,4,5]" 
+             class="bi" 
+             [ngClass]="star <= review.value ? 'bi-star-fill text-gold-live' : 'bi-star text-muted'"></i>
+        </div>
+        <div>
+          <p class="text-white mb-1 fw-medium" *ngIf="review.description">{{ review.description }}</p>
+          <p class="text-white-50 small mb-0" *ngIf="!review.description">{{ i18n.translate('orders.reviewNoComment', 'No comment provided.') }}</p>
+          <small class="text-muted d-block mt-1">
+            تم التقييم بتاريخ: {{ review.createdAt | date:'mediumDate' }}
+          </small>
+        </div>
+      </div>
+    </div>
 
+    <div *ngIf="!review">
+      <h5 class="text-gold-metallic mb-2 fw-bold">{{ i18n.translate('orders.reviewPerformance', 'Review Performance') }}</h5>
+      <p class="text-white-50 small mb-4">{{ i18n.translate('orders.reviewMsg', 'Please share your experience with us.') }}</p>
+
+      <form (ngSubmit)="submitReview()">
+        <div class="mb-3">
+          <label class="text-silver-metallic small d-block mb-2">{{ i18n.translate('orders.ratingLabel', 'Rating') }}</label>
+          <div class="rating-interactive-stars fs-3 d-inline-flex gap-2">
+            <i *ngFor="let star of [1,2,3,4,5]" 
+               class="bi cursor-pointer star-btn"
+               [ngClass]="(hoveredRating || ratingValue) >= star ? 'bi-star-fill text-gold-live' : 'bi-star text-muted'"
+               (mouseenter)="hoveredRating = star"
+               (mouseleave)="hoveredRating = 0"
+               (click)="setRating(star)"></i>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="reviewText" class="text-silver-metallic small mb-2">{{ i18n.translate('orders.reviewDescriptionLabel', 'Review Description') }}</label>
+          <textarea id="reviewText" 
+                    class="form-control custom-dark-input" 
+                    rows="3" 
+                    placeholder="{{ i18n.translate('orders.reviewPlaceholder', 'Enter your review here...') }}"
+                    [(ngModel)]="reviewDescription" 
+                    name="description"></textarea>
+        </div>
+
+        <div class="alert alert-danger bg-danger-subtle border-0 text-danger small p-2 mb-3" *ngIf="errorMessage">
+          <i class="bi bi-exclamation-triangle-fill me-1"></i> {{ errorMessage }}
+        </div>
+
+        <button type="submit" 
+                class="btn btn-gold-submit px-4 py-2 fw-semibold rounded-3 d-flex align-items-center gap-2"
+                [disabled]="isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status"></span>
+          <i *ngIf="!isSubmitting" class="bi bi-check2-circle"></i>
+          {{ i18n.translate('orders.submitReview', 'Submit Review') }}
+        </button>
+      </form>
+    </div>
+
+</div>
   </div>
+ 
 </div>

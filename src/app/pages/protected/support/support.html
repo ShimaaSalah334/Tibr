@@ -1,0 +1,116 @@
+<div class="container-support min-vh-100 d-flex align-items-center py-5">
+  <div class="container px-3 px-md-4">
+    <div class="row justify-content-center align-items-center g-4 g-lg-5 dir-rtl text-end">
+      
+      <section class="col-lg-6 text-white animate-fade-in" aria-label="مقدمة الدعم الاستثماري">
+        <div class="pe-lg-3">
+          <div class="d-flex align-items-center mb-4">
+            <span class="badge gold-badge px-3 py-2 text-dark fw-bold me-2">{{ i18n.translate('support.title', 'دعم استثماري بمستوى نقاء 24 قيراط') }}</span>
+            <div class="silver-line flex-grow-1" style="height: 1px; background: rgba(255, 255, 255, 0.12);"></div>
+          </div>
+          
+          <h1 class="display-6 fw-bold mb-3 tracking-tight">{{ i18n.translate('support.title', 'دعم استثماري بمستوى نقاء 24 قيراط') }}</h1>
+          <p class="text-silver fs-5 mb-4 text-justify lh-base">
+            {{ i18n.translate('support.subtitle', 'نحن هنا لضمان سلاسة تداولاتك في أسواق المعادن الثمينة. نوفر لك تغطية شاملة واستشارات تقنية على مدار الساعة لحماية وإدارة أصولك من الذهب والفضة.') }}
+          </p>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="d-flex align-items-start feature-box p-3 rounded-3 h-100">
+                <div>
+                  <h2 class="h6 fw-bold mb-1 text-gold">{{ i18n.translate('support.24h', 'دعم 24/7') }}</h2>
+                  <p class="text-silver-muted small mb-0">{{ i18n.translate('support.24hDescription', 'ردود فورية على تذاكر كبار المستثمرين أقل من 15 دقيقة.') }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="d-flex align-items-start feature-box p-3 rounded-3 h-100">
+                <div>
+                  <h2 class="h6 fw-bold mb-1 text-white">{{ i18n.translate('support.expert', 'متخصصون معتمدون') }}</h2>
+                  <p class="text-silver-muted small mb-0">{{ i18n.translate('support.expertDescription', 'فريق متخصص لمتابعة اعتمادات الإيداع، الشحن، وسحب السبائك الحية.') }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main class="col-lg-5 col-md-8" role="main">
+        <div class="card investment-card border-0 shadow-2xl">
+          
+          <div class="card-header border-0 text-center pt-4 pb-3 text-white positional-header">
+            <h3 class="card-title h5 mb-1 fw-bold tracking-wide">{{ i18n.translate('support.ticketTitle', 'إنشاء تذكرة دعم') }}</h3>
+            <p class="text-silver-muted small mb-0">{{ i18n.translate('support.ticketSubtitle', 'سيتم ربط طلبك مباشرة بمدير حسابك الشخصي') }}</p>
+          </div>
+
+          <div class="card-body px-4 pb-4 pt-2">
+            
+            <div aria-live="polite">
+              <div *ngIf="successMessage" class="alert custom-alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
+                <i class="bi bi-check-circle-fill me-2 text-gold" aria-hidden="true"></i> 
+                <span class="pe-2">{{ successMessage }}</span>
+                <button type="button" class="btn-close shadow-none" (click)="successMessage = null" aria-label="إغلاق"></button>
+              </div>
+
+              <div *ngIf="errorMessage" class="alert custom-alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2 text-danger-neon" aria-hidden="true"></i> 
+                <span class="pe-2">{{ errorMessage }}</span>
+                <button type="button" class="btn-close shadow-none" (click)="errorMessage = null" aria-label="إغلاق"></button>
+              </div>
+            </div>
+
+            <form [formGroup]="supportForm" (ngSubmit)="onSubmit()" novalidate>
+              
+              <div class="mb-4">
+                <label for="subject" class="form-label text-gold-label small fw-bold text-uppercase tracking-wider mb-2">
+                  {{ i18n.translate('support.subjectLabel', 'تفاصيل الاستفسار الفني أو المالي') }}
+                </label>
+                <textarea 
+                  id="subject" 
+                  formControlName="subject" 
+                  class="form-control investment-input shadow-none" 
+                  rows="5"
+                  placeholder="{{ i18n.translate('support.placeholder', 'اكتب استفسارك هنا (مثال: تأكيد عملية إيداع الذهب، أسعار الفضة اليوم، تحديث بيانات المحفظة...)') }}"
+                  [attr.aria-invalid]="supportForm.get('subject')?.touched && supportForm.get('subject')?.invalid ? 'true' : 'false'"
+                  aria-describedby="subject-error subject-counter"
+                  [ngClass]="{'is-invalid': supportForm.get('subject')?.touched && supportForm.get('subject')?.invalid}">
+                </textarea>
+                
+                <div id="subject-error" class="invalid-feedback pt-2 fw-medium" role="alert">
+                  <span *ngIf="supportForm.get('subject')?.errors?.['required']" class="d-block">
+                    {{ i18n.translate('support.requiredError', '* يرجى إدخال نص الاستفسار لكي نتمكن من مساعدتك.') }}
+                  </span>
+                  <span *ngIf="supportForm.get('subject')?.errors?.['maxlength']" class="d-block">
+                    {{ i18n.translate('support.maxlengthError', '* عذراً، يجب ألا يتجاوز نص الرسالة 200 حرف.') }}
+                  </span>
+                </div>
+                
+                <div id="subject-counter" class="form-text text-start text-silver-muted mt-2 small d-flex justify-content-between align-items-center">
+                  <span class="security-note text-muted"><i class="bi bi-info-circle me-1"></i> {{ i18n.translate('support.securityNote', 'تجنب إدخال كلمات المرور الخاصة بمحفظتك.') }}</span>
+                  <span class="badge counter-badge">{{ supportForm.get('subject')?.value?.length || 0 }} / {{ i18n.translate('support.maxChars', '200') }} {{ i18n.translate('support.chars', 'حرف') }}</span>
+                </div>
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-investment-submit py-3 fw-bold transition-all" [disabled]="isSubmitting || supportForm.invalid">
+                  <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2 text-dark" role="status" aria-hidden="true"></span>
+                  <span>{{ isSubmitting ? i18n.translate('support.submitting', 'جاري إرسال التذكرة المشفرة...') : i18n.translate('support.submit', 'إرسال الطلب الفوري') }}</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <footer class="card-footer bg-transparent border-0 text-center pb-4 pt-0">
+            <div class="d-inline-flex align-items-center justify-content-center px-3 py-1.5 rounded-pill security-pill">
+              <small class="text-muted-subtle"><i class="bi bi-lock-fill me-1 text-gold" aria-hidden="true"></i> {{ i18n.translate('support.encrypted', 'اتصال مرمز بالكامل وحماية مطلقة لأصولك النفيسة') }}</small>
+            </div>
+          </footer>
+
+        </div>
+      </main>
+
+    </div>
+  </div>
+</div>

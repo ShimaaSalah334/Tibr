@@ -1,136 +1,166 @@
-  <main class="container-max mx-auto px-3 px-md-5 py-5">
-    <div class="row g-4 mt-2">
-      <!-- Left Side: Form Content (8 columns) -->
-      <div class="col-12 col-lg-7 space-y-gutter">
-        <section class="mb-4">
-          <h1 class="h3 md-h1 fw-bold text-dark mb-2">سحب الأموال</h1>
-          <p class="text-secondary-variant font-body">قم بتحويل الرصيد المتاح من محفظتك إلى حسابك البنكي المسجل.</p>
-        </section>
+<main class="container-max mx-auto px-3 px-md-5 py-5" [formGroup]="withdrawForm">
+  <div class="row g-4 mt-2">
+    <div class="col-12 col-lg-7 space-y-gutter">
+      <section class="mb-4">
+        <h1 class="h3 md-h1 fw-bold text-dark mb-2">{{ i18n.translate('withdraw.title') }}</h1>
+        <p class="text-secondary-variant font-body">{{ i18n.translate('withdraw.description') }}</p>
+      </section>
 
-        <div class="bg-white border p-4 p-md-5 vault-shadow space-y-4">
-          <!-- Balance Display (Bento Element) -->
-          <div class="bg-light p-4 d-flex justify-content-between align-items-center border-right-gold">
-            <div>
-              <span class="small fw-semibold text-muted text-uppercase d-block mb-1 tracking-wider">رصيد متاح للسحب</span>
-              <span class="h4 fw-bold text-dark">45,000.00 <span class="fs-6 fw-medium">ج.م</span></span>
-            </div>
-            <span class="material-symbols-outlined text-gold fs-1">account_balance_wallet</span>
-          </div>
-
-          <!-- Withdrawal Input -->
-          <div class="d-flex flex-column gap-2 mt-4">
-            <label class="small fw-semibold text-dark">مبلغ السحب</label>
-            <div class="position-relative">
-              <input 
-                class="form-control form-control-custom py-3 px-4 h4 fw-bold shadow-none text-left" 
-                [ngClass]="{'text-danger': isAmountOverLimit, 'text-gold': !isAmountOverLimit}"
-                dir="ltr" 
-                placeholder="0.00" 
-                type="number"
-                [(ngModel)]="withdrawalAmount"/>
-            </div>
-            <div class="d-flex justify-content-between text-muted tiny-text">
-              <span>الحد الأدنى للسحب: 100 ج.م</span>
-              <span>الحد الأقصى اليومي: 50,000 ج.م</span>
-            </div>
-          </div>
-
-          <!-- Bank Selection -->
-          <div class="d-flex flex-column gap-2 mt-4">
-            <label class="small fw-semibold text-dark">اختر الحساب البنكي</label>
-            <div class="d-flex flex-column gap-3">
-              <!-- Account Option 1 -->
-              <label class="d-flex align-items-center p-3 border rounded-0 cursor-pointer transition-colors group" [class.border-gold-active]="selectedBank === 'rajhi'">
-                <input class="form-check-input custom-radio m-0 shadow-none" name="bank" type="radio" value="rajhi" [(ngModel)]="selectedBank"/>
-                <div class="me-3 flex-grow-1">
-                  <div class="small fw-bold text-dark">بنك الراجحي</div>
-                  <div class="tiny-text text-muted">**** **** **** 8829</div>
-                </div>
-                <span class="material-symbols-outlined text-black-50">account_balance</span>
-              </label>
-
-              <!-- Account Option 2 -->
-              <label class="d-flex align-items-center p-3 border rounded-0 cursor-pointer transition-colors group" [class.border-gold-active]="selectedBank === 'snb'">
-                <input class="form-check-input custom-radio m-0 shadow-none" name="bank" type="radio" value="snb" [(ngModel)]="selectedBank"/>
-                <div class="me-3 flex-grow-1">
-                  <div class="small fw-bold text-dark">البنك الأهلي السعودي (SNB)</div>
-                  <div class="tiny-text text-muted">**** **** **** 1104</div>
-                </div>
-                <span class="material-symbols-outlined text-black-50">account_balance</span>
-              </label>
-
-              <!-- Add New Account -->
-              <button class="w-100 d-flex align-items-center justify-content-center p-3 border border-2 border-dashed text-muted hover-gold bg-transparent gap-2">
-                <span class="material-symbols-outlined">add_circle</span>
-                <span class="small fw-semibold">إضافة حساب بنكي جديد</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Action Button -->
-          <div class="pt-3">
-            <button 
-              (click)="confirmWithdrawal()"
-              class="w-100 py-3 btn-gold text-on-gold font-label border-0 text-decoration-none tracking-wide text-uppercase d-flex align-items-center justify-content-center gap-2 vault-shadow">
-              <span class="material-symbols-outlined">payments</span>
-              تأكيد سحب الأموال إلى البنك
-            </button>
-            <p class="text-center mt-3 tiny-text text-black-50">من خلال المتابعة، فإنك توافق على شروط وأحكام التحويل البنكي الخاصة بـ Tibr.</p>
-          </div>
-        </div>
+      <div *ngIf="successMessage" class="alert alert-success border-0 rounded-0 vault-shadow mb-3" role="alert">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger border-0 rounded-0 vault-shadow mb-3" role="alert">
+        {{ errorMessage }}
       </div>
 
-      <!-- Right Side: Sidebar/Info (5 columns) -->
-      <aside class="col-12 col-lg-5 space-y-gutter">
-        <!-- Important Notes Card -->
-        <div class="bg-secondary-light p-4 p-md-5 border space-y-4">
-          <h3 class="h6 fw-bold text-dark d-flex align-items-center gap-2 mb-0">
-            <span class="material-symbols-outlined">info</span>
-            ملاحظات هامة
-          </h3>
-          <ul class="list-unstyled space-y-3 mb-0">
-            <li class="d-flex gap-3 align-items-start">
-              <span class="material-symbols-outlined text-gold fs-5 mt-0.5">schedule</span>
-              <div>
-                <h4 class="small fw-bold text-dark mb-0">مدة التنفيذ</h4>
-                <p class="tiny-text text-secondary-variant line-height-relaxed mb-0">تستغرق معالجة طلبات السحب من 1 إلى 3 أيام عمل حسب البنك المستلم.</p>
-              </div>
-            </li>
-            <li class="d-flex gap-3 align-items-start">
-              <span class="material-symbols-outlined text-gold fs-5 mt-0.5">account_balance</span>
-              <div>
-                <h4 class="small fw-bold text-dark mb-0">الحسابات البنكية</h4>
-                <p class="tiny-text text-secondary-variant line-height-relaxed mb-0">يجب أن يكون اسم صاحب الحساب البنكي مطابقاً تماماً لاسمك المسجل في Tibr.</p>
-              </div>
-            </li>
-            <li class="d-flex gap-3 align-items-start">
-              <span class="material-symbols-outlined text-gold fs-5 mt-0.5">receipt_long</span>
-              <div>
-                <h4 class="small fw-bold text-dark mb-0">الرسوم والضرائب</h4>
-                <p class="tiny-text text-secondary-variant line-height-relaxed mb-0">لا توجد رسوم سحب من جهة Tibr؛ قد يفرض البنك الخاص بك رسوم استقبال حوالة.</p>
-              </div>
-            </li>
-          </ul>
+      <div class="bg-white border p-4 p-md-5 vault-shadow space-y-4">
+        <div class="bg-light p-4 d-flex justify-content-between align-items-center border-right-gold">
+          <div>
+            <span class="small fw-semibold text-muted text-uppercase d-block mb-1 tracking-wider">{{ i18n.translate('withdraw.availableBalance') }}</span>
+            <span class="h4 fw-bold text-dark">{{ availableBalance | number:'1.2-2' }} <span class="fs-6 fw-medium">ج.م</span></span>
+          </div>
+          <span class="material-symbols-outlined text-gold fs-1">account_balance_wallet</span>
         </div>
 
-        <!-- Live Spot Prices (Mini Ticker) -->
-        <div class="bg-dark p-4 text-white space-y-3">
-          <div class="d-flex justify-content-between align-items-center border-bottom border-secondary border-opacity-20 pb-2">
-            <span class="small fw-semibold">أسعار السوق المباشرة</span>
-            <span class="d-flex align-items-center gap-1 text-gold-accent tiny-text">
-              <span class="pulse-dot bg-success rounded-circle"></span> مباشر
-            </span>
+        <div class="d-flex flex-column gap-2 mt-4">
+          <label class="small fw-semibold text-dark">{{ i18n.translate('withdraw.amount') }}</label>
+          <div class="position-relative">
+            <input 
+              class="form-control form-control-custom py-3 px-4 h4 fw-bold shadow-none text-left" 
+              [ngClass]="{'text-danger': isAmountOverLimit || isFieldInvalid('amount'), 'text-gold': !isAmountOverLimit && !isFieldInvalid('amount')}"
+              dir="ltr" 
+              placeholder="0.00" 
+              type="number"
+              formControlName="amount"/>
           </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="small opacity-75">الذهب (أوقية)</span>
-            <span class="small fw-bold text-gold-accent">{{ spotPrices.gold }} ج.م</span>
-          </div>
-          <div class="d-flex justify-content-between align-items-center">
-            <span class="small opacity-75">الفضة (أوقية)</span>
-            <span class="small fw-bold text-gold-accent">{{ spotPrices.silver }} ج.م</span>
+          <div class="d-flex justify-content-between text-muted tiny-text">
+            <span [class.text-danger]="withdrawForm.get('amount')?.hasError('min')">{{ i18n.translate('withdraw.amountMin', 'الحد الأدنى للسحب: 100 ج.م') }}</span>
+            <span [class.text-danger]="withdrawForm.get('amount')?.hasError('max')">{{ i18n.translate('withdraw.amountMax', 'الحد الأقصى اليومي: 50,000 ج.م') }}</span>
           </div>
         </div>
-      </aside>
+
+        <div class="d-flex flex-column gap-2 mt-4">
+          <label class="small fw-semibold text-dark">{{ i18n.translate('withdraw.method') }}</label>
+          <div class="row g-2">
+            <div class="col-6">
+              <label class="d-flex align-items-center justify-content-center p-3 border cursor-pointer w-100 m-0" 
+                     [class.border-gold-active]="withdrawForm.get('type')?.value === 'Bank'">
+                <input type="radio" name="type" value="Bank" formControlName="type" class="form-check-input m-0 me-2 shadow-none custom-radio" />
+                <span class="small fw-bold">{{ i18n.translate('withdraw.bank', 'حساب بنكي') }}</span>
+              </label>
+            </div>
+            <div class="col-6">
+              <label class="d-flex align-items-center justify-content-center p-3 border cursor-pointer w-100 m-0" 
+                     [class.border-gold-active]="withdrawForm.get('type')?.value === 'EWallet'">
+                <input type="radio" name="type" value="EWallet" formControlName="type" class="form-check-input m-0 me-2 shadow-none custom-radio" />
+                <span class="small fw-bold">{{ i18n.translate('withdraw.ewallet', 'محفظة إلكترونية') }}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="withdrawForm.get('type')?.value === 'Bank'" class="d-flex flex-column gap-3 mt-4">
+          <div class="d-flex flex-column gap-2">
+            <label class="small fw-semibold text-dark">{{ i18n.translate('withdraw.bank', 'اسم البنك') }}</label>
+            <div class="position-relative">
+               <input 
+                class="form-control form-control-custom py-3 px-4 shadow-none text-dark small fw-medium" 
+                [class.border-danger]="isFieldInvalid('name')"
+                placeholder="{{ i18n.translate('withdraw.bankPlaceholder', 'مثال: البنك الأهلي المصري، بنك مصر...') }}" 
+                type="text"
+                formControlName="name"/>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column gap-2">
+            <label class="small fw-semibold text-dark">{{ i18n.translate('withdraw.iban', 'رقم الحساب البنكي أو الآيبان (IBAN)') }}</label>
+            <div class="position-relative">
+              <input 
+                class="form-control form-control-custom py-3 px-4 shadow-none text-left" 
+                [class.border-danger]="isFieldInvalid('number')"
+                placeholder="{{ i18n.translate('withdraw.ibanPlaceholder', 'EGxxxxxxxxxxxxxxxxxxxxxxx') }}" 
+                type="text"
+                dir="ltr"
+                formControlName="number"/>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="withdrawForm.get('type')?.value === 'EWallet'" class="d-flex flex-column gap-3 mt-4">
+          <div class="d-flex flex-column gap-2">
+            <label class="small fw-semibold text-dark">{{ i18n.translate('withdraw.ewallet', 'نوع المحفظة / مقدم الخدمة') }}</label>
+            <div class="position-relative">
+              <select 
+                class="form-select form-control-custom py-3 px-4 shadow-none text-dark small fw-medium" 
+                [class.border-danger]="isFieldInvalid('name')"
+                formControlName="name">
+                <option value="" disabled selected>{{ i18n.translate('withdraw.selectEwallet', 'اختر نوع المحفظة') }}</option>
+                <option value="InstaPay">{{ i18n.translate('withdraw.instapay', 'انستا باي (InstaPay)') }}</option>
+                <option value="Vodafone Cash">{{ i18n.translate('withdraw.vodafoneCash', 'فودافون كاش (Vodafone Cash)') }}</option>
+                <option value="Orange Cash">{{ i18n.translate('withdraw.orangeCash', 'اورنج كاش (Orange Cash)') }}</option>
+                <option value="Etisalat Cash">{{ i18n.translate('withdraw.etisalatCash', 'اتصالات كاش (Etisalat Cash)') }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column gap-2">
+            <label class="small fw-semibold text-dark">{{ i18n.translate('withdraw.ewalletNumber', 'رقم المحفظة / عنوان الدفع (IPA)') }}</label>
+            <div class="position-relative">
+              <input 
+                class="form-control form-control-custom py-3 px-4 shadow-none" 
+                [class.border-danger]="isFieldInvalid('number')"
+                [placeholder]="withdrawForm.get('name')?.value === 'InstaPay' ? i18n.translate('withdraw.instapayPlaceholder', 'example@instapay') : i18n.translate('withdraw.mobilePlaceholder', '01xxxxxxxxx')" 
+                [type]="withdrawForm.get('name')?.value === 'InstaPay' ? 'text' : 'tel'"
+                dir="ltr"
+                formControlName="number"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3">
+          <button 
+            (click)="confirmWithdrawal()"
+            [disabled]="isLoading || isAmountOverLimit"
+            class="w-100 py-3 btn-gold text-on-gold font-label border-0 text-decoration-none tracking-wide text-uppercase d-flex align-items-center justify-content-center gap-2 vault-shadow">
+            <span *ngIf="!isLoading" class="material-symbols-outlined">payments</span>
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            {{ isLoading ? i18n.translate('withdraw.processing', 'جاري معالجة الطلب...') : i18n.translate('withdraw.confirmButton', 'تأكيد طلب سحب الأموال') }}
+          </button>
+          <p class="text-center mt-3 tiny-text text-black-50">{{ i18n.translate('withdraw.terms', 'من خلال المتابعة، فإنك توافق على شروط وأحكام التحويل الخاصة بـ Tibr.') }}</p>
+        </div>
+      </div>
     </div>
-  </main>
 
+    <aside class="col-12 col-lg-5 space-y-gutter">
+      <div class="bg-secondary-light p-4 p-md-5 border space-y-4">
+        <h3 class="h6 fw-bold text-dark d-flex align-items-center gap-2 mb-0">
+          <span class="material-symbols-outlined">info</span>
+          {{ i18n.translate('withdraw.notesTitle', 'ملاحظات هامة') }}
+        </h3>
+        <ul class="list-unstyled space-y-3 mb-0">
+          <li class="d-flex gap-3 align-items-start">
+            <span class="material-symbols-outlined text-gold fs-5 mt-0.5">schedule</span>
+            <div>
+              <h4 class="small fw-bold text-dark mb-0">{{ i18n.translate('withdraw.executionTime', 'مدة التنفيذ') }}</h4>
+              <p class="tiny-text text-secondary-variant line-height-relaxed mb-0">{{ i18n.translate('withdraw.executionTimeDesc', 'المحافظ الإلكترونية فورية، بينما تستغرق الحسابات البنكية من 1 إلى 3 أيام عمل.') }}</p>
+            </div>
+          </li>
+          <li class="d-flex gap-3 align-items-start">
+            <span class="material-symbols-outlined text-gold fs-5 mt-0.5">account_balance</span>
+            <div>
+              <h4 class="small fw-bold text-dark mb-0">{{ i18n.translate('withdraw.registeredData', 'البيانات المسجلة') }}</h4>
+              <p class="tiny-text text-secondary-variant line-height-relaxed mb-0">{{ i18n.translate('withdraw.registeredDataDesc', 'يجب أن تكون المحفظة أو الحساب البنكي مسجلين باسمك المطابق في Tibr لتفادي رفض الطلب.') }}</p>
+            </div>
+          </li>
+          <li class="d-flex gap-3 align-items-start">
+            <span class="material-symbols-outlined text-gold fs-5 mt-0.5">receipt_long</span>
+            <div>
+              <h4 class="small fw-bold text-dark mb-0">{{ i18n.translate('withdraw.feesTax', 'الرسوم والضرائب') }}</h4>
+              <p class="tiny-text text-secondary-variant line-height-relaxed mb-0">{{ i18n.translate('withdraw.feesTaxDesc', 'لا توجد رسوم سحب من جهة Tibr؛ قد يتم تطبيق رسوم الشبكة العادية.') }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>

@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { AssetPrice } from '../../../core/services/asset-price.service';
 import { routes } from '../../../app.routes';
 import { Router } from '@angular/router';
+import { I18nService } from '../../../core/services/i18n.service';
 interface AssetMetadata {
   id: 'gold' | 'silver';
   title: string;
@@ -33,7 +34,8 @@ export class SellingMetals implements OnInit {
     private http: HttpClient,
     private tradeService: TradeService,
     private assetPriceService: AssetPrice,
-    private router: Router
+    private router: Router,
+    public i18n: I18nService
   ) {}
 
   ngOnInit(): void {
@@ -114,15 +116,19 @@ export class SellingMetals implements OnInit {
     this.tradeService.sellTrade(this.selectedAssetId === 'gold' ? 1 : 2, this.sellAmountGrams!,this.rawEstimatedValue).subscribe({
       next: (res) => {
         if (res) {
-          alert(`تمت عملية البيع بنجاح! تم إيداع ${this.finalNetPayout.toFixed(2)} ج.م في محفظتك.`);
+          const successMessage = this.i18n.translate(
+            'selling.saleSuccessAlert',
+            'تمت عملية البيع بنجاح! تم إيداع {{amount}} ج.م في محفظتك.'
+          ).replace('{{amount}}', this.finalNetPayout.toFixed(2));
+          alert(successMessage);
           this.router.navigate(['/wallet']);
         } else {
-          alert(`فشلت المعاملة`);
+          alert(this.i18n.translate('selling.saleFailureAlert', 'فشلت المعاملة'));
         }
       },
       error: (err) => {
         console.error('Liquidation API error', err);
-        alert('حدث خطأ أثناء تنفيذ الطلب، يرجى المحاولة لاحقاً.');
+        alert(this.i18n.translate('selling.saleErrorAlert', 'حدث خطأ أثناء تنفيذ الطلب، يرجى المحاولة لاحقاً.'));
       },
     });
   }

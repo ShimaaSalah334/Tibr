@@ -1,123 +1,132 @@
-<main class="container-max mx-auto pt-5 pb-5 px-3 px-md-5 ">
-    <div class="row g-4 ">
-      
-      <aside class="col-12 col-md-4 col-lg-3">
-        <div class="bg-white border rounded-4 vault-shadow p-3 position-sticky top-28">
-          <h1 class="h4 fw-bold mb-4 px-2 text-dark">إعدادات الحساب</h1>
-          <nav class="d-flex flex-column gap-1">
-            <button 
-              (click)="switchTab('personal')"
-              [class.btn-gold-active]="activeTab === 'personal'"
-              [class.btn-outline-custom]="activeTab !== 'personal'"
-              class="btn text-start d-flex align-items-center gap-3 px-3 py-2.5 rounded-3 border-0 transition-all">
-              <span class="material-symbols-outlined">person</span>
-              <span class="small fw-semibold">المعلومات الشخصية</span>
-            </button>
-            
-            <button 
-              (click)="switchTab('security')"
-              [class.btn-gold-active]="activeTab === 'security'"
-              [class.btn-outline-custom]="activeTab !== 'security'"
-              class="btn text-start d-flex align-items-center gap-3 px-3 py-2.5 rounded-3 border-0 transition-all">
-              <span class="material-symbols-outlined">security</span>
-              <span class="small fw-semibold">الأمان والخصوصية</span>
-            </button>
-          </nav>
-        </div>
-      </aside>
-
-      <div class="col-12 col-md-8 col-lg-9">
-        
-        <section *ngIf="activeTab === 'personal'" class="card border-1 rounded-4 vault-shadow p-4 p-md-5 bg-white">
-          <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h2 class="h5 fw-bold text-dark mb-0">المعلومات الشخصية</h2>
-            <span class="small text-muted">إدارة هويتك الأساسية</span>
-          </div>
-          <div class="row g-3">
-            <div class="col-12 col-md-6 d-flex flex-column gap-2">
-              <label class="small fw-semibold text-secondary-variant">الاسم الكامل</label>
-              <div class="position-relative">
-                <input class="form-control form-control-custom py-2.5 px-3 font-body" type="text" [(ngModel)]="userData.fullName"/>
-                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
-                  <span class="material-symbols-outlined fs-5">edit</span>
-                </button>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 d-flex flex-column gap-2">
-              <label class="small fw-semibold text-secondary-variant">الاسم الكامل</label>
-              <div class="position-relative">
-                <input class="form-control form-control-custom py-2.5 px-3 font-body" type="text" [(ngModel)]="userData.fullName"/>
-                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
-                  <span class="material-symbols-outlined fs-5">edit</span>
-                </button>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 d-flex flex-column gap-2">
-              <label class="small fw-semibold text-secondary-variant">البريد الإلكتروني</label>
-              <div class="position-relative">
-                <input class="form-control form-control-custom py-2.5 px-3 font-body" type="email" [(ngModel)]="userData.email"/>
-                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
-                  <span class="material-symbols-outlined fs-5">alternate_email</span>
-                </button>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 d-flex flex-column gap-2">
-              <label class="small fw-semibold text-secondary-variant">رقم الجوال</label>
-              <div class="position-relative">
-                <input class="form-control form-control-custom py-2.5 px-3 font-body" dir="ltr" type="tel" [(ngModel)]="userData.phone"/>
-                <button class="btn btn-link position-absolute left-0 top-50 translate-middle-y text-secondary text-decoration-none p-0 ps-3 hover-gold-text">
-                  <span class="material-symbols-outlined fs-5">phone_iphone</span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="mt-4 pt-2 d-flex justify-content-end">
-            <button 
-              (click)="saveChanges()" 
-              [disabled]="isSaving"
-              [class.bg-success]="isSaveSuccess"
-              [class.text-white]="isSaveSuccess"
-              class="btn btn-gold px-5 py-2.5 small fw-semibold rounded shadow-none border-0 transition-all">
-              {{ saveButtonText }}
-            </button>
-          </div>
-        </section>
-
-        <section *ngIf="activeTab === 'security'" class="card border-1 rounded-4 vault-shadow p-4 p-md-5 bg-white">
-          <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-            <h2 class="h5 fw-bold text-dark mb-0">الأمان والخصوصية</h2>
-            <span class="small text-muted">حماية أصولك الثمينة</span>
-          </div>
-          <div class="d-flex flex-column gap-3">
-            <div class="d-flex align-items-center justify-content-between p-3 border rounded-3">
-              <div class="d-flex align-items-center gap-3">
-                <div class="w-10 h-10 bg-light rounded-circle d-flex align-items-center justify-content-center text-gold">
-                  <span class="material-symbols-outlined">key</span>
-                </div>
-                <div>
-                  <p class="small fw-semibold text-dark mb-0">كلمة المرور</p>
-                  <p class="small text-muted mb-0">آخر تغيير منذ 3 أشهر</p>
-                </div>
-              </div>
-              <button class="btn btn-outline-gold px-4 py-1.5 small fw-medium transition-all">تغيير</button>
-            </div>
-            <div class="d-flex align-items-center justify-content-between p-3 border rounded-3">
-              <div class="d-flex align-items-center gap-3">
-                <div class="w-10 h-10 bg-light rounded-circle d-flex align-items-center justify-content-center text-gold">
-                  <span class="material-symbols-outlined">verified</span>
-                </div>
-                <div>
-                  <p class="small fw-semibold text-dark mb-0">المصادقة الثنائية (2FA)</p>
-                  <p class="small text-muted mb-0">تأمين إضافي عبر تطبيق التحقق</p>
-                </div>
-              </div>
-              <div class="form-check form-switch p-0 m-0 d-flex align-items-center">
-                <input class="form-check-input custom-switch m-0" type="checkbox" role="switch" [(ngModel)]="userData.twoFactor">
-              </div>
-            </div>
-          </div>
-        </section>
-
+<div class="container-profile min-vh-100 py-5 dir-rtl text-end text-white">
+  <div class="container px-3 px-md-4">
+    
+    <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center py-5">
+      <div class="spinner-border text-gold" role="status">
+        <span class="visually-hidden">{{ i18n.translate('profile.loading') }}</span>
       </div>
     </div>
-  </main>
+
+    <div *ngIf="!isLoading" class="row g-4 justify-content-center animate-fade-in">
+      
+      <div class="col-lg-4">
+        <div class="card investment-card border-0 p-4 text-center position-relative h-100">
+          <div class="avatar-vault-wrapper mx-auto mb-3 d-flex align-items-center justify-content-center">
+            <i class="bi bi-person-workspace text-gold fs-2"></i>
+          </div>
+          <h2 class="h5 fw-bold mb-1">{{ profileData.firstName }} {{ profileData.lastName }}</h2>
+          <p class="text-silver-muted small mb-3">{{ profileData.email }}</p>
+          
+          <div class="mb-4">
+            <span [ngClass]="{
+              'badge-kyc-verified': profileData.kycStatus === 'Verified',
+              'badge-kyc-pending': profileData.kycStatus === 'Pending' || profileData.kycStatus === '',
+              'badge-kyc-rejected': profileData.kycStatus === 'Rejected'
+            }" class="badge px-3 py-2 fw-semibold">
+              <i class="bi bi-shield-shaded me-1"></i>
+              {{ i18n.translate('profile.kycStatus') }} {{ profileData.kycStatus || i18n.translate('profile.kycStatusPending') }}
+            </span>
+          </div>
+
+          <div class="border-top border-secondary border-opacity-25 pt-3 w-100 text-start text-silver-muted small">
+            <div class="d-flex justify-content-between">
+              <span>{{ i18n.translate('profile.joinDate') }}</span>
+              <span class="text-white">{{ profileData.createdAt | date:'yyyy-MM-dd' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="card investment-card border-0">
+          
+          <div class="card-header border-0 p-0 container-tabs-header d-flex">
+            <button (click)="switchTab('info')" [class.active]="activeTab === 'info'" class="tab-toggle-btn py-3 px-4 flex-grow-1 fw-bold transition-all">
+              <i class="bi bi-sliders me-2"></i> {{ i18n.translate('profile.editInfo') }}
+            </button>
+            <button (click)="switchTab('security')" [class.active]="activeTab === 'security'" class="tab-toggle-btn py-3 px-4 flex-grow-1 fw-bold transition-all">
+              <i class="bi bi-key-fill me-2"></i> {{ i18n.translate('profile.security') }}
+            </button>
+          </div>
+
+          <div class="card-body p-4 p-sm-5">
+            
+            <div aria-live="polite">
+              <div *ngIf="successMessage" class="alert custom-alert-success border-0 alert-dismissible fade show mb-4" role="alert">
+                <i class="bi bi-check-circle-fill me-2 text-gold"></i> {{ successMessage }}
+                <button type="button" class="btn-close shadow-none" (click)="clearAlerts()" aria-label="إغلاق"></button>
+              </div>
+              <div *ngIf="errorMessage" class="alert custom-alert-danger border-0 alert-dismissible fade show mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2 text-danger-neon"></i> {{ errorMessage }}
+                <button type="button" class="btn-close shadow-none" (click)="clearAlerts()" aria-label="إغلاق"></button>
+              </div>
+            </div>
+
+            <form *ngIf="activeTab === 'info'" [formGroup]="profileForm" (ngSubmit)="onUpdateProfile()" novalidate>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label text-gold-label small fw-bold mb-2">{{ i18n.translate('profile.firstName') }}</label>
+                  <input id="firstName" type="text" formControlName="firstName" class="form-control investment-input shadow-none" [ngClass]="{'is-invalid': profileForm.get('firstName')?.touched && profileForm.get('firstName')?.invalid}">
+                  <div class="invalid-feedback">{{ i18n.translate('profile.firstNameError') }}</div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="lastName" class="form-label text-gold-label small fw-bold mb-2">{{ i18n.translate('profile.lastName') }}</label>
+                  <input id="lastName" type="text" formControlName="lastName" class="form-control investment-input shadow-none" [ngClass]="{'is-invalid': profileForm.get('lastName')?.touched && profileForm.get('lastName')?.invalid}">
+                  <div class="invalid-feedback">{{ i18n.translate('profile.lastNameError') }}</div>
+                </div>
+
+                <div class="col-md-12">
+                  <label for="phone" class="form-label text-gold-label small fw-bold mb-2">{{ i18n.translate('profile.phone') }}</label>
+                  <input id="phone" type="text" formControlName="phone" class="form-control investment-input text-start shadow-none" [ngClass]="{'is-invalid': profileForm.get('phone')?.touched && profileForm.get('phone')?.invalid}">
+                  <div class="invalid-feedback">{{ i18n.translate('profile.phoneError') }}</div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center mt-5">
+                <button type="submit" class="btn btn-investment-submit py-2.5 px-5 fw-bold transition-all" [disabled]="isSubmittingProfile || profileForm.invalid">
+                  <span *ngIf="isSubmittingProfile" class="spinner-border spinner-border-sm me-2 text-dark"></span>
+                  {{ i18n.translate('profile.saveChanges') }}
+                </button>
+              </div>
+            </form>
+
+            <form *ngIf="activeTab === 'security'" [formGroup]="passwordForm" (ngSubmit)="onChangePassword()" novalidate>
+              <div class="row g-4">
+                <div class="col-md-12">
+                  <label for="oldPassword" class="form-label text-gold-label small fw-bold mb-2">{{ i18n.translate('profile.oldPassword') }}</label>
+                  <input id="oldPassword" type="password" formControlName="oldPassword" class="form-control investment-input shadow-none" [ngClass]="{'is-invalid': passwordForm.get('oldPassword')?.touched && passwordForm.get('oldPassword')?.invalid}">
+                  <div class="invalid-feedback">{{ i18n.translate('profile.oldPasswordError') }}</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="newPassword" class="form-label text-gold-label small fw-bold mb-2">{{ i18n.translate('profile.newPassword') }}</label>
+                  <input id="newPassword" type="password" formControlName="newPassword" class="form-control investment-input shadow-none" [ngClass]="{'is-invalid': passwordForm.get('newPassword')?.touched && passwordForm.get('newPassword')?.invalid}">
+                  <div class="invalid-feedback">{{ i18n.translate('profile.newPasswordError') }}</div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="confirmNewPassword" class="form-label text-gold-label small fw-bold mb-2">{{ i18n.translate('profile.confirmPassword') }}</label>
+                  <input id="confirmNewPassword" type="password" formControlName="confirmNewPassword" class="form-control investment-input shadow-none" [ngClass]="{'is-invalid': (passwordForm.get('confirmNewPassword')?.touched && passwordForm.get('confirmNewPassword')?.invalid) || passwordForm.hasError('mismatch')}">
+                  <div class="invalid-feedback">
+                    <span *ngIf="passwordForm.get('confirmNewPassword')?.hasError('required')">{{ i18n.translate('profile.confirmPasswordError') }}</span>
+                    <span *ngIf="!passwordForm.get('confirmNewPassword')?.hasError('required') && passwordForm.hasError('mismatch')">{{ i18n.translate('profile.passwordMismatch') }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-center mt-5">
+                <button type="submit" class="btn btn-investment-submit py-2.5 px-5 fw-bold transition-all" [disabled]="isSubmittingPassword || passwordForm.invalid">
+                  <span *ngIf="isSubmittingPassword" class="spinner-border spinner-border-sm me-2 text-dark"></span>
+                  {{ i18n.translate('profile.updatePassword') }}
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

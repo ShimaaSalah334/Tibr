@@ -19,7 +19,9 @@
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
 }
-
+.product-image{
+  width: 200px;
+}
 /* --- الحاوية الأساسية والإضاءة الخلفية --- */
 .luxury-bg-wrapper {
   background-color: var(--bg-dark);

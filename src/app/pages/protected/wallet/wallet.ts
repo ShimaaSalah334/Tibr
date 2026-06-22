@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { WalletApiData, WalletService } from '../../../core/services/wallet.service';
 import { Router } from '@angular/router';
+import { I18nService } from '../../../core/services/i18n.service';
 
 interface Transaction {
   type: string;
-  typeEn: string;
+  referenceType: string;
   icon: string;
   iconColorClass: string;
-  date: string;
+  createdAt: string;
   amount: string;
   status: string;
   statusColorClass: string;
@@ -45,29 +46,54 @@ export class Wallet implements OnInit {
   // مصفوفة العمليات
   transactions: Transaction[] = [];
 
-  constructor(private walletService: WalletService,private router: Router) {}
+  constructor(
+    private walletService: WalletService,
+    private router: Router,
+    public i18n: I18nService
+  ) {}
 
   ngOnInit(): void {
     this.loadWalletData();
     this.loadTransactions();
+    this.transactions = this.transactions.slice(0, 5);
   }
-
+getTransactionTypeName(type: any): string {
+  switch(type) {
+    case 1: return this.i18n.translate('transaction.buy', 'شراء');
+    case 2: return this.i18n.translate('transaction.sell', 'بيع');
+    case 3: return this.i18n.translate('transaction.hold', 'حجز رصيد');
+    case 4: return this.i18n.translate('transaction.unhold', 'فك حجز');
+    default: return this.i18n.translate('transaction.other', 'معاملة أخرى');
+  }
+}
+getReferenceTypeName(referenceType: any): string {
+  switch (referenceType) {
+    case 1: return this.i18n.translate('reference.investment', 'أمر استثمار');
+    case 2: return this.i18n.translate('reference.trading', 'عملية تداول');
+    case 3: return this.i18n.translate('reference.deposit', 'إيداع نقدي');
+    case 4: return this.i18n.translate('reference.delivery', 'طلب توصيل سبائك');
+    default: return this.i18n.translate('reference.general', 'مرجع عام');
+  }
+}
   // استدعاء بيانات المحافظ وتوزيعها بناءً على الـ walletType
   loadWalletData(): void {
     this.walletService.getWalletBalances().subscribe({
       next: (data: WalletApiData[]) => {
         data.forEach(wallet => {
-          if (wallet.walletType === 1) {
+          console.log(wallet.walletType == "Silver");
+          
+          if (wallet.walletType == "Cash") {
             // المحفظة النقدية
             this.cashWalletBalance = wallet.availableBalance.toLocaleString('en-US', { minimumFractionDigits: 2 });
-          } else if (wallet.walletType === 2) {
+          } else if (wallet.walletType == "Gold") {
             // حيازة الذهب
             this.goldHoldings = wallet.availableBalance.toString();
-          } else if (wallet.walletType === 3) {
+          } else if (wallet.walletType == "Silver") {
             // حيازة الفضة
             this.silverHoldings = wallet.availableBalance.toString();
           }
         });
+        console.log(data);
         
         // حساب إجمالي قيمة المحفظة تقريبياً (إذا كانت الحيازات تحتاج ضرب في الأسعار الحالية)
         this.calculateTotalPortfolio();
@@ -82,11 +108,11 @@ export class Wallet implements OnInit {
       next: (apiTransactions: any[]) => {
         this.transactions = apiTransactions.map(tx => ({
           type: tx.typeAr || tx.type || 'عملية مجهولة',
-          typeEn: tx.typeEn || 'Unknown',
+          referenceType: tx.referenceType || 'Unknown',
           icon: this.getIconByAction(tx.action),
           iconColorClass: this.getIconClassByAction(tx.action),
-          date: tx.date || 'اليوم',
-          amount: tx.formattedAmount || `${tx.amount} EGP`,
+          createdAt: tx.createdAt || 'اليوم',
+          amount: tx.formattedAmount || `${tx.amount}`,
           status: tx.statusAr || 'مكتمل',
           statusColorClass: tx.status === 'completed' ? 'bg-success bg-opacity-10 text-success' : 'bg-warning bg-opacity-10 text-warning'
         }));

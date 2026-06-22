@@ -271,3 +271,88 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* كارت قسم التقييم */
+.review-section-card {
+  background: linear-gradient(145deg, #161924, #0f1118);
+  border: 1px solid rgba(212, 175, 55, 0.1) !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* التوهج الداخلي */
+.review-section-card .asset-glow {
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.02) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+}
+
+/* العناوين المذهبة المعدنية */
+.text-gold-metallic {
+  background: linear-gradient(120deg, #f3e5ab, #aa7c11);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-silver-metallic {
+  background: linear-gradient(120deg, #ffffff, #b0b3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gold-live {
+  color: #ffdf00;
+  text-shadow: 0 0 8px rgba(255, 223, 0, 0.3);
+}
+
+/* النجوم التفاعلية */
+.star-btn {
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+.star-btn:hover {
+  transform: scale(1.2);
+}
+
+/* حقول الإدخال الداكنة الفاخرة */
+.custom-dark-input {
+  background-color: #0c0e14 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.custom-dark-input:focus {
+  border-color: rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.1) !important;
+  outline: none;
+}
+.custom-dark-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.9rem;
+}
+
+/* زر التقديم المذهب */
+.btn-gold-submit {
+  background: linear-gradient(135deg, #d4af37, #aa7c11);
+  color: #000000;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+.btn-gold-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f3e5ab, #d4af37);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+.btn-gold-submit:disabled {
+  background: #3a3f50;
+  color: #848a9c;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.z-1 {
+  z-1: 1;
+}

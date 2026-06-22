@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DepositService } from '../../../core/services/deposit.service';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-depositing-funds',
@@ -12,7 +13,10 @@ import { DepositService } from '../../../core/services/deposit.service';
 export class DepositingFunds {
   depositAmount: number | null = null;
 
-  constructor(private depositService: DepositService) {}
+  constructor(
+    private depositService: DepositService,
+    public i18n: I18nService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -31,7 +35,7 @@ export class DepositingFunds {
   }
   executeDeposit(): void {
     if (!this.depositAmount || this.depositAmount <= 0) {
-      alert('الرجاء إدخال مبلغ صحيح لإتمام عملية الإيداع.');
+      alert(this.i18n.translate('deposit.error', 'الرجاء إدخال مبلغ صحيح لإتمام عملية الإيداع.'));
       return;
     }
 
@@ -42,12 +46,12 @@ export class DepositingFunds {
           if (response.checkoutUrl) {
             window.location.href = response.checkoutUrl;
           } else {
-            alert(`تم تأكيد الإيداع بنجاح! رقم العملية: ${response.checkoutUrl}`);
+            alert(this.i18n.translate('deposit.successAlert', 'تم تأكيد الإيداع بنجاح! رقم العملية: {{checkoutUrl}}'));
           }
       },
       error: (err) => {
         console.error('Deposit Error:', err);
-        alert('حدث خطأ أثناء الاتصال بالخادم. يرجى المحاولة مرة أخرى لاحقاً.');
+        alert(this.i18n.translate('deposit.serverError', 'حدث خطأ أثناء الاتصال بالخادم. يرجى المحاولة مرة أخرى لاحقاً.'));
       }
     });
   }

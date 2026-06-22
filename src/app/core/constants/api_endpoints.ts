@@ -3,6 +3,15 @@ import { environment } from "../environments/environment.development";
 const baseUrl = environment.apiUrl;
 
 export const API_ENDPOINTS = {
+  auth: {
+    login: `${baseUrl}/auth/login`,
+    register: `${baseUrl}/auth/register`,
+    verifyAccount: `${baseUrl}/auth/verify-otp`,
+    resendOtp: `${baseUrl}/auth/resend-otp`,
+    forgotPassword: `${baseUrl}/auth/forgot-password`,
+    resetPassword: `${baseUrl}/auth/reset-password`,
+    verifyKYC: `${baseUrl}/auth/submit-kyc`
+  },
   products: {
     getAll:        `${baseUrl}/product`,           // GET with query params
     getById:       (id: number) => `${baseUrl}/product/${id}`,
@@ -52,5 +61,21 @@ export const API_ENDPOINTS = {
   Delivery:{
     create:        `${baseUrl}/delivery`,
     getById:   (id: number) => `${baseUrl}/delivery/${id}`,
+    getAll:  `${baseUrl}/delivery/my-deliveries`
+  },
+  Support:{
+    create:        `${baseUrl}/support`
+  },
+  Profile:{
+    getProfile: `${baseUrl}/auth/profile`,
+    updateProfile: `${baseUrl}/auth/profile`,
+    changePassword: `${baseUrl}/auth/change-password`
+  },
+  withdraw:{
+    create : `${baseUrl}/withdraw`
+  },
+  reviews:{
+    create:  `${baseUrl}/reviews`,
+    getReview:  (orderId: number) =>`${baseUrl}/reviews/${orderId}`
   }
 };

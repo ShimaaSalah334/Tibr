@@ -1,42 +1,137 @@
-/* تأثيرات الحواف الدائرية المحسنة للكروت */
-.rounded-4 {
-  border-radius: 1rem !important;
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+/* التنسيقات العامة للمنصة */
+.dashboard-premium-dark {
+  background-color: #080a0c;
+  color: #ffffff ;
+  font-family: 'Cairo', sans-serif !important;
+  letter-spacing: -0.3px;
 }
 
-/* تأثير تحويم ناعم للأزرار والكروت الثنائية */
-.transition-hover {
-  transition: all 0.25s ease-in-out !important;
+.text-gold { color: #e5c158; }
+.text-silver { color: #cbd5e1 ; }
+.text-muted-premium { color: #64748b ; }
+.text-gold-muted { color: #a39060 ; }
+.text-silver-muted { color: #8e9aa8 ; }
+.fw-black { font-weight: 900; }
+.font-numeric { font-variant-numeric: tabular-nums; }
+.fs-7 { font-size: 0.75rem ; }
+
+/* هندسة كروت الاستثمار (Asset Cards) */
+.asset-card {
+  background: linear-gradient(145deg, #12171d 0%, #0d1115 100%) ;
+  border: 1px solid rgba(255, 255, 255, 0.03) ;
+  border-radius: 20px ;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) ;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.transition-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.08) !important;
-  opacity: 0.95;
+.asset-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.08) ;
 }
 
-/* تعديل خلفية كارت المحفظة الرئيسي ليعطي انطباع فخم (ذهبي خفيف متدرج) */
-.background-accent-glow {
-  background: linear-gradient(135deg, #ffffff 0%, #fffdf4 100%) !important;
-  border-right: 4px solid #ffc107 !important; /* لمحة ذهبية جانبية */
+/* تأثيرات التوهج السفلي للكروت المتخصصة */
+.cash-card { border-top: 2px solid #3b82f6 ; }
+.gold-card { border-top: 2px solid #e5c158;}
+.silver-card { border-top: 2px solid #cbd5e1 ; }
+
+/* أشكال الأيقونات الزجاجية المعتمة */
+.icon-shape {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+.bg-cash-blur { background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); }
+.bg-gold-blur { background: rgba(229, 193, 88, 0.08); border: 1px solid rgba(229, 193, 88, 0.2); }
+.bg-silver-blur { background: rgba(203, 213, 225, 0.06); border: 1px solid rgba(203, 213, 225, 0.15); }
+
+/* لوحة الإجراءات السريعة */
+.action-panel, .table-panel {
+  background-color: #0c1014 ;
+  border-radius: 20px ;
+  border: 1px solid rgba(255, 255, 255, 0.02) ;
+}
+.panel-indicator-gold { width: 4px; height: 20px; background: #e5c158; border-radius: 4px; }
+.panel-indicator-silver { width: 4px; height: 20px; background: #cbd5e1 ; border-radius: 4px; }
+
+/* أزرار لوحة التحكم الاحترافية */
+.btn-panel-action {
+  background-color: #151a21 ;
+  border: 1px solid #475569 ;
+  color: #e2e8f0 ;
+  border-radius: 14px ;
+  transition: all 0.25s ease;
+}
+.btn-panel-action:hover {
+  background-color: #161c23 ;
+  border-color: #475569 ;
+  color: #fff ;
 }
 
-/* تدرج ذهبي للنصوص الرقمية الكبيرة */
-.gold-gradient-text {
-  background: linear-gradient(45deg, #aa7c11, #e3b03b, #9a6b0c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* زر الشراء الذهبي المميز */
+.btn-gold-action {
+  background: linear-gradient(135deg, rgba(229,193,88,0.12) 0%, rgba(20,24,29,1) 100%) ;
+  border: 1px solid rgba(229, 193, 88, 0.3) ;
+  color: #e5c158 ;
+}
+.btn-gold-action:hover {
+  background: linear-gradient(135deg, rgba(229,193,88,0.2) 0%, rgba(229,193,88,0.05) 100%) !important;
+  border-color: #e5c158 !important;
+}
+.btn-sell-action {
+  background: linear-gradient(135deg, rgba(239,68,68,0.08) 0%, rgba(20,24,29,1) 100%) !important;
+  border: 1px solid rgba(239,68,68,0.2) !important;
+  color: #f87171 !important;
+}
+
+/* الجداول بأسلوب تداول العملات والمعادن */
+.border-bottom-trade {
+  border-bottom: 1px solid #1e293b !important;
+}
+.custom-table-premium tbody tr {
+  border-bottom: 1px solid rgba(30, 41, 59, 0.5) !important;
+  transition: all 0.2s ease;
+}
+.custom-table-premium tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.01) !important;
+}
+.custom-table-premium thead th {
+  background-color: #0c1014 !important;
+  font-weight: 700;
+}
+.table-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.02);
+}
+
+/* أزرار الروابط وشارات الحالة الدقيقة */
+.btn-view-all {
+  background-color: #1c232c;
+  color: #cbd5e1;
+  border: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+.btn-view-all:hover { background-color: #27313d; color: #fff; }
+
+.badge-premium-status {
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
   display: inline-block;
 }
-
-/* خطوط الاتجاه من اليسار لليمين للمصطلحات الإنجليزية */
-.text-ltr {
-  direction: ltr;
-  display: inline-block;
-}
-
-/* حجم خط إضافي صغير جداً للتفاصيل */
-.fs-7 {
-  font-size: 0.78rem !important;
-}
-.fw-extrabold {
-  font-weight: 800;
-}
+/* هذه الكلاسات يتم توليدها ديناميكياً من الـ Backend لديك (tx.statusColorClass) */
+.status-success, .success { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.status-pending, .pending { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+.status-failed, .failed { background: rgba(239, 68, 68, 0.1); color: #ef4444; }

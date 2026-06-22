@@ -1,0 +1,84 @@
+/* ستايل الكارت الرئيسي (تأثير مظهر زجاجي معتم) */
+.asset-card {
+  background: linear-gradient(145deg, #161924, #0f1118);
+  border: 1px solid rgba(212, 175, 55, 0.1) !important; /* إطار ذهبي خفيف جداً */
+  border-radius: 16px;
+  transition: cubic-bezier(0.25, 0.8, 0.25, 1) 0.4s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* تأثير التوهج الخلفي */
+.asset-glow {
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+  transition: 0.5s ease;
+  pointer-events: none;
+}
+
+/* حاوي الأيقونة */
+.asset-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* حاوي السهم */
+.arrow-wrapper {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: 0.3s ease;
+}
+
+/* تأثيرات النصوص المعدنية */
+.text-gold { 
+  color: #d4af37; 
+}
+
+.text-gold-metallic {
+  background: linear-gradient(120deg, #f3e5ab, #aa7c11);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-silver-metallic {
+  background: linear-gradient(120deg, #ffffff, #b0b3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-live {
+  color: #ffdf00;
+  text-shadow: 0 0 10px rgba(255, 223, 0, 0.2);
+}
+
+/* التباعد الشبيه بالبورصات العالمية */
+.tracking-wider { letter-spacing: 0.05em; }
+.tracking-tight { letter-spacing: -0.02em; }
+
+/* -----------------------------------------
+   تأثيرات الماوس عند التمرير (Hover Effects)
+-------------------------------------------- */
+.investment-card-link:hover .asset-card {
+  transform: translateY(-5px) scale(1.01);
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.05);
+}
+
+.investment-card-link:hover .asset-glow {
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, rgba(0, 0, 0, 0) 60%);
+}
+
+.investment-card-link:hover .arrow-wrapper {
+  background: #d4af37;
+  border-color: #d4af37;
+}
+
+.investment-card-link:hover .arrow-wrapper i {
+  color: #000000 !important; /* السهم يصبح أسود وسط الذهبي لمظهر حاد وثري */
+}

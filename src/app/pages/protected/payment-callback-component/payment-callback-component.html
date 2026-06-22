@@ -1,1 +1,86 @@
-<p>payment-callback-component works!</p>
+<main class="container-max mx-auto px-3 px-md-5 py-5 text-center" >
+  <div class="row justify-content-center mt-5">
+    <div class="col-12 col-md-8 col-lg-6">
+      
+      <div *ngIf="isLoading" class="bg-white border p-5 vault-shadow space-y-4 rounded-card">
+        <div class="spinner-border text-gold" style="width: 3rem; height: 3rem;" role="status"></div>
+        <h4 class="fw-bold text-dark mt-3">{{ i18n.translate('payment.verifying', 'جاري التحقق من حالة الدفع...') }}</h4>
+        <p class="text-muted small">{{ i18n.translate('payment.processing', 'برجاء عدم إغلاق الصفحة أو تحديثها لحين تأكيد المعاملة.') }}</p>
+      </div>
+
+      <div *ngIf="!isLoading" class="bg-white border p-4 p-md-5 vault-shadow space-y-4 position-relative overflow-hidden rounded-card">
+        
+        <div *ngIf="isSuccess && !isPending" class="animate-fade-in">
+          <div class="success-icon-wrap mx-auto mb-4 d-flex align-items-center justify-content-center">
+            <span class="material-symbols-outlined text-success fs-1">check_circle</span>
+          </div>
+          <h2 class="h3 fw-bold text-transparent bg-clip-text bg-gradient mb-2" 
+              style="background: linear-gradient(135deg, #d4af37 0%, #aa771c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            {{ i18n.translate('payment.success', 'تمت عملية الإيداع بنجاح!') }}
+          </h2>
+          <p class="text-secondary-variant font-body mb-4">{{ i18n.translate('payment.successMsg', 'تم تأكيد مدفوعاتك وإضافتها إلى محفظة أصولك الثمينة بأمان.') }}</p>
+        </div>
+
+        <div *ngIf="!isSuccess && isPending" class="animate-fade-in">
+          <div class="pending-icon-wrap mx-auto mb-4 d-flex align-items-center justify-content-center">
+            <span class="material-symbols-outlined text-warning fs-1">hourglass_top</span>
+          </div>
+          <h2 class="h3 fw-bold text-warning mb-2">{{ i18n.translate('payment.pending', 'العملية قيد المراجعة') }}</h2>
+          <p class="text-secondary-variant font-body mb-4">{{ i18n.translate('payment.pendingMsg', 'المعاملة معلقة حالياً بانتظار التأكيد النهائي من مزود الخدمة.') }}</p>
+        </div>
+
+        <div *ngIf="!isSuccess && !isPending" class="animate-fade-in">
+          <div class="error-icon-wrap mx-auto mb-4 d-flex align-items-center justify-content-center">
+            <span class="material-symbols-outlined text-danger fs-1">cancel</span>
+          </div>
+          <h2 class="h3 fw-bold text-danger mb-2">{{ i18n.translate('payment.failed', 'فشلت عملية الدفع') }}</h2>
+          <p class="text-secondary-variant font-body mb-4">{{ i18n.translate('payment.failedMsg', 'نعتذر، لم نتمكن من إتمام عملية الخصم. يرجى التحقق من بيانات البطاقة أو الرصيد.') }}</p>
+          <div *ngIf="errorMessage" class="alert bg-danger-subtle text-danger tiny-text border-0 rounded-3 py-2 mb-4">
+            {{ errorMessage }}
+          </div>
+        </div>
+
+        <div class="bg-light p-4 border-right-gold text-right space-y-3 receipt-box">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="small text-muted fw-semibold">{{ i18n.translate('payment.totalAmount', 'المبلغ الإجمالي:') }}</span>
+            <span class="h5 fw-bold text-dark mb-0">{{ amount | number:'1.2-2' }} <span class="fs-6 fw-medium text-gold">{{ i18n.translate('payment.currency', 'ج.م') }}</span></span>
+          </div>
+          <hr class="my-2 opacity-5">
+          <div class="d-flex justify-content-between align-items-center tiny-text">
+            <span class="text-muted">{{ i18n.translate('payment.transactionId', 'رقم العملية (Txn ID):') }}</span>
+            <code class="text-secondary fw-bold">{{ transactionId || 'N/A' }}</code>
+          </div>
+          <div class="d-flex justify-content-between align-items-center tiny-text">
+            <span class="text-muted">{{ i18n.translate('payment.orderId', 'رقم أمر الشراء (Order):') }}</span>
+            <span class="text-secondary fw-semibold">{{ orderId || 'N/A' }}</span>
+          </div>
+        </div>
+
+        <div class="pt-4 d-flex flex-column gap-2">
+          <button 
+            *ngIf="isSuccess"
+            routerLink="/wallet"
+            class="w-100 py-3 btn-gold text-on-gold font-label border-0 tracking-wide text-uppercase d-flex align-items-center justify-content-center gap-2 vault-shadow">
+            <span class="material-symbols-outlined">payments</span>
+            {{ i18n.translate('payment.backToWallet', 'عرض محفظة الاموال المحدثة') }}
+          </button>
+          
+          <button 
+            *ngIf="!isSuccess"
+            routerLink="/deposit"
+            class="w-100 py-3 btn-dark-custom font-label border-0 text-white tracking-wide text-uppercase d-flex align-items-center justify-content-center gap-2 vault-shadow">
+            <span class="material-symbols-outlined">refresh</span>
+            {{ i18n.translate('payment.retry', 'المحاولة مرة أخرى') }}
+          </button>
+
+          <button (click)="goToDashboard()" class="btn btn-link hover-gold text-decoration-none tiny-text text-muted mt-2">
+            {{ i18n.translate('payment.backToDashboard', 'العودة إلى لوحة التحكم الرئيسية') }}
+          </button>
+        </div>
+
+        <p class="tiny-text text-black-50 mt-4 mb-0">{{ i18n.translate('payment.allTransactionsSecured', 'جميع المعاملات المالية محمية وموثقة وفقاً لمعايير التشفير في Tibr.') }}</p>
+      </div>
+
+    </div>
+  </div>
+</main>

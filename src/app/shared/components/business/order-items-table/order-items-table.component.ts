@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { OrderItem } from '../../../../core/interfaces/order.interface';
+import { I18nService } from '../../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-order-items-table',
@@ -10,4 +11,6 @@ import { OrderItem } from '../../../../core/interfaces/order.interface';
 })
 export class OrderItemsTableComponent {
   @Input({ required: true }) items!: OrderItem[];
+  public i18n = inject(I18nService);
+
 }

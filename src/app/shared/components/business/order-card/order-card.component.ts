@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe, CurrencyPipe } from '@angular/common';
 import { Order } from '../../../../core/interfaces/order.interface';
 import { StatusBadgeComponent } from '../../ui/status-badge/status-badge.component';
+import { I18nService } from '../../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-order-card',
@@ -12,4 +13,6 @@ import { StatusBadgeComponent } from '../../ui/status-badge/status-badge.compone
 })
 export class OrderCardComponent {
   @Input({ required: true }) order!: Order;
+  public i18n = inject(I18nService);
+
 }

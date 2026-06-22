@@ -1,0 +1,223 @@
+/* الحاوية الأساسية الفاخرة للمنصة */
+.container-support {
+  background: radial-gradient(circle at top left, #1c2536 0%, #111622 100%) !important;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* تباين الألوان المتوافق مع معايير الـ UX والـ Accessibility */
+.text-gold {
+  color: #E5C158 !important; /* درجة ذهبي محسنة للتباين والقراءة */
+}
+
+.text-gold-label {
+  color: #DEC172 !important;
+  font-size: 0.85rem;
+}
+
+.text-silver {
+  color: #D1D5DB !important; /* درجة رمادي فاتح مريحة للعين */
+}
+
+.text-silver-solid {
+  color: #E6E8EA !important;
+}
+
+.text-silver-muted {
+  color: #94A3B8 !important;
+}
+
+.text-danger-neon {
+  color: #FF6B6B !important;
+}
+
+.text-muted-subtle {
+  color: #94A3B8 !important;
+  font-size: 0.8rem;
+}
+
+/* ستايل شارات الاستثمار */
+.gold-badge {
+  background: linear-gradient(135deg, #E5C158 0%, #C29B38 100%);
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+/* صناديق الميزات التعريفية */
+.feature-box {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.feature-icon-box {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* بنية بطاقة الاستثمار (Glassmorphism الراقية) */
+.investment-card {
+  background-color: rgba(26, 34, 50, 0.8) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(229, 193, 88, 0.15) !important;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+  overflow: hidden;
+}
+
+.positional-header {
+  background: transparent;
+  position: relative;
+}
+
+.positional-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(229, 193, 88, 0.3) 50%, transparent);
+}
+
+.precious-metals-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(229, 193, 88, 0.08);
+  border: 1px solid rgba(229, 193, 88, 0.2);
+  border-radius: 50%;
+}
+
+/* حقول المدخلات والنصوص */
+.investment-input {
+  background-color: #111622 !important;
+  border: 1px solid #334155 !important;
+  color: #ffffff !important;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 0.95rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.investment-input:focus {
+  border-color: #E5C158 !important;
+  box-shadow: 0 0 0 4px rgba(229, 193, 88, 0.15) !important;
+}
+
+.investment-input::placeholder {
+  color: #475569 !important;
+}
+
+/* تعديل توافق التنبيهات ورسائل التحقق */
+.investment-input.is-invalid {
+  border-color: #FF6B6B !important;
+  background-image: none !important; /* لمنع تداخل إيقونة الـ Bootstrap الافتراضية مع المحاذاة العربية */
+}
+
+.invalid-feedback {
+  color: #FF8787 !important;
+  font-size: 0.825rem;
+}
+
+.counter-badge {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  color: #94A3B8;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.security-note {
+  font-size: 0.75rem;
+}
+
+/* زر إرسال تذاكر المستثمرين (مظهر السبيكة الذهبية الحديث) */
+.btn-investment-submit {
+  background: linear-gradient(135deg, #E5C158 0%, #C29B38 100%);
+  color: #0f172a !important;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(194, 155, 56, 0.2) !important;
+}
+
+.btn-investment-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #f0d171 0%, #d1a840 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(194, 155, 56, 0.35) !important;
+}
+
+.btn-investment-submit:disabled {
+  background: #334155 !important;
+  color: #64748B !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* التنبيهات المخصصة عالية التباين */
+.custom-alert-success {
+  background-color: rgba(229, 193, 88, 0.08) !important;
+  border-right: 4px solid #E5C158 !important;
+  color: #fcebbb !important;
+  border-radius: 10px;
+}
+
+.custom-alert-danger {
+  background-color: rgba(255, 107, 107, 0.08) !important;
+  border-right: 4px solid #FF6B6B !important;
+  color: #ffd2d2 !important;
+  border-radius: 10px;
+}
+
+.btn-close {
+  filter: invert(1) grayscale(1) brightness(2); /* لجعل زر الإغلاق أبيض متناسق مع النمط الداكن */
+}
+
+.dir-rtl {
+  direction: rtl;
+}
+
+.security-pill {
+  background-color: rgba(17, 22, 34, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* حركات الأنميشن والتفاعل */
+.transition-all {
+  transition: all 0.25s ease;
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* تحسينات الشاشات الصغيرة جداً الهواتف */
+@media (max-width: 576px) {
+  .investment-card {
+    border-radius: 16px;
+  }
+  .display-5 {
+    font-size: 2.2rem;
+  }
+}

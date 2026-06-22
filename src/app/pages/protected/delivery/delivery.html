@@ -1,8 +1,8 @@
-<div class="container " dir="rtl">
+<div class="container " >
   <div class="row mb-5">
     <div class="col-12 text-center">
-      <h2 class="fw-bold text-transparent bg-clip-text bg-gradient" style="background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa771c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.5px;">طلب توصيل مدخرات المعادن</h2>
-      <p class="text-muted small">قم بإدارة عناوِ ينك وجدولة عمليات استلام أصولك الثمينة بأمان</p>
+      <h2 class="fw-bold text-transparent bg-clip-text bg-gradient" style="background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa771c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.5px;">{{ i18n.translate('delivery.title', 'طلب توصيل مدخرات المعادن') }}</h2>
+      <p class="text-muted small">{{ i18n.translate('delivery.subtitle', 'قم بإدارة عناوِينك وجدولة عمليات استلام أصولك الثمينة بأمان') }}</p>
       
       <div *ngIf="successMessage" class="alert border-0 text-success mt-3 mx-auto shadow-sm animate-fade-in" style="background: rgba(25, 135, 84, 0.1); backdrop-filter: blur(8px); border-radius: 12px; max-width: 600px;" role="alert">
         <i class="bi bi-check-circle-fill me-2"></i> {{ successMessage }}
@@ -21,26 +21,26 @@
             <div class="p-2.5 rounded-3 me-3 d-flex align-items-center justify-content-center" style="background: rgba(170, 119, 28, 0.1); width: 42px; height: 42px; border-radius: 12px;">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#aa771c" class="bi bi-geo-alt" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
             </div>
-            <h4 class="card-title m-0 fw-bold text-dark" style="font-size: 1.25rem;">إضافة عنوان جديد</h4>
+            <h4 class="card-title m-0 fw-bold text-dark" style="font-size: 1.25rem;">{{ i18n.translate('delivery.newAddress', 'إضافة عنوان جديد') }}</h4>
           </div>
           
           <form (ngSubmit)="onCreateAddress()">
             <div class="form-floating mb-3">
               <input type="text" class="form-control border-0 bg-white" id="streetInput" placeholder="الشارع" style="border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" [(ngModel)]="addressForm.street" name="street" required>
-              <label for="streetInput" class="text-muted">اسم الشارع / البناية</label>
+              <label for="streetInput" class="text-muted">{{ i18n.translate('delivery.street', 'الشارع') }}</label>
             </div>
             
             <div class="row g-3">
               <div class="col-md-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control border-0 bg-white" id="cityInput" placeholder="المدينة" style="border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" [(ngModel)]="addressForm.city" name="city" required>
-                  <label for="cityInput" class="text-muted">المدينة</label>
+                  <label for="cityInput" class="text-muted">{{ i18n.translate('delivery.city', 'المدينة') }}</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control border-0 bg-white" id="stateInput" placeholder="المحافظة" style="border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" [(ngModel)]="addressForm.state" name="state" required>
-                  <label for="stateInput" class="text-muted">المحافظة / الولاية</label>
+                  <input type="text" class="form-control border-0 bg-white" id="areaInput" placeholder="المنطقة" style="border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" [(ngModel)]="addressForm.area" name="area" required>
+                  <label for="areaInput" class="text-muted">{{ i18n.translate('delivery.area', 'المنطقة') }}</label>
                 </div>
               </div>
             </div>
@@ -49,23 +49,23 @@
               <div class="col-md-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control border-0 bg-white" id="postalInput" placeholder="الرمز البريدي" style="border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" [(ngModel)]="addressForm.postalCode" name="postalCode" required>
-                  <label for="postalInput" class="text-muted">الرمز البريدي</label>
+                  <label for="postalInput" class="text-muted">{{ i18n.translate('delivery.postalCode', 'الرمز البريدي') }}</label>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control border-0 bg-white-50 text-muted" id="countryInput" placeholder="الدولة" style="border-radius: 14px;" [(ngModel)]="addressForm.country" name="country" readonly>
-                  <label for="countryInput" class="text-muted">الدولة</label>
+                  <label for="countryInput" class="text-muted">{{ i18n.translate('delivery.country', 'الدولة') }}</label>
                 </div>
               </div>
             </div>
             
             <div class="form-check form-switch mb-4 d-flex align-items-center pb-2">
               <input class="form-check-input mt-0" type="checkbox" role="switch" id="isDefault" style="width: 2.5em; height: 1.25em; cursor: pointer;margin-left: 15px;" [(ngModel)]="addressForm.isDefault" name="isDefault">
-              <label class="form-check-label ms-3 text-secondary small fw-medium" for="isDefault" style="user-select: none;">تعيين كعنوان افتراضي للمستندات والشحن</label>
+              <label class="form-check-label ms-3 text-secondary small fw-medium" for="isDefault" style="user-select: none;">{{ i18n.translate('delivery.isDefault', 'تعيين كعنوان افتراضي') }}</label>
             </div>
             
-            <button type="submit" class="btn border-0 w-100 py-3 fw-semibold text-white shadow-sm transition-all" style="background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%); border-radius: 14px; letter-spacing: 0.3px;">حفظ العنوان الجديد</button>
+            <button type="submit" class="btn border-0 w-100 py-3 fw-semibold text-white shadow-sm transition-all" style="background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%); border-radius: 14px; letter-spacing: 0.3px;">{{ i18n.translate('delivery.addAddressTitle', 'حفظ العنوان الجديد') }}</button>
           </form>
         </div>
       </div>
@@ -78,37 +78,37 @@
             <div class="p-2.5 rounded-3 me-3 d-flex align-items-center justify-content-center" style="background: rgba(44, 62, 80, 0.08); width: 42px; height: 42px; border-radius: 12px;">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#2c3e50" class="bi bi-box-seam" viewBox="0 0 16 16"><path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/></svg>
             </div>
-            <h4 class="card-title m-0 fw-bold text-dark" style="font-size: 1.25rem;">إنشاء طلب التوصيل</h4>
+            <h4 class="card-title m-0 fw-bold text-dark" style="font-size: 1.25rem;">{{ i18n.translate('delivery.submit', 'إنشاء طلب التوصيل') }}</h4>
           </div>
           
           <form (ngSubmit)="onSubmitDelivery()">
             <div class="form-floating mb-3">
               <select class="form-select border-0 bg-white" id="addressSelect" style="border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" [(ngModel)]="deliveryForm.addressId" name="addressId" required>
-                <option [ngValue]="null" disabled selected>اختر من قائمة العناوين المفعلة</option>
+                <option [ngValue]="null" disabled selected>{{ i18n.translate('delivery.selectAddress', 'اختر عنوان التسليم') }}</option>
                 <option *ngFor="let addr of addresses" [ngValue]="addr.id">
-                  {{ addr.street }}، {{ addr.city }} <span *ngIf="addr.isDefault">(الافتراضي)</span>
+                  {{ addr.street }}، {{ addr.city }} <span *ngIf="addr.isDefault">({{ i18n.translate('delivery.isDefault', 'الافتراضي') }})</span>
                 </option>
               </select>
-              <label for="addressSelect" class="text-muted">وجهة الشحن والتوصيل</label>
+              <label for="addressSelect" class="text-muted">{{ i18n.translate('delivery.address', 'وجهة الشحن والتوصيل') }}</label>
             </div>
 
             <div class="form-floating mb-3">
               <select class="form-select border-0 bg-white" id="assetSelect" style="border-radius: 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);" [(ngModel)]="deliveryForm.assetType" name="assetType">
-                <option [ngValue]="1">سبائك الذهب النقي (Gold)</option>
-                <option [ngValue]="2">سبائك الفضة النقية (Silver)</option>
+                <option [ngValue]="1">{{ i18n.translate('delivery.gold', 'ذهب نقي') }}</option>
+                <option [ngValue]="2">{{ i18n.translate('delivery.silver', 'فضة نقية') }}</option>
               </select>
-              <label for="assetSelect" class="text-muted">نوع المعدن الثمين</label>
+              <label for="assetSelect" class="text-muted">{{ i18n.translate('delivery.assetType', 'نوع المعدن الثمين') }}</label>
             </div>
 
             <div class="mb-4">
-              <label class="form-label small fw-semibold text-secondary mb-2 ms-1">الكتلة الصافية المطلوبة</label>
+              <label class="form-label small fw-semibold text-secondary mb-2 ms-1">{{ i18n.translate('delivery.amount', 'الكمية بالجرام') }}</label>
               <div class="input-group" style="border-radius: 14px; overflow: hidden; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
                 <input type="number" class="form-control border-0 bg-white py-3" style="font-size: 1.05rem;" [(ngModel)]="deliveryForm.amountGrams" name="amountGrams" min="1" placeholder="0.00" required>
-                <span class="input-group-text border-0 bg-white fw-bold px-4 text-secondary" style="border-right: 1px solid rgba(0,0,0,0.05) !important;">جرام</span>
+                <span class="input-group-text border-0 bg-white fw-bold px-4 text-secondary" style="border-right: 1px solid rgba(0,0,0,0.05) !important;">{{ i18n.translate('delivery.grams', 'جرام') }}</span>
               </div>
             </div>
 
-            <button type="submit" class="btn border-0 w-100 py-3 fw-bold text-dark shadow-sm" style="background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 100%); border-radius: 14px; letter-spacing: 0.3px;">تأكيد وحجز عملية الشحن</button>
+            <button type="submit" class="btn border-0 w-100 py-3 fw-bold text-dark shadow-sm" style="background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 100%); border-radius: 14px; letter-spacing: 0.3px;">{{ i18n.translate('delivery.submit', 'تقديم طلب التوصيل') }}</button>
           </form>
         </div>
       </div>
@@ -121,30 +121,32 @@
         <div class="card-body p-4">
           <h5 class="mb-4 fw-bold text-dark d-flex align-items-center" style="font-size: 1.1rem;">
             <span class="d-inline-block me-2" style="width: 4px; height: 18px; background: #aa771c; border-radius: 2px;"></span>
-            دفتر العناوين المعتمدة
+            {{ i18n.translate('delivery.addressBook', 'دفتر العناوين المعتمدة') }}
           </h5>
           <div class="table-responsive">
             <table class="table table-borderless align-middle m-0">
               <thead>
                 <tr class="text-muted small" style="border-bottom: 1px solid rgba(0,0,0,0.04);">
-                  <th class="pb-3 fw-semibold">الشارع والتفاصيل</th>
-                  <th class="pb-3 fw-semibold">المنطقة الجغرافية</th>
-                  <th class="pb-3 fw-semibold">الرمز البريدي</th>
-                  <th class="pb-3 fw-semibold">الحالة المرجعية</th>
-                  <th class="pb-3 fw-semibold text-center">إدارة</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.street', 'الشارع والتفاصيل') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.city', 'المنطقة الجغرافية') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.postalCode', 'الرمز البريدي') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.status', 'الحالة المرجعية') }}</th>
+                  <th class="pb-3 fw-semibold text-center">{{ i18n.translate('delivery.actions', 'إدارة') }}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let addr of addresses" style="border-bottom: 1px solid rgba(0,0,0,0.02);">
-                  <td class="py-3 fw-medium text-dark">{{ addr.street }}</td>
+                  <td class="py-3 fw-medium text-dark">{{ addr.fullAddress }}</td>
                   <td class="py-3 text-secondary">{{ addr.city }}، {{ addr.state }}</td>
                   <td class="py-3 text-secondary"><code>{{ addr.postalCode }}</code></td>
                   <td class="py-3">
-                    <span *ngIf="addr.isDefault" class="badge bg-success-subtle text-success px-3 py-2" style="border-radius: 8px; font-weight: 500;">عنوان افتراضي</span>
-                    <span *ngIf="!addr.isDefault" class="badge bg-light text-muted px-3 py-2" style="border-radius: 8px; font-weight: 500;">عنوان إضافي</span>
+                    <span *ngIf="addr.isDefault" class="badge bg-success-subtle text-success px-3 py-2" style="border-radius: 8px; font-weight: 500;">{{ i18n.translate('delivery.isDefault', 'عنوان افتراضي') }}</span>
+                    <span *ngIf="!addr.isDefault" class="badge bg-light text-muted px-3 py-2" style="border-radius: 8px; font-weight: 500;">{{ i18n.translate('delivery.area', 'المنطقة') }}</span>
                   </td>
                   <td class="py-3 text-center">
-                    <button class="btn btn-link link-danger p-0 border-0 text-decoration-none small fw-medium" (click)="onDeleteAddress(addr.id)">حذف السجل</button>
+                    <button class="btn btn-link link-danger p-0 border-0 text-decoration-none small fw-medium" (click)="onDeleteAddress(addr.id)">
+                      {{ i18n.translate('delivery.delete', 'حذف') }}
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -154,33 +156,80 @@
       </div>
     </div>
   </div>
-
-  <div class="row mt-4" *ngIf="createdDeliveryInfo">
+  <div class="row mt-5">
     <div class="col-12">
-      <div class="card border-0 shadow-lg position-relative overflow-hidden" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 24px;">
-        <div class="position-absolute" style="width: 300px; height: 300px; background: rgba(212, 175, 55, 0.03); border-radius: 50%; top: -100px; left: -100px; blur: 40px;"></div>
-        <div class="card-body p-4 p-md-5 text-white">
-          <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
-            <div>
-              <h5 class="fw-bold m-0" style="color: #f3e5ab;">تفاصيل الإرسالية الحالية</h5>
-              <p class="text-muted small m-0 mt-1">تمت جدولة الطلب بنجاح عبر النظام الأمني للموقع</p>
-            </div>
-            <span class="badge bg-warning text-dark px-4 py-2 mt-2 mt-sm-0 fw-bold shadow-sm" style="border-radius: 10px; font-size: 0.85rem;">قيد التجهيز الأمني</span>
+      <div class="card border-0" style="background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3) !important; border-radius: 20px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.02);">
+        <div class="card-body p-4">
+          <h5 class="mb-4 fw-bold text-dark d-flex align-items-center" style="font-size: 1.1rem;">
+            <span class="d-inline-block me-2" style="width: 4px; height: 18px; background: #2c3e50; border-radius: 2px; margin-left: 8px;"></span>
+            {{ i18n.translate('delivery.currentAndPastRequests', 'طلبات التوصيل الحالية والسابقة') }}
+          </h5>
+          
+          <div *ngIf="!deliveryRequests || deliveryRequests.length === 0" class="text-center py-5 text-muted">
+            <span class="material-symbols-outlined fs-1 text-muted-50 mb-2">local_shipping</span>
+            <p class="mb-0 small">{{ i18n.translate('delivery.noRequests', 'لا توجد طلبات توصيل مسجلة حالياً') }}</p>
           </div>
-          <div class="row g-4 text-center text-sm-start">
-            <div class="col-sm-4">
-              <div class="text-muted small mb-1">رقم تتبع الشحنة</div>
-              <div class="fs-5 fw-bold font-monospace" style="color: #e2e8f0;">#{{ createdDeliveryInfo.id }}</div>
-            </div>
-            <div class="col-sm-4">
-              <div class="text-muted small mb-1">الكتلة الإجمالية الصافية</div>
-              <div class="fs-5 fw-bold" style="color: #e2e8f0;">{{ createdDeliveryInfo.amountGrams }} <span class="small fw-normal text-muted">جرام</span></div>
-            </div>
-            <div class="col-sm-4">
-              <div class="text-muted small mb-1">الناقل اللوجستي الآمن</div>
-              <div class="fs-5 fw-bold" style="color: #e2e8f0;">شحن مؤمن بالكامل (100%)</div>
-            </div>
+
+          <div class="table-responsive" *ngIf="deliveryRequests && deliveryRequests.length > 0">
+            <table class="table table-borderless align-middle m-0">
+              <thead>
+                <tr class="text-muted small" style="border-bottom: 1px solid rgba(0,0,0,0.04);">
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.requestNumber', 'رقم الطلب') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.assetType', 'نوع المعدن') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.quantity', 'الكمية المطلوبة') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.deliveryAddress', 'عنوان التوصيل') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.trackingNumber', 'رقم التتبع') }}</th>
+                  <th class="pb-3 fw-semibold">{{ i18n.translate('delivery.orderDate', 'تاريخ الطلب') }}</th>
+                  <th class="pb-3 fw-semibold text-center">{{ i18n.translate('delivery.status', 'حالة الطلب') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let request of deliveryRequests" style="border-bottom: 1px solid rgba(0,0,0,0.02);">
+                  <td class="py-3 fw-bold text-dark">#{{ request.id }}</td>
+                  
+                  <td class="py-3 fw-medium">
+                    <span class="d-flex align-items-center gap-1">
+                      <span class="pulse-dot" [style.background]="request.assetType === 'Gold' ? '#d4af37' : '#95a5a6'"></span>
+                      {{ request.assetType === 'Gold' ? i18n.translate('delivery.gold', 'ذهب نقي') : i18n.translate('delivery.silver', 'فضة نقية') }}
+                    </span>
+                  </td>
+                  
+                  <td class="py-3 fw-bold text-dark">{{ request.quantity }} <span class="text-muted small fw-normal">{{ i18n.translate('delivery.grams', 'جرام') }}</span></td>
+                  
+                  <td class="py-3 text-secondary truncate-cell" style="max-width: 200px;" [title]="request.fullAddress">
+                    {{ request.fullAddress }}
+                  </td>
+                  
+                  <td class="py-3">
+                    <code class="text-dark" *ngIf="request.trackingNumber">{{ request.trackingNumber }}</code>
+                    <span class="text-muted tiny-text" *ngIf="!request.trackingNumber">{{ i18n.translate('delivery.notAvailableYet', 'غير متوفر بعد') }}</span>
+                  </td>
+                  
+                  <td class="py-3 text-end text-secondary small" dir="ltr">
+                    {{ request.createdAt | date:'yyyy-MM-dd HH:mm' }}
+                  </td>
+                  
+                  <td class="py-3 text-center">
+                    <span class="badge px-3 py-2" 
+                          [ngClass]="{
+                            'bg-warning-subtle text-warning': request.status === 'Pending',
+                            'bg-info-subtle text-info': request.status === 'Shipped',
+                            'bg-success-subtle text-success': request.status === 'Delivered',
+                            'bg-danger-subtle text-danger': request.status === 'Cancelled'
+                          }" 
+                          style="border-radius: 8px; font-weight: 500;">
+                      {{ 
+                        request.status === 'Pending' ? i18n.translate('status.pending', 'قيد الانتظار') : 
+                        request.status === 'Shipped' ? i18n.translate('status.shipped', 'تم الشحن') : 
+                        request.status === 'Delivered' ? i18n.translate('status.delivered', 'تم التوصيل') : i18n.translate('status.cancelled', 'ملغي') 
+                      }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
+
         </div>
       </div>
     </div>

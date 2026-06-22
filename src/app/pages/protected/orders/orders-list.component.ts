@@ -5,6 +5,7 @@ import { Order } from '../../../core/interfaces/order.interface';
 import { OrdersService } from '../../../core/services/orders.service';
 import { OrderCardComponent } from '../../../shared/components/business/order-card/order-card.component';
 import { LoadingSpinnerComponent } from '../../../shared/components/ui/loading-spinner/loading-spinner.component';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-orders-list',
@@ -19,6 +20,7 @@ import { LoadingSpinnerComponent } from '../../../shared/components/ui/loading-s
 })
 export class OrdersListComponent implements OnInit {
   private ordersService = inject(OrdersService);
+  public i18n = inject(I18nService);
 
   orders: Order[] = [];
   filteredOrders: Order[] = [];

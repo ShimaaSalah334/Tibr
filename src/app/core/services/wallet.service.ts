@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../environments/environment.development';
 
 export interface WalletApiData {
-  walletType: number;
+  walletType: string;
   balance: number;
   reservedBalance: number;
   availableBalance: number;

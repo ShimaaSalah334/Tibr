@@ -1,0 +1,81 @@
+.container-max {
+  max-width: 1280px;
+}
+
+.rounded-card {
+  border-radius: 24px !important;
+}
+
+.space-y-4 > * + * { margin-top: 1.5rem !important; }
+.space-y-3 > * + * { margin-top: 1rem !important; }
+
+.text-gold {
+  color: #735c00 !important;
+}
+
+.text-secondary-variant {
+  color: #4d4635 !important;
+}
+
+.border-right-gold {
+  border-right: 4px solid #735c00 !important;
+}
+
+.receipt-box {
+  background-color: #fcfbfa !important;
+  border: 1px solid #e8e4db;
+}
+
+/* دوائر الحالة الجمالية */
+.success-icon-wrap, .error-icon-wrap, .pending-icon-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.success-icon-wrap { background: rgba(25, 135, 84, 0.1); }
+.error-icon-wrap { background: rgba(220, 53, 69, 0.1); }
+.pending-icon-wrap { background: rgba(255, 193, 7, 0.1); }
+
+/* محرك الأزرار المتوافق مع هويتك البصرية */
+.btn-gold {
+  background: linear-gradient(to bottom, #E5C76B, #D4AF37);
+  font-weight: 600;
+  border-radius: 12px;
+  transition: opacity 0.2s ease-in-out;
+}
+.btn-gold:active { opacity: 0.8; }
+
+.btn-dark-custom {
+  background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+  font-weight: 600;
+  border-radius: 12px;
+  transition: opacity 0.2s ease-in-out;
+}
+.btn-dark-custom:active { opacity: 0.9; }
+
+.text-on-gold { color: #241a00 !important; }
+.tiny-text { font-size: 13px; }
+.font-body { font-size: 16px; }
+
+.vault-shadow {
+  box-shadow: 0px 10px 30px rgba(18, 18, 18, 0.04) !important;
+}
+
+.bg-danger-subtle {
+  background-color: rgba(220, 53, 69, 0.08) !important;
+}
+
+/* حركات تحسين واجهة الاستخدام */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hover-gold:hover {
+  color: #735c00 !important;
+}

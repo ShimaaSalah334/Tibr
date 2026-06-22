@@ -5,9 +5,8 @@
         <img class="w-100 h-100 object-cover" alt="Pure 24-karat gold bars stacked inside a safe vault environment"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmDX6Pq_gX0X_sT1i4_W57zR2EbrLuEIm0zggYC_7xDhQw3s958r16Y5t6N0ey2TGxldL9CFPxtnzCaA97TDYhUsWb_t_RAqYEx4DPhAMc7mOo4oBugswJb1KheHBEEftMQXxw-C5dR79M6UdY0wU5zhJAg1Omsg529tAlUZ8pOJfymlPg_dmhpykgZf8yqMz5XMYoNenOwoi66s4wSfd6Xt7YxaCN0NUWvTc_CSWvSFNOwLwnJZukm59T3FLCiPQgvTnvkQr4O2b7" />
         <div class="absolute-gradient-overlay d-flex flex-column justify-content-end p-4 text-white">
-          <h2 class="h4 fw-bold text-white mb-2">تأمين مستقبلك بالذهب</h2>
-          <p class="small opacity-75 mb-0 leading-relaxed">قم بإيداع أموالك فوراً وابدأ في بناء محفظتك من المعادن
-            الثمينة بأمان تام.</p>
+          <h2 class="h4 fw-bold text-white mb-2">{{ i18n.translate('deposit.titleSlider', 'تأمين مستقبلك بالذهب') }}</h2>
+          <p class="small opacity-75 mb-0 leading-relaxed">{{ i18n.translate('deposit.subtitleSlider', 'قم بإيداع أموالك فوراً وابدأ في بناء محفظتك من المعادن الثمينة بأمان تام.') }}</p>
         </div>
       </div>
 
@@ -16,21 +15,21 @@
           <div class="bg-white p-3 rounded-3 border d-flex flex-column align-items-center text-center vault-shadow">
             <span class="material-symbols-outlined text-gold mb-1"
               style="font-variation-settings: 'FILL' 1;">verified_user</span>
-            <span class="tiny-text text-secondary-variant">تشفير كامل</span>
+            <span class="tiny-text text-secondary-variant">{{ i18n.translate('deposit.encryption', 'تشفير كامل') }}</span>
           </div>
         </div>
         <div class="col">
           <div class="bg-white p-3 rounded-3 border d-flex flex-column align-items-center text-center vault-shadow">
             <span class="material-symbols-outlined text-gold mb-1"
               style="font-variation-settings: 'FILL' 1;">account_balance</span>
-            <span class="tiny-text text-secondary-variant">شركاء بنكيون</span>
+            <span class="tiny-text text-secondary-variant">{{ i18n.translate('deposit.banks', 'شركاء بنكيون') }}</span>
           </div>
         </div>
         <div class="col">
           <div class="bg-white p-3 rounded-3 border d-flex flex-column align-items-center text-center vault-shadow">
             <span class="material-symbols-outlined text-gold mb-1"
               style="font-variation-settings: 'FILL' 1;">security</span>
-            <span class="tiny-text text-secondary-variant">أصول مؤمنة</span>
+            <span class="tiny-text text-secondary-variant">{{ i18n.translate('deposit.assets', 'أصول مؤمنة') }}</span>
           </div>
         </div>
       </div>
@@ -40,13 +39,13 @@
     <div class="col-12 col-lg-7 d-flex flex-column gap-4">
       <div class="bg-white p-4 p-md-5 rounded-3 vault-shadow card-accent-gold border">
         <header class="mb-4">
-          <h1 class="h3 fw-bold text-dark m-0">إيداع نقدي</h1>
-          <p class="small text-secondary-variant mt-1 mb-0">حدد المبلغ وطريقة الدفع لإكمال العملية</p>
+          <h1 class="h3 fw-bold text-dark m-0">{{ i18n.translate('deposit.title', 'إيداع نقدي') }}</h1>
+          <p class="small text-secondary-variant mt-1 mb-0">{{ i18n.translate('deposit.subtitle', 'حدد المبلغ وطريقة الدفع لإكمال العملية') }}</p>
         </header>
 
         <!-- Amount Input Section -->
         <section class="mb-4">
-          <label class="small fw-semibold text-dark mb-2 d-block">مبلغ الإيداع (EGP)</label>
+          <label class="small fw-semibold text-dark mb-2 d-block">{{ i18n.translate('deposit.amount', 'مبلغ الإيداع (EGP)') }}</label>
           <div class="position-relative d-flex align-items-center">
             <input class="form-control form-control-custom py-3 px-4 shadow-none text-left" dir="ltr"
               id="deposit-amount" placeholder="0.00" type="number" [(ngModel)]="depositAmount" />
@@ -72,35 +71,35 @@
         <!-- Summary Block Matrix -->
         <section class="bg-light p-4 rounded-3 border mb-4">
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="small text-secondary-variant">مبلغ الإيداع</span>
-            <span class="small fw-semibold text-dark">{{ formattedAmount }} EGP</span>
+            <span class="small text-secondary-variant">{{ i18n.translate('deposit.summaryAmount', 'مبلغ الإيداع') }}</span>
+            <span class="small fw-semibold text-dark">{{ formattedAmount }} {{ i18n.translate('deposit.currency', 'EGP') }}</span>
           </div>
           <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="small text-secondary-variant">رسوم المعاملة</span>
-            <span class="small fw-semibold text-success">0% مجاناً</span>
+            <span class="small text-secondary-variant">{{ i18n.translate('deposit.transactionFee', 'رسوم المعاملة') }}</span>
+            <span class="small fw-semibold text-success">{{ i18n.translate('deposit.freeLabel', '0% مجاناً') }}</span>
           </div>
           <div class="border-bottom opacity-25 mb-3"></div>
           <div class="d-flex justify-content-between align-items-center">
-            <span class="fs-6 fw-bold text-dark">الإجمالي لإيداعه</span>
-            <span class="fs-5 fw-bold text-gold">{{ formattedAmount }} EGP</span>
+            <span class="fs-6 fw-bold text-dark">{{ i18n.translate('deposit.totalToDeposit', 'الإجمالي لإيداعه') }}</span>
+            <span class="fs-5 fw-bold text-gold">{{ formattedAmount }} {{ i18n.translate('deposit.currency', 'EGP') }}</span>
           </div>
         </section>
 
         <!-- Execution CTA Button -->
         <button (click)="executeDeposit()"
           class="w-100 py-3 rounded-3 btn-gold text-on-gold border-0 fs-6 fw-bold vault-shadow">
-          تأكيد الإيداع
+          {{ i18n.translate('deposit.execute', 'تأكيد الإيداع') }}
         </button>
 
         <!-- Micro-text Badging Details -->
         <div class="mt-4 d-flex justify-content-center gap-4 opacity-50">
           <div class="d-flex align-items-center gap-1">
             <span class="material-symbols-outlined tiny-text">lock</span>
-            <span class="tiny-text">آمن بموجب PCI DSS</span>
+            <span class="tiny-text">{{ i18n.translate('deposit.secureBadge1', 'آمن بموجب PCI DSS') }}</span>
           </div>
           <div class="d-flex align-items-center gap-1">
             <span class="material-symbols-outlined tiny-text">security</span>
-            <span class="tiny-text">تشفير 256-bit</span>
+            <span class="tiny-text">{{ i18n.translate('deposit.secureBadge2', 'تشفير 256-bit') }}</span>
           </div>
         </div>
       </div>

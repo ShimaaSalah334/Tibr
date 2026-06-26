@@ -1,0 +1,30 @@
+/* الكود الخاص بك مع التعديلات */
+html {
+  width: 100%;
+  overflow-x: hidden;
+  
+  scrollbar-width: thin; 
+  scrollbar-color: #D4AF37 #0f172a;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px; /* عرض مناسب وشيك */
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a; /* لون داكن يتماشى مع التصميمات الحديثة */
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D4AF37, #8b5cf6); /* تدرج لوني احترافي */
+  border-radius: 8px; /* حواف دائرية ناعمة */
+  border: 2px solid #0f172a; /* بيعمل مسافة عزل تخلي الشكل أنيق */
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #60a5fa, #a78bfa); /* تفتيح الألوان عند الهوفر */
+  cursor: pointer;
+}

@@ -1,0 +1,46 @@
+/* الخلفية الداكنة المخصصة للقسم */
+.how-it-works-section {
+  background-color: #0a0a0a !important;
+}
+.subtext{
+    color: rgba(240, 255, 255, 0.407);
+}
+/* تنسيق الكروت الداكنة */
+.bg-card-dark {
+  background-color: #121212;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+/* تأثير التمرير (Hover) فوق الكارت */
+.border-gold-hover:hover {
+  transform: translateY(-5px);
+  border-color: #d4af37 !important;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.05);
+}
+
+/* اللون الذهبي للنصوص والأيقونات */
+.text-gold {
+  color: #d4af37;
+}
+
+/* الخط الكلاسيكي للعناوين */
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* تباعد الحروف للنصوص الصغيرة العلويّة */
+.tracking-wider {
+  letter-spacing: 0.15em;
+}
+
+/* الأرقام الكبيرة الخلفية (01, 02, إلخ) */
+.step-number {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #aa7c11;
+  pointer-events: none;
+}

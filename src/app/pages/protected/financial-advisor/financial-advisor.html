@@ -1,0 +1,148 @@
+<div class="chat-wrapper">
+  <div class="page-dashboard-container">
+    
+    <div class="chat-container">
+      <div class="chat-header">
+        <div class="bot-info">
+          <div class="avatar-wrapper">
+            <i class="fa-solid fa-briefcase bot-icon"></i> 
+            <span class="status-dot"></span>
+          </div>
+          <div>
+            <h3>مستشارك المالي الذكي</h3>
+            <p>تحليل المحافظ الذكية وتوجيهات الشراء والبيع اللحظية</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-messages" #scrollContainer>
+        <div *ngFor="let msg of messages" [ngClass]="['message-bubble', msg.sender]">
+          <div class="bubble-content">
+            <p>{{ msg.text }}</p>
+            <span class="time">{{ msg.timestamp | date:'shortTime' }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="isLoading" class="message-bubble ai loading">
+          <div class="bubble-content typing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="suggested-container" *ngIf="!isLoading && messages.length <= 2">
+        <p class="suggested-title">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> استشارات سريعة مقترحة:
+        </p>
+        <div class="suggestions-grid">
+          <button type="button" *ngFor="let question of suggestedQuestions" (click)="sendMessage(question)" class="suggestion-chip">
+            {{ question }}
+          </button>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <form (ngSubmit)="sendMessage()" class="input-form">
+          <input 
+            type="text" 
+            [(ngModel)]="newMessage" 
+            name="message" 
+            placeholder="اكتب قيمة ميزانيتك أو استفسر عن توقيت الشراء والبيع المناسب..." 
+            autocomplete="off"
+            [disabled]="isLoading"
+          />
+          <button type="submit" [disabled]="!newMessage.trim() || isLoading" class="send-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="sidebar-container">
+      
+      <button class="new-chat-btn" (click)="initializeChat()" title="محادثة جديدة">
+        <i class="fa-solid fa-plus"></i> محادثة جديدة
+      </button>
+
+      <div class="sidebar-card history-card" *ngIf="conversationsHistory.length > 0">
+        <div class="card-header-mini">
+          <i class="fa-solid fa-clock-rotate-left icon-gold"></i>
+          <h4>المحادثات السابقة</h4>
+        </div>
+        <div class="history-list">
+          <div *ngFor="let history of conversationsHistory" 
+               class="history-item" 
+               [class.active]="history.id === currentConversationId"
+               (click)="loadConversationById(history.id)">
+            <span class="history-title">{{ history.title }}</span>
+            <button class="delete-hist-btn" (click)="deleteConversation(history.id, $event)">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card portfolio-card">
+        <div class="card-header-mini">
+          <i class="fa-solid fa-wallet icon-gold"></i>
+          <h4>ملخص محفظتك الاستثمارية</h4>
+        </div>
+        <div class="portfolio-details">
+          <div class="balance-row">
+            <span class="lbl">إجمالي القيمة:</span>
+            <span class="val-total">142,500 ج.م</span>
+          </div>
+          <div class="assets-distribution">
+            <div class="asset-bar gold-bar" style="width: 70%;" title="70% ذهب"></div>
+            <div class="asset-bar silver-bar" style="width: 30%;" title="30% فضة"></div>
+          </div>
+          <div class="asset-legends">
+            <span><i class="fa-solid fa-square text-gold"></i> ذهب (70%)</span>
+            <span><i class="fa-solid fa-square text-silver"></i> فضة (30%)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card calc-card">
+        <div class="card-header-mini">
+          <i class="fa-solid fa-calculator icon-gold"></i>
+          <h4>الحاسبة الذكية السريعة</h4>
+        </div>
+        <div class="quick-calc-inputs">
+          <div class="calc-field">
+            <label>الوزن بالجرام:</label>
+            <input type="number" value="10" class="calc-input">
+          </div>
+          <div class="calc-field">
+            <label>المعدن المستهدف:</label>
+            <select class="calc-input">
+              <option>ذهب - عيار 24</option>
+              <option>ذهب - عيار 21</option>
+              <option>فضة - عيار 925</option>
+            </select>
+          </div>
+          <div class="calc-result">
+            <span>القيمة التقديرية:</span>
+            <strong>32,000 ج.م</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card signal-card">
+        <div class="card-header-mini">
+          <i class="fa-solid fa-compass-navigational icon-gold"></i>
+          <h4>مؤشر التوصية والتصنيف</h4>
+        </div>
+        <div class="market-signal">
+          <div *ngIf="currentIntent" class="intent-badge">
+            تصنيف النية الحالي: <span>{{ currentIntent }}</span>
+          </div>
+          <div class="signal-badge buy-signal">إشارة شراء قوية (Buy)</div>
+          <p class="signal-desc">المؤشرات الفنية تدعم التجميع في مستويات الأسعار الحالية كحماية ضد التضخم.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

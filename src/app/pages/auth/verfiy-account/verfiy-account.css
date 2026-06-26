@@ -144,3 +144,80 @@
 @keyframes spin {
   100% { transform: rotate(-360deg); }
 }
+
+/* ==========================================
+   💰 التنسيقات المخصصة للمودالات التنبيهية الفاخرة (Custom Alerts) 💰
+   ========================================== */
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(10, 25, 47, 0.65); /* تظليل كحلي ملكي شفاف */
+  backdrop-filter: blur(10px); /* تأثير زجاجي ضبابي احترافي */
+  z-index: 9999;
+  animation: fadeInOverlay 0.3s ease-out forwards;
+}
+
+.custom-modal-card {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(150, 116, 46, 0.3);
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(10, 25, 47, 0.2);
+  transform: translateY(30px);
+  opacity: 0;
+  animation: slideUpModal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+}
+
+.modal-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.08) 0%, transparent 70%);
+  top: -50px;
+  left: -50px;
+  pointer-events: none;
+}
+
+.modal-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  background-color: #0A192F; /* خلفية كحلية لإبراز التدرج الذهبي */
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+}
+
+/* الطابع الفضي التابع للمنصة لتنبيهات إعادة الإرسال */
+.modal-icon-wrapper.silver-theme {
+  background-color: #F4F6F8;
+  border: 2px solid #6E7E8B;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #D4AF37 0%, #96742E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-modal-action {
+  background: linear-gradient(135deg, #96742E 0%, #7D5F22 100%);
+  border: none;
+  color: #FFFFFF !important;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+
+.btn-modal-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(150, 116, 46, 0.3);
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

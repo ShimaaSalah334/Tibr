@@ -1,120 +1,201 @@
-<main class="container-max mx-auto px-3 px-md-5 py-4 py-md-5">
-    <div class="row g-4">
-      <div class="col-12 col-lg-8 d-flex flex-column gap-4">
-        <section>
-          <h1 class="h3 fw-bold text-gold-light mb-2">إنشاء استراتيجية جديدة</h1>
-          <p class="small text-muted-gold mb-0">حدد المعايير الخاصة بك لتنفيذ تداولات السبائك الآلية.</p>
-        </section>
+<div class="strategy-theme px-3 px-md-5 py-4 py-md-5">
+  <div class="row g-4">
+    <div class="col-12 col-lg-8 d-flex flex-column gap-4">
+      <section>
+        <h1 class="h3 fw-bold text-gold-light mb-2">{{ i18n.translate('strategy.create_title', 'إنشاء استراتيجية جديدة') }}</h1>
+        <p class="small text-muted-gold mb-0">{{ i18n.translate('strategy.subtitle', 'حدد المعايير الخاصة بك لتنفيذ تداولات السبائك الآلية.') }}</p>
+      </section>
 
-        <div class="row g-3">
-          <div class="col-12 mb-2">
-            <label class="small fw-semibold text-gold-label mb-2 d-block">اختيار الأصل</label>
-            <div class="row g-3">
-              <div class="col-12 col-md-6">
-                <button 
-                  type="button" 
-                  class="w-100 d-flex align-items-center justify-content-between p-3 rounded-3 border asset-btn transition-base text-white"
-                  [class.active-asset]="selectedAsset === 'gold'"
-                  (click)="selectAsset('gold')">
-                  <div class="d-flex align-items-center gap-3">
-                    <span class="material-symbols-outlined text-gold-light">stars</span>
-                    <span class="fs-6 fw-medium">الذهب (Gold)</span>
-                  </div>
-                  <!-- <span class="material-symbols-outlined text-gold-light transition-base" 
-                        [style.font-variation-settings]="selectedAsset === 'gold' ? ''FILL' 1' : ''FILL' 0'"
-                        [class.opacity-0]="selectedAsset !== 'gold'">check_circle</span> -->
-                </button>
-              </div>
-              <div class="col-12 col-md-6">
-                <button 
-                  type="button" 
-                  class="w-100 d-flex align-items-center justify-content-between p-3 rounded-3 border asset-btn transition-base text-white"
-                  [class.active-asset]="selectedAsset === 'silver'"
-                  (click)="selectAsset('silver')">
-                  <div class="d-flex align-items-center gap-3">
-                    <span class="material-symbols-outlined text-muted-gold">toll</span>
-                    <span class="fs-6 fw-medium">الفضة (Silver)</span>
-                  </div>
-                  <!-- <span class="material-symbols-outlined text-muted-gold transition-base" 
-                        [style.font-variation-settings]="selectedAsset === 'silver' ? ''FILL' 1' : ''FILL' 0'"
-                        [class.opacity-0]="selectedAsset !== 'silver'">check_circle</span> -->
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label class="small fw-semibold text-gold-label mb-2 d-block">نوع الشرط</label>
-            <select class="form-select form-control-dark h-input px-3 fs-6" [(ngModel)]="conditionType">
-              <option value="Less Than">السعر أقل من (Price Less Than)</option>
-              <option value="Greater Than">السعر أكبر من (Price Greater Than)</option>
-              <option value="Equal To">السعر يساوي (Price Equal To)</option>
-            </select>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label class="small fw-semibold text-gold-label mb-2 d-block">السعر المستهدف ($)</label>
-            <input 
-              type="number" 
-              class="form-control form-control-dark h-input px-3 fs-6" 
-              placeholder="مثلاً: 2400" 
-              [(ngModel)]="targetPrice" />
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label class="small fw-semibold text-gold-label mb-2 d-block">نوع التنفيذ</label>
-            <select class="form-select form-control-dark h-input px-3 fs-6" [(ngModel)]="executionType">
-              <option value="Alert Only">تنبيه فقط (Alert Only)</option>
-              <option value="Auto Execute">تنفيذ تلقائي (Auto Execute)</option>
-              <option value="Alert + Execute">تنبيه + تنفيذ (Alert + Execute)</option>
-            </select>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <label class="small fw-semibold text-gold-label mb-2 d-block">تاريخ الانتهاء</label>
-            <input type="date" class="form-control form-control-dark h-input px-3 fs-6" [(ngModel)]="expirationDate" />
-          </div>
-        </div>
+      <div *ngIf="errorMessage" class="alert alert-danger small py-2 px-3 mb-0" role="alert">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="alert alert-success small py-2 px-3 mb-0" role="alert">
+        {{ successMessage }}
       </div>
 
-      <aside class="col-12 col-lg-4 d-flex flex-column gap-4">
-        <div class="summary-container border rounded-3 p-4 position-sticky sidebar-sticky-top">
-          <div class="d-flex align-items-center gap-2 mb-4 border-bottom border-translucent pb-3">
-            <span class="material-symbols-outlined text-gold-light">analytics</span>
-            <h2 class="fs-5 fw-bold text-gold-light m-0">ملخص الاستراتيجية</h2>
-          </div>
-
-          <div class="d-flex flex-column gap-4">
- 
-
-            <div class="d-flex flex-column gap-3">
-              <div class="d-flex justify-content-between align-items-center small">
-                <span class="text-muted-gold">الأصل:</span>
-                <span class="fw-bold text-white">{{ assetArabicName }}</span>
-              </div>
-              <div class="d-flex justify-content-between align-items-center small">
-                <span class="text-muted-gold">الرافعة المالية:</span>
-                <span class="fw-bold text-white">1:1 (Physical)</span>
-              </div>
-              <div class="d-flex justify-content-between align-items-center small">
-                <span class="text-muted-gold">الرسوم المتوقعة:</span>
-                <span class="fw-bold text-gold-light">0.15%</span>
-              </div>
+      <div class="row g-3">
+        <div class="col-12 mb-2">
+          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.select_asset', 'اختيار الأصل') }}</label>
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <button 
+                type="button" 
+                class="w-100 d-flex align-items-center justify-content-between p-3 rounded-3 border asset-btn transition-base text-white"
+                [class.active-asset]="selectedAsset === 'gold'"
+                (click)="selectAsset('gold')">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="material-symbols-outlined text-gold-light">stars</span>
+                  <span class="fs-6 fw-medium">{{ i18n.translate('strategy.gold', 'الذهب (Gold)') }}</span>
+                </div>
+              </button>
             </div>
-
-            <button 
-              type="button" 
-              (click)="launchStrategy()" 
-              class="w-100 py-3 btn-gold border-0 rounded-3 fw-bold fs-5 d-flex align-items-center justify-content-center gap-2 shadow">
-              <span>إطلاق الاستراتيجية</span>
-              <span class="material-symbols-outlined">rocket_launch</span>
-            </button>
-
-            <p class="tiny-text text-center text-muted-gold opacity-50 mb-0">
-              من خلال الإطلاق، فإنك توافق على شروط التداول الآلي في TIBR.
-            </p>
+            <div class="col-12 col-md-6">
+              <button 
+                type="button" 
+                class="w-100 d-flex align-items-center justify-content-between p-3 rounded-3 border asset-btn transition-base text-white"
+                [class.active-asset]="selectedAsset === 'silver'"
+                (click)="selectAsset('silver')">
+                <div class="d-flex align-items-center gap-3">
+                  <span class="material-symbols-outlined text-muted-gold">toll</span>
+                  <span class="fs-6 fw-medium">{{ i18n.translate('strategy.silver', 'الفضة (Silver)') }}</span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
-      </aside>
+
+        <div class="col-12 col-md-6">
+          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.operation_type', 'نوع العملية') }}</label>
+          <select class="form-select form-control-dark h-input px-3 fs-6" [(ngModel)]="side">
+            <option value="buy">{{ i18n.translate('strategy.buy', 'شراء (Buy)') }}</option>
+            <option value="sell">{{ i18n.translate('strategy.sell', 'بيع (Sell)') }}</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.quantity', 'الكمية (بالجرام)') }}</label>
+          <input 
+            type="number" 
+            class="form-control form-control-dark h-input px-3 fs-6" 
+            [placeholder]="i18n.translate('strategy.quantity_placeholder', 'مثلاً: 10')" 
+            [(ngModel)]="quantity" />
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.condition_type', 'نوع الشرط') }}</label>
+          <select class="form-select form-control-dark h-input px-3 fs-6" [(ngModel)]="conditionType">
+            <option value="Less Than">{{ i18n.translate('strategy.less_than', 'السعر أقل من (Price Less Than)') }}</option>
+            <option value="Greater Than">{{ i18n.translate('strategy.greater_than', 'السعر أكبر من (Price Greater Than)') }}</option>
+            <option value="Equal To">{{ i18n.translate('strategy.equal_to', 'السعر يساوي (Price Equal To)') }}</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.target_price', 'السعر المستهدف (ج.م)') }}</label>
+          <input 
+            type="number" 
+            class="form-control form-control-dark h-input px-3 fs-6" 
+            [placeholder]="i18n.translate('strategy.target_price_placeholder', 'مثلاً: 4800')" 
+            [(ngModel)]="targetPrice" />
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.execution_type', 'نوع التنفيذ') }}</label>
+          <select class="form-select form-control-dark h-input px-3 fs-6" [(ngModel)]="executionType">
+            <option value="Alert Only">{{ i18n.translate('strategy.alert_only', 'تنبيه فقط (Alert Only)') }}</option>
+            <option value="Auto Execute">{{ i18n.translate('strategy.auto_execute', 'تنفيذ تلقائي (Auto Execute)') }}</option>
+            <option value="Alert + Execute">{{ i18n.translate('strategy.alert_execute', 'تنبيه + تنفيذ (Alert + Execute)') }}</option>
+          </select>
+        </div>
+
+        <div class="col-12 col-md-6">
+          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.expiry_date', 'تاريخ الانتهاء') }}</label>
+          <input type="date" class="form-control form-control-dark h-input px-3 fs-6" [(ngModel)]="expirationDate" />
+        </div>
+      </div>
     </div>
-  </main>
+
+    <aside class="col-12 col-lg-4 d-flex flex-column gap-4">
+      <div class="summary-container border rounded-3 p-4 position-sticky sidebar-sticky-top">
+        <div class="d-flex align-items-center gap-2 mb-4 border-bottom border-translucent pb-3">
+          <span class="material-symbols-outlined text-gold-light">analytics</span>
+          <h2 class="fs-5 fw-bold text-gold-light m-0">{{ i18n.translate('strategy.summary_title', 'ملخص الاستراتيجية') }}</h2>
+        </div>
+
+        <div class="d-flex flex-column gap-4">
+          <div class="d-flex flex-column gap-3">
+            <div class="d-flex justify-content-between align-items-center small">
+              <span class="text-muted-gold">{{ i18n.translate('strategy.asset_label', 'الأصل:') }}</span>
+              <span class="fw-bold text-white">{{ assetArabicName }}</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small">
+              <span class="text-muted-gold">{{ i18n.translate('strategy.operation_type', 'نوع العملية') }}:</span>
+              <span class="fw-bold text-white">{{ side === 'buy' ? 'شراء' : 'بيع' }} ({{ quantity }} جرام)</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small">
+              <span class="text-muted-gold">{{ i18n.translate('strategy.leverage_label', 'الرافعة المالية:') }}</span>
+              <span class="fw-bold text-white">{{ i18n.translate('strategy.leverage_val', '1:1 (مادي)') }}</span>
+            </div>
+          </div>
+
+          <button 
+            type="button" 
+            (click)="launchStrategy()" 
+            [disabled]="isLoading"
+            class="w-100 py-3 btn-gold border-0 rounded-3 fw-bold fs-5 d-flex align-items-center justify-content-center gap-2 shadow">
+            <span *ngIf="!isLoading">{{ i18n.translate('strategy.launch_btn', 'إطلاق الاستراتيجية') }}</span>
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm text-dark" role="status"></span>
+            <span *ngIf="!isLoading" class="material-symbols-outlined">rocket_launch</span>
+          </button>
+
+          <p class="tiny-text text-center text-muted-gold opacity-50 mb-0">
+            {{ i18n.translate('strategy.terms_disclaimer', 'من خلال الإطلاق، فإنك توافق على شروط التداول الآلي في TIBR.') }}
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="p-4 border rounded-3 summary-container">
+        <div class="d-flex align-items-center justify-content-between mb-4 border-bottom border-translucent pb-3">
+          <div class="d-flex align-items-center gap-2">
+            <span class="material-symbols-outlined text-gold-light">receipt_long</span>
+            <h2 class="fs-5 fw-bold text-gold-light m-0">{{ i18n.translate('strategy.current_list_title', 'استراتيجياتك الحالية (المشروطة)') }}</h2>
+          </div>
+          <button (click)="loadUserStrategies()" class="btn btn-sm btn-outline-warning d-flex align-items-center gap-1">
+            <span class="material-symbols-outlined fs-6">refresh</span> {{ i18n.translate('strategy.refresh_btn', 'تحديث للقائمة') }}
+          </button>
+        </div>
+
+        <div *ngIf="isListLoading" class="text-center py-5">
+          <div class="spinner-border text-warning" role="status"></div>
+          <p class="text-muted-gold small mt-2">{{ i18n.translate('strategy.loading_msg', 'جاري جلب استراتيجياتك النشطة...') }}</p>
+        </div>
+
+        <div *ngIf="!isListLoading && strategiesList.length === 0" class="text-center py-5">
+          <span class="material-symbols-outlined fs-1 text-muted-gold opacity-50">folder_open</span>
+          <p class="text-muted-gold small mt-2 mb-0">{{ i18n.translate('strategy.empty_msg', 'ليس لديك أي استراتيجيات قائمة حالياً.') }}</p>
+        </div>
+
+        <div class="table-responsive" *ngIf="!isListLoading && strategiesList.length > 0">
+          <table class="table table-dark table-hover align-middle mb-0 text-center small text-white">
+            <thead>
+              <tr class="text-muted-gold border-bottom border-translucent">
+                <th>{{ i18n.translate('strategy.th_tx_id', 'رقم المعاملة') }}</th>
+                <th>{{ i18n.translate('strategy.th_asset', 'الأصل') }}</th>
+                <th>{{ i18n.translate('strategy.th_type', 'نوع العملية') }}</th>
+                <th>{{ i18n.translate('strategy.th_qty', 'الكمية') }}</th>
+                <th>{{ i18n.translate('strategy.th_current_price', 'السعر الحالي') }}</th>
+                <th>{{ i18n.translate('strategy.th_exec_method', 'طريقة التنفيذ') }}</th>
+                <th>{{ i18n.translate('strategy.th_expiry', 'تاريخ الانتهاء') }}</th>
+                <th>{{ i18n.translate('strategy.th_status', 'الحالة') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of strategiesList" class="border-bottom border-translucent">
+                <td class="fw-bold text-gold-light">#{{ item.id }}</td>
+                <td>{{ translateAsset(item.assetType) }}</td>
+                <td>
+                  <span [class.text-success]="item.orderType === 'Buy'" [class.text-danger]="item.orderType === 'Sell'">
+                    {{ translateSide(item.orderType) }}
+                  </span>
+                </td>
+                <td>{{ item.quantity }} جرام</td>
+                <td>{{ item.currentPrice | number:'1.2-2' }} ج.م</td>
+                <td>{{ item.executionType }}</td>
+                <td>{{ item.expiryDate ? (item.expiryDate | date:'yyyy-MM-dd') : i18n.translate('strategy.open_ended', 'مفتوح') }}</td>
+                <td>
+                  <span [ngClass]="getStatusClass(item.status)">{{ item.status }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

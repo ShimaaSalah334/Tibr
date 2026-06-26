@@ -77,4 +77,47 @@
     </div>
     
   </div>
+  @if (showSuccessModal()) {
+    <div class="custom-modal-backdrop d-flex align-items-center justify-content-center px-3" dir="rtl">
+      <div class="custom-modal-card text-center p-4 p-md-5 position-relative overflow-hidden">
+        <div class="modal-glow"></div>
+        
+        <div class="modal-icon-wrapper mx-auto mb-4 d-flex align-items-center justify-content-center shadow">
+          <span class="material-symbols-outlined gold-gradient-text fs-1">gpp_good</span>
+        </div>
+        
+        <h2 class="h4 fw-bold text-navy mb-3">تم تفعيل حسابك بنجاح</h2>
+        <p class="text-secondary-muted small mb-4 lh-base">
+          تهانينا! تم التحقق من هويتك الرقمية بنجاح وتأمين المحفظة. 
+          <br>
+          الخطوة الأخيرة لبدء تداول الذهب والفضة هي **توثيق حسابك الاستثماري (KYC)**.
+        </p>
+        
+        <button (click)="closeSuccessAndNavigate()" class="btn btn-modal-action w-100 py-2.5 fw-bold shadow-sm">
+          البدء في توثيق الهوية الاستثمارية
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (showResendModal()) {
+    <div class="custom-modal-backdrop d-flex align-items-center justify-content-center px-3" dir="rtl">
+      <div class="custom-modal-card text-center p-4 position-relative overflow-hidden" style="max-width: 420px;">
+        <div class="modal-glow"></div>
+        
+        <div class="modal-icon-wrapper silver-theme mx-auto mb-3 d-flex align-items-center justify-content-center shadow">
+          <span class="material-symbols-outlined text-navy fs-2">mark_email_read</span>
+        </div>
+        
+        <h2 class="h5 fw-bold text-navy mb-2">تم تحديث رمز الأمان</h2>
+        <p class="text-secondary-muted small mb-4 lh-base">
+          أرسلنا لك كود تفعيل جديد مكون من 6 أرقام. يرجى مراجعة صندوق الوارد أو البريد المهمل.
+        </p>
+        
+        <button (click)="closeResendModal()" class="btn btn-modal-action w-100 py-2 fw-semibold shadow-sm">
+          متابعة كتابة الرمز
+        </button>
+      </div>
+    </div>
+  }
 </main>

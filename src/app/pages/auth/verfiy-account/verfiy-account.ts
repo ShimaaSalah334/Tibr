@@ -21,17 +21,23 @@ export class VerfiyAccount implements OnInit, OnDestroy {
   @ViewChildren('otpInputField') inputs!: QueryList<ElementRef>;
 
   // إدارة الحالات الرقمية والزمنية للمكون عبر الـ Signals الحديثة
-  formState = signal<'idle' | 'loading' | 'success'>('idle');
+  formState = signal<'idle' | 'loading' | 'success' | 'error'>('idle');
   isResending = signal<boolean>(false);
   isTimerActive = signal<boolean>(false);
   timerValue = signal<number>(59);
   
+  // إشارات التحكم في المودالات المخصصة (Custom Alerts)
+  showSuccessModal = signal<boolean>(false);
+  showResendModal = signal<boolean>(false);
+  errorMessage = signal<string>('');
+  
   private timerIntervalId: any;
+  private tempUserId: string = '';
 
-  constructor(private fb: FormBuilder,private authService: AuthService, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.email =localStorage.getItem('registeredEmail') || '';
+    this.email = localStorage.getItem('registeredEmail') || '';
     this.initForm();
   }
 
@@ -99,80 +105,78 @@ export class VerfiyAccount implements OnInit, OnDestroy {
     this.isTimerActive.set(false);
   }
 
-resendCode(): void {
-
-  if (this.isTimerActive()) return;
-
-  this.isResending.set(true);
-
-  this.authService.resendOtp(this.email).subscribe({
-
-    next: () => {
-
-      this.isResending.set(false);
-
-      this.otpForm.reset();
-
-      this.inputs.first.nativeElement.focus();
-
-      this.startResendTimer();
-
-      alert('تم إرسال كود جديد');
-    },
-
-    error: (error) => {
-
-      this.isResending.set(false);
-
-      console.log(error);
-
-      alert('حدث خطأ أثناء إعادة الإرسال');
-    }
-  });
-}
-  onSubmit(): void {
-
-  if (this.otpForm.invalid || this.formState() !== 'idle') {
-    return;
+  // دالة إغلاق تنبيه إعادة الإرسال
+  closeResendModal(): void {
+    this.showResendModal.set(false);
   }
 
-  this.formState.set('loading');
-
-  const rawOtpCode = Object.values(this.otpForm.value).join('');
-
-  const payload = {
-    otp: rawOtpCode,
-    email: this.email, // هات الإيميل الحقيقي
-  };
-
-  this.authService.verfiyAccount(payload).subscribe({
-    next: (response) => {
-
-      console.log(response);
-
-      this.formState.set('success');
-
-      setTimeout(() => {
-        this.formState.set('idle');
-
-        alert('Account successfully verified');
-         localStorage.removeItem('registeredEmail');
-         localStorage.setItem('userId',response.userId);
-        this.router.navigate(['/verfiy-kyc']);
-      }, 1000);
-    },
-
-    error: (error) => {
-
-      console.log(error);
-
-      this.formState.set('idle');
-
-      alert(
-        error?.error?.message ||
-        'Verification code is invalid'
-      );
+  // دالة المودال النهائي للانتقال لتوثيق الهوية (KYC)
+  closeSuccessAndNavigate(): void {
+    this.showSuccessModal.set(false);
+    this.formState.set('idle');
+    localStorage.removeItem('registeredEmail');
+    if (this.tempUserId) {
+      localStorage.setItem('userId', this.tempUserId);
     }
-  });
-}
+    this.router.navigate(['/verfiy-kyc']);
+  }
+
+  resendCode(): void {
+    if (this.isTimerActive()) return;
+
+    this.isResending.set(true);
+    this.errorMessage.set('');
+
+    this.authService.resendOtp(this.email).subscribe({
+      next: () => {
+        this.isResending.set(false);
+        this.otpForm.reset();
+        this.inputs.first.nativeElement.focus();
+        this.startResendTimer();
+        
+        // إظهار تنبيه إعادة الإرسال الفخم
+        this.showResendModal.set(true);
+      },
+      error: (error) => {
+        this.isResending.set(false);
+        console.error(error);
+        this.formState.set('error');
+        this.errorMessage.set('حدث خطأ أثناء إعادة إرسال رمز الأمان. يرجى المحاولة لاحقاً.');
+      }
+    });
+  }
+
+  onSubmit(): void {
+    if (this.otpForm.invalid || this.formState() === 'loading') {
+      return;
+    }
+
+    this.formState.set('loading');
+    this.errorMessage.set('');
+
+    const rawOtpCode = Object.values(this.otpForm.value).join('');
+
+    const payload = {
+      otp: rawOtpCode,
+      email: this.email,
+    };
+
+    this.authService.verfiyAccount(payload).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.formState.set('success');
+        this.tempUserId = response.userId;
+
+        // تفعيل مودال النجاح والترحيب بالانتقال للـ KYC
+        this.showSuccessModal.set(true);
+      },
+      error: (error) => {
+        console.error(error);
+        this.formState.set('error');
+        this.errorMessage.set(
+          error?.error?.message || 'رمز التحقق المدخل غير صحيح أو انتهت صلاحيته.'
+        );
+      }
+    });
+  }
 }

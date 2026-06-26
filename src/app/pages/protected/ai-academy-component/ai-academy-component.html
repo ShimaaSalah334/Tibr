@@ -1,0 +1,101 @@
+<div class="chat-wrapper">
+  <div class="page-dashboard-container">
+    
+    <div class="chat-container">
+      
+      <div class="chat-header">
+        <div class="bot-info">
+          <div class="avatar-wrapper">
+            <i class="fa-solid fa-graduation-cap bot-icon"></i> 
+            <span class="status-dot"></span>
+          </div>
+          <div>
+            <h3>أكاديمية تبر الذكية</h3>
+            <p>مستشارك التعليمي لأسواق المعادن الثمينة</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-messages" #scrollContainer>
+        <div *ngFor="let msg of messages" [ngClass]="['message-bubble', msg.sender]">
+          <div class="bubble-content">
+            <p>{{ msg.text }}</p>
+            <span class="time">{{ msg.timestamp | date:'shortTime' }}</span>
+          </div>
+        </div>
+
+        <div *ngIf="isLoading" class="message-bubble ai loading">
+          <div class="bubble-content typing-dots">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="suggested-container" *ngIf="!isLoading && messages.length <= 2">
+        <p class="suggested-title"><i class="fa-regular fa-lightbulb"></i> ابدأ بالتعلم من المواضيع المقترحة:</p>
+        <div class="suggestions-grid">
+          <button type="button" *ngFor="let question of suggestedQuestions" (click)="sendMessage(question)" class="suggestion-chip">
+            {{ question }}
+          </button>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <form (ngSubmit)="sendMessage()" class="input-form">
+          <input 
+            type="text" 
+            [(ngModel)]="newMessage" 
+            name="message" 
+            placeholder="اسألني عن أي مفهوم مالي أو استثماري تريد فهمه..." 
+            autocomplete="off"
+            [disabled]="isLoading"
+          />
+          <button type="submit" [disabled]="!newMessage.trim() || isLoading" class="send-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="sidebar-container">
+
+      <div class="sidebar-card market-card">
+        <div class="card-header-mini">
+          <i class="fa-solid fa-chart-line icon-silver"></i>
+          <h4>أسعار الأصول اللحظية</h4>
+        </div>
+        <div class="market-rates">
+          <div class="rate-row">
+            <span class="asset-name"><i class="fa-solid fa-circle text-gold"></i> الذهب (عيار 24)</span>
+            <span class="asset-price">3,200 ج.م <small class="up">+1.2%</small></span>
+          </div>
+          <div class="rate-divider"></div>
+          <div class="rate-row">
+            <span class="asset-name"><i class="fa-solid fa-circle text-silver"></i> الفضة (أوقية)</span>
+            <span class="asset-price">42.5 ج.م <small class="down">-0.4%</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card glossary-card">
+        <div class="card-header-mini">
+          <i class="fa-solid fa-book-bookmark icon-gold"></i>
+          <h4>قاموس المستثمر السريع</h4>
+        </div>
+        <ul class="glossary-list">
+          <li>
+            <h5>الملاذ الآمن (Safe Haven)</h5>
+            <p>أصول ماليّة تحتفظ بقيمتها أو ترتفع أثناء الأزمات الاقتصادية كالذهب.</p>
+          </li>
+          <li>
+            <h5>التضخم (Inflation)</h5>
+            <p>انخفاض القوة الشرائية للعملة النقدية، مما يدفع المستثمرين للتحوط بالمعادن.</p>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>

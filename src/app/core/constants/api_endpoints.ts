@@ -34,7 +34,7 @@ export const API_ENDPOINTS = {
   },
   orders: {
     GetById:   (id: string | number) => `${baseUrl}/orders/${id}`,
-    getAll:        `${baseUrl}/orders`,
+    getAll:        (id: string | number) =>   `${baseUrl}/orders/user/${id}`,
     GetByUserId:    (userId: number) => `${baseUrl}/orders/user/${userId}`,
     Create:        `${baseUrl}/orders`,
     Update:   (id: string | number) => `${baseUrl}/orders/${id}`,
@@ -77,5 +77,15 @@ export const API_ENDPOINTS = {
   reviews:{
     create:  `${baseUrl}/reviews`,
     getReview:  (orderId: number) =>`${baseUrl}/reviews/${orderId}`
+  },
+  chatAi:{
+    getChat:`${baseUrl}/chat`,
+    conversations:`${baseUrl}/chat/conversations`,
+    getConversationsById:(id:number)=>`${baseUrl}/chat/conversations/${id}`,
+    deleteConversations:(id:number)=>`${baseUrl}/chat/conversations/${id}`,
+  },
+  strategies:{
+    createStratege:`${baseUrl}/strategies`,
+    getStrateges:`${baseUrl}/strategies`,
   }
 };

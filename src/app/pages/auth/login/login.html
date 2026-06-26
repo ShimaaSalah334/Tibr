@@ -1,6 +1,5 @@
-<main class="login-page-bg d-flex align-items-center justify-content-center py-5" dir="ltr">
+<main class="login-page-bg d-flex align-items-center justify-content-center py-5">
   
-  <!-- New animation effects and dynamic background -->
   <div class="animated-bg-glow"></div>
   <div class="particles-container">
     <div class="particle p1"></div>
@@ -12,107 +11,107 @@
   <div class="container-xl position-relative z-index-form">
     <div class="row g-0 main-card overflow-hidden">
       
-      <!-- Right section: clean and elegant login form -->
       <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5 bg-white">
         
-        <!-- Logo and header -->
         <div class="text-center mb-4">
           <div class="brand-logo-wrapper mb-3">
-            <span >TIBR</span>
+            <img src="logo.png" alt="Tibr Logo">
           </div>
-          <h1 class="h3 fw-bold text-navy mb-2">Welcome Back</h1>
+          <h1 class="h3 fw-bold text-navy mb-1">Welcome Back</h1>
           <p class="text-secondary-muted small">Sign in to access your investment wallet</p>
         </div>
 
-        <!-- Form powered by FormGroup and Signals -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           @if (errorMessage()) {
-            <div class="alert alert-danger rounded-3 py-2 px-3 mb-4">
-              {{ errorMessage() }}
+            <div class="alert alert-danger rounded-3 py-2 px-3 mb-4 text-start small">
+              <i class="fa-solid fa-circle-exclamation me-2"></i> {{ errorMessage() }}
             </div>
           }
           
-          <!-- Email or username field -->
-          <div class="mb-3">
-            <label class="form-label text-navy fw-medium" for="email">Email</label>
-            <input 
-              formControlName="email"
-              (focus)="isEmailFocused.set(true)"
-              (blur)="isEmailFocused.set(false)"
-              class="form-control form-control-corporate" 
-              [class.field-focused]="isEmailFocused()"
-              id="email" 
-              placeholder="Email" 
-              type="text">
-            @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)) {
-            <div class="invalid-feedback d-block">
-              @if (loginForm.get('email')?.hasError('required')) { Email is required. }
+          <div class="mb-3 text-start">
+            <label class="form-label text-navy fw-medium" for="email">Email Address</label>
+            <div class="position-relative input-with-icon">
+              <i class="fa-regular fa-envelope field-icon"></i>
+              <input 
+                formControlName="email"
+                (focus)="isEmailFocused.set(true)"
+                (blur)="isEmailFocused.set(false)"
+                class="form-control form-control-corporate" 
+                [class.field-focused]="isEmailFocused()"
+                id="email" 
+                placeholder="name@example.com" 
+                type="email">
             </div>
+            @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)) {
+              <div class="invalid-feedback d-block mt-1">
+                @if (loginForm.get('email')?.hasError('required')) { Email is required. }
+              </div>
             }
           </div>
 
-          <!-- Password field -->
-          <div class="mb-3">
+          <div class="mb-3 text-start">
             <div class="d-flex justify-content-between align-items-center mb-1">
               <label class="form-label text-navy fw-medium mb-0" for="password">Password</label>
               <a class="small-link text-gold-dark text-decoration-none fw-semibold" routerLink="/forget-password">Forgot Password?</a>
             </div>
-            <div class="position-relative d-flex align-items-center">
+            <div class="position-relative d-flex align-items-center input-with-icon">
+              <i class="fa-solid fa-lock field-icon"></i>
               <input 
                 formControlName="password"
                 (focus)="isPasswordFocused.set(true)"
                 (blur)="isPasswordFocused.set(false)"
                 [type]="hidePassword() ? 'password' : 'text'"
-                class="form-control form-control-corporate w-100" 
+                class="form-control form-control-corporate w-100 pe-5" 
                 [class.field-focused]="isPasswordFocused()"
                 id="password" 
                 placeholder="••••••••">
+              
+              <button 
+                class="btn border-0 position-absolute password-toggle" 
+                (click)="hidePassword.set(!hidePassword())" 
+                type="button"
+                [title]="hidePassword() ? 'Show Password' : 'Hide Password'">
+                <i class="fa-solid" [class.fa-eye]="hidePassword()" [class.fa-eye-slash]="!hidePassword()"></i>
+              </button>
             </div>
             @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)) {
-            <div class="invalid-feedback d-block">
-              @if (loginForm.get('password')?.hasError('required')) { Password is required. }
-            </div>
+              <div class="invalid-feedback d-block mt-1">
+                @if (loginForm.get('password')?.hasError('required')) { Password is required. }
+              </div>
             }
-            <!-- <button 
-                class="btn border-0 position-absolute text-end password-toggle" 
-                (click)="togglePasswordView()" 
-                type="button">
-                <span class="material-symbols-outlined align-middle fs-5 text-muted">
-                  {{ hidePassword() ? 'visibility' : 'visibility_off' }}
-                </span>
-              </button> -->
           </div>
 
-          <!-- Remember me option -->
           <div class="form-check d-flex align-items-center gap-2 mb-4 justify-content-start">
             <input formControlName="remember" class="form-check-corporate" id="remember" type="checkbox">
-            <label class="form-check-label text-navy small fw-medium" for="remember">Remember me</label>
+            <label class="form-check-label text-navy small fw-medium" for="remember">Remember my session</label>
           </div>
 
-          <!-- Login button -->
           <button class="btn btn-corporate-gold w-100 py-2.5 fw-semibold shadow-sm" type="submit" [disabled]="formState() === 'loading'">
             @if (formState() === 'loading') {
               <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Signing in...
+            } @else {
+              Sign In <i class="fa-solid fa-arrow-right-to-bracket ms-1"></i>
             }
-            {{ formState() === 'loading' ? 'Signing in...' : 'Sign In' }}
           </button>
         </form>
 
         <div class="mt-4 text-center">
           <p class="small text-muted mb-0">
             Don't have an account? 
-<a class="text-gold-dark fw-bold text-decoration-none ms-1" [routerLink]="['/register']">Create a new account</a>          </p>
+            <a class="text-gold-dark fw-bold text-decoration-none ms-1" [routerLink]="['/register']">Create a new account</a>
+          </p>
         </div>
       </div>
 
-      <!-- Left section: bullion and currency showcase -->
-      <div class="col-md-6 d-none d-md-flex flex-column justify-content-between text-center left-branding-panel p-0">
+      <div class="col-md-6 d-none d-md-flex flex-column justify-content-between left-branding-panel text-center p-0">
         <div class="brand-image-box">
+          <div class="dark-overlay"></div>
           <img alt="Gold and Silver Bars" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnr4fNIf4H4dFfwZikTz5dj6izdwV0bnYrD-wjM3R3dsVfGcKz69KjzDXsVG1aVAdZrL15FSO1CFHa5M02jNUjNcmYQNexXA7LCeI_jtzHGLmLO2xVGQg4dI2eFID2BGpxFxezvp1dyLuxXlM5nOFXvlcwCZtd55X3CIXWe_2s_q_2uloU_xnfXLM9hEatjafgSUpSGPmAQXz4apYHj-x7GLMMPZAnrtKQIlmjLIgg8b7tidGGUb33qAG6ta7uU3LHkAKKJip5bH8b">
         </div>
-        <div class="brand-text-box p-4 bg-light-gray border-top">
-          <h2 class="h4 fw-bold text-navy mb-2">Invest smartly with gold and silver</h2>
-          <p class="text-muted small mb-0">Open your account today and secure your investment assets</p>
+        <div class="brand-text-box p-4 p-lg-5">
+          <h2 class="h4 fw-bold text-white mb-2">Invest smartly with gold & silver</h2>
+          <p class="text-light-muted small mb-0">Open your account today and secure your premium investment assets</p>
         </div>
       </div>
 

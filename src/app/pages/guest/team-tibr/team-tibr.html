@@ -1,0 +1,39 @@
+<section class="team-section py-5 text-white">
+  <div class="container py-4">
+    <div class="text-center mb-5">
+      <span class="text-gold text-uppercase tracking-wider small fw-bold">Experts & Founders</span>
+      <h2 class="display-5 fw-bold mt-2 font-serif text-light">Tibr Team</h2>
+      <p class="bio mx-auto col-md-6 small ">A premier group of specialists across technology, investment, and cybersecurity dedicated to ensuring a secure and intelligent investment journey.</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-lg-4" *ngFor="let member of teamMembers; let i = index" 
+           [ngClass]="{'col-lg-4': i < 3, 'col-lg-5': i >= 3}">
+        <div class="card h-100 bg-card-dark border-gold-hover p-4 text-center">
+          
+          <div class="avatar-wrapper mx-auto mb-4 position-relative">
+            <div class="avatar-decor"></div>
+            <img [src]="member.image" [alt]="member.name" class="img-fluid rounded-circle member-img">
+          </div>
+          
+          <h4 class="h5 fw-bold mb-1 text-light">{{ member.name }}</h4>
+          <span class="text-gold small tracking-wider text-uppercase d-block mb-3">{{ member.role }}</span>
+          <p class="bio small mb-4 lh-base ">{{ member.bio }}</p>
+          
+          <div class="d-flex justify-content-center gap-3 social-links mt-auto">
+            <a [href]="member.social.linkedin" class="social-icon" target="_blank" title="LinkedIn">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a [href]="member.social.twitter" class="social-icon" target="_blank" title="Twitter/X">
+              <i class="bi bi-twitter-x"></i>
+            </a>
+            <a [href]="'mailto:' + member.social.email" class="social-icon" title="Email">
+              <i class="bi bi-envelope-fill"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -13,7 +13,6 @@ import { RegisterPayload } from '../../../core/interfaces/register-payload';
 export class Register {
   registerForm: FormGroup;
   
-  // Injecting required dependencies
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -25,9 +24,12 @@ export class Register {
   isPasswordFocused = signal<boolean>(false);
   isConfirmPasswordFocused = signal<boolean>(false);
 
-  // Added 'error' state to handle failed API requests cleanly
   formState = signal<'idle' | 'loading' | 'success' | 'error'>('idle');
   errorMessage = signal<string>('');
+
+  // التحكم في ظهور الـ Custom Alert الفاخر الخاص بإنشاء الحساب
+  showAlertModal = signal<boolean>(false);
+  tempEmail = ''; // للاحتفاظ بالبريد مؤقتاً لتمريره بعد إغلاق التنبيه
 
   constructor() {
     this.registerForm = this.fb.group({
@@ -49,11 +51,16 @@ export class Register {
     });
   }
 
-
-
   passwordMatchValidator(g: FormGroup) {
     return g.get('password')?.value === g.get('confirmPassword')?.value
       ? null : { mismatch: true };
+  }
+
+  // دالة إغلاق التنبيه والتوجه للوحة التحكم الأمني (تفعيل الحساب)
+  closeAlertAndNavigate(): void {
+    this.showAlertModal.set(false);
+    this.formState.set('idle');
+    this.router.navigate(['/verfiy-account']);
   }
 
   onSubmit(): void {
@@ -63,6 +70,8 @@ export class Register {
 
       const { firstName, lastName, countryCode, phone, email, password, confirmPassword } = this.registerForm.value;
       const fullPhoneNumber = `${countryCode}${phone}`;
+      
+      this.tempEmail = email; // تخزين البريد مؤقتاً
 
       const payload: RegisterPayload = {
         email,
@@ -78,9 +87,10 @@ export class Register {
           this.formState.set('success');
           this.registerForm.reset({ countryCode: '+20', terms: false });
           
-          alert('Account created successfully! You will now be directed to the security control panel.');
-          localStorage.setItem('registeredEmail', email);
-          this.router.navigate(['/verfiy-account']); 
+          localStorage.setItem('registeredEmail', this.tempEmail);
+          
+          // فتح المودال المخصص الفاخر بدلاً من الـ alert التقليدي
+          this.showAlertModal.set(true);
         },
         error: (err) => {
           this.formState.set('error');

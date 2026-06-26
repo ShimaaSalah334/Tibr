@@ -1,48 +1,38 @@
-/* الألوان الأساسية الثابتة */
-:host {
-  --corporate-navy: #0A192F;
-  --corporate-gold: #96742E;
-  --corporate-gold-hover: #7D5F22;
-  --bg-soft-gray: #F4F6F8;
-  --border-light: #DCE2E6;
-}
-
+/* ==========================================
+   إعدادات الصفحة العامة والخلفية الديناميكية
+   ========================================== */
 .login-page-bg {
   min-height: 100vh;
-  background-color: var(--bg-soft-gray);
+  background-color: #F4F6F8;
   position: relative;
   overflow: hidden;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
 }
 
-/* رفع طبقة المحتوى فوق تأثيرات الأنميشن لسهولة الاستخدام */
 .z-index-form {
   z-index: 10;
 }
 
-/* ==========================================
-   ✨ تأثيرات الأنميشن والخلفية الديناميكية ✨
-   ========================================== */
-
-/* 1. التوهج الملون العائم خلف الكارت */
+/* 1. توهج عائم ناعم باللون الذهبي والكحلي */
 .animated-bg-glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(150, 116, 46, 0.08) 0%, rgba(10, 25, 47, 0.04) 50%, transparent 100%);
-  top: -10%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, rgba(10, 25, 47, 0.03) 50%, transparent 100%);
+  top: -15%;
   right: -10%;
   border-radius: 50%;
-  filter: blur(80px);
-  animation: floatGlow 12s infinite alternate ease-in-out;
+  filter: blur(90px);
+  animation: floatGlow 15s infinite alternate ease-in-out;
   pointer-events: none;
 }
 
 @keyframes floatGlow {
   0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-80px, 50px) scale(1.2); }
+  100% { transform: translate(-60px, 40px) scale(1.15); }
 }
 
-/* 2. حاوية الجزيئات الذهبية العائمة */
+/* 2. جزيئات ذهبية دائرية متباينة */
 .particles-container {
   position: absolute;
   inset: 0;
@@ -52,107 +42,206 @@
 
 .particle {
   position: absolute;
-  background: radial-gradient(circle, rgba(150, 116, 46, 0.4) 0%, rgba(150, 116, 46, 0) 70%);
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.35) 0%, rgba(197, 160, 89, 0) 70%);
   border-radius: 50%;
   animation: floatParticles infinite linear;
 }
 
-/* تخصيص جزيئات مختلفة الأحجام والسرعات لمنع الملل البصري */
-.particle.p1 { width: 120px; height: 120px; bottom: -10%; left: 10%; animation-duration: 18s; }
-.particle.p2 { width: 80px; height: 80px; top: 15%; left: 45%; animation-duration: 25s; opacity: 0.7; }
-.particle.p3 { width: 150px; height: 150px; bottom: 20%; right: 5%; animation-duration: 22s; opacity: 0.5; }
-.particle.p4 { width: 60px; height: 60px; top: -5%; left: 20%; animation-duration: 15s; }
+.particle.p1 { width: 140px; height: 140px; bottom: -10%; left: 8%; animation-duration: 20s; }
+.particle.p2 { width: 90px; height: 90px; top: 12%; left: 42%; animation-duration: 28s; opacity: 0.6; }
+.particle.p3 { width: 160px; height: 160px; bottom: 15%; right: 4%; animation-duration: 24s; opacity: 0.4; }
+.particle.p4 { width: 70px; height: 70px; top: -5%; left: 25%; animation-duration: 18s; }
 
 @keyframes floatParticles {
   0% { transform: translateY(100vh) translateX(0) scale(1); opacity: 0; }
   10% { opacity: 1; }
   90% { opacity: 1; }
-  100% { transform: translateY(-120vh) translateX(50px) scale(0.8); opacity: 0; }
+  100% { transform: translateY(-120vh) translateX(40px) scale(0.8); opacity: 0; }
 }
 
 /* ==========================================
-   تنسيقات الكارت والعناصر (مستقرة واحترافية)
+   تصميم الكارت الرئيسي والمحتوى الداخلي
    ========================================== */
 .main-card {
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(10, 25, 47, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  max-width: 1050px;
+  border-radius: 20px;
+  box-shadow: 0 30px 70px rgba(10, 25, 47, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  max-width: 1000px;
   margin: 0 auto;
-  backdrop-filter: blur(10px); /* لمسة زجاجية خفيفة متناسقة مع الأنميشن */
+  background: #ffffff;
 }
 
-.brand-logo-wrapper {
-  font-size: 2.5rem;
-  font-weight: 800;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: -2px;
-  line-height: 1;
+.brand-logo-wrapper img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 20px;
 }
-.logo-navy { color: var(--corporate-navy); }
-.logo-gold { color: var(--corporate-gold); position: relative; margin-right: -4px; }
-.text-navy { color: var(--corporate-navy); }
-.text-gold-dark { color: var(--corporate-gold); }
-.text-secondary-muted { color: #6E7E8B; }
 
-/* الحقول المدخلة */
+.text-navy { color: #0A192F; }
+.text-gold-dark { color: #c5a059; }
+.text-secondary-muted { color: #64748B; font-size: 0.9rem; }
+
+/* عناصر الإدخال والحقول والأيقونات المدعمة */
+.input-with-icon {
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon .field-icon {
+  position: absolute;
+  left: 16px;
+  color: #94a3b8;
+  font-size: 1rem;
+  pointer-events: none;
+  z-index: 5;
+}
+
 .form-control-corporate {
   background-color: #FFFFFF !important;
-  border: 1px solid var(--border-light) !important;
-  color: var(--corporate-navy) !important;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border: 1px solid #E2E8F0 !important;
+  color: #0A192F !important;
+  padding: 0.75rem 1rem 0.75rem 2.8rem; /* مسافة إضافية لليسار لتفسح مكان للأيقونة */
+  border-radius: 10px;
   font-size: 0.95rem;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-.form-control-corporate:focus, .field-focused {
-  border-color: var(--corporate-gold) !important;
-  box-shadow: 0 0 0 4px rgba(150, 116, 46, 0.12) !important;
+
+.form-control-corporate:focus, 
+.field-focused {
+  border-color: #c5a059 !important;
+  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15) !important;
   outline: none;
 }
-.form-control-corporate::placeholder { color: #A0AEC0; }
 
-.small-link { font-size: 0.85rem; transition: color 0.2s; }
-.small-link:hover { color: var(--corporate-gold-hover); }
+.form-control-corporate::placeholder {
+  color: #94a3b8;
+}
 
-.password-toggle { left: 10px; right: auto; z-index: 5; background: none; padding: 0; }
+/* مفتاح إظهار وإخفاء كلمة المرور المحدث */
+.password-toggle {
+  right: 12px;
+  left: auto;
+  position: absolute;
+  z-index: 5;
+  background: none;
+  border: none;
+  padding: 5px;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.password-toggle:hover {
+  color: #c5a059;
+}
+
+.small-link {
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.small-link:hover {
+  color: #b38f4b;
+}
 
 .form-check-corporate {
   width: 16px;
   height: 16px;
-  border: 1px solid var(--border-light);
+  border: 1px solid #CBD5E1;
   border-radius: 4px;
-  accent-color: var(--corporate-gold);
+  accent-color: #c5a059;
   cursor: pointer;
 }
 
-/* أزرار تفاعلية ناعمة */
+/* أزرار الإجراء الأساسية */
 .btn-corporate-gold {
-  background-color: var(--corporate-gold);
+  background: linear-gradient(135deg, #c5a059, #b38f4b);
   border: none;
   color: #FFFFFF !important;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .btn-corporate-gold:hover {
-  background-color: var(--corporate-gold-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(150, 116, 46, 0.25);
+  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.3);
+  opacity: 0.95;
 }
 
-/* جانب العرض الأيسر */
-.left-branding-panel { background-color: #FFFFFF; border-right: 1px solid #F0F2F5; }
+.btn-corporate-gold:disabled {
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.invalid-feedback {
+  font-size: 0.8rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* ==========================================
+   تصميم لوحة العرض الجانبية الفاخرة (Tibr Bullion)
+   ========================================== */
+.left-branding-panel {
+  background: #060d1a;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
 .brand-image-box {
   flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #0A1526;
+  position: relative;
   overflow: hidden;
-  max-height: 440px;
+  min-height: 380px;
 }
-.brand-image-box img { width: 100%; height: 100%; object-fit: cover; }
-.bg-light-gray { background-color: #FAFBFB; }
-.brand-text-box { min-height: 130px; }
-.form-label { font-size: 0.88rem; }
+
+.brand-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+/* طبقة تظليل داكنة ناعمة لدمج الصورة مع النص السفلي */
+.dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(6, 13, 26, 0.2) 0%, rgba(6, 13, 26, 0.95) 100%);
+  z-index: 2;
+}
+
+.brand-text-box {
+  position: relative;
+  z-index: 3;
+  margin-top: -80px; /* تداخل احترافي يربط النص بالخلفية */
+  background: transparent;
+}
+
+.brand-text-box .text-white {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.text-light-muted {
+  color: #94a3b8;
+}
+
+/* ==========================================
+   دعم قلب التنسيق للغة العربية تلقائياً (RTL)
+   ========================================== */
+[dir="rtl"] .form-control-corporate {
+  padding: 0.75rem 2.8rem 0.75rem 1rem; /* قلب مسافات الأيقونة */
+}
+
+[dir="rtl"] .input-with-icon .field-icon {
+  left: auto;
+  right: 16px;
+}
+
+[dir="rtl"] .password-toggle {
+  right: auto;
+  left: 12px;
+}

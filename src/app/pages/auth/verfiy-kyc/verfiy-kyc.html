@@ -1,59 +1,63 @@
-<main class="container-fluid px-3 px-md-5 py-5 pb-5 mb-5" dir="ltr" style="font-family: 'Cairo', sans-serif;">
+<main class="container-fluid px-3 px-md-5 py-5 pb-5 mb-5 kyc-page-wrapper" dir="ltr" style="font-family: 'Cairo', sans-serif;">
 
-  <!-- Error and success messages -->
   @if (errorMessage()) {
-  <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-3 mb-4" role="alert">
-    <span class="material-symbols-outlined text-danger fs-3">error_circle</span>
-    <div class="flex-grow-1">
-      <strong>Error:</strong>
-      <span class="d-block text-dark">{{ errorMessage() }}</span>
+    <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-3 mb-4 shadow-sm" role="alert">
+      <span class="material-symbols-outlined text-danger fs-3">error_circle</span>
+      <div class="flex-grow-1">
+        <strong>Error:</strong>
+        <span class="d-block text-dark small mt-1">{{ errorMessage() }}</span>
+      </div>
+      <button type="button" class="btn-close" (click)="errorMessage.set(null)"></button>
     </div>
-    <button type="button" class="btn-close" (click)="errorMessage.set(null)"></button>
-  </div>
   }
 
   @if (successMessage()) {
-  <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-3 mb-4 alert-success-custom"
-    role="alert">
-    <span class="material-symbols-outlined text-success fs-3"
-      style="font-variation-settings: 'FILL' 1;">check_circle</span>
-    <div class="flex-grow-1">
-      <strong>Success:</strong>
-      <span class="d-block text-dark">{{ successMessage() }}</span>
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-3 mb-4 alert-success-custom shadow-sm" role="alert">
+      <span class="material-symbols-outlined text-success fs-3" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+      <div class="flex-grow-1">
+        <strong>Success:</strong>
+        <span class="d-block text-dark small mt-1">{{ successMessage() }}</span>
+      </div>
+      <button type="button" class="btn-close" (click)="successMessage.set(null)"></button>
     </div>
-    <button type="button" class="btn-close" (click)="successMessage.set(null)"></button>
-  </div>
   }
 
-  <section class="mb-5 text-center text-md-start bg-light-gold-gradient p-4 rounded-4 border-end-gold">
+  <section class="mb-4 text-center text-md-start bg-light-gold-gradient p-4 rounded-4 border-end-gold shadow-sm position-relative overflow-hidden">
     <div class="row align-items-center">
-      <div class="col-md-7 mb-4 mb-md-0">
-        <h1
-          class="h2 fw-extrabold text-navy mb-2 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+      <div class="col-md-7 mb-3 mb-md-0">
+        <h1 class="h3 fw-bold text-navy mb-2 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
           <span class="material-symbols-outlined text-gold-dark fs-3 animate-pulse">verified_user</span>
-          Identity Verification
+          Identity Verification (KYC)
         </h1>
+        <p class="text-secondary-muted small mb-0">Complete your profile setup to secure your bullion trading wallet.</p>
+      </div>
+      <div class="col-md-5">
+        <div class="progress-container-custom p-2 bg-white rounded-3 border">
+          <div class="d-flex justify-content-between small fw-bold text-navy mb-1 px-1">
+            <span class="small">Verification Progress</span>
+            <span class="text-gold-dark small">{{ totalProgress() }}%</span>
+          </div>
+          <div class="progress rounded-pill" style="height: 8px;">
+            <div class="progress-bar progress-bar-gold rounded-pill" role="progressbar" [style.width.%]="totalProgress()"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Main form body -->
   <div class="row justify-content-center">
     <div class="col-12 col-xl-10 d-flex flex-column gap-4">
 
       <form [formGroup]="kycForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
 
-        <!-- First section: investor personal information -->
-        <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
+        <div class="card bg-white border-0 p-4 rounded-4 shadow-hover transition-all border-t-aurum-thick">
           <div class="d-flex align-items-center gap-3 mb-4">
-            <div
-              class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm"
-              style="width: 52px; height: 52px;">
-              <span class="material-symbols-outlined fs-3">person_pin</span>
+            <div class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
+              <span class="material-symbols-outlined fs-4">person_pin</span>
             </div>
             <div>
-              <h2 class="h5 fw-bold text-navy mb-1">Personal Investor Information</h2>
-              <p class="text-muted small mb-0">Please enter your information accurately to avoid delays in account review</p>
+              <h2 class="h6 fw-bold text-navy mb-1">Personal Investor Information</h2>
+              <p class="text-muted xx-small mb-0">Please enter your government-issued ID specifications precisely.</p>
             </div>
           </div>
 
@@ -61,121 +65,108 @@
             <div class="col-12 col-md-6">
               <label class="form-label small fw-bold text-navy mb-2">Document Type</label>
               <div class="input-group">
-                <span class="input-group-text bg-light text-muted"><span
-                    class="material-symbols-outlined fs-5">assignment</span></span>
-
-                 <input formControlName="documentType"
-                  class="form-control form-control-corporate p-3 border-end-0 fs-6" value="NATIONAL ID" placeholder="Select document type" readonly 
-                  type="text" />
+                <span class="input-group-text bg-light text-muted border-end-0"><span class="material-symbols-outlined fs-5">assignment</span></span>
+                <input formControlName="documentType" class="form-control form-control-corporate p-2.5 fs-6 bg-light text-dark fw-semibold cursor-not-allowed" readonly type="text" />
               </div>
             </div>
 
             <div class="col-12 col-md-6">
-              <label class="form-label small fw-bold text-navy mb-2">Document Number</label>
+              <label class="form-label small fw-bold text-navy mb-2">Document Number (National ID)</label>
               <div class="input-group">
-                <span class="input-group-text bg-light border-start-0 text-muted"><span
-                    class="material-symbols-outlined fs-5">numbers</span></span>
-                <input formControlName="documentNumber"
-                  class="form-control form-control-corporate p-3 border-end-0 fs-6" placeholder="Enter document number"
-                  type="text" maxlength="14" />
+                <span class="input-group-text bg-light text-muted border-end-0"><span class="material-symbols-outlined fs-5">numbers</span></span>
+                <input formControlName="documentNumber" class="form-control form-control-corporate p-2.5 fs-6" placeholder="Enter 14-digit national ID" type="text" maxlength="14" inputmode="numeric" />
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Section two: official document drag-and-drop area -->
-        <div class="card bg-white border-0 p-4 p-md-5 rounded-4 shadow-hover transition-all border-t-aurum-thick">
+        <div class="card bg-white border-0 p-4 rounded-4 shadow-hover transition-all border-t-aurum-thick">
           <div class="d-flex align-items-center gap-3 mb-4">
-            <div
-              class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm"
-              style="width: 52px; height: 52px;">
-              <span class="material-symbols-outlined fs-3">upload_file</span>
+            <div class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
+              <span class="material-symbols-outlined fs-4">upload_file</span>
             </div>
             <div>
-              <h2 class="h5 fw-bold text-navy mb-1">Upload Official Documents</h2>
-              <p class="text-muted small mb-0">Please upload a clear, high-resolution digital copy of your ID or passport.</p>
+              <h2 class="h6 fw-bold text-navy mb-1">Upload Official Documents</h2>
+              <p class="text-muted xx-small mb-0">Please upload a clear, high-resolution digital copy of your National ID card.</p>
             </div>
           </div>
 
           <div class="row g-3">
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Front)</label>
-              <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
-                <input id="frontUpload" type="file" accept="image/png, image/jpeg"
-                  (change)="onFileSelected($event,'front')"
-                  class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" />
+              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Front Face)</label>
+              <div class="border border-2 border-dashed rounded-3 p-3 text-center bg-dropzone position-relative transition-all" [class.dropzone-success]="documentFrontName()">
+                <input id="frontUpload" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event,'front')" class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" style="z-index: 5;" />
                 @if (!documentFrontName()) {
-                <div class="upload-icon-box mb-2 mx-auto"><span
-                    class="material-symbols-outlined text-gold-dark fs-2">camera_front</span></div>
-                <div class="small text-muted">PNG, JPG — under 5 MB</div>
+                  <div class="upload-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-gold-dark fs-3">camera_front</span></div>
+                  <div class="small fw-semibold text-navy mb-1">Upload Front Side</div>
+                  <div class="xx-small text-muted">PNG, JPG — Max 5 MB</div>
                 } @else {
-                <div class="success-icon-box mb-2 mx-auto"><span
-                    class="material-symbols-outlined text-success fs-2">check_circle</span></div>
-                <div class="fw-bold text-navy small">{{ documentFrontName() }}</div>
+                  <div class="success-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-success fs-3">check_circle</span></div>
+                  <div class="fw-bold text-success small mb-1">Document Loaded</div>
+                  <div class="text-navy text-truncate px-2 bold-file-name">{{ documentFrontName() }}</div>
                 }
               </div>
             </div>
 
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Back)</label>
-              <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
-                <input id="backUpload" type="file" accept="image/png, image/jpeg"
-                  (change)="onFileSelected($event,'back')"
-                  class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" />
+              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Back Face)</label>
+              <div class="border border-2 border-dashed rounded-3 p-3 text-center bg-dropzone position-relative transition-all" [class.dropzone-success]="documentBackName()">
+                <input id="backUpload" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event,'back')" class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" style="z-index: 5;" />
                 @if (!documentBackName()) {
-                <div class="upload-icon-box mb-2 mx-auto"><span
-                    class="material-symbols-outlined text-gold-dark fs-2">photo_library</span></div>
-                <div class="small text-muted">PNG, JPG — under 5 MB</div>
+                  <div class="upload-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-gold-dark fs-3">photo_library</span></div>
+                  <div class="small fw-semibold text-navy mb-1">Upload Back Side</div>
+                  <div class="xx-small text-muted">PNG, JPG — Max 5 MB</div>
                 } @else {
-                <div class="success-icon-box mb-2 mx-auto"><span
-                    class="material-symbols-outlined text-success fs-2">check_circle</span></div>
-                <div class="fw-bold text-navy small">{{ documentBackName() }}</div>
+                  <div class="success-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-success fs-3">check_circle</span></div>
+                  <div class="fw-bold text-success small mb-1">Document Loaded</div>
+                  <div class="text-navy text-truncate px-2 bold-file-name">{{ documentBackName() }}</div>
                 }
               </div>
             </div>
 
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">Selfie with ID</label>
-              <div class="border border-2 rounded-3 p-3 text-center bg-dropzone position-relative">
-                <input id="selfieUpload" type="file" accept="image/png, image/jpeg"
-                  (change)="onFileSelected($event,'selfie')"
-                  class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" />
+              <label class="form-label small fw-bold text-navy mb-2">Selfie with ID Verification</label>
+              <div class="border border-2 border-dashed rounded-3 p-3 text-center bg-dropzone position-relative transition-all" [class.dropzone-success]="selfieFileName()">
+                <input id="selfieUpload" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event,'selfie')" class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" style="z-index: 5;" />
                 @if (!selfieFileName()) {
-                <div class="upload-icon-box mb-2 mx-auto"><span
-                    class="material-symbols-outlined text-gold-dark fs-2">portrait</span></div>
-                <div class="small text-muted">Capture a clear photo while holding your ID</div>
+                  <div class="upload-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-gold-dark fs-3">portrait</span></div>
+                  <div class="small fw-semibold text-navy mb-1">Personal Selfie</div>
+                  <div class="xx-small text-muted">Hold your ID clear next to your face</div>
                 } @else {
-                <div class="success-icon-box mb-2 mx-auto"><span
-                    class="material-symbols-outlined text-success fs-2">check_circle</span></div>
-                <div class="fw-bold text-navy small">{{ selfieFileName() }}</div>
+                  <div class="success-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-success fs-3">check_circle</span></div>
+                  <div class="fw-bold text-success small mb-1">Selfie Verified</div>
+                  <div class="text-navy text-truncate px-2 bold-file-name">{{ selfieFileName() }}</div>
                 }
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Section three: live selfie verification system -->
-     
-
-        <div class="pt-3 d-flex flex-column flex-md-row align-items-center justify-content-between gap-4 mb-4">
-          <button
-            class="btn w-100 w-md-auto px-5 py-3 fw-bold rounded-3 shadow-lg d-flex align-items-center justify-content-center gap-2 transition-all btn-submit-custom"
+        <div class="pt-2 d-flex flex-column flex-md-row align-items-center justify-content-end mb-4">
+          <button class="btn w-100 w-md-auto px-5 py-2.5 fw-bold rounded-3 d-flex align-items-center justify-content-center gap-2 transition-all btn-submit-custom shadow-sm"
             [class.btn-corporate-gold]="formState() !== 'success' && formState() !== 'error'"
-            [class.btn-corporate-success]="formState() === 'success'" [class.btn-danger]="formState() === 'error'"
-             type="submit">
+            [class.btn-corporate-success]="formState() === 'success'" 
+            [class.btn-danger]="formState() === 'error'"
+            [disabled]="formState() === 'loading'"
+            type="submit">
 
-            @if (formState() === 'loading') {
-            <span class="material-symbols-outlined animate-spin fs-5">progress_activity</span>
-            <span>Syncing and securely archiving...</span>
-            } @else if (formState() === 'success') {
-            <span class="material-symbols-outlined fs-5 animate-bounce">verified</span>
-            <span>Files submitted, review in progress</span>
-            } @else if (formState() === 'error') {
-            <span class="material-symbols-outlined fs-5">error</span>
-            <span>Retry submission</span>
-            } @else {
-            <span class="material-symbols-outlined fs-5">send_and_archive</span>
-            <span>Submit data for review</span>
+            @switch (formState()) {
+              @case ('loading') {
+                <span class="material-symbols-outlined animate-spin fs-5">sync</span>
+                <span>Encrypting & Archiving Assets...</span>
+              }
+              @case ('success') {
+                <span class="material-symbols-outlined fs-5">verified</span>
+                <span>Verification Data Sent Successfully</span>
+              }
+              @case ('error') {
+                <span class="material-symbols-outlined fs-5">error</span>
+                <span>Retry Submission Process</span>
+              }
+              @default {
+                <span class="material-symbols-outlined fs-5">send_and_archive</span>
+                <span>Submit Portfolio for Final Audit</span>
+              }
             }
           </button>
         </div>
@@ -184,6 +175,3 @@
     </div>
   </div>
 </main>
-
-
-

@@ -1,0 +1,70 @@
+.team-section {
+  background-color: #0a0a0a !important;
+  direction: rtl; 
+}
+.bio{
+    color: rgba(240, 255, 255, 0.438);
+}
+.bg-card-dark {
+  background-color: #121212;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.border-gold-hover:hover {
+  transform: translateY(-8px);
+  border-color: #d4af37 !important;
+  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.08);
+}
+
+.text-gold {
+  color: #d4af37;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.tracking-wider {
+  letter-spacing: 0.12em;
+}
+
+.avatar-wrapper {
+  width: 110px;
+  height: 110px;
+  z-index: 1;
+}
+
+.member-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid rgba(212, 175, 55, 0.2);
+  transition: border-color 0.4s ease;
+}
+
+.border-gold-hover:hover .member-img {
+  border-color: #d4af37;
+}
+
+.social-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.03);
+  color: #a0a0a0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+  color: #d4af37;
+  border-color: #d4af37;
+  transform: translateY(-2px);
+}

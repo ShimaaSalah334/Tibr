@@ -1,0 +1,23 @@
+<section class="how-it-works-section py-5 bg-dark-custom text-white">
+  <div class="container py-4">
+    <div class="text-center mb-5">
+      <span class="text-gold text-uppercase tracking-wider small fw-bold">Step by Step</span>
+      <h2 class="display-5 fw-bold mt-2 font-serif text-light">Your Investment Journey, <br class="d-none d-md-block"> Simple and Smart</h2>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-lg-3" *ngFor="let step of steps; let i = index">
+        <div class="card h-100 bg-card-dark border-gold-hover p-4 text-center text-md-start position-relative">
+          <div class="step-number text-gold-dim font-serif opacity-25">0{{ i + 1 }}</div>
+          
+          <div class="icon-wrapper mb-4 d-inline-flex align-items-center justify-content-center text-gold">
+            <i [class]="step.icon + ' fs-2'"></i>
+          </div>
+          
+          <h4 class="h5 fw-bold mb-3 text-light">{{ step.title }}</h4>
+          <p class="subtext small mb-0 lh-base">{{ step.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

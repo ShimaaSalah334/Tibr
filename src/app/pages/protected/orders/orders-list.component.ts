@@ -35,21 +35,30 @@ export class OrdersListComponent implements OnInit {
     this.loadOrders();
   }
 
-  loadOrders(): void {
-    this.isLoading = true;
-    this.error = null;
-    this.ordersService.getOrders().subscribe({
-      next: (orders) => {
-        this.orders = orders;
-        this.applyFilters();
-        this.isLoading = false;
-      },
-      error: () => {
-        this.error = 'Failed to load orders. Please try again.';
-        this.isLoading = false;
-      },
-    });
+  userId: string | null = localStorage.getItem("userId");
+
+loadOrders(): void {
+  if (!this.userId) {
+    this.error = 'User ID not found.';
+    return;
   }
+
+  this.isLoading = true;
+  this.error = null;
+
+  this.ordersService.getOrders(this.userId).subscribe({
+    next: (orders) => {
+      this.orders = orders;
+      this.applyFilters();
+      this.isLoading = false;
+    },
+    error: (err) => {
+      console.error(err);
+      this.error = 'Failed to load orders. Please try again.';
+      this.isLoading = false;
+    },
+  });
+}
 
   applyFilters(): void {
     let result = [...this.orders];

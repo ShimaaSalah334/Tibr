@@ -1,0 +1,66 @@
+/* الخلفية الداكنة المخصصة للقسم */
+.about-section {
+  background-color: #0a0a0a !important;
+}
+
+/* اللون الذهبي للأيقونات والعناوين */
+.text-gold {
+  color: #d4af37;
+}
+.subtext{
+    color: rgba(240, 255, 255, 0.407);
+}
+/* الخط الكلاسيكي للعناوين */
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* تباعد الحروف */
+.tracking-wider {
+  letter-spacing: 0.15em;
+}
+
+/* --- الرسمة الدائرية المتحركة (الهيكل البصري) --- */
+
+.about-graphic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 350px;
+}
+
+/* الدائرة الخارجية وحركتها الدائرية */
+.outer-circle {
+  width: 280px;
+  height: 280px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spinCircle 30s linear infinite;
+}
+
+/* الدائرة الداخلية */
+.inner-circle {
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* قلب الدائرة المحتوي على القفل */
+.gold-core {
+  text-align: center;
+  color: #d4af37;
+}
+
+/* أنيميشن الدوران لجعل التصميم يبدو حيّاً والتراكتيف */
+@keyframes spinCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}

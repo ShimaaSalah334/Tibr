@@ -1,0 +1,41 @@
+<section class="about-section py-5 bg-dark-custom text-white border-top border-secondary border-opacity-10">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+      
+      <div class="col-lg-6">
+        <span class="text-gold text-uppercase tracking-wider small fw-bold">Our Philosophy</span>
+        <h2 class="display-5 fw-bold mt-2 mb-4 font-serif text-light">Built on Trust, <br>Secured by Design</h2>
+        
+        <p class="subtext mb-4 lead">
+          Tibr bridges the gap between traditional physical wealth and digital convenience. We empower investors to secure their future with smart precision.
+        </p>
+        
+        <div class="trust-points">
+          <div class="d-flex align-items-start mb-3" *ngFor="let point of trustPoints">
+            <div class="text-gold me-3 mt-1">
+              <i [class]="point.icon + ' fs-4'"></i>
+            </div>
+            <div>
+              <h5 class="fw-bold mb-1 text-light">{{ point.heading }}</h5>
+              <p class="subtext small mb-0">{{ point.text }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="about-graphic-container p-5 text-center position-relative">
+          <div class="circle-layer outer-circle border border-gold border-opacity-25 rounded-circle mx-auto d-flex align-items-center justify-content-center">
+            <div class="circle-layer inner-circle border border-gold border-opacity-50 rounded-circle d-flex align-items-center justify-content-center">
+              <div class="gold-core text-gold">
+                <i class="bi bi-shield-lock-fill display-3"></i>
+                <div class="mt-2 fw-bold small text-uppercase tracking-wider">100% Secure</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

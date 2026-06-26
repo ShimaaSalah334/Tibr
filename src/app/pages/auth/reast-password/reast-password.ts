@@ -25,6 +25,9 @@ export class ReastPassword {
   formState = signal<'idle' | 'loading' | 'success' | 'error'>('idle');
   errorMessage = signal<string | null>(null);
 
+  // التحكم في ظهور الـ Custom Alert الفاخر
+  showAlertModal = signal<boolean>(false);
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -52,6 +55,13 @@ export class ReastPassword {
 
   toggleConfirmPasswordView(): void {
     this.hideConfirmPassword.update(state => !state);
+  }
+
+  // دالة إغلاق التنبيه والتوجه لصفحة تسجيل الدخول
+  closeAlertAndNavigate(): void {
+    this.showAlertModal.set(false);
+    this.formState.set('idle');
+    this.router.navigate(['/login']);
   }
 
   // معالجة وحفظ البيانات وتأثيرات التحميل التفاعلية المطلوبة
@@ -83,13 +93,12 @@ export class ReastPassword {
     }).subscribe({
       next: () => {
         this.formState.set('success');
-        setTimeout(() => {
-          this.formState.set('idle');
-          this.resetForm.reset();
-          localStorage.removeItem('resetEmail');
-          alert('تم تحديث كلمة المرور بنجاح! يمكنك الآن تسجيل الدخول.');
-          this.router.navigate(['/login']);
-        }, 1200);
+        // تفريغ البيانات وتجهيز المودال المخصص
+        this.resetForm.reset();
+        localStorage.removeItem('resetEmail');
+        
+        // إظهار الـ Custom Alert بدلاً من الـ alert التقليدي
+        this.showAlertModal.set(true);
       },
       error: (error) => {
         console.error('Reset password error:', error);

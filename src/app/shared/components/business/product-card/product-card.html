@@ -39,7 +39,7 @@
          [class.img-glow-silver]="isSilver">
     </div>
     <img
-      [src]="product().imageUrl || 'assets/images/placeholder-gold.png'"
+      [src]="'https://localhost:7160' + product()!.imageUrl"
       [alt]="product().name"
       class="card-img"
       loading="lazy"

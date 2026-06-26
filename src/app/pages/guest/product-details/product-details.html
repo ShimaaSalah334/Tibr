@@ -38,7 +38,7 @@
     <div class="pd-gallery">
       <div class="pd-img-main glass-card metallic-shine">
         <img
-          [src]="product()!.imageUrl || 'assets/images/gold-placeholder.jpg'"
+          [src]="'https://localhost:7160' + product()!.imageUrl"
           [alt]="product()!.name"
           class="pd-main-img" />
 
@@ -303,7 +303,7 @@
           <div class="related-card glass-card" (click)="goToRelatedProduct(rp.id)">
             <div class="related-img-wrap">
               <img
-                [src]="rp.imageUrl || 'assets/images/gold-placeholder.jpg'"
+                [src]="'https://localhost:7160' + rp.imageUrl"
                 [alt]="rp.name"
                 class="related-img" />
             </div>

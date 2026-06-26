@@ -1,36 +1,29 @@
-:host {
-  --corporate-navy: #0A192F;
-  --corporate-gold: #96742E;
-  --corporate-gold-hover: #7D5F22;
-  --bg-soft-gray: #F4F6F8;
-  --border-light: #DCE2E6;
-  --gold-accent: #E5C76B;
-}
-
+/* ==========================================
+   إعدادات الصفحة العامة والخلفية الديناميكية
+   ========================================== */
 .login-page-bg {
   min-height: 100vh;
-  background-color: var(--bg-soft-gray);
+  background-color: #F4F6F8;
   position: relative;
   overflow: hidden;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
 }
 
 .z-index-form {
   z-index: 10;
 }
 
-/* ==========================================
-   ✨ تأثيرات الحركة والخلفية الديناميكية ✨
-   ========================================== */
+/* التوهج اللامع خلف الكارد */
 .animated-bg-glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(150, 116, 46, 0.08) 0%, rgba(10, 25, 47, 0.04) 50%, transparent 100%);
-  top: -10%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.07) 0%, rgba(10, 25, 47, 0.03) 50%, transparent 100%);
+  top: -15%;
   right: -10%;
   border-radius: 50%;
-  filter: blur(80px);
-  animation: floatGlow 12s infinite alternate ease-in-out;
+  filter: blur(90px);
+  animation: floatGlow 15s infinite alternate ease-in-out;
   pointer-events: none;
 }
 
@@ -39,6 +32,7 @@
   100% { transform: translate(-60px, 40px) scale(1.15); }
 }
 
+/* جزيئات الخلفية الذهبية الدقيقة */
 .particles-container {
   position: absolute;
   inset: 0;
@@ -48,14 +42,14 @@
 
 .particle {
   position: absolute;
-  background: radial-gradient(circle, rgba(150, 116, 46, 0.35) 0%, rgba(150, 116, 46, 0) 70%);
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.35) 0%, rgba(197, 160, 89, 0) 70%);
   border-radius: 50%;
   animation: floatParticles infinite linear;
 }
 
-.particle.p1 { width: 120px; height: 120px; bottom: -10%; left: 8%; animation-duration: 20s; }
+.particle.p1 { width: 130px; height: 130px; bottom: -10%; left: 8%; animation-duration: 20s; }
 .particle.p2 { width: 90px; height: 90px; top: 10%; left: 40%; animation-duration: 26s; opacity: 0.6; }
-.particle.p3 { width: 140px; height: 140px; bottom: 15%; right: 5%; animation-duration: 22s; opacity: 0.5; }
+.particle.p3 { width: 150px; height: 150px; bottom: 15%; right: 5%; animation-duration: 22s; opacity: 0.4; }
 .particle.p4 { width: 70px; height: 70px; top: -5%; left: 25%; animation-duration: 16s; }
 
 @keyframes floatParticles {
@@ -65,114 +59,271 @@
   100% { transform: translateY(-120vh) translateX(40px) scale(0.8); opacity: 0; }
 }
 
-/* دوامة الدوران اللانهائية عند معالجة الفورم */
+/* حركة دوران مؤشر المعالجة والتحميل */
 .animate-spin {
   animation: spin 1s infinite linear;
+  display: inline-block;
 }
 @keyframes spin {
-  100% { transform: rotate(-360deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* ==========================================
-   عناصر واجهة المستخدم النظيفة
+   تنسيق الكارد وعناصر الإدخال الأساسية
    ========================================== */
 .main-card {
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(10, 25, 47, 0.07);
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(10, 25, 47, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.8);
   max-width: 1050px;
   margin: 0 auto;
+  background: #ffffff;
 }
 
-.brand-logo-wrapper {
-  font-size: 2.3rem;
-  font-weight: 800;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: -2px;
-  line-height: 1;
+/* تصميم لوجو التكست الفخم المدمج بالتدرج المالي */
+.brand-logo-wrapper img{
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 20px;
 }
-.logo-navy { color: var(--corporate-navy); }
-.logo-gold { color: var(--corporate-gold); }
-.text-navy { color: var(--corporate-navy); }
-.text-gold-dark { color: var(--corporate-gold); }
-.text-gold-light { color: var(--gold-accent); }
-.text-secondary-muted { color: #6E7E8B; }
 
+.gold-text-gradient {
+  background: linear-gradient(135deg, #c5a059 0%, #b38f4b 50%, #8a6f3e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-navy { color: #0A192F; }
+.text-gold-dark { color: #c5a059; }
+.text-gold-light { color: #E5C76B; }
+.text-secondary-muted { color: #64748B; font-size: 0.9rem; }
+
+/* الحقول الموحدة للمنصة */
 .form-control-corporate {
   background-color: #FFFFFF !important;
-  border: 1px solid var(--border-light) !important;
-  color: var(--corporate-navy) !important;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border: 1px solid #E2E8F0 !important;
+  color: #0A192F !important;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
   font-size: 0.95rem;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-.form-control-corporate:focus, .field-focused {
-  border-color: var(--corporate-gold) !important;
-  box-shadow: 0 0 0 4px rgba(150, 116, 46, 0.12) !important;
+
+.form-control-corporate:focus, 
+.field-focused {
+  border-color: #c5a059 !important;
+  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15) !important;
   outline: none;
+}
+
+.form-control-corporate::placeholder {
+  color: #94a3b8;
+}
+
+/* تصميم حقل رقم الهاتف الاحترافي المستقر عابر اللغات */
+.corporate-phone-group {
+  display: flex;
+  direction: ltr !important; /* ثابت دائمًا لمنع تداخل المقدمة مع الرقم أياً كانت اللغة */
+  border-radius: 10px;
+}
+
+.corporate-phone-group .phone-prefix {
+  max-width: 90px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-right: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  color: #475569;
+  font-weight: 500;
+  text-align: center;
+  padding: 0.7rem 0.5rem;
+}
+
+.corporate-phone-group .phone-input {
+  flex-grow: 1;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  text-align: left !important;
 }
 
 .form-check-corporate {
   width: 16px;
   height: 16px;
-  border: 1px solid var(--border-light);
+  border: 1px solid #CBD5E1;
   border-radius: 4px;
-  accent-color: var(--corporate-gold);
+  accent-color: #c5a059;
   cursor: pointer;
 }
 
-/* الأزرار التفاعلية والنجاح */
+/* أزرار الإجراء والنجاح */
 .btn-corporate-gold {
-  background-color: var(--corporate-gold);
+  background: linear-gradient(135deg, #c5a059, #b38f4b);
   border: none;
   color: #FFFFFF !important;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .btn-corporate-gold:hover {
-  background-color: var(--corporate-gold-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(150, 116, 46, 0.25);
+  box-shadow: 0 8px 25px rgba(197, 160, 89, 0.3);
 }
 
 .btn-corporate-success {
-  background-color: #198754;
+  background: linear-gradient(135deg, #16a34a, #15803d);
   border: none;
   color: #FFFFFF !important;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
-/* النصف الأيسر الجمالي */
+.invalid-feedback {
+  font-size: 0.8rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* ==========================================
+   تصميم لوحة العرض الجانبية الفاخرة (Tibr Vault)
+   ========================================== */
 .left-branding-panel {
-  background-color: #FFFFFF;
-}
-.brand-image-box {
-  height: 100%;
   background-color: #050E1A;
-  overflow: hidden;
 }
+
 .brand-image-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.8;
+  opacity: 0.75;
 }
+
 .image-overlay-gradient {
-  background: linear-gradient(180deg, rgba(10, 25, 47, 0.1) 0%, rgba(10, 25, 47, 0.85) 100%);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 14, 26, 0.2) 0%, rgba(5, 14, 26, 0.95) 100%);
 }
 
 .border-white-20 {
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
+
 .micro-text {
   font-size: 0.75rem;
   letter-spacing: 0.5px;
 }
+
 .small-caption {
   font-size: 0.8rem;
   font-weight: 500;
 }
+
 .form-label {
   font-size: 0.88rem;
+}
+
+/* تخصيص أيقونات FontAwesome الفريدة بالتدرج الذهبي */
+.fa-shield-amber {
+  color: #E5C76B;
+  background: linear-gradient(135deg, #E5C76B 0%, #b38f4b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================
+   دعم اتجاه الـ RTL تلقائياً بالكامل للموقع العربي
+   ========================================== */
+[dir="rtl"] .corporate-phone-group {
+  direction: ltr !important; /* يضمن بقاء حقل الهاتف بالكامل يسار-إلى-يمين لعدم تداخل الترقيم */
+}
+
+[dir="rtl"] .corporate-phone-group .phone-prefix {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
+  border-left: 1px solid #E2E8F0;
+}
+
+[dir="rtl"] .corporate-phone-group .phone-input {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+/* ==========================================
+   💰 التنسيقات المخصصة للمودال التنبيهي الفاخر (Custom Alert) 💰
+   ========================================== */
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(10, 25, 47, 0.65); /* تظليل كحلي ملكي شفاف */
+  backdrop-filter: blur(10px); /* تأثير زجاجي ضبابي احترافي */
+  z-index: 9999;
+  animation: fadeInOverlay 0.3s ease-out forwards;
+}
+
+.custom-modal-card {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(150, 116, 46, 0.3);
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(10, 25, 47, 0.2);
+  transform: translateY(30px);
+  opacity: 0;
+  animation: slideUpModal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+}
+
+.modal-glow {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(150, 116, 46, 0.08) 0%, transparent 70%);
+  top: -50px;
+  left: -50px;
+  pointer-events: none;
+}
+
+.modal-icon-wrapper {
+  width: 72px;
+  height: 72px;
+  background-color: #0A192F; /* خلفية كحلية لإبراز التدرج الذهبي */
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #D4AF37 0%, #96742E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-modal-action {
+  background: linear-gradient(135deg, #96742E 0%, #7D5F22 100%);
+  border: none;
+  color: #FFFFFF !important;
+  border-radius: 10px;
+  transition: all 0.25s ease;
+}
+
+.btn-modal-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(150, 116, 46, 0.3);
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

@@ -242,10 +242,15 @@
         <div class="popular-crown">
           <i class="fa-solid fa-fire"></i> newest
         </div>
-        <div class="showcase-img-wrap">
-          <img [src]="product.imageUrl || 'assets/images/placeholder.png'" [alt]="product.name" class="showcase-img" loading="lazy"/>
-          <div class="showcase-img-overlay"></div>
-        </div>
+       <div class="showcase-img-wrap">
+  <img
+    [src]="'https://localhost:7160' + product.imageUrl"
+    [alt]="product.name"
+    class="showcase-img"
+    loading="lazy"
+  />
+  <div class="showcase-img-overlay"></div>
+</div>
         <div class="showcase-info">
           <div class="showcase-info-top">
             <h5 class="showcase-name">{{ product.name }}</h5>
@@ -520,7 +525,12 @@
           <i class="fa-solid fa-fire"></i> Popular
         </div>
         <div class="showcase-img-wrap">
-          <img [src]="product.imageUrl || 'assets/images/placeholder.png'" [alt]="product.name" class="showcase-img" loading="lazy"/>
+          <img
+    [src]="'https://localhost:7160' + product.imageUrl"
+    [alt]="product.name"
+    class="showcase-img"
+    loading="lazy"
+  />
           <div class="showcase-img-overlay"></div>
         </div>
         <div class="showcase-info">

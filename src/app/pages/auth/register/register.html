@@ -1,6 +1,5 @@
-<main class="login-page-bg d-flex align-items-center justify-content-center py-5" dir="ltr">
+<main class="login-page-bg d-flex align-items-center justify-content-center py-5">
   
-  <!-- Luxury animation effects and dynamic background -->
   <div class="animated-bg-glow"></div>
   <div class="particles-container">
     <div class="particle p1"></div>
@@ -12,28 +11,25 @@
   <div class="container-xl position-relative z-index-form">
     <div class="row g-0 main-card overflow-hidden">
       
-      <!-- Right section: clean account creation form -->
       <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5 bg-white">
         
-        <!-- Header and logo -->
-        <div class="text-center text-md-start mb-4">
-          <div class="brand-logo-wrapper mb-3 text-center text-md-center">
-            <span>TIBR</span>
+        <div class="text-center mb-4">
+          <div class="brand-logo-wrapper mb-2">
+            <img src="logo.png" alt="">
           </div>
-          <h2 class="h3 fw-bold text-center">Create a New Account</h2>
-          <p class="text-secondary-muted small mt-2 text-center">Enter your details to start protecting and managing your valuable savings.</p>
+          <h2 class="h4 fw-bold text-navy mb-1">Create a New Account</h2>
+          <p class="text-secondary-muted small">Enter your details to start protecting your valuable savings.</p>
         </div>
         
-        <!-- Integrated Angular form -->
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           @if (formState() === 'error') {
-          <div class="alert alert-danger mb-4">
-            {{ errorMessage() }}
-          </div>
+            <div class="alert alert-danger rounded-3 py-2 px-3 mb-4 text-start small">
+              <i class="fa-solid fa-circle-exclamation me-2"></i> {{ errorMessage() }}
+            </div>
           }
 
           <div class="row g-3 mb-3">
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-sm-6 text-start">
               <label class="form-label text-navy fw-medium" for="firstName">First Name</label>
               <input
                 formControlName="firstName"
@@ -42,16 +38,17 @@
                 class="form-control form-control-corporate" 
                 [class.field-focused]="isFirstNameFocused()"
                 id="firstName" 
-                placeholder="First Name" 
+                placeholder="John" 
                 type="text">
               @if (registerForm.get('firstName')?.invalid && (registerForm.get('firstName')?.touched || registerForm.get('firstName')?.dirty)) {
-              <div class="invalid-feedback d-block">
-                @if (registerForm.get('firstName')?.hasError('required')) { First name is required. }
-                @else if (registerForm.get('firstName')?.hasError('minlength')) { First name must be at least 2 characters. }
-              </div>
+                <div class="invalid-feedback d-block mt-1">
+                  @if (registerForm.get('firstName')?.hasError('required')) { First name is required. }
+                  @else if (registerForm.get('firstName')?.hasError('minlength')) { Minimum 2 characters. }
+                </div>
               }
             </div>
-            <div class="col-12 col-sm-6">
+            
+            <div class="col-12 col-sm-6 text-start">
               <label class="form-label text-navy fw-medium" for="lastName">Last Name</label>
               <input 
                 formControlName="lastName"
@@ -60,20 +57,19 @@
                 class="form-control form-control-corporate" 
                 [class.field-focused]="isLastNameFocused()"
                 id="lastName" 
-                placeholder="Last Name" 
+                placeholder="Doe" 
                 type="text">
               @if (registerForm.get('lastName')?.invalid && (registerForm.get('lastName')?.touched || registerForm.get('lastName')?.dirty)) {
-              <div class="invalid-feedback d-block">
-                @if (registerForm.get('lastName')?.hasError('required')) { Last name is required. }
-                @else if (registerForm.get('lastName')?.hasError('minlength')) { Last name must be at least 2 characters. }
-              </div>
+                <div class="invalid-feedback d-block mt-1">
+                  @if (registerForm.get('lastName')?.hasError('required')) { Last name is required. }
+                  @else if (registerForm.get('lastName')?.hasError('minlength')) { Minimum 2 characters. }
+                </div>
               }
             </div>
           </div>
 
-          <!-- Email field -->
-          <div class="mb-3">
-            <label class="form-label text-navy fw-medium" for="email">Email</label>
+          <div class="mb-3 text-start">
+            <label class="form-label text-navy fw-medium" for="email">Email Address</label>
             <input 
               formControlName="email"
               (focus)="isEmailFocused.set(true)"
@@ -81,45 +77,42 @@
               class="form-control form-control-corporate" 
               [class.field-focused]="isEmailFocused()"
               id="email" 
-              placeholder="example@domain.com" 
+              placeholder="name@example.com" 
               type="email">
             @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)) {
-            <div class="invalid-feedback d-block">
-              @if (registerForm.get('email')?.hasError('required')) { Email is required. }
-              @else if (registerForm.get('email')?.hasError('email')) { Enter a valid email address. }
-            </div>
+              <div class="invalid-feedback d-block mt-1">
+                @if (registerForm.get('email')?.hasError('required')) { Email is required. }
+                @else if (registerForm.get('email')?.hasError('email')) { Enter a valid email address. }
+              </div>
             }
           </div>
           
-          <!-- Phone field optimized for RTL -->
-          <div class="mb-3">
+          <div class="mb-3 text-start">
             <label class="form-label text-navy fw-medium" for="phone">Phone Number</label>
-            <div class="input-group d-flex flex-row-reverse" style="direction: ltr;">
+            <div class="corporate-phone-group">
+              <select class="form-select phone-prefix" formControlName="countryCode">
+                <option value="+20">+20</option>
+              </select>
               <input 
                 formControlName="phone"
                 (focus)="isPhoneFocused.set(true)"
                 (blur)="isPhoneFocused.set(false)"
-                class="form-control form-control-corporate rounded-start-0 rounded-end-2 text-start w-70" 
+                class="form-control phone-input" 
                 [class.field-focused]="isPhoneFocused()"
                 id="phone" 
-                placeholder="50 123 4567" 
-                type="tel"
-                >
-              <select  class="form-select form-control-corporate rounded-start-2 rounded-end-0 text-center bg-light-gray" style="max-width: 95px;" formControlName="countryCode" >
-                <option value="+20" >+20</option>
-              </select>
+                placeholder="10 1234 5678" 
+                type="tel">
             </div>
             @if (registerForm.get('phone')?.invalid && (registerForm.get('phone')?.touched || registerForm.get('phone')?.dirty)) {
-            <div class="invalid-feedback d-block">
-              @if (registerForm.get('phone')?.hasError('required')) { Phone number is required. }
-              @else if (registerForm.get('phone')?.hasError('pattern')) { Enter phone digits only. }
-            </div>
+              <div class="invalid-feedback d-block mt-1">
+                @if (registerForm.get('phone')?.hasError('required')) { Phone number is required. }
+                @else if (registerForm.get('phone')?.hasError('pattern')) { Digits only allowed. }
+              </div>
             }
           </div>
           
-          <!-- Responsive password fields -->
           <div class="row g-3 mb-3">
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-sm-6 text-start">
               <label class="form-label text-navy fw-medium" for="password">Password</label>
               <input 
                 formControlName="password"
@@ -131,13 +124,14 @@
                 placeholder="••••••••" 
                 type="password">
               @if (registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)) {
-              <div class="invalid-feedback d-block">
-                @if (registerForm.get('password')?.hasError('required')) { Password is required. }
-                @else if (registerForm.get('password')?.hasError('minlength')) { Password must be at least 8 characters. }
-              </div>
+                <div class="invalid-feedback d-block mt-1">
+                  @if (registerForm.get('password')?.hasError('required')) { Required field. }
+                  @else if (registerForm.get('password')?.hasError('minlength')) { At least 8 characters. }
+                </div>
               }
             </div>
-            <div class="col-12 col-sm-6">
+            
+            <div class="col-12 col-sm-6 text-start">
               <label class="form-label text-navy fw-medium" for="confirmPassword">Confirm Password</label>
               <input 
                 formControlName="confirmPassword"
@@ -149,27 +143,25 @@
                 placeholder="••••••••" 
                 type="password">
               @if ((registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty) && registerForm.errors?.['mismatch']) {
-              <div class="invalid-feedback d-block">
-                Passwords do not match.
-              </div>
+                <div class="invalid-feedback d-block mt-1">
+                  Passwords do not match.
+                </div>
               }
             </div>
           </div>
           
-          <!-- Terms and conditions -->
           <div class="form-check d-flex align-items-start gap-2 mb-4 justify-content-start">
             <input formControlName="terms" class="form-check-corporate mt-1" id="terms" type="checkbox">
-            <label class="form-check-label small text-secondary-muted" for="terms">
+            <label class="form-check-label small text-secondary-muted text-start" for="terms">
               I agree to the <a class="text-gold-dark fw-bold text-decoration-none" href="#">Terms and Conditions</a> and <a class="text-gold-dark fw-bold text-decoration-none" href="#">Privacy Policy</a> of TIBR.
             </label>
           </div>
           @if (registerForm.get('terms')?.invalid && (registerForm.get('terms')?.touched || registerForm.get('terms')?.dirty)) {
-          <div class="invalid-feedback d-block mb-3">
-            You must accept the terms and conditions.
-          </div>
+            <div class="invalid-feedback d-block mb-3 text-start">
+              You must accept the terms to continue.
+            </div>
           }
           
-          <!-- Dynamic submit button supporting loading and success states -->
           <button 
             class="btn w-100 py-2.5 fw-semibold shadow-sm d-flex align-items-center justify-content-center gap-2"
             [class.btn-corporate-gold]="formState() !== 'success'"
@@ -178,44 +170,41 @@
             type="submit">
             
             @if (formState() === 'loading') {
-              <span class="material-symbols-outlined animate-spin fs-5">sync</span>
+              <i class="fa-solid fa-spinner animate-spin"></i>
               <span>Processing your information...</span>
             } @else if (formState() === 'success') {
-              <span class="material-symbols-outlined fs-5">check_circle</span>
+              <i class="fa-solid fa-circle-check"></i>
               <span>Account created successfully</span>
             } @else {
-              <span>Create secure account</span>
+              <span>Create Secure Account <i class="fa-solid fa-arrow-right ms-1"></i></span>
             }
           </button>
           
           <div class="text-center pt-4">
             <span class="small text-muted">Already have an account?</span>
-            <a class="small text-gold-dark fw-bold text-decoration-none me-2" routerLink="/login">Log in</a>
+            <a class="small text-gold-dark fw-bold text-decoration-none ms-1" routerLink="/login">Log in</a>
           </div>
         </form>
         
-        <!-- Clean security badges -->
-        <div class="pt-4 d-flex align-items-center justify-content-center gap-4 text-secondary-muted opacity-75 border-top border-light mt-4">
-          <div class="d-flex align-items-center gap-1">
-            <span class="material-symbols-outlined fs-5 text-navy">verified_user</span>
-            <span class="small-caption">AES-256 encryption</span>
+        <div class="pt-4 d-flex align-items-center justify-content-center gap-4 text-secondary-muted opacity-75 border-top border-light-subtle mt-4">
+          <div class="d-flex align-items-center gap-1.5">
+            <i class="fa-solid fa-shield-halved text-navy fs-6"></i>
+            <span class="small-caption">AES-256 Encryption</span>
           </div>
-          <div class="d-flex align-items-center gap-1">
-            <span class="material-symbols-outlined fs-5 text-navy">lock</span>
-            <span class="small-caption">Secure SSL connection</span>
+          <div class="d-flex align-items-center gap-1.5">
+            <i class="fa-solid fa-lock text-navy fs-6"></i>
+            <span class="small-caption">Secure SSL Connection</span>
           </div>
         </div>
       </div>
 
-      <!-- Left section: interactive bullion interface and banking stats -->
       <div class="col-md-6 d-none d-md-flex flex-column justify-content-between text-center left-branding-panel p-0">
-        <div class="brand-image-box position-relative">
+        <div class="brand-image-box position-relative h-100">
           <img alt="Gold Bars Vault" class="w-100 h-100 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwhiFEN116f7R-jXlZo2Vv6RglIoM-cmJOLrC8HhhcKzAu6HrIEuxSRj_qtOU0cX_QS-Pl62L_FDC_j-duMri5Ms8ywBvOjsurxA_aUOmUVRhZo_4RpMFkNCfG872JcgvWkOCxfW8U_QgSZS8UDo1OKsZXqPyFYRcPIOAcyAxSlmIEB9IljyEjLtBtYmb2A3ceqOW80NT0zIgW6PpTIiMwhv7Dst-pSEV1-4P8SuItnYUUjyfSfRvCrPuT7vNf9c4yfxpPA97i9ARl">
           <div class="position-absolute inset-0 image-overlay-gradient"></div>
           
-          <!-- Luxury data cards over the image -->
-          <div class="position-absolute z-index-form w-100 p-4 bottom-0 start-50 translate-middle-x">
-            <span class="material-symbols-outlined text-gold-light display-4 mb-2">shield_lock</span>
+          <div class="position-absolute z-index-form w-100 p-4 p-lg-5 bottom-0 start-50 translate-middle-x">
+            <i class="fa-solid fa-shield-amber text-gold-light display-5 mb-3"></i>
             <h3 class="h4 text-white fw-bold mb-4">Begin your secure investment journey</h3>
             
             <div class="d-flex justify-content-center align-items-center gap-3 pt-2">
@@ -238,4 +227,27 @@
 
     </div>
   </div>
+  @if (showAlertModal()) {
+    <div class="custom-modal-backdrop d-flex align-items-center justify-content-center px-3" dir="rtl">
+      <div class="custom-modal-card text-center p-4 p-md-5 position-relative overflow-hidden">
+        
+        <div class="modal-glow"></div>
+        
+        <div class="modal-icon-wrapper mx-auto mb-4 d-flex align-items-center justify-content-center shadow">
+          <span class="material-symbols-outlined gold-gradient-text fs-1">workspace_premium</span>
+        </div>
+        
+        <h2 class="h4 fw-bold text-navy mb-3">مرحباً بك في منصة الذهب والفضة</h2>
+        <p class="text-secondary-muted small mb-4 lh-base">
+          تم إنشاء حسابك الاستثماري بنجاح! 
+          <br>
+          لقد أرسلنا رمز التحقق إلى بريدك الإلكتروني لتأمين محفظتك وتفعيل صلاحيات التداول النقدي.
+        </p>
+        
+        <button (click)="closeAlertAndNavigate()" class="btn btn-modal-action w-100 py-2.5 fw-bold shadow-sm">
+          الانتقال لتأكيد الحساب والأمان
+        </button>
+      </div>
+    </div>
+  }
 </main>

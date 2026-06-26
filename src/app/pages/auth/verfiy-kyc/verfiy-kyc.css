@@ -1,145 +1,176 @@
-/* الألوان والحدود الخاصة بـ Aurum Vault */
+/* ==========================================
+   💰 الهوية الاستثمارية والألوان (Aurum Vault Global) 💰
+   ========================================== */
+.kyc-page-wrapper {
+  --corporate-navy: #0A192F;
+  --corporate-gold: #96742E;
+  --corporate-gold-hover: #7D5F22;
+  --gold-tint-light: #FDFBF7;
+  --aurum-gold: #D4AF37;
+  --border-clean: #E5E7EB;
+  
+  background-color: #FAFBFB;
+  min-height: 90vh;
+}
+
+.text-navy { color: var(--corporate-navy); }
+.text-gold-dark { color: var(--corporate-gold); }
+.bg-gold-tint { background-color: rgba(212, 175, 55, 0.08); }
+.xx-small { font-size: 0.78rem; }
+
+/* بطاقات التحديد الفاخرة للقسم */
 .border-t-aurum-thick {
-  border-top: 4px solid #d4af37 !important; /* اللون الذهبي الفاخر */
+  border-top: 4px solid var(--aurum-gold) !important;
 }
+
 .bg-light-gold-gradient {
-  background: linear-gradient(135deg, #fbf8ef 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #FBF8EF 0%, #FFFFFF 100%);
 }
+
 .border-end-gold {
-  border-right: 5px solid #d4af37 !important;
+  border-left: 5px solid var(--aurum-gold) !important; /* يتوافق مع اتجاه اليسار لـ ltr */
 }
+
+/* تأثيرات الظلال الفخمة */
 .shadow-hover {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 4px 15px rgba(10, 25, 47, 0.03);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
+
 .shadow-hover:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.08);
-}
-.bg-navy-soft {
-  background-color: #f0f4f8;
-}
-.border-start-navy {
-  border-left: 4px solid #0a192f;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(150, 116, 46, 0.08);
 }
 
-/* تنبيهات الخطأ والنجاح */
-.alert {
-  border-radius: 12px;
-  border: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  animation: slideDown 0.3s ease-out;
+/* شريط التقدم الفاخر */
+.progress-container-custom {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
 }
 
-.alert-danger {
-  background-color: #fff5f5;
-  color: #c53030;
-  border-left: 4px solid #f56565 !important;
+.progress-bar-gold {
+  background: linear-gradient(90deg, var(--corporate-gold) 0%, var(--aurum-gold) 100%);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.alert-success-custom {
-  background-color: #f0fdf4 !important;
-  color: #166534 !important;
-  border-left: 4px solid #22c55e !important;
-}
-
-.alert .btn-close {
-  filter: invert(1) brightness(0.8);
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* حركة الكاميرا والتحقق */
-.camera-frame-container {
-  padding: 6px;
-  background: linear-gradient(45deg, #d4af37, #f3e5ab);
-  border-radius: 50%;
-}
-.camera-scanner-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: rgba(212, 175, 55, 0.7);
-  box-shadow: 0 0 8px #d4af37;
-  animation: scan 2.5s linear infinite;
-}
-@keyframes scan {
-  0% { top: 10%; }
-  50% { top: 90%; }
-  100% { top: 10%; }
-}
-
-/* الـ Dropzone ومؤثراته */
-.dropzone-wrapper:hover {
-  background-color: #fffdf6 !important;
-  border-color: #d4af37 !important;
-}
-.upload-icon-box, .success-icon-box {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: #fdfaf2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.success-icon-box {
-  background: #e8f5e9;
-}
-
-/* أنيميشن نبضي للأيقونات المهمة */
-.animate-pulse {
-  animation: pulse-gold 2s infinite;
-}
-@keyframes pulse-gold {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.05); opacity: 0.8; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* تأثير زر الإرسال */
-.btn-submit-custom:hover:not([disabled]) {
-  transform: scale(1.02);
-  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3) !important;
-}
-
-.btn-submit-custom[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* ضبابية خفيفة للـ Navbar على الموبايل */
-.mobile-nav-blur {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.92) !important;
-}
-
-/* تحسين الـ Form Controls */
+/* تحسين عناصر الإدخال والمجموعات */
 .form-control-corporate {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  border: 1px solid var(--border-clean) !important;
+  border-radius: 0 8px 8px 0 !important;
+  color: var(--corporate-navy) !important;
+  font-weight: 500;
+  transition: all 0.25s ease;
 }
 
 .form-control-corporate:focus {
-  border-color: #d4af37;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-}
-
-.form-control-corporate:invalid {
-  border-color: #f56565;
+  border-color: var(--corporate-gold) !important;
+  box-shadow: 0 0 0 4px rgba(150, 116, 46, 0.1) !important;
+  outline: none;
 }
 
 .input-group-text {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-clean);
+  border-radius: 8px 0 0 8px !important;
+  background-color: #F8FAFC;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed !important;
+}
+
+/* 📥 صناديق الرفع التفاعلية المتطورة (Dropzones) 📥 */
+.bg-dropzone {
+  background-color: var(--gold-tint-light);
+  border-color: rgba(150, 116, 46, 0.25) !important;
+  border-style: dashed !important;
+  cursor: pointer;
+}
+
+.bg-dropzone:hover {
+  background-color: #FFFDF9;
+  border-color: var(--aurum-gold) !important;
+}
+
+/* حالة نجاح رفع الملف وتغير مظهر الصندوق بالكامل */
+.dropzone-success {
+  background-color: #F0FDF4 !important;
+  border-color: #22C55E !important;
+  border-style: solid !important;
+}
+
+.upload-icon-box, .success-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(150, 116, 46, 0.06);
+}
+
+.success-icon-box {
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
+}
+
+.bold-file-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  max-width: 100%;
+}
+
+/* تنبيهات النظام */
+.alert {
+  border-radius: 12px;
+  border: none;
+}
+
+.alert-success-custom {
+  background-color: #F0FDF4 !important;
+  color: #166534 !important;
+  border-left: 4px solid #22C55E !important;
+}
+
+/* أزرار الإرسال والتحميل السلس */
+.btn-corporate-gold {
+  background-color: var(--corporate-gold);
+  border: none;
+  color: #FFFFFF !important;
+  transition: all 0.25s ease;
+}
+
+.btn-corporate-gold:hover:not(:disabled) {
+  background-color: var(--corporate-gold-hover);
+  box-shadow: 0 6px 20px rgba(150, 116, 46, 0.2) !important;
+}
+
+.btn-corporate-success {
+  background-color: #22C55E;
+  border: none;
+  color: #FFFFFF !important;
+}
+
+.btn-submit-custom {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-submit-custom:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.animate-spin {
+  animation: spin 1.2s infinite linear;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.animate-pulse {
+  animation: pulse-gold 2s infinite alternate;
+}
+
+@keyframes pulse-gold {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.04); opacity: 0.9; }
 }

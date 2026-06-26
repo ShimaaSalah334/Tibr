@@ -8,9 +8,8 @@ import { API_ENDPOINTS } from '../constants/api_endpoints';
 export class OrdersService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = '/api/Orders';
-
-  getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(API_ENDPOINTS.orders.getAll, {
+  getOrders(id: string | number): Observable<Order[]> {
+    return this.http.get<Order[]>(API_ENDPOINTS.orders.getAll(id), {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('authToken')}`
       }

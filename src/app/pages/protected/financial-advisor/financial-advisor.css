@@ -1,0 +1,358 @@
+/* ==========================================================================
+   1. نظام التقسيم والـ Layout الرئيسي
+   ========================================================================== */
+.chat-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 50%, #0a0d16 0%, #03050a 100%);
+  padding: 40px 20px 100px; /* معالجة البادينغ المفرط */
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
+  direction: rtl; /* دعم الاتجاه العربي بشكل صحيح */
+}
+
+.page-dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 25px;
+  width: 100%;
+  max-width: 1340px;
+  height: 85vh;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   2. حاوية الشات الرئيسية (Glassmorphism المحسن)
+   ========================================================================== */
+.chat-container {
+  background: rgba(13, 20, 35, 0.65);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(241, 196, 15, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.chat-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(22, 28, 45, 0.4);
+}
+
+.chat-header .bot-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.chat-header .bot-info .avatar-wrapper {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  background: rgba(241, 196, 15, 0.1);
+  border: 1px solid rgba(241, 196, 15, 0.3);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-header .bot-info .avatar-wrapper .bot-icon {
+  color: #f1c40f;
+  font-size: 1.25rem;
+  filter: drop-shadow(0 0 8px rgba(241, 196, 15, 0.3));
+}
+
+.chat-header .bot-info .avatar-wrapper .status-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 10px;
+  height: 10px;
+  background: #10b981;
+  border: 2px solid #0a0d16;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.chat-header .bot-info h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.chat-header .bot-info p {
+  color: #94a3b8;
+  margin: 4px 0 0 0;
+  font-size: 0.82rem;
+}
+
+/* منطقة رسائل الشات المتطورة */
+.chat-messages {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.chat-messages::-webkit-scrollbar { width: 5px; }
+.chat-messages::-webkit-scrollbar-thumb { background: rgba(241, 196, 15, 0.15); border-radius: 10px; }
+
+.chat-messages .message-bubble {
+  display: flex;
+  max-width: 75%;
+  animation: slideInUp 0.25s ease-out both;
+}
+
+.chat-messages .message-bubble .bubble-content {
+  padding: 14px 18px;
+  border-radius: 18px;
+  line-height: 1.6;
+}
+
+.chat-messages .message-bubble .bubble-content p { margin: 0; font-size: 0.95rem; }
+.chat-messages .message-bubble .bubble-content .time { font-size: 0.65rem; display: block; margin-top: 6px; text-align: left; opacity: 0.5; }
+
+/* فقاعة المستخدم (تم تحسين تباينها لتناسب المظهر الداكن الفخم) */
+.chat-messages .message-bubble.user { align-self: flex-start; }
+.chat-messages .message-bubble.user .bubble-content {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  border-bottom-right-radius: 4px;
+  color: #0f172a;
+}
+.chat-messages .message-bubble.user .bubble-content p { font-weight: 550; }
+
+/* فقاعة الذكاء الاصطناعي (مظلمة بلمسة جولد خفيفة) */
+.chat-messages .message-bubble.ai { align-self: flex-end; }
+.chat-messages .message-bubble.ai .bubble-content {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(241, 196, 15, 0.15);
+  border-bottom-left-radius: 4px;
+  color: #f8fafc;
+}
+
+/* منطقة المقترحات */
+.suggested-container {
+  padding: 16px 24px;
+  background: rgba(15, 23, 42, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.suggested-title { color: #94a3b8; font-size: 0.8rem; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px; }
+.suggestions-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.suggestion-chip {
+  background: rgba(241, 196, 15, 0.04);
+  border: 1px solid rgba(241, 196, 15, 0.12);
+  color: #cbd5e1;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.suggestion-chip:hover {
+  background: rgba(241, 196, 15, 0.1);
+  border-color: #f1c40f;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* صندوق الكتابة السفلي */
+.chat-input-area {
+  padding: 20px 24px;
+  background: rgba(15, 23, 42, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+.chat-input-area .input-form {
+  display: flex;
+  gap: 12px;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(241, 196, 15, 0.15);
+  border-radius: 14px;
+  padding: 6px 12px;
+  align-items: center;
+}
+.chat-input-area .input-form:focus-within {
+  border-color: #f1c40f;
+  box-shadow: 0 0 15px rgba(241, 196, 15, 0.1);
+}
+.chat-input-area .input-form input { flex: 1; background: transparent; border: none; outline: none; color: #f8fafc; padding: 10px 4px; font-size: 0.92rem; }
+.chat-input-area .input-form input::placeholder { color: #475569; }
+.chat-input-area .input-form .send-btn {
+  background: linear-gradient(135deg, #f1c40f 0%, #d4af37 100%);
+  color: #020617;
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.chat-input-area .input-form .send-btn:hover:not(:disabled) { transform: scale(1.05); }
+.chat-input-area .input-form .send-btn:disabled { background: rgba(255, 255, 255, 0.05); color: #475569; cursor: not-allowed; }
+
+/* ==========================================================================
+   3. تنسيقات السايدبار المالي الجانبي (منظمة بـ Scroll داخلي)
+   ========================================================================== */
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto; /* لضمان عدم خروج الكروت عن مساحة الشاشة */
+  padding-left: 4px;
+}
+.sidebar-container::-webkit-scrollbar { width: 4px; }
+.sidebar-container::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.05); border-radius: 4px; }
+
+/* زر محادثة جديدة المطور */
+.new-chat-btn {
+  background: linear-gradient(135deg, rgba(241, 196, 15, 0.15) 0%, rgba(241, 196, 15, 0.05) 100%);
+  border: 1px dashed rgba(241, 196, 15, 0.3);
+  color: #f1c40f;
+  padding: 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+.new-chat-btn:hover {
+  background: rgba(241, 196, 15, 0.2);
+  border-color: #f1c40f;
+  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.1);
+}
+
+.sidebar-card {
+  background: rgba(22, 30, 49, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card-header-mini { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.card-header-mini h4 { margin: 0; color: #f1f5f9; font-size: 0.88rem; font-weight: 600; }
+.icon-gold { color: #f1c40f; }
+
+/* إصلاح قائمة الهيستوري الكارثية لتتناسب مع الـ Dark Theme */
+.history-list { display: flex; flex-direction: column; gap: 6px; max-height: 160px; overflow-y: auto; }
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.history-item:hover, .history-item.active {
+  background: rgba(241, 196, 15, 0.06);
+  border-color: rgba(241, 196, 15, 0.3);
+}
+.history-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 82%; color: #cbd5e1; font-size: 0.82rem; }
+.history-item.active .history-title { color: #f1c40f; font-weight: 600; }
+.delete-hist-btn { background: transparent; border: none; color: #ef4444; opacity: 0.6; cursor: pointer; padding: 4px; transition: opacity 0.2s; }
+.delete-hist-btn:hover { opacity: 1; }
+
+/* عناصر كروت المحفظة والمؤشرات */
+.balance-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.balance-row .lbl { color: #94a3b8; font-size: 0.8rem; }
+.balance-row .val-total { color: #ffffff; font-size: 1.1rem; font-weight: 700; }
+.assets-distribution { display: flex; height: 6px; border-radius: 10px; overflow: hidden; margin-bottom: 10px; background: #020617; }
+.asset-bar { height: 100%; }
+.gold-bar { background: linear-gradient(90deg, #c29d0b, #f1c40f); }
+.silver-bar { background: linear-gradient(90deg, #475569, #94a3b8); }
+.asset-legends { display: flex; justify-content: space-between; font-size: 0.72rem; color: #94a3b8; }
+.text-gold { color: #f1c40f; }
+.text-silver { color: #cbd5e1; }
+
+/* عناصر الحاسبة المطورّة */
+.quick-calc-inputs { display: flex; flex-direction: column; gap: 10px; }
+.calc-field { display: flex; flex-direction: column; gap: 4px; }
+.calc-field label { color: #94a3b8; font-size: 0.75rem; }
+.calc-input {
+  background: rgba(2, 6, 23, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  color: #f8fafc;
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  outline: none;
+}
+.calc-input:focus { border-color: rgba(241, 196, 15, 0.3); }
+.calc-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(241, 196, 15, 0.03);
+  border: 1px dashed rgba(241, 196, 15, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 2px;
+}
+.calc-result span { color: #94a3b8; font-size: 0.78rem; }
+.calc-result strong { color: #f1c40f; font-size: 0.95rem; font-weight: 700; }
+
+/* كارت المؤشرات و النية الفنية (تم إصلاح الألوان الفاتحة السابقة) */
+.intent-badge {
+  background: rgba(59, 130, 246, 0.08);
+  border-right: 3px solid #3b82f6; /* تصحيح الـ Border للـ RTL */
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-bottom: 10px;
+  color: #94a3b8;
+}
+.intent-badge span { font-weight: bold; color: #60a5fa; }
+.signal-badge {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+.signal-desc { margin: 0; color: #94a3b8; font-size: 0.75rem; line-height: 1.5; }
+
+/* ==========================================================================
+   4. التجاوب مع شاشات الهواتف والتابلت (Responsive Design)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .page-dashboard-container { grid-template-columns: 1fr; height: auto; gap: 20px; }
+  .chat-container { height: 70vh; }
+  .sidebar-container { height: auto; overflow-y: visible; }
+}
+
+/* Animations */
+.typing-dots span { width: 6px; height: 6px; background: #f1c40f; border-radius: 50%; animation: typingBounce 1.4s infinite ease-in-out both; }
+.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1.1); opacity: 1; }
+}
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

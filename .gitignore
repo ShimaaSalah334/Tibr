@@ -192,4 +192,7 @@ opencode.json
 # Proxy config — each developer sets their own backend URL
 proxy.conf.json
 
+# Environment config — each developer uses their own backend URL
+src/app/core/environments/environment.development.ts
+
 

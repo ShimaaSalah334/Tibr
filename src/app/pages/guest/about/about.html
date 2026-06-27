@@ -3,21 +3,21 @@
     <div class="row align-items-center g-5">
       
       <div class="col-lg-6">
-        <span class="text-gold text-uppercase tracking-wider small fw-bold">Our Philosophy</span>
-        <h2 class="display-5 fw-bold mt-2 mb-4 font-serif text-light">Built on Trust, <br>Secured by Design</h2>
+        <span class="text-gold text-uppercase tracking-wider small fw-bold">{{ 'about.sectionTag' | translate }}</span>
+        <h2 class="display-5 fw-bold mt-2 mb-4 font-serif text-light">{{ 'about.heading' | translate }}</h2>
         
         <p class="subtext mb-4 lead">
-          Tibr bridges the gap between traditional physical wealth and digital convenience. We empower investors to secure their future with smart precision.
+          {{ 'about.description' | translate }}
         </p>
         
         <div class="trust-points">
           <div class="d-flex align-items-start mb-3" *ngFor="let point of trustPoints">
             <div class="text-gold me-3 mt-1">
-              <i [class]="point.icon + ' fs-4'"></i>
+              <i [class]="('bi ' + (point === 1 ? 'bi-shield-check' : point === 2 ? 'bi-lightning-charge' : 'bi-cpu')) + ' fs-4'"></i>
             </div>
             <div>
-              <h5 class="fw-bold mb-1 text-light">{{ point.heading }}</h5>
-              <p class="subtext small mb-0">{{ point.text }}</p>
+              <h5 class="fw-bold mb-1 text-light">{{ 'about.trust' + point + '.heading' | translate }}</h5>
+              <p class="subtext small mb-0">{{ 'about.trust' + point + '.text' | translate }}</p>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="circle-layer inner-circle border border-gold border-opacity-50 rounded-circle d-flex align-items-center justify-content-center">
               <div class="gold-core text-gold">
                 <i class="bi bi-shield-lock-fill display-3"></i>
-                <div class="mt-2 fw-bold small text-uppercase tracking-wider">100% Secure</div>
+                <div class="mt-2 fw-bold small text-uppercase tracking-wider">{{ 'about.secureBadge' | translate }}</div>
               </div>
             </div>
           </div>

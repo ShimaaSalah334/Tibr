@@ -4,13 +4,13 @@
 
   <section class="content-container">
     <nav class="breadcrumb-nav">
-      <a routerLink="/" class="breadcrumb-link">Home</a>
+      <a routerLink="/" class="breadcrumb-link">{{ 'cart.breadcrumb.home' | translate }}</a>
       <span class="breadcrumb-separator">/</span>
-      <span class="breadcrumb-current">Cart</span>
+      <span class="breadcrumb-current">{{ 'cart.breadcrumb.cart' | translate }}</span>
     </nav>
 
-    <h1 class="luxury-title">Shopping Cart</h1>
-    <p class="luxury-subtitle">Review your selected luxury metals and proceed to a secure checkout.</p>
+    <h1 class="luxury-title">{{ 'cart.title' | translate }}</h1>
+    <p class="luxury-subtitle">{{ 'cart.subtitle' | translate }}</p>
 
     <div *ngIf="error()" class="glass-card summary-card animate-fade-in" style="margin-bottom: 1.5rem;">
       <p class="text-danger-muted">{{ error() }}</p>
@@ -24,15 +24,13 @@
       <div class="empty-icon-vault">
         <i class="fa-solid fa-sack-dollar fa-2x text-gold-glow"></i>
       </div>
-      <h2 class="empty-title">Your cart is empty</h2>
-      <p class="empty-description">
-        Discover premium gold and silver pieces, then add them to your cart for a seamless, luxury checkout experience.
-      </p>
-      <a routerLink="/products" class="btn-luxury-primary">Continue shopping</a>
+      <h2 class="empty-title">{{ 'cart.empty.title' | translate }}</h2>
+      <p class="empty-description">{{ 'cart.empty.description' | translate }}</p>
+      <a routerLink="/products" class="btn-luxury-primary">{{ 'cart.empty.cta' | translate }}</a>
     </div>
 
     <div *ngIf="isLoading() && !error()" class="glass-card empty-cart-container animate-fade-in">
-      <p class="empty-description">Loading your cart items…</p>
+      <p class="empty-description">{{ 'cart.loading' | translate }}</p>
     </div>
 
     <div *ngIf="hasItems" class="animate-fade-in cart-layout-grid">
@@ -40,16 +38,16 @@
       <div class="glass-card items-list-main-container">
         <div class="cart-header-actions">
           <div class="cart-badge-container">
-            <span class="badge-label">In Cart</span>
+            <span class="badge-label">{{ 'cart.inCart' | translate }}</span>
             <span class="badge-value">{{ itemCount }}</span>
           </div>
 
           <div class="action-buttons-group">
             <button class="action-btn" (click)="clearCart()" [disabled]="isClearing()">
-              <span *ngIf="!isClearing()">Clear cart</span>
-              <span *ngIf="isClearing()">Clearing...</span>
+              <span *ngIf="!isClearing()">{{ 'cart.clearCart' | translate }}</span>
+              <span *ngIf="isClearing()">{{ 'cart.clearing' | translate }}</span>
             </button>
-            <a routerLink="/products" class="action-btn">Continue shopping</a>
+            <a routerLink="/products" class="action-btn">{{ 'cart.continueShopping' | translate }}</a>
           </div>
         </div>
 
@@ -64,15 +62,15 @@
                 <span class="rate-price">{{ item.product.weight }}g</span>
               </div>
             </div> -->
-            <img [src]="'https://localhost:7160' + item.product.imageUrl" alt="{{ item.product.name }}" class="product-image" />
+            <img [src]="imageBaseUrl + item.product.imageUrl" alt="{{ item.product.name }}" class="product-image" />
             <div class="item-details-column">
-              <p class="saved-category">{{ item.product.purity }}K • {{ item.product.stock }} available</p>
+              <p class="saved-category">{{ item.product.purity }}K • {{ item.product.stock }} {{ 'cart.available' | translate }}</p>
               <h3 class="saved-name">{{ item.product.name }}</h3>
               
               <div class="item-pricing-meta">
-                <p class="metal-label-text">Unit price: <span>{{ item.unitPrice | currency:'EGP':'symbol':'1.0-0' }}</span></p>
-                <p class="metal-label-text">Quantity: <span>{{ item.quantity }}</span></p>
-                <p class="metal-label-text highlight-total">Total: <span>{{ getItemTotal(item) | currency:'EGP':'symbol':'1.0-0' }}</span></p>
+                <p class="metal-label-text">{{ 'cart.unitPrice' | translate }} <span>{{ item.unitPrice | currency:'EGP':'symbol':'1.0-0' }}</span></p>
+                <p class="metal-label-text">{{ 'cart.quantity' | translate }} <span>{{ item.quantity }}</span></p>
+                <p class="metal-label-text highlight-total">{{ 'cart.itemTotal' | translate }} <span>{{ getItemTotal(item) | currency:'EGP':'symbol':'1.0-0' }}</span></p>
               </div>
 
               <div class="action-buttons-group" style="margin-top: 1.2rem; gap: 0.75rem;">
@@ -82,10 +80,10 @@
                   (click)="removeItem(item.id)"
                   [disabled]="removingItemId() === item.id">
                   <i class="fa-solid fa-trash-can"></i>
-                  <span>{{ removingItemId() === item.id ? 'Removing...' : 'Remove' }}</span>
+                  <span>{{ removingItemId() === item.id ? ('cart.removing' | translate) : ('cart.remove' | translate) }}</span>
                 </button>
                 <button class="action-btn btn-save" type="button" (click)="viewProduct(item.productId)">
-                  View product
+                  {{ 'cart.viewProduct' | translate }}
                 </button>
               </div>
             </div>
@@ -95,34 +93,34 @@
       </div>
 
       <aside class="summary-card glass-card sidebar-wrapper">
-        <div class="summary-header">Order summary</div>
+        <div class="summary-header">{{ 'cart.orderSummary' | translate }}</div>
         <div class="summary-divider" style="margin: 1rem 0 1.25rem;"></div>
 
         <div class="summary-row">
-          <span class="summary-label">Items</span>
-          <span class="summary-value">{{ itemCount }} pieces</span>
+          <span class="summary-label">{{ 'cart.summary.items' | translate }}</span>
+          <span class="summary-value">{{ itemCount }} {{ 'cart.summary.pieces' | translate }}</span>
         </div>
 
         <div class="summary-row">
-          <span class="summary-label">Subtotal</span>
+          <span class="summary-label">{{ 'cart.summary.subtotal' | translate }}</span>
           <span class="summary-value text-gold-accent">{{ subtotal | currency:'EGP':'symbol':'1.0-0' }}</span>
         </div>
 
         <div class="summary-row row-total">
-          <span class="total-label">Total</span>
+          <span class="total-label">{{ 'cart.summary.total' | translate }}</span>
           <span class="total-value-egp">{{ subtotal | currency:'EGP':'symbol':'1.0-0' }}</span>
         </div>
 
-        <p class="vat-inclusive-sub">Taxes and duties are calculated at checkout.</p>
+        <p class="vat-inclusive-sub">{{ 'cart.taxNote' | translate }}</p>
 
         <button class="btn-checkout-luxury" type="button" (click)="checkout()" [disabled]="!hasItems">
-          <span class="btn-content-inner">Proceed to Checkout</span>
+          <span class="btn-content-inner">{{ 'cart.proceedToCheckout' | translate }}</span>
           <span class="btn-glare"></span>
         </button>
 
         <div class="secure-guarantee-badges" style="margin-top: 1.5rem;">
-          <div class="guarantee-badge"><span class="badge-icon">✓</span> Secure checkout</div>
-          <div class="guarantee-badge"><span class="badge-icon">✓</span> Premium customer support</div>
+          <div class="guarantee-badge"><span class="badge-icon">✓</span> {{ 'cart.secureCheckout' | translate }}</div>
+          <div class="guarantee-badge"><span class="badge-icon">✓</span> {{ 'cart.premiumSupport' | translate }}</div>
         </div>
       </aside>
 

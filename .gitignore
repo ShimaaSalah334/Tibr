@@ -196,3 +196,6 @@ proxy.conf.json
 src/app/core/environments/environment.development.ts
 
 
+
+# Ignore self
+.gitignore

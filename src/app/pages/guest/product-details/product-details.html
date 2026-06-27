@@ -38,7 +38,7 @@
     <div class="pd-gallery">
       <div class="pd-img-main glass-card metallic-shine">
         <img
-          [src]="'https://localhost:7160' + product()!.imageUrl"
+          [src]="imageBaseUrl + product()!.imageUrl"
           [alt]="product()!.name"
           class="pd-main-img" />
 
@@ -303,7 +303,7 @@
           <div class="related-card glass-card" (click)="goToRelatedProduct(rp.id)">
             <div class="related-img-wrap">
               <img
-                [src]="'https://localhost:7160' + rp.imageUrl"
+                [src]="imageBaseUrl + rp.imageUrl"
                 [alt]="rp.name"
                 class="related-img" />
             </div>
@@ -313,7 +313,7 @@
                 <span class="related-price"
                       [class.gold-text]="rp.metalType === 'Gold'"
                       [class.silver-text]="rp.metalType === 'Silver'">
-                  {{ rp.sellPrice | number:'1.0-0' }} EGP
+                  {{ rp.sellPrice | number:'1.0-0' }} {{ 'productDetails.priceCurrency' | translate }}
                 </span>
                 <span class="related-weight">{{ rp.weight }}g</span>
               </div>

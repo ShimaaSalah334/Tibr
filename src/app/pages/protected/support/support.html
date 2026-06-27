@@ -50,13 +50,13 @@
               <div *ngIf="successMessage" class="alert custom-alert-success alert-dismissible fade show border-0 shadow-sm" role="alert">
                 <i class="bi bi-check-circle-fill me-2 text-gold" aria-hidden="true"></i> 
                 <span class="pe-2">{{ successMessage }}</span>
-                <button type="button" class="btn-close shadow-none" (click)="successMessage = null" aria-label="إغلاق"></button>
+                <button type="button" class="btn-close shadow-none" (click)="successMessage = null" attr.aria-label="{{ i18n.translate('support.closeAriaLabel', 'Close') }}"></button>
               </div>
 
               <div *ngIf="errorMessage" class="alert custom-alert-danger alert-dismissible fade show border-0 shadow-sm" role="alert">
                 <i class="bi bi-exclamation-triangle-fill me-2 text-danger-neon" aria-hidden="true"></i> 
                 <span class="pe-2">{{ errorMessage }}</span>
-                <button type="button" class="btn-close shadow-none" (click)="errorMessage = null" aria-label="إغلاق"></button>
+                <button type="button" class="btn-close shadow-none" (click)="errorMessage = null" attr.aria-label="{{ i18n.translate('support.closeAriaLabel', 'Close') }}"></button>
               </div>
             </div>
 

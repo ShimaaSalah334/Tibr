@@ -3,17 +3,20 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FavoriteService } from '../../../../core/services/favorite.service';
 import { IFavoriteItem } from '../../../../core/interfaces/ifavorite-item';
+import { TranslatePipe } from '../../../../shared/pipes/translate.pipe';
+import { I18nService } from '../../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-favorite',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, TranslatePipe],
   templateUrl: './favorite.html',
   styleUrl: './favorite.css',
 })
 export class Favorite implements OnInit {
   private favoriteService = inject(FavoriteService);
   private router = inject(Router);
+  private i18n = inject(I18nService);
 
   favorites = signal<IFavoriteItem[]>([]);
   isLoading = signal<boolean>(false);
@@ -34,7 +37,7 @@ export class Favorite implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load favorites', err);
-        this.error.set('Unable to load your favorites right now.');
+        this.error.set(this.i18n.translate('favorite.error.load'));
         this.isLoading.set(false);
       },
     });
@@ -50,7 +53,7 @@ export class Favorite implements OnInit {
       next: () => this.loadFavorites(),
       error: (err) => {
         console.error('Failed to update favorite', err);
-        this.error.set('Unable to update your favorites.');
+        this.error.set(this.i18n.translate('favorite.error.update'));
       },
     });
   }

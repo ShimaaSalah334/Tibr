@@ -7,6 +7,7 @@ import { IProduct, IProductDetails } from '../../../core/interfaces/iproduct';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
+import { IMAGE_BASE_URL } from '../../../core/constants/image-base-url';
 
 @Component({
   selector: 'app-product-details',
@@ -23,6 +24,7 @@ export class ProductDetails implements OnInit {
 
   // ── Product state ──────────────────────────────────────
   product    = signal<IProductDetails | null>(null);
+  imageBaseUrl = IMAGE_BASE_URL;
   isLoading  = signal<boolean>(false);
   error      = signal<string | null>(null);
 

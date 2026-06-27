@@ -1,8 +1,8 @@
 <section class="how-it-works-section py-5 bg-dark-custom text-white">
   <div class="container py-4">
     <div class="text-center mb-5">
-      <span class="text-gold text-uppercase tracking-wider small fw-bold">Step by Step</span>
-      <h2 class="display-5 fw-bold mt-2 font-serif text-light">Your Investment Journey, <br class="d-none d-md-block"> Simple and Smart</h2>
+      <span class="text-gold text-uppercase tracking-wider small fw-bold">{{ 'howItWorks.sectionTag' | translate }}</span>
+      <h2 class="display-5 fw-bold mt-2 font-serif text-light">{{ 'howItWorks.heading' | translate }}</h2>
     </div>
 
     <div class="row g-4 justify-content-center">
@@ -11,11 +11,11 @@
           <div class="step-number text-gold-dim font-serif opacity-25">0{{ i + 1 }}</div>
           
           <div class="icon-wrapper mb-4 d-inline-flex align-items-center justify-content-center text-gold">
-            <i [class]="step.icon + ' fs-2'"></i>
+            <i [class]="'bi ' + (i === 0 ? 'bi-person-plus' : i === 1 ? 'bi-wallet2' : i === 2 ? 'bi-gem' : 'bi-graph-up-arrow') + ' fs-2'"></i>
           </div>
           
-          <h4 class="h5 fw-bold mb-3 text-light">{{ step.title }}</h4>
-          <p class="subtext small mb-0 lh-base">{{ step.description }}</p>
+          <h4 class="h5 fw-bold mb-3 text-light">{{ 'howItWorks.step' + step + '.title' | translate }}</h4>
+          <p class="subtext small mb-0 lh-base">{{ 'howItWorks.step' + step + '.desc' | translate }}</p>
         </div>
       </div>
     </div>

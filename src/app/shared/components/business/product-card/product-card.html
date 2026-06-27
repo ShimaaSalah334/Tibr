@@ -23,9 +23,9 @@
           [class.badge-available]="!isOutOfStock"
           [class.badge-oos]="isOutOfStock"
           [class.badge-low]="isLowStock">
-      @if (isOutOfStock) { Out of Stock }
-      @else if (isLowStock) { Low Stock }
-      @else { Available }
+      @if (isOutOfStock) { {{ 'productCard.outOfStock' | translate }} }
+      @else if (isLowStock) { {{ 'productCard.lowStock' | translate }} }
+      @else { {{ 'productCard.available' | translate }} }
     </span>
   </div>
 
@@ -39,7 +39,7 @@
          [class.img-glow-silver]="isSilver">
     </div>
     <img
-      [src]="'https://localhost:7160' + product()!.imageUrl"
+      [src]="imageBaseUrl + product()!.imageUrl"
       [alt]="product().name"
       class="card-img"
       loading="lazy"
@@ -49,7 +49,7 @@
     <button
       class="btn-wishlist"
       (click)="onAddToFavorite(); $event.stopPropagation()"
-      title="Add to Wishlist"
+      [title]="'productCard.addToWishlist' | translate"
     >
       <i class="fa-regular fa-heart"></i>
     </button>
@@ -64,12 +64,12 @@
       <span class="card-purity"
             [class.gold-text]="isGold"
             [class.silver-text]="isSilver">
-       {{ product().weight }}G / {{ isGold ? 'FINE GOLD' : 'FINE SILVER' }}
+       {{ product().weight }}G / {{ (isGold ? 'productCard.fineGold' : 'productCard.fineSilver') | translate }}
       </span>
     </div>
 
     <p class="card-meta">
-  {{ product().weight }}G / {{ isGold ? 'FINE GOLD' : 'FINE SILVER' }}
+  {{ product().weight }}G / {{ (isGold ? 'productCard.fineGold' : 'productCard.fineSilver') | translate }}
 </p>
 
     <!-- Prices -->
@@ -83,7 +83,7 @@
       </div> -->
       <div class="price-divider"></div>
       <div class="price-col">
-        <span class="price-lbl">Sell Price</span>
+        <span class="price-lbl">{{ 'productCard.sellPrice' | translate }}</span>
         <span class="price-val sell-val">
           {{ product().sellPrice | number:'1.0-0' }}
           <span class="price-cur">EGP</span>
@@ -103,8 +103,8 @@
         </div>
       </div>
       <span class="stock-label" [class.label-low]="isLowStock">
-        @if (isLowStock) { Only {{ product().stock | number:'1.0-2' }}g left }
-        @else { {{ product().stock | number:'1.0-2' }}g available }
+        @if (isLowStock) { {{ 'productCard.lowStockPrefix' | translate }}{{ product().stock | number:'1.0-2' }}{{ 'productCard.lowStockSuffix' | translate }} }
+        @else { {{ product().stock | number:'1.0-2' }}{{ 'productCard.stockSuffix' | translate }} }
       </span>
     </div>
      }
@@ -117,7 +117,7 @@
         <i class="fa-solid fa-arrow-trend-down change-icon down"></i>
         <span class="change-val down">-0.12%</span>
       }
-      <span class="change-label">LIVE MARKET</span>
+      <span class="change-label">{{ 'productCard.liveMarket' | translate }}</span>
     </div>
 
     <!-- Actions -->
@@ -128,7 +128,7 @@
         [disabled]="isOutOfStock"
         (click)="onViewDetails(); $event.stopPropagation()"
       >
-        {{ isOutOfStock ? 'Out of Stock' : 'View Details' }}
+        {{ (isOutOfStock ? 'productCard.outOfStock' : 'productCard.viewDetails') | translate }}
       </button>
 
      <button
@@ -138,7 +138,7 @@
   [class.btn-disabled]="isOutOfStock || isAddingToCart()"
   [disabled]="isOutOfStock || isAddingToCart()"
   (click)="onAddToCart(); $event.stopPropagation()"
-  title="Add to Cart"
+  [title]="'productCard.addToCart' | translate"
 >
   
   <!-- Loading spinner -->

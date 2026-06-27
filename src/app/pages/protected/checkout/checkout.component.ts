@@ -5,6 +5,8 @@ import { OrdersService } from '../../../core/services/orders.service';
 import { PaymentService } from '../../../core/services/payment.service';
 import { CartService, BackendCartItem } from '../../../core/services/cart.service';
 import { AddressFormComponent } from '../../../shared/components/ui/address-form/address-form.component';
+import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
+import { I18nService } from '../../../core/services/i18n.service';
 
 interface CartItemDisplay {
   productId: number;
@@ -20,6 +22,7 @@ interface CartItemDisplay {
     CommonModule,
     CurrencyPipe,
     AddressFormComponent,
+    TranslatePipe,
   ],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css',
@@ -28,6 +31,7 @@ export class CheckoutComponent implements OnInit {
   private ordersService = inject(OrdersService);
   private paymentService = inject(PaymentService);
   private cartService = inject(CartService);
+  private i18n = inject(I18nService);
 
   cartItems = signal<CartItemDisplay[]>([]);
   isLoading = signal<boolean>(false);
@@ -68,7 +72,7 @@ export class CheckoutComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load cart', err);
-        this.error.set('Unable to load cart items. Please try again.');
+        this.error.set(this.i18n.translate('checkout.error.loadCart'));
         this.isLoading.set(false);
       },
     });
@@ -125,13 +129,13 @@ export class CheckoutComponent implements OnInit {
               });
             },
             error: () => {
-              this.error.set('Payment initiation failed. Please try again.');
+              this.error.set(this.i18n.translate('checkout.error.payment'));
               this.isSubmitting = false;
             },
           });
       },
       error: () => {
-        this.error.set('Failed to place order. Please try again.');
+        this.error.set(this.i18n.translate('checkout.error.placeOrder'));
         this.isSubmitting = false;
       },
     });

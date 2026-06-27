@@ -31,6 +31,14 @@ export const routes: Routes = [
     path: 'about', 
     loadComponent: () => import('./pages/guest/about/about').then(m => m.About) 
   },
+  { 
+    path: 'terms', 
+    loadComponent: () => import('./pages/guest/terms/terms').then(m => m.Terms) 
+  },
+  { 
+    path: 'privacy', 
+    loadComponent: () => import('./pages/guest/privacy/privacy').then(m => m.Privacy) 
+  },
 
   // ==========================================
   // 2. مسارات المصادقة - تمنع المستخدم المسجل من الدخول مجدداً

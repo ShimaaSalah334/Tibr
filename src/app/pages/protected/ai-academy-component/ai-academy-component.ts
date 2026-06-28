@@ -75,7 +75,7 @@ sendMessage(customMessage?: string) {
   
   this.isLoading = true;
 
-  this.aiService.askQuestion(messageToSend, this.sessionId, this.i18n.currentLang()).subscribe({
+  this.aiService.askQuestion(messageToSend, this.sessionId).subscribe({
     next: (response) => {
       console.log('Response from server:', response);
       

@@ -11,12 +11,8 @@ export class AiAcademyService {
 
   constructor(private http: HttpClient) {}
 
-  askQuestion(
-    question: string,
-    sessionId: string,
-    language: string = 'ar'
-  ): Observable<any> {
-    const payload = { question, sessionId, language };
+  askQuestion(question: string, sessionId: string): Observable<any> {
+    const payload = { question };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'

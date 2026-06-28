@@ -9,8 +9,8 @@
             <span class="status-dot"></span>
           </div>
           <div>
-            <h3>مستشارك المالي الذكي</h3>
-            <p>تحليل المحافظ الذكية وتوجيهات الشراء والبيع اللحظية</p>
+            <h3>{{ 'financialAdvisor.headerTitle' | translate }}</h3>
+            <p>{{ 'financialAdvisor.headerSubtitle' | translate }}</p>
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
       <div class="chat-messages" #scrollContainer>
         <div *ngFor="let msg of messages" [ngClass]="['message-bubble', msg.sender]">
           <div class="bubble-content">
-            <p>{{ msg.text }}</p>
+            <div class="markdown-content" [innerHTML]="msg.text | markdown"></div>
             <span class="time">{{ msg.timestamp | date:'shortTime' }}</span>
           </div>
         </div>
@@ -32,11 +32,11 @@
 
       <div class="suggested-container" *ngIf="!isLoading && messages.length <= 2">
         <p class="suggested-title">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> استشارات سريعة مقترحة:
+          <i class="fa-solid fa-wand-magic-sparkles"></i> {{ 'financialAdvisor.suggestedTitle' | translate }}:
         </p>
         <div class="suggestions-grid">
-          <button type="button" *ngFor="let question of suggestedQuestions" (click)="sendMessage(question)" class="suggestion-chip">
-            {{ question }}
+          <button type="button" *ngFor="let key of suggestedQuestionKeys" (click)="sendMessage(i18n.translate(key))" class="suggestion-chip">
+            {{ key | translate }}
           </button>
         </div>
       </div>
@@ -47,7 +47,7 @@
             type="text" 
             [(ngModel)]="newMessage" 
             name="message" 
-            placeholder="اكتب قيمة ميزانيتك أو استفسر عن توقيت الشراء والبيع المناسب..." 
+            [placeholder]="'financialAdvisor.inputPlaceholder' | translate" 
             autocomplete="off"
             [disabled]="isLoading"
           />
@@ -60,14 +60,14 @@
 
     <div class="sidebar-container">
       
-      <button class="new-chat-btn" (click)="initializeChat()" title="محادثة جديدة">
-        <i class="fa-solid fa-plus"></i> محادثة جديدة
+      <button class="new-chat-btn" (click)="initializeChat()" [title]="'financialAdvisor.newChat' | translate">
+        <i class="fa-solid fa-plus"></i> {{ 'financialAdvisor.newChat' | translate }}
       </button>
 
       <div class="sidebar-card history-card" *ngIf="conversationsHistory.length > 0">
         <div class="card-header-mini">
           <i class="fa-solid fa-clock-rotate-left icon-gold"></i>
-          <h4>المحادثات السابقة</h4>
+          <h4>{{ 'financialAdvisor.historyTitle' | translate }}</h4>
         </div>
         <div class="history-list">
           <div *ngFor="let history of conversationsHistory" 
@@ -85,11 +85,11 @@
       <div class="sidebar-card portfolio-card">
         <div class="card-header-mini">
           <i class="fa-solid fa-wallet icon-gold"></i>
-          <h4>ملخص محفظتك الاستثمارية</h4>
+          <h4>{{ 'financialAdvisor.portfolioTitle' | translate }}</h4>
         </div>
         <div class="portfolio-details">
           <div class="balance-row">
-            <span class="lbl">إجمالي القيمة:</span>
+            <span class="lbl">{{ 'financialAdvisor.totalValue' | translate }}</span>
             <span class="val-total">142,500 ج.م</span>
           </div>
           <div class="assets-distribution">
@@ -106,15 +106,15 @@
       <div class="sidebar-card calc-card">
         <div class="card-header-mini">
           <i class="fa-solid fa-calculator icon-gold"></i>
-          <h4>الحاسبة الذكية السريعة</h4>
+          <h4>{{ 'financialAdvisor.calculatorTitle' | translate }}</h4>
         </div>
         <div class="quick-calc-inputs">
           <div class="calc-field">
-            <label>الوزن بالجرام:</label>
+            <label>{{ 'financialAdvisor.weightLabel' | translate }}</label>
             <input type="number" value="10" class="calc-input">
           </div>
           <div class="calc-field">
-            <label>المعدن المستهدف:</label>
+            <label>{{ 'financialAdvisor.metalLabel' | translate }}</label>
             <select class="calc-input">
               <option>ذهب - عيار 24</option>
               <option>ذهب - عيار 21</option>
@@ -122,7 +122,7 @@
             </select>
           </div>
           <div class="calc-result">
-            <span>القيمة التقديرية:</span>
+            <span>{{ 'financialAdvisor.estimatedValue' | translate }}</span>
             <strong>32,000 ج.م</strong>
           </div>
         </div>
@@ -131,11 +131,11 @@
       <div class="sidebar-card signal-card">
         <div class="card-header-mini">
           <i class="fa-solid fa-compass-navigational icon-gold"></i>
-          <h4>مؤشر التوصية والتصنيف</h4>
+          <h4>{{ 'financialAdvisor.signalTitle' | translate }}</h4>
         </div>
         <div class="market-signal">
           <div *ngIf="currentIntent" class="intent-badge">
-            تصنيف النية الحالي: <span>{{ currentIntent }}</span>
+            {{ 'financialAdvisor.currentIntent' | translate }} <span>{{ currentIntent }}</span>
           </div>
           <div class="signal-badge buy-signal">إشارة شراء قوية (Buy)</div>
           <p class="signal-desc">المؤشرات الفنية تدعم التجميع في مستويات الأسعار الحالية كحماية ضد التضخم.</p>

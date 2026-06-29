@@ -1,10 +1,10 @@
-<main class="container-fluid px-3 px-md-5 py-5 pb-5 mb-5 kyc-page-wrapper" dir="ltr" style="font-family: 'Cairo', sans-serif;">
+<main class="container-fluid px-3 px-md-5 py-5 pb-5 mb-5 kyc-page-wrapper"  style="font-family: 'Cairo', sans-serif;">
 
   @if (errorMessage()) {
     <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center gap-3 mb-4 shadow-sm" role="alert">
       <span class="material-symbols-outlined text-danger fs-3">error_circle</span>
-      <div class="flex-grow-1">
-        <strong>Error:</strong>
+      <div class="flex-grow-1 text-start">
+        <strong>{{ i18n.translate('error_prefix', 'خطأ:') }}</strong>
         <span class="d-block text-dark small mt-1">{{ errorMessage() }}</span>
       </div>
       <button type="button" class="btn-close" (click)="errorMessage.set(null)"></button>
@@ -14,8 +14,8 @@
   @if (successMessage()) {
     <div class="alert alert-success alert-dismissible fade show d-flex align-items-center gap-3 mb-4 alert-success-custom shadow-sm" role="alert">
       <span class="material-symbols-outlined text-success fs-3" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-      <div class="flex-grow-1">
-        <strong>Success:</strong>
+      <div class="flex-grow-1 text-start">
+        <strong>{{ i18n.translate('success_prefix', 'نجاح:') }}</strong>
         <span class="d-block text-dark small mt-1">{{ successMessage() }}</span>
       </div>
       <button type="button" class="btn-close" (click)="successMessage.set(null)"></button>
@@ -27,15 +27,15 @@
       <div class="col-md-7 mb-3 mb-md-0">
         <h1 class="h3 fw-bold text-navy mb-2 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
           <span class="material-symbols-outlined text-gold-dark fs-3 animate-pulse">verified_user</span>
-          Identity Verification (KYC)
+          {{ i18n.translate('page_title', 'توثيق الهوية (KYC)') }}
         </h1>
-        <p class="text-secondary-muted small mb-0">Complete your profile setup to secure your bullion trading wallet.</p>
+        <p class="text-secondary-muted small mb-0">{{ i18n.translate('page_subtitle', 'أكمل إعداد ملفك الشخصي لتأمين محفظة تداول السبائك الخاصة بك.') }}</p>
       </div>
       <div class="col-md-5">
         <div class="progress-container-custom p-2 bg-white rounded-3 border">
           <div class="d-flex justify-content-between small fw-bold text-navy mb-1 px-1">
-            <span class="small">Verification Progress</span>
-            <span class="text-gold-dark small">{{ totalProgress() }}%</span>
+            <span class="small">{{ i18n.translate('progress_label', 'نسبة اكتمال التوثيق') }}</span>
+            <span class="text-gold-dark small" dir="ltr">{{ totalProgress() }}%</span>
           </div>
           <div class="progress rounded-pill" style="height: 8px;">
             <div class="progress-bar progress-bar-gold rounded-pill" role="progressbar" [style.width.%]="totalProgress()"></div>
@@ -51,90 +51,90 @@
       <form [formGroup]="kycForm" (ngSubmit)="onSubmit()" class="d-flex flex-column gap-4">
 
         <div class="card bg-white border-0 p-4 rounded-4 shadow-hover transition-all border-t-aurum-thick">
-          <div class="d-flex align-items-center gap-3 mb-4">
+          <div class="d-flex align-items-center gap-3 mb-4 text-start">
             <div class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
               <span class="material-symbols-outlined fs-4">person_pin</span>
             </div>
             <div>
-              <h2 class="h6 fw-bold text-navy mb-1">Personal Investor Information</h2>
-              <p class="text-muted xx-small mb-0">Please enter your government-issued ID specifications precisely.</p>
+              <h2 class="h6 fw-bold text-navy mb-1">{{ i18n.translate('section_personal_title', 'بيانات المستثمر الشخصية') }}</h2>
+              <p class="text-muted xx-small mb-0">{{ i18n.translate('section_personal_subtitle', 'يرجى إدخال بيانات الهوية الحكومية الخاصة بك بدقة.') }}</p>
             </div>
           </div>
 
-          <div class="row g-4">
+          <div class="row g-4 text-start">
             <div class="col-12 col-md-6">
-              <label class="form-label small fw-bold text-navy mb-2">Document Type</label>
+              <label class="form-label small fw-bold text-navy mb-2">{{ i18n.translate('document_type', 'نوع الوثيقة') }}</label>
               <div class="input-group">
                 <span class="input-group-text bg-light text-muted border-end-0"><span class="material-symbols-outlined fs-5">assignment</span></span>
-                <input formControlName="documentType" class="form-control form-control-corporate p-2.5 fs-6 bg-light text-dark fw-semibold cursor-not-allowed" readonly type="text" />
+                <div class="form-control form-control-corporate p-2.5 fs-6 bg-light text-dark fw-semibold cursor-not-allowed" readonly >{{i18n.translate('NATIONAL ID','بطاقة الهوية الوطنية')}}</div>
               </div>
             </div>
 
             <div class="col-12 col-md-6">
-              <label class="form-label small fw-bold text-navy mb-2">Document Number (National ID)</label>
+              <label class="form-label small fw-bold text-navy mb-2">{{ i18n.translate('document_number', 'رقم الوثيقة (الرقم القومي)') }}</label>
               <div class="input-group">
                 <span class="input-group-text bg-light text-muted border-end-0"><span class="material-symbols-outlined fs-5">numbers</span></span>
-                <input formControlName="documentNumber" class="form-control form-control-corporate p-2.5 fs-6" placeholder="Enter 14-digit national ID" type="text" maxlength="14" inputmode="numeric" />
+                <input formControlName="documentNumber" class="form-control form-control-corporate p-2.5 fs-6" [placeholder]="i18n.translate('document_number_placeholder', 'أدخل الرقم القومي المكون من 14 رقماً')" type="text" maxlength="14" inputmode="numeric" />
               </div>
             </div>
           </div>
         </div>
 
         <div class="card bg-white border-0 p-4 rounded-4 shadow-hover transition-all border-t-aurum-thick">
-          <div class="d-flex align-items-center gap-3 mb-4">
+          <div class="d-flex align-items-center gap-3 mb-4 text-start">
             <div class="rounded-3 bg-gold-tint text-gold-dark d-flex align-items-center justify-content-center shadow-sm" style="width: 48px; height: 48px;">
               <span class="material-symbols-outlined fs-4">upload_file</span>
             </div>
             <div>
-              <h2 class="h6 fw-bold text-navy mb-1">Upload Official Documents</h2>
-              <p class="text-muted xx-small mb-0">Please upload a clear, high-resolution digital copy of your National ID card.</p>
+              <h2 class="h6 fw-bold text-navy mb-1{{ i18n.translate('Upload Official Documents', 'رفع الوثائق الرسمية') }}"></h2>
+              <p class="text-muted xx-small mb-0">{{ i18n.translate('section_upload_subtitle', 'يرجى رفع نسخة رقمية واضحة وعالية الدقة لبطاقة الرقم القومي الخاصة بك.') }}</p>
             </div>
           </div>
 
-          <div class="row g-3">
+          <div class="row g-3 text-start">
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Front Face)</label>
+              <label class="form-label small fw-bold text-navy mb-2">{{ i18n.translate('front_side_label', 'صورة الهوية (الوجه الأمامي)') }}</label>
               <div class="border border-2 border-dashed rounded-3 p-3 text-center bg-dropzone position-relative transition-all" [class.dropzone-success]="documentFrontName()">
                 <input id="frontUpload" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event,'front')" class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" style="z-index: 5;" />
                 @if (!documentFrontName()) {
                   <div class="upload-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-gold-dark fs-3">camera_front</span></div>
-                  <div class="small fw-semibold text-navy mb-1">Upload Front Side</div>
-                  <div class="xx-small text-muted">PNG, JPG — Max 5 MB</div>
+                  <div class="small fw-semibold text-navy mb-1">{{ i18n.translate('front_side_upload', 'رفع الوجه الأمامي') }}</div>
+                  <div class="xx-small text-muted">{{ i18n.translate('file_limits', 'PNG, JPG — بحد أقصى 5 ميجابايت') }}</div>
                 } @else {
                   <div class="success-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-success fs-3">check_circle</span></div>
-                  <div class="fw-bold text-success small mb-1">Document Loaded</div>
+                  <div class="fw-bold text-success small mb-1">{{ i18n.translate('document_loaded', 'تم تحميل الوثيقة') }}</div>
                   <div class="text-navy text-truncate px-2 bold-file-name">{{ documentFrontName() }}</div>
                 }
               </div>
             </div>
 
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">ID Photo (Back Face)</label>
+              <label class="form-label small fw-bold text-navy mb-2">{{ i18n.translate('back_side_label', 'صورة الهوية (الوجه الخلفي)') }}</label>
               <div class="border border-2 border-dashed rounded-3 p-3 text-center bg-dropzone position-relative transition-all" [class.dropzone-success]="documentBackName()">
                 <input id="backUpload" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event,'back')" class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" style="z-index: 5;" />
                 @if (!documentBackName()) {
                   <div class="upload-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-gold-dark fs-3">photo_library</span></div>
-                  <div class="small fw-semibold text-navy mb-1">Upload Back Side</div>
-                  <div class="xx-small text-muted">PNG, JPG — Max 5 MB</div>
+                  <div class="small fw-semibold text-navy mb-1">{{ i18n.translate('back_side_upload', 'رفع الوجه الخلفي') }}</div>
+                  <div class="xx-small text-muted">{{ i18n.translate('file_limits', 'PNG, JPG — بحد أقصى 5 ميجابايت') }}</div>
                 } @else {
                   <div class="success-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-success fs-3">check_circle</span></div>
-                  <div class="fw-bold text-success small mb-1">Document Loaded</div>
+                  <div class="fw-bold text-success small mb-1">{{ i18n.translate('document_loaded', 'تم تحميل الوثيقة') }}</div>
                   <div class="text-navy text-truncate px-2 bold-file-name">{{ documentBackName() }}</div>
                 }
               </div>
             </div>
 
             <div class="col-12 col-md-4">
-              <label class="form-label small fw-bold text-navy mb-2">Selfie with ID Verification</label>
+              <label class="form-label small fw-bold text-navy mb-2">{{ i18n.translate('selfie_label', 'صورة شخصية (سيلفي) مع الهوية للتحقق') }}</label>
               <div class="border border-2 border-dashed rounded-3 p-3 text-center bg-dropzone position-relative transition-all" [class.dropzone-success]="selfieFileName()">
                 <input id="selfieUpload" type="file" accept="image/png, image/jpeg" (change)="onFileSelected($event,'selfie')" class="form-control-file opacity-0 position-absolute top-0 start-0 w-100 h-100 cursor-pointer" style="z-index: 5;" />
                 @if (!selfieFileName()) {
                   <div class="upload-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-gold-dark fs-3">portrait</span></div>
-                  <div class="small fw-semibold text-navy mb-1">Personal Selfie</div>
-                  <div class="xx-small text-muted">Hold your ID clear next to your face</div>
+                  <div class="small fw-semibold text-navy mb-1">{{ i18n.translate('selfie_upload', 'صورة شخصية سيلفي') }}</div>
+                  <div class="xx-small text-muted">{{ i18n.translate('selfie_hint', 'أمسك هويتك بوضوح بجانب وجهك') }}</div>
                 } @else {
                   <div class="success-icon-box mb-2 mx-auto"><span class="material-symbols-outlined text-success fs-3">check_circle</span></div>
-                  <div class="fw-bold text-success small mb-1">Selfie Verified</div>
+                  <div class="fw-bold text-success small mb-1">{{ i18n.translate('selfie_verified', 'تم التحقق من الصورة الشخصية') }}</div>
                   <div class="text-navy text-truncate px-2 bold-file-name">{{ selfieFileName() }}</div>
                 }
               </div>
@@ -153,19 +153,19 @@
             @switch (formState()) {
               @case ('loading') {
                 <span class="material-symbols-outlined animate-spin fs-5">sync</span>
-                <span>Encrypting & Archiving Assets...</span>
+                <span>{{ i18n.translate('state_loading', 'جاري تشفير وأرشفة الأصول...') }}</span>
               }
               @case ('success') {
                 <span class="material-symbols-outlined fs-5">verified</span>
-                <span>Verification Data Sent Successfully</span>
+                <span>{{ i18n.translate('state_success', 'تم إرسال بيانات التوثيق بنجاح') }}</span>
               }
               @case ('error') {
                 <span class="material-symbols-outlined fs-5">error</span>
-                <span>Retry Submission Process</span>
+                <span>{{ i18n.translate('state_error', 'إعادة محاولة عملية الإرسال') }}</span>
               }
               @default {
                 <span class="material-symbols-outlined fs-5">send_and_archive</span>
-                <span>Submit Portfolio for Final Audit</span>
+                <span>{{ i18n.translate('state_default', 'إرسال المحفظة للمراجعة النهائية') }}</span>
               }
             }
           </button>

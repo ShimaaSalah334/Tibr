@@ -1,8 +1,8 @@
 <div class="favorite-page">
   <div class="favorite-header">
-    <span class="section-tag">My Favorites</span>
-    <h2 class="section-title-sm">Saved products</h2>
-    <p class="section-desc">Review the products you bookmarked and manage your favorites list.</p>
+    <span class="section-tag">{{ 'favorite.title' | translate }}</span>
+    <h2 class="section-title-sm">{{ 'favorite.heading' | translate }}</h2>
+    <p class="section-desc">{{ 'favorite.description' | translate }}</p>
   </div>
 
   @if (isLoading()) {
@@ -24,7 +24,7 @@
     </div>
     <p class="error-message">{{ error() }}</p>
     <button class="btn-retry" (click)="loadFavorites()">
-      <i class="fa-solid fa-rotate-right"></i> Try Again
+      <i class="fa-solid fa-rotate-right"></i> {{ 'favorite.tryAgain' | translate }}
     </button>
   </div>
   }
@@ -39,14 +39,14 @@
         <div class="favorite-card-body">
           <div class="favorite-card-header">
             <h3>{{ product.productName }}</h3>
-            <span class="favorite-price">{{ product.price | number:'1.0-0' }} EGP</span>
+            <span class="favorite-price">{{ product.price | number:'1.0-0' }} {{ 'favorite.currency' | translate }}</span>
           </div>
           <div class="favorite-card-actions">
             <button class="btn-details" (click)="onViewDetails(product.productId)">
-              View Details
+              {{ 'favorite.viewDetails' | translate }}
             </button>
             <button class="btn-fav remove" (click)="onToggleFavorite(product.productId)">
-              <i class="fa-solid fa-heart-crack"></i> Remove
+              <i class="fa-solid fa-heart-crack"></i> {{ 'favorite.remove' | translate }}
             </button>
           </div>
         </div>
@@ -60,10 +60,10 @@
     <div class="empty-icon">
       <i class="fa-solid fa-heart"></i>
     </div>
-    <h3>No favorites yet</h3>
-    <p>You haven’t saved any products yet. Browse the store and add items to your favorites list.</p>
+    <h3>{{ 'favorite.empty.title' | translate }}</h3>
+    <p>{{ 'favorite.empty.description' | translate }}</p>
     <button class="btn-browse" routerLink="/products">
-      <i class="fa-solid fa-bag-shopping"></i> Browse products
+      <i class="fa-solid fa-bag-shopping"></i> {{ 'favorite.empty.cta' | translate }}
     </button>
   </div>
   }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { API_ENDPOINTS } from '../constants/api_endpoints';
 export interface ApiMessage {
   id?: number;
-  role: 'user' | 'assistant';
+  role: 'User' | 'Assistant';
   content: string;
   createdAt: string;
 }
@@ -13,12 +13,16 @@ export interface ChatResponse {
   reply: string;
   conversationId: number;
   intent: string;
+  source?: string;
+  language?: string;
 }
 
 export interface ConversationSession {
   id: number;
   title: string;
-  messages?: ApiMessage[];
+  lastMessage?: string;
+  messageCount: number;
+  updatedAt: string;
 }
 
 @Injectable({
@@ -36,8 +40,15 @@ export class ChatService {
   }
 
   // POST /
-  sendMessage(message: string, conversationId: number | null, intent: string  = 'planner'): Observable<ChatResponse> {
-    const payload = { message, conversationId, intent };
+  sendMessage(
+    message: string,
+    conversationId: number | null,
+    intent: string = 'planner',
+    language: string = 'ar'
+  ): Observable<ChatResponse> {
+    const payload: Record<string, unknown> = { message, language };
+    if (conversationId !== null) payload['conversationId'] = conversationId;
+    if (intent) payload['intent'] = intent;
     return this.http.post<ChatResponse>(API_ENDPOINTS.chatAi.getChat, payload, { headers: this.getHeaders() });
   }
 

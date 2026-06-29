@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
 
 @Component({
-  selector: 'app-how-it-works',
+  selector: 'app-privacy',
   imports: [CommonModule, TranslatePipe],
-  templateUrl: './how-it-works.html',
-  styleUrl: './how-it-works.css',
+  templateUrl: './privacy.html',
+  styleUrl: './privacy.css',
 })
-export class HowItWorks {
-  steps = Array.from({ length: 4 }, (_, i) => i + 1);
+export class Privacy {
+  sections = Array.from({ length: 10 }, (_, i) => i + 1);
 }

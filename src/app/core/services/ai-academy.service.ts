@@ -12,16 +12,12 @@ export class AiAcademyService {
   constructor(private http: HttpClient) {}
 
   askQuestion(question: string, sessionId: string): Observable<any> {
-    // نرسل فقط السؤال (والـ sessionId لو حابب تضيفه مستقبلاً في السيرفر)
-    const payload = {
-      question: question
-    };
+    const payload = { question };
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    // إرسال الطلب للـ Proxy Server
     return this.http.post<any>(this.apiUrl, payload, { headers });
   }
 }

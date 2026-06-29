@@ -80,7 +80,7 @@ export class Login {
       },
       error: (error) => {
         this.formState.set('error');
-        this.errorMessage.set(error?.error?.message || 'An error occurred while logging in. Please check your details and try again.');
+        this.errorMessage.set(localStorage.getItem('tibr_locale')=="ar"? error.error?.messageAR : error.error?.messageEN);
         console.error('Login failed:', error);
       }
     });

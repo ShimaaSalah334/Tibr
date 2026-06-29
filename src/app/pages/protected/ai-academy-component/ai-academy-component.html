@@ -10,8 +10,8 @@
             <span class="status-dot"></span>
           </div>
           <div>
-            <h3>أكاديمية تبر الذكية</h3>
-            <p>مستشارك التعليمي لأسواق المعادن الثمينة</p>
+            <h3>{{ 'aiAcademy.headerTitle' | translate }}</h3>
+            <p>{{ 'aiAcademy.headerSubtitle' | translate }}</p>
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
       <div class="chat-messages" #scrollContainer>
         <div *ngFor="let msg of messages" [ngClass]="['message-bubble', msg.sender]">
           <div class="bubble-content">
-            <p>{{ msg.text }}</p>
+            <div class="markdown-content" [innerHTML]="msg.text | markdown"></div>
             <span class="time">{{ msg.timestamp | date:'shortTime' }}</span>
           </div>
         </div>
@@ -32,10 +32,10 @@
       </div>
 
       <div class="suggested-container" *ngIf="!isLoading && messages.length <= 2">
-        <p class="suggested-title"><i class="fa-regular fa-lightbulb"></i> ابدأ بالتعلم من المواضيع المقترحة:</p>
+        <p class="suggested-title"><i class="fa-regular fa-lightbulb"></i> {{ 'aiAcademy.suggestedTitle' | translate }}:</p>
         <div class="suggestions-grid">
-          <button type="button" *ngFor="let question of suggestedQuestions" (click)="sendMessage(question)" class="suggestion-chip">
-            {{ question }}
+          <button type="button" *ngFor="let key of suggestedQuestionKeys" (click)="sendMessage(i18n.translate(key))" class="suggestion-chip">
+            {{ key | translate }}
           </button>
         </div>
       </div>
@@ -46,7 +46,7 @@
             type="text" 
             [(ngModel)]="newMessage" 
             name="message" 
-            placeholder="اسألني عن أي مفهوم مالي أو استثماري تريد فهمه..." 
+            [placeholder]="'aiAcademy.inputPlaceholder' | translate" 
             autocomplete="off"
             [disabled]="isLoading"
           />
@@ -63,7 +63,7 @@
       <div class="sidebar-card market-card">
         <div class="card-header-mini">
           <i class="fa-solid fa-chart-line icon-silver"></i>
-          <h4>أسعار الأصول اللحظية</h4>
+          <h4>{{ 'aiAcademy.marketTitle' | translate }}</h4>
         </div>
         <div class="market-rates">
           <div class="rate-row">
@@ -81,7 +81,7 @@
       <div class="sidebar-card glossary-card">
         <div class="card-header-mini">
           <i class="fa-solid fa-book-bookmark icon-gold"></i>
-          <h4>قاموس المستثمر السريع</h4>
+          <h4>{{ 'aiAcademy.glossaryTitle' | translate }}</h4>
         </div>
         <ul class="glossary-list">
           <li>

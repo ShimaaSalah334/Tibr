@@ -1,7 +1,10 @@
-import { Component, ElementRef, ViewChild, AfterViewChecked, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewChecked, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AiAcademyService } from '../../../core/services/ai-academy.service';
+import { MarkdownPipe } from '../../../shared/pipes/markdown.pipe';
+import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
+import { I18nService } from '../../../core/services/i18n.service';
 
 interface Message {
   text: string;
@@ -11,40 +14,47 @@ interface Message {
 
 @Component({
   selector: 'app-ai-academy-component',
-  standalone: true, // مضافة للتأكيد إذا كان المكون Standalone
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, MarkdownPipe, TranslatePipe],
   templateUrl: './ai-academy-component.html',
   styleUrl: './ai-academy-component.css',
 })
-export class AiAcademyComponent implements AfterViewChecked {
+export class AiAcademyComponent implements AfterViewChecked, OnInit {
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
 
-  // حقن الخدمة باستخدام inject (أو عبر الـ constructor)
   private aiService = inject(AiAcademyService);
+  readonly i18n = inject(I18nService);
 
-  // توليد معرف جلسة فريد للمستخدم الحالي عند فتح الصفحة
   private sessionId: string = crypto.randomUUID();
 
-  suggestedQuestions: string[] = [
-    'ما الفرق بين الاستثمار في الذهب والفضة؟',
-    'كيف أحسب مصنعية السبائك؟',
-    'ما هي أفضل الأوقات لشراء المعادن الثمينة؟',
-    'شرح مبسط لمفهوم التضخم وعلاقته بالذهب.'
+  suggestedQuestionKeys: string[] = [
+    'aiAcademy.question1',
+    'aiAcademy.question2',
+    'aiAcademy.question3',
+    'aiAcademy.question4',
   ];
 
-  messages: Message[] = [
-    { 
-      text: 'مرحباً بك في أكاديمية تبر التعليمية! 🎓 أنا مستشارك الأكاديمي لمساعدتك في فهم أسس وآليات الاستثمار في الذهب والفضة من الصفر. يمكنك اختصار الوقت واختيار أحد الأسئلة الجاهزة بالأسفل أو كتابة استفسارك مباشرة!', 
-      sender: 'ai', 
-      timestamp: new Date() 
-    }
-  ];
+  messages: Message[] = [];
+
+  ngOnInit(): void {
+    this.initializeChat();
+  }
   
   newMessage: string = '';
   isLoading: boolean = false;
 
   ngAfterViewChecked() {
     this.scrollToBottom();
+  }
+
+  initializeChat() {
+    this.messages = [
+      {
+        text: this.i18n.translate('aiAcademy.welcome'),
+        sender: 'ai',
+        timestamp: new Date()
+      }
+    ];
   }
 
 sendMessage(customMessage?: string) {
@@ -65,15 +75,12 @@ sendMessage(customMessage?: string) {
   
   this.isLoading = true;
 
-  // 2. استدعاء الـ API الفعلي عبر الخدمة
   this.aiService.askQuestion(messageToSend, this.sessionId).subscribe({
     next: (response) => {
-      // طباعة الرد للتأكد منه في الـ Console
       console.log('Response from server:', response);
       
-      // استخراج النص بناءً على هيكلة الـ JSON الجديدة
-      const aiResponseText = response?.choices?.[0]?.message?.content 
-                             || 'تم استقبال استجابة فارغة أو غير معروفة.';
+      const aiResponseText = response?.choices?.[0]?.message?.content
+                             || this.i18n.translate('aiAcademy.error');
 
       this.messages.push({
         text: aiResponseText,
@@ -84,7 +91,7 @@ sendMessage(customMessage?: string) {
     error: (err) => {
       console.error('حدث خطأ أثناء الاتصال بالـ API:', err);
       this.messages.push({
-        text: 'عذراً، واجهت مشكلة في الاتصال بالخادم الحالي. يرجى المحاولة مرة أخرى لاحقاً.',
+        text: this.i18n.translate('aiAcademy.error'),
         sender: 'ai',
         timestamp: new Date()
       });

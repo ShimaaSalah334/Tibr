@@ -1,27 +1,32 @@
-import { Component, ElementRef, ViewChild, AfterViewChecked, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewChecked, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChatService, ConversationSession } from '../../../core/services/chat.service';
+import { MarkdownPipe } from '../../../shared/pipes/markdown.pipe';
+import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-financial-advisor',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, MarkdownPipe, TranslatePipe],
   templateUrl: './financial-advisor.html',
   styleUrl: './financial-advisor.css',
 })
 export class FinancialAdvisor implements OnInit, AfterViewChecked {
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
 
+  readonly i18n = inject(I18nService);
+
   currentConversationId: number | null = null;
   conversationsHistory: ConversationSession[] = [];
   
-  suggestedQuestions: string[] = [
-    'معي ميزانية 50,000 ج.م، كيف أوزعها؟',
-    'هل الوقت الحالي مناسب لشراء سبائك الفضة؟',
-    'كيف أحمي مدخراتي من التضخم الحالي؟',
-    'تحليل فني سريع لأسعار الذهب اليوم.'
+  suggestedQuestionKeys: string[] = [
+    'financialAdvisor.question1',
+    'financialAdvisor.question2',
+    'financialAdvisor.question3',
+    'financialAdvisor.question4',
   ];
 
   messages: Array<{ text: string; sender: 'user' | 'ai'; timestamp: Date }> = [];
@@ -29,7 +34,6 @@ export class FinancialAdvisor implements OnInit, AfterViewChecked {
   isLoading: boolean = false;
   currentIntent: string  = 'faq';
 
-  // Injecting our brand new service here
   constructor(private chatService: ChatService) {}
 
   ngOnInit() {
@@ -43,10 +47,10 @@ export class FinancialAdvisor implements OnInit, AfterViewChecked {
 
   initializeChat() {
     this.messages = [
-      { 
-        text: 'مرحباً بك في وحدة الاستشارات المالية الذكية! 💼 أنا هنا لمساعدتك في بناء استراتيجيات الشراء، حساب أوزان محفظتك الثمينة، وتحليل أنسب الفرص الاستثمارية بناءً على رأس مالك الحالي. ما هي خطتك أو ميزانيتك اليوم؟', 
-        sender: 'ai', 
-        timestamp: new Date() 
+      {
+        text: this.i18n.translate('financialAdvisor.welcome'),
+        sender: 'ai',
+        timestamp: new Date()
       }
     ];
     this.currentConversationId = null;
@@ -67,7 +71,7 @@ export class FinancialAdvisor implements OnInit, AfterViewChecked {
         this.currentConversationId = res.id;
         this.messages = res.messages.map(msg => ({
           text: msg.content,
-          sender: msg.role === 'user' ? 'user' : 'ai',
+          sender: msg.role === 'User' ? 'user' : 'ai',
           timestamp: new Date(msg.createdAt)
         }));
         this.isLoading = false;
@@ -101,7 +105,7 @@ export class FinancialAdvisor implements OnInit, AfterViewChecked {
     
     this.isLoading = true;
 
-    this.chatService.sendMessage(messageToSend, this.currentConversationId).subscribe({
+    this.chatService.sendMessage(messageToSend, this.currentConversationId, undefined, this.i18n.currentLang()).subscribe({
       next: (res) => {
         this.messages.push({
           text: res.reply,
@@ -116,7 +120,7 @@ export class FinancialAdvisor implements OnInit, AfterViewChecked {
       error: (err) => {
         console.error('Service stream execution error:', err);
         this.messages.push({
-          text: 'عذراً، حدث خطأ أثناء الاتصال بالخادم. يرجى التأكد من الـ Authentication ومحاولة المحاولة مرة أخرى.',
+          text: this.i18n.translate('financialAdvisor.error'),
           sender: 'ai',
           timestamp: new Date()
         });

@@ -2,6 +2,9 @@ import { Component, ElementRef, inject, OnDestroy, OnInit, QueryList, signal, Vi
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.Service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { I18nService } from '../../../core/services/i18n.service';
+// Import your Toast service here. Example: import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-verfiy-account',
@@ -12,7 +15,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class VerfiyAccount implements OnInit, OnDestroy {
   otpForm!: FormGroup;
   email: string = '';
+  
+  // Injecting dependencies using standard modern Angular inject()
   private router = inject(Router);
+  private toast = inject(ToastrService); // Standard Toast Service injection
 
   // أسماء مفاتيح التحكم للحقول الستة لسهولة إدارتها ديناميكياً
   inputKeys = ['code1', 'code2', 'code3', 'code4', 'code5', 'code6'];
@@ -34,7 +40,7 @@ export class VerfiyAccount implements OnInit, OnDestroy {
   private timerIntervalId: any;
   private tempUserId: string = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private route: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private route: ActivatedRoute, public i18n: I18nService) {}
 
   ngOnInit(): void {
     this.email = localStorage.getItem('registeredEmail') || '';
@@ -141,7 +147,12 @@ export class VerfiyAccount implements OnInit, OnDestroy {
         this.isResending.set(false);
         console.error(error);
         this.formState.set('error');
-        this.errorMessage.set('حدث خطأ أثناء إعادة إرسال رمز الأمان. يرجى المحاولة لاحقاً.');
+        
+        const msg = localStorage.getItem('tibr_locale')=="ar"?  'حدث خطأ أثناء إعادة إرسال رمز الأمان. يرجى المحاولة لاحقاً.':'An error occurred while resending the security code. Please try again later.';
+        this.errorMessage.set(msg);
+        
+        // Triggering the error toast notification
+        this.toast.error(msg); 
       }
     });
   }
@@ -167,15 +178,17 @@ export class VerfiyAccount implements OnInit, OnDestroy {
         this.formState.set('success');
         this.tempUserId = response.userId;
 
-        // تفعيل مودال النجاح والترحيب بالانتقال للـ KYC
         this.showSuccessModal.set(true);
       },
       error: (error) => {
         console.error(error);
         this.formState.set('error');
-        this.errorMessage.set(
-          error?.error?.message || 'رمز التحقق المدخل غير صحيح أو انتهت صلاحيته.'
-        );
+        
+        const msg = localStorage.getItem('tibr_locale')=="ar"? error?.error?.messageAR :error?.error?.messageEN ;
+        this.errorMessage.set(msg);
+        
+        // Triggering the error toast notification
+        this.toast.error(msg); 
       }
     });
   }

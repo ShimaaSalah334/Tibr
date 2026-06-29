@@ -1,0 +1,43 @@
+<main class="flex-grow-1 d-flex align-items-center justify-content-center px-3 py-5 position-relative pending-page-bg" dir="rtl">
+  
+  <div class="animated-bg-glow"></div>
+  <div class="particles-container">
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+  </div>
+
+  <div class="card w-100 bg-white border border-light rounded-4 vault-shadow p-4 p-md-5 text-center position-relative z-index-form" style="max-width: 520px;">
+    
+    <div class="mb-4 d-flex justify-content-center">
+      <div class="rounded-circle d-flex align-items-center justify-content-center bg-light-gold-tint pending-icon-wrapper" style="width: 80px; height: 80px;">
+        <span class="material-symbols-outlined text-gold-dark display-5 pulse-slow">hourglass_empty</span>
+      </div>
+    </div>
+    
+    <h1 class="h3 fw-bold text-navy mb-3">
+      {{ i18n.translate('title', 'الحساب قيد المراجعة') }}
+    </h1>
+    
+    <p class="text-secondary-muted small mb-4 lh-base px-2">
+      {{ i18n.translate('description', 'جاري مراجعة حسابك والتحقق من وثائق الهوية المرفوعة من قبل فريق الامتثال لدينا، سيتم الرد عليك وتفعيل الحساب خلال 6 ساعات كحد أقصى.') }}
+    </p>
+
+    <div class="status-timeline-box p-3 rounded-3 bg-light text-start mb-4 border border-light-subtle">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="fa-solid fa-circle-check text-success small"></i>
+        <span class="small fw-semibold text-navy">{{ i18n.translate('doc_received', 'تم استلام الوثائق بنجاح') }}</span>
+      </div>
+      <div class="d-flex align-items-center gap-2 placeholder-glow">
+        <i class="fa-solid fa-circle-notch fa-spin text-gold-dark small"></i>
+        <span class="small fw-medium text-secondary-muted">{{ i18n.translate('audit_in_progress', 'جاري التدقيق الأمني والمالي...') }}</span>
+      </div>
+    </div>
+
+    <div class=" border-top border-light mt-4 d-flex align-items-center justify-content-center gap-2 text-muted opacity-75">
+      <i class="fa-solid fa-user-shield text-navy small"></i>
+      <span class="micro-text">{{ i18n.translate('security_note', 'بياناتك مشفرة بالكامل وفقاً للمعايير المصرفية.') }}</span>
+    </div>
+    
+  </div>
+</main>

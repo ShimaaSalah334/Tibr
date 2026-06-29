@@ -138,342 +138,665 @@
   "home.cta.highlight": "wealth with gold?",
   "home.cta.subtitle": "Join thousands of Egyptians already investing in precious metals through Tibr.",
   "home.cta.getStarted": "Get Started Free",
-  "home.cta.browseProducts": "Browse Products"
-  ,"productDetails.loading": "Loading product..."
-  ,"productDetails.backToProducts": "Back to Products"
-  ,"productDetails.weightLabel": "Weight:"
-  ,"productDetails.sellPrice": "Sell Price"
-  ,"productDetails.priceCurrency": "EGP"
-  ,"productDetails.priceUpdated": "Updated 5 minutes ago"
-  ,"productDetails.availability": "Availability"
-  ,"productDetails.outOfStock": "Out of Stock"
-  ,"productDetails.lowStock": "Low Stock ·"
-  ,"productDetails.inStock": "In Stock ·"
-  ,"productDetails.quantity": "QUANTITY"
-  ,"productDetails.barsSingular": "BAR"
-  ,"productDetails.barsPlural": "BARS"
-  ,"productDetails.onlyLeft": "Only"
-  ,"productDetails.min": "Min:"
-  ,"productDetails.max": "Max:"
-  ,"productDetails.addToCart": "Add to Cart"
-  ,"productDetails.askAdvisor": "Ask the Advisor"
-  ,"productDetails.addedToCart": "Product added to cart successfully."
-  ,"productDetails.relatedTitle": "You Might Also Like"
-  ,"productDetails.viewAll": "View All"
-  ,"productDetails.noRelated": "No related products found."
-  ,"productDetails.aiAdvisor": "Tharwa AI Advisor"
-  ,"productDetails.confidence": "92% Confidence"
-  ,"productDetails.insight": "\"Based on current global gold trends and market signals, this is an optimal entry point before the expected rally in the upcoming quarter.\""
-  ,"profile.loading": "Loading data vault..."
-  ,"profile.kycStatus": "KYC Status:"
-  ,"profile.kycStatusPending": "Under Review"
-  ,"profile.joinDate": "Join Date:"
-  ,"profile.editInfo": "Edit Account Information"
-  ,"profile.security": "Security and Password"
-  ,"profile.firstName": "First Name"
-  ,"profile.lastName": "Last Name"
-  ,"profile.phone": "Verified Personal Phone Number"
-  ,"profile.firstNameError": "First name is required (Max 50 characters)."
-  ,"profile.lastNameError": "Last name is required (Max 50 characters)."
-  ,"profile.phoneError": "Please enter a valid verified phone number format."
-  ,"profile.oldPassword": "Current Password"
-  ,"profile.newPassword": "New Password"
-  ,"profile.confirmPassword": "Confirm New Password"
-  ,"profile.oldPasswordError": "Current password is required for verification."
-  ,"profile.newPasswordError": "New password must be at least 8 characters long."
-  ,"profile.confirmPasswordError": "Please confirm the new password."
-  ,"profile.passwordMismatch": "Password entries do not match."
-  ,"profile.saveChanges": "Save Changes"
-  ,"profile.updatePassword": "Update Encryption and Security"
-  ,"profile.updateSuccess": "Account information updated successfully."
-  ,"profile.updateError": "Failed to update account information."
-  ,"profile.passwordUpdateSuccess": "Password updated successfully to protect your account."
-  ,"profile.wrongPassword": "Current password is incorrect."
-  ,"wallet.cash": "Cash Wallet"
-  ,"wallet.goldHoldings": "Current Gold Holdings"
-  ,"wallet.silverHoldings": "Current Silver Holdings"
-  ,"wallet.gram": "grams"
-  ,"wallet.quickActions": "Quick Actions Center"
-  ,"wallet.deposit": "Deposit Funds"
-  ,"wallet.withdraw": "Withdraw Cash"
-  ,"wallet.smartAdvisor": "Smart Advisor"
-  ,"wallet.buyMetals": "Buy Metals"
-  ,"wallet.sell": "Sell Request"
-  ,"wallet.delivery": "Delivery Request"
-  ,"wallet.recentTransactions": "Recent Transaction History"
-  ,"wallet.transactionType": "Transaction Type"
-  ,"wallet.date": "Date & Time"
-  ,"wallet.amount": "Amount"
-  ,"wallet.status": "Status"
-  ,"withdraw.title": "Withdraw Funds"
-  ,"withdraw.description": "Transfer your available balance from your wallet to your bank account or e-wallet."
-  ,"withdraw.availableBalance": "Available Balance for Withdrawal"
-  ,"withdraw.amount": "Withdrawal Amount"
-  ,"withdraw.method": "Payment Method"
-  ,"withdraw.bank": "Bank"
-  ,"withdraw.ewallet": "E-Wallet"
-  ,"withdraw.confirm": "Confirm Withdrawal"
-  ,"withdraw.terms": "By proceeding, you agree to Tibr's transfer terms and conditions."
-  ,"withdraw.notes": "Important Notes"
-  ,"withdraw.success": "Withdrawal request created successfully!"
-  ,"withdraw.validationError": "Failed validation. Please verify input and allowed limits."
-  ,"withdraw.unauthorized": "You are not authorized to complete this action. Please log in again."
-  ,"withdraw.unexpectedError": "An unexpected error occurred while processing your request. Please try again later."
-  ,"withdraw.amountMin": "Minimum withdrawal: 100 EGP"
-  ,"withdraw.amountMax": "Daily maximum: 50,000 EGP"
-  ,"withdraw.bankPlaceholder": "Example: National Bank of Egypt, Banque Misr..."
-  ,"withdraw.iban": "Bank account number or IBAN"
-  ,"withdraw.ibanPlaceholder": "EGxxxxxxxxxxxxxxxxxxxxxxx"
-  ,"withdraw.selectEwallet": "Select e-wallet type"
-  ,"withdraw.instapay": "InstaPay"
-  ,"withdraw.vodafoneCash": "Vodafone Cash"
-  ,"withdraw.orangeCash": "Orange Cash"
-  ,"withdraw.etisalatCash": "Etisalat Cash"
-  ,"withdraw.ewalletNumber": "Wallet number / payment address (IPA)"
-  ,"withdraw.instapayPlaceholder": "example@instapay"
-  ,"withdraw.mobilePlaceholder": "01xxxxxxxxx"
-  ,"withdraw.processing": "Processing request..."
-  ,"withdraw.confirmButton": "Confirm withdrawal request"
-  ,"withdraw.notesTitle": "Important Notes"
-  ,"withdraw.executionTime": "Execution Time"
-  ,"withdraw.executionTimeDesc": "E-wallet withdrawals are instant, bank transfers may take 1–3 business days."
-  ,"withdraw.registeredData": "Registered Information"
-  ,"withdraw.registeredDataDesc": "Your wallet or bank account must be registered under the same name in Tibr to avoid rejection."
-  ,"withdraw.feesTax": "Fees & Taxes"
-  ,"withdraw.feesTaxDesc": "Tibr charges no withdrawal fee; standard network fees may apply."
-  ,"support.title": "Investment Support at 24-Karat Purity"
-  ,"support.subtitle": "We are here to ensure smooth trading in precious metals markets. We provide comprehensive coverage and technical advice 24/7."
-  ,"support.24h": "24/7 Support"
-  ,"support.expert": "Certified Specialists"
-  ,"support.ticketTitle": "Create Support Ticket"
-  ,"support.ticketSubtitle": "Your request will be linked directly to your personal account manager"
-  ,"support.subject": "Subject"
-  ,"support.expertDescription": "Specialized team to follow up on deposit approvals, shipping, and live bullion withdrawals."
-  ,"support.24hDescription": "Immediate responses to VIP investor tickets in under 15 minutes."
-  ,"support.encrypted": "Fully encrypted connection and absolute protection for your precious assets"
-  ,"support.success": "Support ticket created successfully!"
-  ,"support.errorFallback": "Something went wrong. Please try again."
-  ,"support.subjectLabel": "Support inquiry details"
-  ,"support.placeholder": "Write your inquiry here (e.g. confirm gold deposit, silver prices today, portfolio update...)"
-  ,"support.requiredError": "* Please enter your inquiry message so we can assist you."
-  ,"support.maxlengthError": "* Sorry, the message must not exceed 200 characters."
-  ,"support.securityNote": "Avoid entering your wallet passwords."
-  ,"support.maxChars": "200"
-  ,"support.chars": "chars"
-  ,"support.submitting": "Sending encrypted ticket..."
-  ,"support.submit": "Submit Immediate Request"
-  ,"selling.title": "Sell Precious Metals"
-  ,"selling.egp": "EGP"
-  ,"selling.selectMetal": "Select Metal to Sell"
-  ,"selling.quantity": "Quantity to Sell"
-  ,"selling.estimatedValue": "Estimated Value"
-  ,"selling.beforeFees": "Value before fees"
-  ,"selling.totalDeposit": "Amount Deposited in Wallet:"
-  ,"selling.confirm": "Confirm Sale"
-  ,"selling.secure": "Encrypted and Secure Transaction"
-  ,"selling.certified": "Certified by Trade Authority"
-  ,"selling.success": "Sale completed successfully!"
-  ,"selling.gold": "Gold"
-  ,"selling.silver": "Silver"
-  ,"selling.grams": "g"
-  ,"selling.directSellPrice": "Direct sell price:"
-  ,"selling.saleSuccessAlert": "Sale completed successfully! {{amount}} EGP has been deposited into your wallet."
-  ,"selling.saleFailureAlert": "The transaction failed."
-  ,"selling.saleErrorAlert": "An error occurred while processing the request. Please try again later."
-  ,"payment.verifying": "Verifying Payment Status..."
-  ,"payment.retry": "Retry Verification"
-  ,"payment.backToDashboard": "Back to Dashboard"
-  ,"payment.processing": "Please do not close or refresh this page until the transaction is confirmed."
-  ,"payment.success": "Payment Confirmed!"
-  ,"payment.successMsg": "Your payment has been confirmed and added to your precious assets wallet securely."
-  ,"payment.pending": "Transaction Under Review"
-  ,"payment.pendingMsg": "The transaction is currently pending final confirmation from the service provider."
-  ,"payment.failed": "Payment Failed"
-  ,"payment.failedMsg": "We apologize, the transaction could not be completed. Please check your card details or balance."
-  ,"payment.transactionId": "Transaction ID:"
-  ,"payment.amount": "Amount:"
-  ,"payment.date": "Date:"
-  ,"payment.backToWallet": "Back to Wallet"
-  ,"payment.allTransactionsSecured": "All financial transactions are protected and documented according to Tibr's encryption standards."
-  ,"orders.backToOrders": "Back to Orders"
-  ,"orders.loading": "Loading..."
-  ,"orders.error": "Error"
-  ,"orders.retry": "Retry"
-  ,"orders.notFound": "Order Not Found"
-  ,"orders.notFoundMsg": "The order you are looking for does not exist or has been archived."
-  ,"orders.viewAll": "View All Orders"
-  ,"orders.paymentSuccess": "Payment successful! Your order has been confirmed."
-  ,"orders.paymentFailed": "Payment failed. Please try again."
-  ,"orders.acquisitionCode": "Acquisition Code"
-  ,"orders.orderNumberPrefix": "Order #"
-  ,"orders.datePlaced": "Date Placed"
-  ,"orders.customerProfile": "Customer Profile"
-  ,"orders.acquisitionManifest": "Acquisition Manifest"
-  ,"orders.financialSummary": "Financial Summary"
-  ,"orders.totalAmount": "Total Amount"
-  ,"orders.cancelOrder": "Cancel Order"
-  ,"orders.returnToList": "Return to List"
-  ,"orders.review": "Your Review of This Transaction"
-  ,"orders.reviewNoComment": "Review submitted successfully with no comment."
-  ,"deposit.title": "Deposit Funds"
-  ,"deposit.titleSlider": "Secure Your Future with Gold"
-  ,"deposit.subtitleSlider": "Deposit your funds instantly and start building your precious metals portfolio with complete security."
-  ,"deposit.encryption": "Full Encryption"
-  ,"deposit.banks": "Bank Partners"
-  ,"deposit.assets": "Secured Assets"
-  ,"deposit.subtitle": "Select the amount and payment method to complete the transaction"
-  ,"deposit.amount": "Deposit Amount (EGP)"
-  ,"deposit.execute": "Confirm Deposit"
-  ,"deposit.error": "Please enter a valid amount to complete the deposit."
-  ,"deposit.summaryAmount": "Deposit Amount"
-  ,"deposit.currency": "EGP"
-  ,"deposit.transactionFee": "Transaction Fee"
-  ,"deposit.freeLabel": "0% Free"
-  ,"deposit.totalToDeposit": "Total to Deposit"
-  ,"deposit.secureBadge1": "PCI DSS Secure"
-  ,"deposit.secureBadge2": "256-bit Encryption"
-  ,"deposit.successAlert": "Deposit confirmed successfully! Transaction reference: {{checkoutUrl}}"
-  ,"deposit.serverError": "An error occurred while connecting to the server. Please try again later."
-  ,"deposit.securePayment": "Secure Encrypted Payment"
-  ,"delivery.title": "Request Metal Delivery"
-  ,"delivery.subtitle": "Manage your addresses and schedule your precious assets delivery securely"
-  ,"delivery.addresses": "Delivery Addresses"
-  ,"delivery.address": "Delivery Address"
-  ,"delivery.newAddress": "Add New Address"
-  ,"delivery.selectAddress": "Select Delivery Address"
-  ,"delivery.selectMetal": "Select Metal Type"
-  ,"delivery.amount": "Amount in Grams"
-  ,"delivery.area": "Area/Neighborhood"
-  ,"delivery.delete": "Delete"
-  ,"delivery.grams": "Grams"
-  ,"delivery.loadError": "An error occurred while loading your delivery requests. Please try again later."
-  ,"delivery.addressLoadError": "An error occurred while loading your addresses. Please try again later."
-  ,"delivery.holdingsError": "An error occurred while fetching your wallet holdings. Please try again later."
-  ,"delivery.addressCreated": "New delivery address created successfully!"
-  ,"delivery.insufficientGold": "Sorry, you cannot request delivery of an amount exceeding your gold holdings."
-  ,"delivery.addressCreateError": "An error occurred while creating the delivery address. Please try again later."
-  ,"delivery.addressDeleted": "Delivery address deleted successfully!"
-  ,"delivery.addressDeleteError": "An error occurred while deleting the delivery address. Please try again later."
-  ,"delivery.insufficientSilver": "Sorry, you cannot request delivery of an amount exceeding your silver holdings."
-  ,"delivery.requestSubmitted": "Delivery request submitted successfully!"
-  ,"delivery.submit": "Submit Delivery Request",
-  "delivery.requestError": "An error occurred while submitting the delivery request. Please try again later."
-  ,"delivery.trackError": "Unable to fetch current order details. Please try again later."
-  ,"delivery.addressBook": "Your Address Book"
-  ,"delivery.success": "Delivery request submitted successfully!"
-  ,"delivery.street": "Street and Details"
-  ,"delivery.city": "City/Region"
-  ,"delivery.postalCode": "Postal Code"
-  ,"delivery.status": "Current Status"
-  ,"delivery.actions": "Manage"
-  ,"delivery.currentAndPastRequests": "Current and Past Delivery Requests"
-  ,"delivery.noRequests": "No delivery requests registered currently"
-  ,"delivery.requestNumber": "Request Number"
-  ,"delivery.assetType": "Metal Type"
-  ,"delivery.quantity": "Requested Quantity"
-  ,"delivery.deliveryAddress": "Delivery Address"
-  ,"delivery.trackingNumber": "Tracking Number"
-  ,"delivery.orderDate": "Order Date"
-  ,"delivery.state": "Order Status"
-  ,"delivery.zip": "Postal Code"
-  ,"delivery.gold": "Pure Gold"
-  ,"delivery.country": "Country"
-  ,"delivery.silver": "Pure Silver"
-  ,"delivery.isDefault": "Default Address" 
-  ,"delivery.notAvailableYet": "Not available yet"
-  ,"delivery.addAddressTitle": "Add New Delivery Address"
-  ,"buying.title": "Buy Precious Metals"
-  ,"buying.selectMetal": "Select Metal Type"
-  ,"buying.amount": "Amount (Grams)"
-  ,"buying.expectedPrice": "Expected Value"
-  ,"buying.details": "Transaction Details"
-  ,"buying.walletBalance": "Wallet Balance:"
-  ,"buying.insufficientBalance": "Insufficient Balance"
-  ,"buying.confirm": "Confirm Purchase"
-  ,"buying.congratulations": "Congratulations! Transaction Complete"
-  ,"buying.successMsg": "Metal purchase has been completed and added to your investment portfolio."
-  ,"buying.backToWallet": "Back to Wallet"
-  ,"status.pending": "Pending"
-  ,"status.confirmed": "Confirmed"
-  ,"status.processing": "Processing"
-  ,"status.shipped": "Shipped"
-  ,"status.delivered": "Delivered"
-  ,"status.cancelled": "Cancelled"
-  ,"status.paid": "Paid"
-  ,"status.failed": "Failed"
-  ,"status.refunded": "Refunded"
-  ,"transaction.buy": "Buy"
-  ,"transaction.sell": "Sell"
-  ,"transaction.hold": "Hold Balance"
-  ,"transaction.unhold": "Unhold Balance"
-  ,"transaction.other": "Other Transaction"
-  ,"reference.investment": "Investment Order"
-  ,"reference.trading": "Trading Operation"
-  ,"reference.deposit": "Cash Deposit"
-  ,"reference.delivery": "Delivery Request"
-  ,"reference.general": "General Reference",
-    "buying.gold": "Gold",
-    "buying.silver": "Silver",
-    "buying.gramUnit": "Gram",
-    "buying.currencyUnit": "EGP",
-    "buying.availableBalance": "Available Cash Balance",
-    "buying.operationDetails": "Transaction Details",
-    "buying.currentUnitPrice": "Current Price per Gram",
-    "buying.totalAmount": "Total Quantity",
-    "buying.totalCost": "Total Cost",
-    "buying.processing": "Processing order...",
-    "buying.confirmBuy": "Confirm Instant Purchase",
-    "buying.marketDisclaimer": "Prices are directly linked to the global stock exchange.",
-    "buying.successTitle": "Congratulations! Transaction Completed",
-    "buying.successDescription": "Successfully purchased and allocated {grams} grams of {metal} and added it to your investment wallet.",
-    "buying.pureGold": "Pure Gold",
-    "buying.pureSilver": "Pure Silver",
-    "strategy.create_title": "Create New Strategy",
-    "strategy.subtitle": "Define your criteria for executing automated bullion trades.",
-    "strategy.select_asset": "Select Asset",
-    "strategy.gold": "Gold",
-    "strategy.silver": "Silver",
-    "strategy.operation_type": "Operation Type",
-    "strategy.buy": "Buy",
-    "strategy.sell": "Sell",
-    "strategy.quantity": "Quantity (in Grams)",
-    "strategy.quantity_placeholder": "e.g., 10",
-    "strategy.condition_type": "Condition Type",
-    "strategy.less_than": "Price Less Than",
-    "strategy.greater_than": "Price Greater Than",
-    "strategy.equal_to": "Price Equal To",
-    "strategy.target_price": "Target Price (EGP)",
-    "strategy.target_price_placeholder": "e.g., 4800",
-    "strategy.execution_type": "Execution Type",
-    "strategy.alert_only": "Alert Only",
-    "strategy.auto_execute": "Auto Execute",
-    "strategy.alert_execute": "Alert + Execute",
-    "strategy.expiry_date": "Expiration Date",
-    "strategy.summary_title": "Strategy Summary",
-    "strategy.asset_label": "Asset:",
-    "strategy.leverage_label": "Leverage:",
-    "strategy.leverage_val": "1:1 (Physical)",
-    "strategy.fees_label": "Expected Fees:",
-    "strategy.launch_btn": "Launch Strategy",
-    "strategy.terms_disclaimer": "By launching, you agree to the automated trading terms of TIBR.",
-    "strategy.current_list_title": "Your Current Strategies (Conditional)",
-    "strategy.refresh_btn": "Refresh List",
-    "strategy.loading_msg": "Fetching your active strategies...",
-    "strategy.empty_msg": "You currently have no active strategies.",
-    "strategy.th_tx_id": "Transaction ID",
-    "strategy.th_asset": "Asset",
-    "strategy.th_type": "Operation Type",
-    "strategy.th_qty": "Quantity",
-    "strategy.th_current_price": "Current Price",
-    "strategy.th_exec_method": "Execution Method",
-    "strategy.th_expiry": "Expiration Date",
-    "strategy.th_status": "Status",
-    "strategy.open_ended": "Open-ended",
-    "login.Welcome":"Welcome Back",
-    "login.access_your_investment":"Sign in to access your investment wallet",
-    "login.email":"Email Address",
-    "login.email_is_required":"Email is required.",
-    "login.password":"Password",
-    "login.forgot_password":"Forgot Password",
-    "login.password_is_required":"Password is Required"
-  }
+  "home.cta.browseProducts": "Browse Products",
+  "productDetails.loading": "Loading product...",
+  "productDetails.backToProducts": "Back to Products",
+  "productDetails.weightLabel": "Weight:",
+  "productDetails.sellPrice": "Sell Price",
+  "productDetails.priceCurrency": "EGP",
+  "productDetails.priceUpdated": "Updated 5 minutes ago",
+  "productDetails.availability": "Availability",
+  "productDetails.outOfStock": "Out of Stock",
+  "productDetails.lowStock": "Low Stock ·",
+  "productDetails.inStock": "In Stock ·",
+  "productDetails.quantity": "QUANTITY",
+  "productDetails.barsSingular": "BAR",
+  "productDetails.barsPlural": "BARS",
+  "productDetails.onlyLeft": "Only",
+  "productDetails.min": "Min:",
+  "productDetails.max": "Max:",
+  "productDetails.addToCart": "Add to Cart",
+  "productDetails.askAdvisor": "Ask the Advisor",
+  "productDetails.addedToCart": "Product added to cart successfully.",
+  "productDetails.relatedTitle": "You Might Also Like",
+  "productDetails.viewAll": "View All",
+  "productDetails.noRelated": "No related products found.",
+  "productDetails.aiAdvisor": "Tharwa AI Advisor",
+  "productDetails.confidence": "92% Confidence",
+  "productDetails.insight": "\"Based on current global gold trends and market signals, this is an optimal entry point before the expected rally in the upcoming quarter.\"",
+  "profile.loading": "Loading data vault...",
+  "profile.kycStatus": "KYC Status:",
+  "profile.kycStatusPending": "Under Review",
+  "profile.joinDate": "Join Date:",
+  "profile.editInfo": "Edit Account Information",
+  "profile.security": "Security and Password",
+  "profile.firstName": "First Name",
+  "profile.lastName": "Last Name",
+  "profile.phone": "Verified Personal Phone Number",
+  "profile.firstNameError": "First name is required (Max 50 characters).",
+  "profile.lastNameError": "Last name is required (Max 50 characters).",
+  "profile.phoneError": "Please enter a valid verified phone number format.",
+  "profile.oldPassword": "Current Password",
+  "profile.newPassword": "New Password",
+  "profile.confirmPassword": "Confirm New Password",
+  "profile.oldPasswordError": "Current password is required for verification.",
+  "profile.newPasswordError": "New password must be at least 8 characters long.",
+  "profile.confirmPasswordError": "Please confirm the new password.",
+  "profile.passwordMismatch": "Password entries do not match.",
+  "profile.saveChanges": "Save Changes",
+  "profile.updatePassword": "Update Encryption and Security",
+  "profile.updateSuccess": "Account information updated successfully.",
+  "profile.updateError": "Failed to update account information.",
+  "profile.passwordUpdateSuccess": "Password updated successfully to protect your account.",
+  "profile.wrongPassword": "Current password is incorrect.",
+  "wallet.cash": "Cash Wallet",
+  "wallet.goldHoldings": "Current Gold Holdings",
+  "wallet.silverHoldings": "Current Silver Holdings",
+  "wallet.gram": "grams",
+  "wallet.quickActions": "Quick Actions Center",
+  "wallet.deposit": "Deposit Funds",
+  "wallet.withdraw": "Withdraw Cash",
+  "wallet.smartAdvisor": "Smart Advisor",
+  "wallet.buyMetals": "Buy Metals",
+  "wallet.sell": "Sell Request",
+  "wallet.delivery": "Delivery Request",
+  "wallet.recentTransactions": "Recent Transaction History",
+  "wallet.transactionType": "Transaction Type",
+  "wallet.date": "Date & Time",
+  "wallet.amount": "Amount",
+  "wallet.status": "Status",
+  "withdraw.title": "Withdraw Funds",
+  "withdraw.description": "Transfer your available balance from your wallet to your bank account or e-wallet.",
+  "withdraw.availableBalance": "Available Balance for Withdrawal",
+  "withdraw.amount": "Withdrawal Amount",
+  "withdraw.method": "Payment Method",
+  "withdraw.bank": "Bank",
+  "withdraw.ewallet": "E-Wallet",
+  "withdraw.confirm": "Confirm Withdrawal",
+  "withdraw.terms": "By proceeding, you agree to Tibr's transfer terms and conditions.",
+  "withdraw.notes": "Important Notes",
+  "withdraw.success": "Withdrawal request created successfully!",
+  "withdraw.validationError": "Failed validation. Please verify input and allowed limits.",
+  "withdraw.unauthorized": "You are not authorized to complete this action. Please log in again.",
+  "withdraw.unexpectedError": "An unexpected error occurred while processing your request. Please try again later.",
+  "withdraw.amountMin": "Minimum withdrawal: 100 EGP",
+  "withdraw.amountMax": "Daily maximum: 50,000 EGP",
+  "withdraw.bankPlaceholder": "Example: National Bank of Egypt, Banque Misr...",
+  "withdraw.iban": "Bank account number or IBAN",
+  "withdraw.ibanPlaceholder": "EGxxxxxxxxxxxxxxxxxxxxxxx",
+  "withdraw.selectEwallet": "Select e-wallet type",
+  "withdraw.instapay": "InstaPay",
+  "withdraw.vodafoneCash": "Vodafone Cash",
+  "withdraw.orangeCash": "Orange Cash",
+  "withdraw.etisalatCash": "Etisalat Cash",
+  "withdraw.ewalletNumber": "Wallet number / payment address (IPA)",
+  "withdraw.instapayPlaceholder": "example@instapay",
+  "withdraw.mobilePlaceholder": "01xxxxxxxxx",
+  "withdraw.processing": "Processing request...",
+  "withdraw.confirmButton": "Confirm withdrawal request",
+  "withdraw.notesTitle": "Important Notes",
+  "withdraw.executionTime": "Execution Time",
+  "withdraw.executionTimeDesc": "E-wallet withdrawals are instant, bank transfers may take 1–3 business days.",
+  "withdraw.registeredData": "Registered Information",
+  "withdraw.registeredDataDesc": "Your wallet or bank account must be registered under the same name in Tibr to avoid rejection.",
+  "withdraw.feesTax": "Fees & Taxes",
+  "withdraw.feesTaxDesc": "Tibr charges no withdrawal fee; standard network fees may apply.",
+  "support.title": "Investment Support at 24-Karat Purity",
+  "support.subtitle": "We are here to ensure smooth trading in precious metals markets. We provide comprehensive coverage and technical advice 24/7.",
+  "support.24h": "24/7 Support",
+  "support.expert": "Certified Specialists",
+  "support.ticketTitle": "Create Support Ticket",
+  "support.ticketSubtitle": "Your request will be linked directly to your personal account manager",
+  "support.subject": "Subject",
+  "support.expertDescription": "Specialized team to follow up on deposit approvals, shipping, and live bullion withdrawals.",
+  "support.24hDescription": "Immediate responses to VIP investor tickets in under 15 minutes.",
+  "support.encrypted": "Fully encrypted connection and absolute protection for your precious assets",
+  "support.success": "Support ticket created successfully!",
+  "support.errorFallback": "Something went wrong. Please try again.",
+  "support.subjectLabel": "Support inquiry details",
+  "support.placeholder": "Write your inquiry here (e.g. confirm gold deposit, silver prices today, portfolio update...)",
+  "support.requiredError": "* Please enter your inquiry message so we can assist you.",
+  "support.maxlengthError": "* Sorry, the message must not exceed 200 characters.",
+  "support.securityNote": "Avoid entering your wallet passwords.",
+  "support.maxChars": "200",
+  "support.chars": "chars",
+  "support.submitting": "Sending encrypted ticket...",
+  "support.submit": "Submit Immediate Request",
+  "selling.title": "Sell Precious Metals",
+  "selling.egp": "EGP",
+  "selling.selectMetal": "Select Metal to Sell",
+  "selling.quantity": "Quantity to Sell",
+  "selling.estimatedValue": "Estimated Value",
+  "selling.beforeFees": "Value before fees",
+  "selling.totalDeposit": "Amount Deposited in Wallet:",
+  "selling.confirm": "Confirm Sale",
+  "selling.secure": "Encrypted and Secure Transaction",
+  "selling.certified": "Certified by Trade Authority",
+  "selling.success": "Sale completed successfully!",
+  "selling.gold": "Gold",
+  "selling.silver": "Silver",
+  "selling.grams": "g",
+  "selling.directSellPrice": "Direct sell price:",
+  "selling.saleSuccessAlert": "Sale completed successfully! {{amount}} EGP has been deposited into your wallet.",
+  "selling.saleFailureAlert": "The transaction failed.",
+  "selling.saleErrorAlert": "An error occurred while processing the request. Please try again later.",
+  "payment.verifying": "Verifying Payment Status...",
+  "payment.retry": "Retry Verification",
+  "payment.backToDashboard": "Back to Dashboard",
+  "payment.processing": "Please do not close or refresh this page until the transaction is confirmed.",
+  "payment.success": "Payment Confirmed!",
+  "payment.successMsg": "Your payment has been confirmed and added to your precious assets wallet securely.",
+  "payment.pending": "Transaction Under Review",
+  "payment.pendingMsg": "The transaction is currently pending final confirmation from the service provider.",
+  "payment.failed": "Payment Failed",
+  "payment.failedMsg": "We apologize, the transaction could not be completed. Please check your card details or balance.",
+  "payment.transactionId": "Transaction ID:",
+  "payment.amount": "Amount:",
+  "payment.date": "Date:",
+  "payment.backToWallet": "Back to Wallet",
+  "payment.allTransactionsSecured": "All financial transactions are protected and documented according to Tibr's encryption standards.",
+  "orders.backToOrders": "Back to Orders",
+  "orders.loading": "Loading...",
+  "orders.error": "Error",
+  "orders.retry": "Retry",
+  "orders.notFound": "Order Not Found",
+  "orders.notFoundMsg": "The order you are looking for does not exist or has been archived.",
+  "orders.viewAll": "View All Orders",
+  "orders.paymentSuccess": "Payment successful! Your order has been confirmed.",
+  "orders.paymentFailed": "Payment failed. Please try again.",
+  "orders.acquisitionCode": "Acquisition Code",
+  "orders.orderNumberPrefix": "Order #",
+  "orders.datePlaced": "Date Placed",
+  "orders.customerProfile": "Customer Profile",
+  "orders.acquisitionManifest": "Acquisition Manifest",
+  "orders.financialSummary": "Financial Summary",
+  "orders.totalAmount": "Total Amount",
+  "orders.cancelOrder": "Cancel Order",
+  "orders.returnToList": "Return to List",
+  "orders.review": "Your Review of This Transaction",
+  "orders.reviewNoComment": "Review submitted successfully with no comment.",
+  "deposit.title": "Deposit Funds",
+  "deposit.titleSlider": "Secure Your Future with Gold",
+  "deposit.subtitleSlider": "Deposit your funds instantly and start building your precious metals portfolio with complete security.",
+  "deposit.encryption": "Full Encryption",
+  "deposit.banks": "Bank Partners",
+  "deposit.assets": "Secured Assets",
+  "deposit.subtitle": "Select the amount and payment method to complete the transaction",
+  "deposit.amount": "Deposit Amount (EGP)",
+  "deposit.execute": "Confirm Deposit",
+  "deposit.error": "Please enter a valid amount to complete the deposit.",
+  "deposit.summaryAmount": "Deposit Amount",
+  "deposit.currency": "EGP",
+  "deposit.transactionFee": "Transaction Fee",
+  "deposit.freeLabel": "0% Free",
+  "deposit.totalToDeposit": "Total to Deposit",
+  "deposit.secureBadge1": "PCI DSS Secure",
+  "deposit.secureBadge2": "256-bit Encryption",
+  "deposit.successAlert": "Deposit confirmed successfully! Transaction reference: {{checkoutUrl}}",
+  "deposit.serverError": "An error occurred while connecting to the server. Please try again later.",
+  "deposit.securePayment": "Secure Encrypted Payment",
+  "delivery.title": "Request Metal Delivery",
+  "delivery.subtitle": "Manage your addresses and schedule your precious assets delivery securely",
+  "delivery.addresses": "Delivery Addresses",
+  "delivery.address": "Delivery Address",
+  "delivery.newAddress": "Add New Address",
+  "delivery.selectAddress": "Select Delivery Address",
+  "delivery.selectMetal": "Select Metal Type",
+  "delivery.amount": "Amount in Grams",
+  "delivery.area": "Area/Neighborhood",
+  "delivery.delete": "Delete",
+  "delivery.grams": "Grams",
+  "delivery.loadError": "An error occurred while loading your delivery requests. Please try again later.",
+  "delivery.addressLoadError": "An error occurred while loading your addresses. Please try again later.",
+  "delivery.holdingsError": "An error occurred while fetching your wallet holdings. Please try again later.",
+  "delivery.addressCreated": "New delivery address created successfully!",
+  "delivery.insufficientGold": "Sorry, you cannot request delivery of an amount exceeding your gold holdings.",
+  "delivery.addressCreateError": "An error occurred while creating the delivery address. Please try again later.",
+  "delivery.addressDeleted": "Delivery address deleted successfully!",
+  "delivery.addressDeleteError": "An error occurred while deleting the delivery address. Please try again later.",
+  "delivery.insufficientSilver": "Sorry, you cannot request delivery of an amount exceeding your silver holdings.",
+  "delivery.requestSubmitted": "Delivery request submitted successfully!",
+  "delivery.submit": "Submit Delivery Request",
+  "delivery.requestError": "An error occurred while submitting the delivery request. Please try again later.",
+  "delivery.trackError": "Unable to fetch current order details. Please try again later.",
+  "delivery.addressBook": "Your Address Book",
+  "delivery.success": "Delivery request submitted successfully!",
+  "delivery.street": "Street and Details",
+  "delivery.city": "City/Region",
+  "delivery.postalCode": "Postal Code",
+  "delivery.status": "Current Status",
+  "delivery.actions": "Manage",
+  "delivery.currentAndPastRequests": "Current and Past Delivery Requests",
+  "delivery.noRequests": "No delivery requests registered currently",
+  "delivery.requestNumber": "Request Number",
+  "delivery.assetType": "Metal Type",
+  "delivery.quantity": "Requested Quantity",
+  "delivery.deliveryAddress": "Delivery Address",
+  "delivery.trackingNumber": "Tracking Number",
+  "delivery.orderDate": "Order Date",
+  "delivery.state": "Order Status",
+  "delivery.zip": "Postal Code",
+  "delivery.gold": "Pure Gold",
+  "delivery.country": "Country",
+  "delivery.silver": "Pure Silver",
+  "delivery.isDefault": "Default Address",
+  "delivery.notAvailableYet": "Not available yet",
+  "delivery.addAddressTitle": "Add New Delivery Address",
+  "buying.title": "Buy Precious Metals",
+  "buying.selectMetal": "Select Metal Type",
+  "buying.amount": "Amount (Grams)",
+  "buying.expectedPrice": "Expected Value",
+  "buying.details": "Transaction Details",
+  "buying.walletBalance": "Wallet Balance:",
+  "buying.insufficientBalance": "Insufficient Balance",
+  "buying.confirm": "Confirm Purchase",
+  "buying.congratulations": "Congratulations! Transaction Complete",
+  "buying.successMsg": "Metal purchase has been completed and added to your investment portfolio.",
+  "buying.backToWallet": "Back to Wallet",
+  "status.pending": "Pending",
+  "status.confirmed": "Confirmed",
+  "status.processing": "Processing",
+  "status.shipped": "Shipped",
+  "status.delivered": "Delivered",
+  "status.cancelled": "Cancelled",
+  "status.paid": "Paid",
+  "status.failed": "Failed",
+  "status.refunded": "Refunded",
+  "transaction.buy": "Buy",
+  "transaction.sell": "Sell",
+  "transaction.hold": "Hold Balance",
+  "transaction.unhold": "Unhold Balance",
+  "transaction.other": "Other Transaction",
+  "reference.investment": "Investment Order",
+  "reference.trading": "Trading Operation",
+  "reference.deposit": "Cash Deposit",
+  "reference.delivery": "Delivery Request",
+  "reference.general": "General Reference",
+  "buying.gold": "Gold",
+  "buying.silver": "Silver",
+  "buying.gramUnit": "Gram",
+  "buying.currencyUnit": "EGP",
+  "buying.availableBalance": "Available Cash Balance",
+  "buying.operationDetails": "Transaction Details",
+  "buying.currentUnitPrice": "Current Price per Gram",
+  "buying.totalAmount": "Total Quantity",
+  "buying.totalCost": "Total Cost",
+  "buying.processing": "Processing order...",
+  "buying.confirmBuy": "Confirm Instant Purchase",
+  "buying.marketDisclaimer": "Prices are directly linked to the global stock exchange.",
+  "buying.successTitle": "Congratulations! Transaction Completed",
+  "buying.successDescription": "Successfully purchased and allocated {grams} grams of {metal} and added it to your investment wallet.",
+  "buying.pureGold": "Pure Gold",
+  "buying.pureSilver": "Pure Silver",
+  "strategy.create_title": "Create New Strategy",
+  "strategy.subtitle": "Define your criteria for executing automated bullion trades.",
+  "strategy.select_asset": "Select Asset",
+  "strategy.gold": "Gold",
+  "strategy.silver": "Silver",
+  "strategy.operation_type": "Operation Type",
+  "strategy.buy": "Buy",
+  "strategy.sell": "Sell",
+  "strategy.quantity": "Quantity (in Grams)",
+  "strategy.quantity_placeholder": "e.g., 10",
+  "strategy.condition_type": "Condition Type",
+  "strategy.less_than": "Price Less Than",
+  "strategy.greater_than": "Price Greater Than",
+  "strategy.equal_to": "Price Equal To",
+  "strategy.target_price": "Target Price (EGP)",
+  "strategy.target_price_placeholder": "e.g., 4800",
+  "strategy.execution_type": "Execution Type",
+  "strategy.alert_only": "Alert Only",
+  "strategy.auto_execute": "Auto Execute",
+  "strategy.alert_execute": "Alert + Execute",
+  "strategy.expiry_date": "Expiration Date",
+  "strategy.summary_title": "Strategy Summary",
+  "strategy.asset_label": "Asset:",
+  "strategy.leverage_label": "Leverage:",
+  "strategy.leverage_val": "1:1 (Physical)",
+  "strategy.fees_label": "Expected Fees:",
+  "strategy.launch_btn": "Launch Strategy",
+  "strategy.terms_disclaimer": "By launching, you agree to the automated trading terms of TIBR.",
+  "strategy.current_list_title": "Your Current Strategies (Conditional)",
+  "strategy.refresh_btn": "Refresh List",
+  "strategy.loading_msg": "Fetching your active strategies...",
+  "strategy.empty_msg": "You currently have no active strategies.",
+  "strategy.th_tx_id": "Transaction ID",
+  "strategy.th_asset": "Asset",
+  "strategy.th_type": "Operation Type",
+  "strategy.th_qty": "Quantity",
+  "strategy.th_current_price": "Current Price",
+  "strategy.th_exec_method": "Execution Method",
+  "strategy.th_expiry": "Expiration Date",
+  "strategy.th_status": "Status",
+  "login.Welcome": "Welcome Back",
+  "login.access_your_investment": "Sign in to access your investment wallet",
+  "login.email": "Email Address",
+  "login.email_is_required": "Email is required.",
+  "login.password": "Password",
+  "Required field.":"Required field.",
+  "At least 8 characters.":"At least 8 characters.",
+  "login.forgot_password": "Forgot Password",
+  "login.password_is_required": "Password is Required",
+  "login.remember_my_session":"Remember my session",
+  "login.Signing_in":"Signing in...",
+  "login.Sign_In":"Sign In",
+  "login.Dont_have_an_account?":"Don't have an account?",
+  "login.create_a_new_account":"Create a new account",
+  "Enter a valid email address.":"Enter a valid email address.",
+  "Phone Number":"Phone Number",
+  "Phone number is required.":"Phone number is required.",
+  "Digits only allowed.":"Digits only allowed.",
+  "Invest smartly with gold & silver":"Invest smartly with gold & silver",
+  "Create a New Account":"Create a New Account",
+  "Enter your details to start protecting your valuable savings.":"Enter your details to start protecting your valuable savings.",
+  "First name is required.":"First name is required.",
+  "Last Name":"Last Name",
+  "strategy.open_ended": "Open-ended",
+  "footer.howItWorks": "How It Works",
+  "footer.legal": "Legal",
+  "footer.faq": "FAQ",
+  "terms.section1.title": "1. Acceptance of Terms",
+  "terms.section1.content": "By accessing or using the Tibr platform, you confirm that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree, you must not use the platform.",
+  "terms.section2.title": "2. Eligibility",
+  "terms.section2.content": "You must be at least 18 years old and a legal resident of Egypt. You must provide accurate, complete information during registration and maintain the confidentiality of your account credentials.",
+  "terms.section3.title": "3. Accounts & KYC",
+  "terms.section3.content": "To use our services, you must complete the registration process, verify your email via OTP, and submit Know-Your-Customer (KYC) documents including a valid national ID and a selfie. We reserve the right to suspend accounts with incomplete or suspicious KYC submissions.",
+  "terms.section4.title": "4. Wallet & Funds",
+  "terms.section4.content": "Your Tibr wallet holds cash balances used for buying precious metals. Deposits are processed via third-party payment gateways. Withdrawals are subject to minimum and maximum limits (100 EGP min, 50,000 EGP daily max). Funds are held in segregated accounts and are not covered by deposit insurance.",
+  "terms.section5.title": "5. Trading Rules",
+  "terms.section5.content": "Buying and selling of gold and silver is executed at live market prices. All trades are final once confirmed. Tibr acts as an execution-only platform and does not provide investment advice unless explicitly stated.",
+  "terms.section6.title": "6. Investment Strategies",
+  "terms.section6.content": "Automated strategies allow you to set conditional buy/sell rules. Execution types include Alert Only, Auto Execute, and Alert + Execute. You acknowledge that automated trading carries risk and past performance does not guarantee future results.",
+  "terms.section7.title": "7. Physical Delivery",
+  "terms.section7.content": "You may request physical delivery of your metal holdings. Delivery addresses must be accurate and verifiable. Shipping timelines, fees, and insurance terms are provided at the time of request. Tibr is not liable for delays caused by third-party carriers.",
+  "terms.section8.title": "8. AI Advisory Disclaimer",
+  "terms.section8.content": "The AI Academy and Financial Advisor tools provide informational content and market insights only. They do not constitute financial advice, investment recommendations, or solicitation to trade. All investment decisions remain your sole responsibility.",
+  "terms.section9.title": "9. Risk Disclosure",
+  "terms.section9.content": "Investing in precious metals carries inherent risks including market volatility, price fluctuations, liquidity risk, and storage risk. The value of your investment may go down as well as up. You should only invest funds you can afford to lose.",
+  "terms.section10.title": "10. Limitation of Liability",
+  "terms.section10.content": "To the maximum extent permitted by Egyptian law, Tibr shall not be liable for any indirect, incidental, or consequential damages arising from your use of the platform, including but not limited to trading losses, system downtime, or AI-generated suggestions.",
+  "terms.section11.title": "11. Termination",
+  "terms.section11.content": "We reserve the right to suspend or terminate accounts that violate these terms, engage in fraudulent activity, or fail KYC/AML compliance checks. Upon termination, you may withdraw your remaining cash balance subject to standard processing times.",
+  "terms.section12.title": "12. Governing Law",
+  "terms.section12.content": "These Terms & Conditions are governed by the laws of the Arab Republic of Egypt. Any disputes shall be resolved exclusively in the courts of Cairo.",
+  "terms.section13.title": "13. Amendments",
+  "terms.section13.content": "We may update these terms from time to time. Users will be notified of material changes via email or platform notification. Continued use of the platform after changes take effect constitutes acceptance of the new terms.",
+  "terms.lastUpdated": "Last updated: June 2026",
+  "terms.title": "Terms & Conditions",
+  "privacy.section1.title": "1. Data Controller",
+  "privacy.section1.content": "Tibr is the data controller for personal data collected through the platform. If you have any questions about this policy or your data rights, please contact our support team.",
+  "privacy.section2.title": "2. Data We Collect",
+  "privacy.section2.content": "We collect: (a) Registration data: name, email, phone number, date of birth; (b) KYC data: national ID number, ID images (front and back), selfie photo; (c) Financial data: wallet balances, transaction history, deposit/withdrawal records, trading activity; (d) Technical data: IP address, device information, browser type, cookies; (e) Communication data: support tickets, chat conversations with AI tools.",
+  "privacy.section3.title": "3. How We Use Your Data",
+  "privacy.section3.content": "We use your data to: (a) Create and maintain your account; (b) Verify your identity and comply with KYC/AML regulations; (c) Process trades, deposits, withdrawals, and delivery requests; (d) Provide AI-powered educational and advisory responses; (e) Improve platform security and user experience; (f) Send service-related communications.",
+  "privacy.section4.title": "4. Legal Basis for Processing",
+  "privacy.section4.content": "We process your data based on: (a) Your consent (given during registration and KYC); (b) Contractual necessity (to provide our services); (c) Legal obligations (Egyptian AML, KYC, and data protection laws); (d) Legitimate business interests (platform security, fraud prevention).",
+  "privacy.section5.title": "5. Data Sharing",
+  "privacy.section5.content": "We may share your data with: (a) Payment gateway providers to process deposits and withdrawals; (b) KYC verification service providers; (c) AI hosting infrastructure providers; (d) Regulatory authorities as required by Egyptian law. We do not sell your personal data to third parties.",
+  "privacy.section6.title": "6. Data Retention",
+  "privacy.section6.content": "KYC documents and identification data are retained for a minimum of 5 years as required by Egyptian AML regulations. Transaction records are retained for 10 years. Chat conversation history is retained until you request deletion. Account data is retained for the duration of your account plus 1 year.",
+  "privacy.section7.title": "7. Your Rights",
+  "privacy.section7.content": "Under Egyptian data protection law, you have the right to: access your personal data, correct inaccurate data, request deletion of your data (subject to legal retention requirements), restrict processing, request data portability, and withdraw consent at any time.",
+  "privacy.section8.title": "8. Cookies",
+  "privacy.section8.content": "We use essential cookies for authentication (session tokens), functionality (language preference stored locally), and analytics. You can control cookie settings through your browser. Disabling essential cookies may affect platform functionality.",
+  "privacy.section9.title": "9. Security",
+  "privacy.section9.content": "We implement industry-standard security measures including 256-bit encryption, secure data centers, access controls, and regular security audits. However, no method of electronic transmission or storage is 100% secure, and we cannot guarantee absolute security.",
+  "privacy.section10.title": "10. Changes to This Policy",
+  "privacy.section10.content": "We may update this Privacy Policy periodically. Material changes will be communicated via email or platform notification. We encourage you to review this policy regularly.",
+  "privacy.lastUpdated": "Last updated: June 2026",
+  "privacy.title": "Privacy Policy",
+  "howItWorks.sectionTag": "Step by Step",
+  "howItWorks.heading": "Your Investment Journey, Simple and Smart",
+  "howItWorks.step1.title": "Create Account",
+  "howItWorks.step1.desc": "Sign up securely in minutes. Complete a simple verification process to get started.",
+  "howItWorks.step2.title": "Fund Your Wallet",
+  "howItWorks.step2.desc": "Connect your preferred payment method and add capital to your investment dashboard easily.",
+  "howItWorks.step3.title": "Select Asset",
+  "howItWorks.step3.desc": "Browse our fully verified gold and silver assets and choose the allocation that fits your goals.",
+  "howItWorks.step4.title": "Monitor & Grow",
+  "howItWorks.step4.desc": "Track your real-time analytics, instant execution status, and watch your physical wealth compound.",
+  "about.sectionTag": "Our Philosophy",
+  "about.heading": "Built on Trust, Secured by Design",
+  "about.description": "Tibr bridges the gap between traditional physical wealth and digital convenience. We empower investors to secure their future with smart precision.",
+  "about.secureBadge": "100% Secure",
+  "about.trust1.heading": "Fully Verified Storage",
+  "about.trust1.text": "Your assets are allocated in institutional-grade vaults with regular independent audits.",
+  "about.trust2.heading": "Instant Execution",
+  "about.trust2.text": "Buy, liquidate, or trade instantly 24/7 without delays or hidden liquidity cuts.",
+  "about.trust3.heading": "AI-Powered Precision Analytics",
+  "about.trust3.text": "Gain real-time insights on your investments with smart tools customized for raw gold and silver markets.",
+  "team.sectionTag": "Experts & Founders",
+  "team.heading": "Tibr Team",
+  "team.description": "A premier group of specialists across technology, investment, and cybersecurity dedicated to ensuring a secure and intelligent investment journey.",
+  "team.linkedinTooltip": "LinkedIn",
+  "team.twitterTooltip": "Twitter/X",
+  "team.emailTooltip": "Email",
+  "team.member1.name": "Ahmed Sabri",
+  "team.member1.role": "Chief Executive Officer (CEO)",
+  "team.member1.bio": "Over 10 years of leadership in digital financial platforms and structuring physical precious metal investments.",
+  "team.member2.name": "Karim Mahmoud",
+  "team.member2.role": "Chief Technology Officer (CTO)",
+  "team.member2.bio": "Expert architectural specialist building distributed cloud infrastructures and hyper-secure, instant execution trading engines.",
+  "team.member3.name": "Sarah Abdelrahman",
+  "team.member3.role": "Head of Blockchain & Security",
+  "team.member3.bio": "Cybersecurity professional managing advanced cryptographic validations and end-to-end audits of physical safe-houses.",
+  "team.member4.name": "Youssef Ali",
+  "team.member4.role": "Lead UI/UX Architect",
+  "team.member4.bio": "The creative visionary driving the premium aesthetic layout and seamless intuitive user experiences across desktop and mobile.",
+  "team.member5.name": "Mariam Hassan",
+  "team.member5.role": "Financial Investment Advisor",
+  "team.member5.bio": "Global market quantitative analyst specializing in real asset macro trends, spot gold, and tactical capital placement strategy.",
+  "cart.breadcrumb.home": "Home",
+  "cart.breadcrumb.cart": "Cart",
+  "cart.title": "Shopping Cart",
+  "cart.subtitle": "Review your selected luxury metals and proceed to a secure checkout.",
+  "cart.empty.title": "Your cart is empty",
+  "cart.empty.description": "Discover premium gold and silver pieces, then add them to your cart for a seamless, luxury checkout experience.",
+  "cart.empty.cta": "Continue shopping",
+  "cart.loading": "Loading your cart items…",
+  "cart.inCart": "In Cart",
+  "cart.clearCart": "Clear cart",
+  "cart.clearing": "Clearing...",
+  "cart.continueShopping": "Continue shopping",
+  "cart.available": "available",
+  "cart.unitPrice": "Unit price:",
+  "cart.quantity": "Quantity:",
+  "cart.itemTotal": "Total:",
+  "cart.removing": "Removing...",
+  "cart.remove": "Remove",
+  "cart.viewProduct": "View product",
+  "cart.orderSummary": "Order summary",
+  "cart.summary.items": "Items",
+  "cart.summary.pieces": "pieces",
+  "cart.summary.subtotal": "Subtotal",
+  "cart.summary.total": "Total",
+  "cart.taxNote": "Taxes and duties are calculated at checkout.",
+  "cart.proceedToCheckout": "Proceed to Checkout",
+  "cart.secureCheckout": "Secure checkout",
+  "cart.premiumSupport": "Premium customer support",
+  "cart.error.load": "Unable to load cart at this time.",
+  "cart.info.removed": "Item removed from your cart.",
+  "cart.error.remove": "Unable to remove item from cart.",
+  "cart.info.cleared": "Your cart has been cleared.",
+  "cart.error.clear": "Unable to clear cart right now.",
+  "checkout.success.title": "Order Placed Successfully!",
+  "checkout.success.message": "Thank you for your purchase. Redirecting you to secure payment gateway...",
+  "checkout.title": "Checkout",
+  "checkout.subtitle": "Complete your details to finish your secure transaction.",
+  "checkout.loading": "Loading...",
+  "checkout.loadingMessage": "Assembling your luxury cart items...",
+  "checkout.reviewItems": "Review Items",
+  "checkout.emptyCart": "Your cart is currently empty.",
+  "checkout.table.productName": "Product Name",
+  "checkout.table.qty": "Qty",
+  "checkout.table.price": "Price",
+  "checkout.table.subtotal": "Subtotal",
+  "checkout.shippingAddress": "Shipping Address",
+  "checkout.orderSummary": "Order Summary",
+  "checkout.summary.subtotal": "Subtotal",
+  "checkout.summary.total": "Total",
+  "checkout.processing": "Processing Transaction...",
+  "checkout.placeOrder": "Place Order",
+  "checkout.sslBadge": "SSL Encrypted Secured Checkout",
+  "checkout.error.loadCart": "Unable to load cart items. Please try again.",
+  "checkout.error.payment": "Payment initiation failed. Please try again.",
+  "checkout.error.placeOrder": "Failed to place order. Please try again.",
+  "favorite.title": "My Favorites",
+  "favorite.heading": "Saved products",
+  "favorite.description": "Review the products you bookmarked and manage your favorites list.",
+  "favorite.tryAgain": "Try Again",
+  "favorite.currency": "EGP",
+  "favorite.viewDetails": "View Details",
+  "favorite.remove": "Remove",
+  "favorite.empty.title": "No favorites yet",
+  "favorite.empty.description": "You haven't saved any products yet. Browse the store and add items to your favorites list.",
+  "favorite.empty.cta": "Browse products",
+  "favorite.error.load": "Unable to load your favorites right now.",
+  "favorite.error.update": "Unable to update your favorites.",
+  "orders.orderPrefix": "Order #",
+  "orders.reviewDateLabel": "Reviewed on:",
+  "support.closeAriaLabel": "Close",
+  "productCard.sellPrice": "Sell Price",
+  "productCard.available": "Available",
+  "productCard.lowStock": "Low Stock",
+  "productCard.outOfStock": "Out of Stock",
+  "productCard.addToWishlist": "Add to Wishlist",
+  "productCard.addToCart": "Add to Cart",
+  "productCard.viewDetails": "View Details",
+  "productCard.fineGold": "FINE GOLD",
+  "productCard.fineSilver": "FINE SILVER",
+  "productCard.liveMarket": "LIVE MARKET",
+  "productCard.lowStockPrefix": "Only ",
+  "productCard.lowStockSuffix": "g left",
+  "productCard.stockSuffix": "g available",
+  "financialAdvisor.headerTitle": "Smart Financial Advisor",
+  "financialAdvisor.headerSubtitle": "Smart portfolio analysis and real-time buy/sell guidance",
+  "financialAdvisor.suggestedTitle": "Suggested Quick Consultations",
+  "financialAdvisor.inputPlaceholder": "Enter your budget amount or ask about the right time to buy or sell...",
+  "financialAdvisor.newChat": "New Chat",
+  "financialAdvisor.historyTitle": "Previous Conversations",
+  "financialAdvisor.portfolioTitle": "Your Portfolio Summary",
+  "financialAdvisor.totalValue": "Total Value:",
+  "financialAdvisor.calculatorTitle": "Quick Smart Calculator",
+  "financialAdvisor.weightLabel": "Weight (grams):",
+  "financialAdvisor.metalLabel": "Target Metal:",
+  "financialAdvisor.estimatedValue": "Estimated Value:",
+  "financialAdvisor.signalTitle": "Recommendation & Rating Indicator",
+  "financialAdvisor.currentIntent": "Current Intent Classification:",
+  "financialAdvisor.welcome": "Welcome to the Smart Financial Advisory Unit! 💼 I am here to help you build purchase strategies, calculate your precious portfolio weights, and analyze the best investment opportunities based on your current capital. What is your plan or budget today?",
+  "financialAdvisor.error": "Sorry, an error occurred while connecting to the server. Please check your authentication and try again.",
+  "financialAdvisor.question1": "I have a budget of 50,000 EGP, how should I distribute it?",
+  "financialAdvisor.question2": "Is now a good time to buy silver bars?",
+  "financialAdvisor.question3": "How do I protect my savings from current inflation?",
+  "financialAdvisor.question4": "Quick technical analysis of gold prices today.",
+  "aiAcademy.headerTitle": "Tibr Smart Academy",
+  "aiAcademy.headerSubtitle": "Your Educational Advisor for Precious Metals Markets",
+  "aiAcademy.suggestedTitle": "Start Learning from Suggested Topics",
+  "aiAcademy.inputPlaceholder": "Ask me about any financial or investment concept you want to understand...",
+  "aiAcademy.marketTitle": "Live Asset Prices",
+  "aiAcademy.glossaryTitle": "Quick Investor Glossary",
+  "aiAcademy.welcome": "Welcome to Tibr Educational Academy! 🎓 I am your academic advisor to help you understand the fundamentals and mechanisms of investing in gold and silver from scratch. You can save time by choosing one of the suggested questions below or type your inquiry directly!",
+  "aiAcademy.error": "Sorry, I encountered a problem connecting to the server. Please try again later.",
+  "aiAcademy.question1": "What is the difference between investing in gold and silver?",
+  "aiAcademy.question2": "How do I calculate the manufacturing cost of bars?",
+  "aiAcademy.question3": "What are the best times to buy precious metals?",
+  "aiAcademy.question4": "Simple explanation of inflation and its relationship to gold.",
+    "auth.create_account": "Create a New Account",
+    "auth.enter_details": "Enter your details to start protecting your valuable savings.",
+    "auth.already_have_account": "Already have an account?",
+    "auth.log_in": "Log in",
+    "auth.processing": "Processing your information...",
+    "auth.success_creation": "Account created successfully",
+    "auth.create_secure_account": "Create Secure Account",
+    "formirst_name": "First Name",
+    "form.last_name": "Last Name",
+    "form.email_address": "Email Address",
+    "form.phone_number": "Phone Number",
+    "form.password": "Password",
+    "form.confirm_password": "Confirm Password",
+    "form.agree_to": "I agree to the",
+    "form.terms_conditions": "Terms and Conditions",
+    "form.and": "and",
+    "form.privacy_policy": "Privacy Policy",
+    "form.of_tibr": "of TIBR.",
+    "form.placeholders.first_name": "John",
+    "form.placeholders.last_name": "Doe",
+    "validation.first_name_required": "First name is required.",
+    "validation.last_name_required": "Last name is required.",
+    "validation.min_characters": "Minimum 2 characters.",
+    "validation.email_required": "Email is required.",
+    "validation.valid_email": "Enter a valid email address.",
+    "validation.phone_required": "Phone number is required.",
+    "validation.digits_only": "Digits only allowed.",
+    "validation.required_field": "Required field.",
+    "validation.password_min": "At least 8 characters.",
+    "validation.password_mismatch": "Passwords do not match.",
+    "validation.terms_required": "You must accept the terms to continue.",
+    "security.aes_encryption": "AES-256 Encryption",
+    "security.ssl_connection": "Secure SSL Connection",
+    "branding.logo_alt": "TIBR Logo",
+    "branding.gold_vault_alt": "Gold Bars Vault",
+    "branding.begin_journey": "Begin your secure investment journey",
+    "branding.guaranteed_purity": "Guaranteed purity",
+    "branding.cyber_encryption": "Cyber encryption",
+    "branding.instant_trading": "Instant trading",
+    "modal.welcome_title": "Welcome to Gold & Silver Platform",
+    "modal.success_message_line1": "Your investment account has been created successfully!",
+    "modal.success_message_line2": "We have sent a verification code to your email to secure your wallet and activate cash trading privileges.",
+    "modal.action_button": "Proceed to Account Confirmation & Security",
+    "page_title": "Identity Verification (KYC)",
+    "page_subtitle": "Complete your profile setup to secure your bullion trading wallet.",
+    "progress_label": "Verification Progress",
+    "section_personal_title": "Personal Investor Information",
+    "section_personal_subtitle": "Please enter your government-issued ID specifications precisely.",
+    "document_type": "Document Type",
+    "document_number": "Document Number (National ID)",
+    "document_number_placeholder": "Enter 14-digit national ID",
+    "section_upload_title": "Upload Official Documents",
+    "section_upload_subtitle": "Please upload a clear, high-resolution digital copy of your National ID card.",
+    "front_side_label": "ID Photo (Front Face)",
+    "front_side_upload": "Upload Front Side",
+    "back_side_label": "ID Photo (Back Face)",
+    "back_side_upload": "Upload Back Side",
+    "file_limits": "PNG, JPG — Max 5 MB",
+    "document_loaded": "Document Loaded",
+    "selfie_label": "Selfie with ID Verification",
+    "selfie_upload": "Personal Selfie",
+    "selfie_hint": "Hold your ID clear next to your face",
+    "selfie_verified": "Selfie Verified",
+    "error_prefix": "Error:",
+    "success_prefix": "Success:",
+    "state_loading": "Encrypting & Archiving Assets...",
+    "state_success": "Verification Data Sent Successfully",
+    "state_error": "Retry Submission Process",
+    "state_default": "Submit Portfolio for Final Audit",
+
+
+    "verify_title": "Verify Your Email",
+    "verify_subtitle": "We sent a verification code to your email. Please enter the 6-digit code to secure your investment wallet.",
+    "verifying_state": "Verifying code...",
+    "verified_success": "Verified successfully",
+    "confirm_btn": "Confirm code and account",
+    "did_not_receive": "Didn't receive the security code?",
+    "resend_btn": "Resend code",
+    "timer_text_part1": "You can request a new code in",
+    "timer_text_part2": "seconds",
+    "success_title": "Your account has been activated successfully",
+    "success_body_line1": "Congratulations! Your digital identity has been verified successfully and your wallet is secured.",
+    "success_body_line2": "The final step to start trading gold and silver is **Verify your investment account (KYC)**.",
+    "success_action": "Start Investment Identity Verification (KYC)",
+    "resend_title": "Security Code Updated",
+    "resend_body": "We sent you a new 6-digit activation code. Please check your inbox or spam folder.",
+    "resend_action": "Continue Entering Code",
+    "NATIONAL ID":"NATIONAL ID",
+    "Please complete the 14-digit Document Number and attach all 3 required profile pictures.":"Please complete the 14-digit Document Number and attach all 3 required profile pictures.",
+    "Your data has been submitted for review successfully. Your documents will be audited within 24 hours.":"Your data has been submitted for review successfully. Your documents will be audited within 24 hours.",
+    "title": "Account Under Review",
+    "description": "Your account and identity documents are currently being reviewed by our compliance team. We will verify your details and respond to you within 6 hours.",
+    "doc_received": "Documents Received",
+    "audit_in_progress": "Audit in Progress...",
+    "refresh_btn": "Refresh Status",
+    "contact_support": "Contact Support",
+    "security_note": "Your data is encrypted according to bank-grade standards.",
+    "The size of the attached file exceeds the allowed limit (5 MB). Please choose a compressed asset.":"حجم الملف المرفق يتجاوز الحد المسموح به (5 ميجابايت). يرجى اختيار ملف مضغوط."
+}

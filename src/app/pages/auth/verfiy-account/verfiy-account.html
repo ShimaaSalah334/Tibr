@@ -1,4 +1,4 @@
-<main class="flex-grow-1 d-flex align-items-center justify-content-center px-3 py-5 position-relative login-page-bg" dir="ltr">
+<main class="flex-grow-1 d-flex align-items-center justify-content-center px-3 py-5 position-relative login-page-bg" dir="rtl">
   
   <div class="animated-bg-glow"></div>
   <div class="particles-container">
@@ -15,9 +15,9 @@
       </div>
     </div>
     
-    <h1 class="h3 fw-bold text-navy mb-3">Verify Your Email</h1>
+    <h1 class="h3 fw-bold text-navy mb-3">{{ i18n.translate('verify_title', 'التحقق من البريد الإلكتروني') }}</h1>
     <p class="text-secondary-muted small mb-4 lh-base">
-      We sent a verification code to your email. Please enter the 6-digit code to secure your investment wallet.
+      {{ i18n.translate('verify_subtitle', 'لقد أرسلنا رمز التحقق إلى بريدك الإلكتروني. يرجى إدخال الرمز المكون من 6 أرقام لتأمين محفظتك الاستثمارية.') }}
     </p>
     
     <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
@@ -46,37 +46,40 @@
         
         @if (formState() === 'loading') {
           <span class="material-symbols-outlined animate-spin fs-5">sync</span>
-          <span>Verifying code...</span>
+          <span>{{ i18n.translate('verifying_state', 'جاري التحقق من الرمز...') }}</span>
         } @else if (formState() === 'success') {
           <span class="material-symbols-outlined fs-5">verified</span>
-          <span>Verified successfully</span>
+          <span>{{ i18n.translate('verified_success', 'تم التحقق بنجاح') }}</span>
         } @else {
-          <span>Confirm code and account</span>
+          <span>{{ i18n.translate('confirm_btn', 'تأكيد الرمز والحساب') }}</span>
           <span class="material-symbols-outlined fs-5">verified</span>
         }
       </button>
     </form>
     
     <div class="mt-4 pt-4 border-top border-light">
-      <p class="text-secondary-muted small mb-1">Didn't receive the security code?</p>
+      <p class="text-secondary-muted small mb-1">{{ i18n.translate('did_not_receive', 'لم تصلك رسالة رمز الأمان؟') }}</p>
       
       <button 
         class="btn btn-link text-gold-dark small fw-bold text-decoration-none d-flex align-items-center justify-content-center gap-1 mx-auto hover-gold-text" 
         [disabled]="isTimerActive()"
         (click)="resendCode()"
         type="button">
-        <span>Resend code</span>
+        <span>{{ i18n.translate('resend_btn', 'إعادة إرسال الرمز') }}</span>
         <span class="material-symbols-outlined fs-6" [class.animate-spin]="isResending()">refresh</span>
       </button>
       
       @if (isTimerActive()) {
         <div class="mt-2 text-muted small">
-          You can request a new code in <span class="fw-bold text-navy">{{ timerValue() }}</span> seconds
+          {{ i18n.translate('timer_text_part1', 'يمكنك طلب رمز جديد خلال') }} 
+          <span class="fw-bold text-navy" dir="ltr">{{ timerValue() }}</span> 
+          {{ i18n.translate('timer_text_part2', 'ثانية') }}
         </div>
       }
     </div>
     
   </div>
+
   @if (showSuccessModal()) {
     <div class="custom-modal-backdrop d-flex align-items-center justify-content-center px-3" dir="rtl">
       <div class="custom-modal-card text-center p-4 p-md-5 position-relative overflow-hidden">
@@ -86,15 +89,15 @@
           <span class="material-symbols-outlined gold-gradient-text fs-1">gpp_good</span>
         </div>
         
-        <h2 class="h4 fw-bold text-navy mb-3">تم تفعيل حسابك بنجاح</h2>
+        <h2 class="h4 fw-bold text-navy mb-3">{{ i18n.translate('success_title', 'تم تفعيل حسابك بنجاح') }}</h2>
         <p class="text-secondary-muted small mb-4 lh-base">
-          تهانينا! تم التحقق من هويتك الرقمية بنجاح وتأمين المحفظة. 
+          {{ i18n.translate('success_body_line1', 'تهانينا! تم التحقق من هويتك الرقمية بنجاح وتأمين المحفظة.') }}
           <br>
-          الخطوة الأخيرة لبدء تداول الذهب والفضة هي **توثيق حسابك الاستثماري (KYC)**.
+          {{ i18n.translate('success_body_line2', 'الخطوة الأخيرة لبدء تداول الذهب والفضة هي **توثيق حسابك الاستثماري (KYC)**.') }}
         </p>
         
         <button (click)="closeSuccessAndNavigate()" class="btn btn-modal-action w-100 py-2.5 fw-bold shadow-sm">
-          البدء في توثيق الهوية الاستثمارية
+          {{ i18n.translate('success_action', 'البدء في توثيق الهوية الاستثمارية') }}
         </button>
       </div>
     </div>
@@ -109,13 +112,13 @@
           <span class="material-symbols-outlined text-navy fs-2">mark_email_read</span>
         </div>
         
-        <h2 class="h5 fw-bold text-navy mb-2">تم تحديث رمز الأمان</h2>
+        <h2 class="h5 fw-bold text-navy mb-2">{{ i18n.translate('resend_title', 'تم تحديث رمز الأمان') }}</h2>
         <p class="text-secondary-muted small mb-4 lh-base">
-          أرسلنا لك كود تفعيل جديد مكون من 6 أرقام. يرجى مراجعة صندوق الوارد أو البريد المهمل.
+          {{ i18n.translate('resend_body', 'أرسلنا لك كود تفعيل جديد مكون من 6 أرقام. يرجى مراجعة صندوق الوارد أو البريد المهمل.') }}
         </p>
         
         <button (click)="closeResendModal()" class="btn btn-modal-action w-100 py-2 fw-semibold shadow-sm">
-          متابعة كتابة الرمز
+          {{ i18n.translate('resend_action', 'متابعة كتابة الرمز') }}
         </button>
       </div>
     </div>

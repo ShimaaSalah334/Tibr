@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../services/auth.Service';
 import { RegisterPayload } from '../../../core/interfaces/register-payload';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,7 @@ export class Register {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  public i18n= inject(I18nService);
 
   isFirstNameFocused = signal<boolean>(false);
   isLastNameFocused = signal<boolean>(false);
@@ -94,7 +96,9 @@ export class Register {
         },
         error: (err) => {
           this.formState.set('error');
-          this.errorMessage.set(err.error?.message || 'An error occurred during registration. Please try again.');
+          this.errorMessage.set(localStorage.getItem('tibr_locale')=="ar"? err.error?.messageAR : err.error?.messageEN);
+          console.log(err);
+          
           console.error('Registration error:', err);
         }
       });

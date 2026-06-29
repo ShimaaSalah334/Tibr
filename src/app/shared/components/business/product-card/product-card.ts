@@ -1,15 +1,18 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { IProduct } from '../../../../core/interfaces/iproduct';
+import { IMAGE_BASE_URL } from '../../../../core/constants/image-base-url';
+import { TranslatePipe } from '../../../../shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, DecimalPipe],
+  imports: [CommonModule, DecimalPipe, TranslatePipe],
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
 export class ProductCard {
+  imageBaseUrl = IMAGE_BASE_URL;
 
   // ── Inputs ────────────────────────────────────────────────
   product = input.required<IProduct>();

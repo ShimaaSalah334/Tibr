@@ -8,6 +8,7 @@ import { CategoryService } from '../../../core/services/category.service';
 import { IProduct }   from '../../../core/interfaces/iproduct';
 import { ICategory }  from '../../../core/interfaces/icategory';
 import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
+import { IMAGE_BASE_URL } from '../../../core/constants/image-base-url';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
   styleUrl: './home.css'
 })
 export class Home implements OnInit, AfterViewInit, OnDestroy {
+  imageBaseUrl = IMAGE_BASE_URL;
 
   private productService  = inject(ProductService);
   private categoryService = inject(CategoryService);

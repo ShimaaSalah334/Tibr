@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../services/auth.Service';
 import { Router } from '@angular/router';
 import { KYCPayload } from '../../../core/interfaces/kyc-payload';
+import { I18nService } from '../../../core/services/i18n.service';
 
 @Component({
   selector: 'app-verfiy-kyc',
@@ -41,7 +42,8 @@ export class VerfiyKYC implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    public i18n: I18nService
   ) {}
 
   ngOnInit(): void {
@@ -84,8 +86,7 @@ export class VerfiyKYC implements OnInit {
           this.selfieFileName.set(file.name);
         }
       } else {
-        // تحديث رسالة الخطأ المضمنة في الصفحة مباشرة دون اللجوء للمتصفح
-        this.errorMessage.set('The size of the attached file exceeds the allowed limit (5 MB). Please choose a compressed asset.');
+        this.errorMessage.set(this.i18n.translate('The size of the attached file exceeds the allowed limit (5 MB). Please choose a compressed asset.','حجم الملف المرفق يتجاوز الحد المسموح به (5 ميجابايت). يرجى اختيار ملف مضغوط.'));
         
         if (field === 'front') {
           this.documentFrontFile.set(null);
@@ -108,7 +109,7 @@ export class VerfiyKYC implements OnInit {
     const selfie = this.selfieFile();
 
     if (!this.kycForm.valid || !front || !back || !selfie || this.formState() === 'loading') {
-      this.errorMessage.set('Please complete the 14-digit Document Number and attach all 3 required profile pictures.');
+      this.errorMessage.set(this.i18n.translate('Please complete the 14-digit Document Number and attach all 3 required profile pictures.','برجاء إكمال رقم المستند المكون من 14 رقمًا وإرفاق صور الملف الشخصي الثلاث المطلوبة.'));
       this.kycForm.markAllAsTouched();
       return;
     }
@@ -130,12 +131,12 @@ export class VerfiyKYC implements OnInit {
     this.authService.verifyKYC(formData).subscribe({
       next: (response) => {
         this.formState.set('success');
-        this.successMessage.set('Your data has been submitted for review successfully. Your documents will be audited within 24 hours.');
-        setTimeout(() => this.router.navigate(['/dashboard']), 2200);
+        this.successMessage.set(this.i18n.translate('Your data has been submitted for review successfully. Your documents will be audited within 24 hours.','تم إرسال بياناتك للمراجعة بنجاح. سيتم تدقيق مستنداتك خلال 24 ساعة.'));
+        setTimeout(() => this.router.navigate(['/pendding-account']), 2200);
       },
       error: (error) => {
         this.formState.set('error');
-        this.errorMessage.set(error?.error?.message || 'An error occurred while submitting your data. Please try again later.');
+        this.errorMessage.set(localStorage.getItem('tibr_locale')=="ar"? error?.error?.messageAR :error?.error?.messageEN);
         console.error('KYC Verification Error:', error);
       }
     });

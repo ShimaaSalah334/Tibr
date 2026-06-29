@@ -1,0 +1,43 @@
+.pending-page-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  overflow: hidden;
+}
+
+.pending-icon-wrapper {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  
+  span {
+    animation: spin-slow 8s linear infinite;
+  }
+}
+
+.status-timeline-box {
+  background-color: rgba(248, 249, 250, 0.8) !important;
+  backdrop-filter: blur(4px);
+}
+
+.pulse-slow {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+.hover-gold-text:hover {
+  color: #c5a059 !important;
+  transition: color 0.3s ease;
+}
+
+.micro-text {
+  font-size: 0.75rem;
+}

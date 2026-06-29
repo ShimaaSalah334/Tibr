@@ -1,3 +1,4 @@
+
 /* الكود الخاص بك مع التعديلات */
 html {
   width: 100%;
@@ -27,4 +28,33 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #60a5fa, #a78bfa); /* تفتيح الألوان عند الهوفر */
   cursor: pointer;
+}
+
+/* تعديل حاوية التنبيه العامة */
+.toast-container .ngx-toastr {
+  top: 7rem;
+  font-family: 'Cairo', sans-serif; /* إذا كنت تستخدم خط معين */
+  border-radius: 12px !important;    /* جعل الحواف دائرية ناعمة */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; /* ظل فخم */
+  direction: rtl;                   /* دعم الكتابة من اليمين لليسار */
+  padding: 15px 15px 15px 22px !important;
+}
+
+/* تخصيص شكل تنبيه الخطأ (Error Toast) */
+.toast-container .toast-error {
+  background-color: #ef4444 !important; /* لون أحمر عصري ومريح للعين */
+  background-image: none !important;    /* حذف الأيقونة الافتراضية القديمة إن لم تعجبك */
+}
+
+/* تخصيص شريط التقدم الزمني للخطأ */
+.toast-container .toast-error .toast-progress {
+  background-color: #b91c1c !important; /* لون شريط تقدم أغمق متناسق مع الخلفية */
+  opacity: 0.4;
+}
+
+/* تخصيص النص داخل التنبيه */
+.toast-container .ngx-toastr .toast-message {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
 }

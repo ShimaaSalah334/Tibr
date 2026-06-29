@@ -2,19 +2,24 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { CartService, BackendCartResponse, BackendCartItem } from '../../../core/services/cart.service';
+import { TranslatePipe } from '../../../shared/pipes/translate.pipe';
+import { I18nService } from '../../../core/services/i18n.service';
+import { IMAGE_BASE_URL } from '../../../core/constants/image-base-url';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, CurrencyPipe],
+  imports: [CommonModule, RouterLink, CurrencyPipe, TranslatePipe],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit {
   private cartService = inject(CartService);
   private router = inject(Router);
+  private i18n = inject(I18nService);
 
   cart = signal<BackendCartResponse | null>(null);
+  imageBaseUrl = IMAGE_BASE_URL;
   isLoading = signal<boolean>(false);
   isClearing = signal<boolean>(false);
   removingItemId = signal<number | null>(null);
@@ -54,7 +59,7 @@ export class CartComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load cart', err);
-        this.error.set('Unable to load cart at this time.');
+        this.error.set(this.i18n.translate('cart.error.load'));
         this.isLoading.set(false);
       },
     });
@@ -72,11 +77,11 @@ export class CartComponent implements OnInit {
       next: (response) => {
         this.cart.set(response);
         this.removingItemId.set(null);
-        this.setInfo('Item removed from your cart.');
+        this.setInfo(this.i18n.translate('cart.info.removed'));
       },
       error: (err) => {
         console.error('Failed to remove item', err);
-        this.error.set('Unable to remove item from cart.');
+        this.error.set(this.i18n.translate('cart.error.remove'));
         this.removingItemId.set(null);
       },
     });
@@ -94,11 +99,11 @@ export class CartComponent implements OnInit {
       next: () => {
         this.cart.set({ userId: this.cart()?.userId ?? 0, cartItems: [], totalAmount: 0 });
         this.isClearing.set(false);
-        this.setInfo('Your cart has been cleared.');
+        this.setInfo(this.i18n.translate('cart.info.cleared'));
       },
       error: (err) => {
         console.error('Failed to clear cart', err);
-        this.error.set('Unable to clear cart right now.');
+        this.error.set(this.i18n.translate('cart.error.clear'));
         this.isClearing.set(false);
       },
     });

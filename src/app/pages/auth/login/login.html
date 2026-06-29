@@ -83,23 +83,23 @@
 
           <div class="form-check d-flex align-items-center gap-2 mb-4 justify-content-start">
             <input formControlName="remember" class="form-check-corporate" id="remember" type="checkbox">
-            <label class="form-check-label text-navy small fw-medium" for="remember">Remember my session</label>
+            <label class="form-check-label text-navy small fw-medium" for="remember">{{i18n.translate('login.remember_my_session','تذكير هذه الجلسة علي الجهاز')}}</label>
           </div>
 
           <button class="btn btn-corporate-gold w-100 py-2.5 fw-semibold shadow-sm" type="submit" [disabled]="formState() === 'loading'">
             @if (formState() === 'loading') {
               <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-              Signing in...
+              {{i18n.translate('login.Signing_in','جااري تسجيل الدخول')}}
             } @else {
-              Sign In <i class="fa-solid fa-arrow-right-to-bracket ms-1"></i>
+              {{i18n.translate('login.Sign_In','تسجيل الدخول')}} <i class="fa-solid fa-arrow-right-to-bracket ms-1"></i>
             }
           </button>
         </form>
 
         <div class="mt-4 text-center">
           <p class="small text-muted mb-0">
-            Don't have an account? 
-            <a class="text-gold-dark fw-bold text-decoration-none ms-1" [routerLink]="['/register']">Create a new account</a>
+            {{i18n.translate('login.Dont_have_an_account?','ليس لديك حساب؟')}}
+            <a class="text-gold-dark fw-bold text-decoration-none ms-1" [routerLink]="['/register']">{{i18n.translate('login.create_a_new_account','إنشاء حساب جديد')}}</a>
           </p>
         </div>
       </div>
@@ -110,8 +110,8 @@
           <img alt="Gold and Silver Bars" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnr4fNIf4H4dFfwZikTz5dj6izdwV0bnYrD-wjM3R3dsVfGcKz69KjzDXsVG1aVAdZrL15FSO1CFHa5M02jNUjNcmYQNexXA7LCeI_jtzHGLmLO2xVGQg4dI2eFID2BGpxFxezvp1dyLuxXlM5nOFXvlcwCZtd55X3CIXWe_2s_q_2uloU_xnfXLM9hEatjafgSUpSGPmAQXz4apYHj-x7GLMMPZAnrtKQIlmjLIgg8b7tidGGUb33qAG6ta7uU3LHkAKKJip5bH8b">
         </div>
         <div class="brand-text-box p-4 p-lg-5">
-          <h2 class="h4 fw-bold text-white mb-2">Invest smartly with gold & silver</h2>
-          <p class="text-light-muted small mb-0">Open your account today and secure your premium investment assets</p>
+          <h2 class="h4 fw-bold text-white mb-2">{{i18n.translate('Invest smartly with gold & silver','استثمر بذكاء في الذهب والفضة')}}</h2>
+          <p class="text-light-muted small mb-0">{{i18n.translate('Open your account today and secure your premium investment assets','افتح حسابك اليوم واحصل على أصولك الاستثمارية المميزة.')}}</p>
         </div>
       </div>
 

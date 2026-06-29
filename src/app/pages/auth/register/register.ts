@@ -79,7 +79,8 @@ export class Register {
         password,
         confirmPassword,
         firstName,
-        lastName
+        lastName,
+        lang:localStorage.getItem('tibr_locale')=="en"?"en":"ar"
       };
       
       this.authService.register(payload).subscribe({
@@ -89,7 +90,6 @@ export class Register {
           
           localStorage.setItem('registeredEmail', this.tempEmail);
           
-          // فتح المودال المخصص الفاخر بدلاً من الـ alert التقليدي
           this.showAlertModal.set(true);
         },
         error: (err) => {

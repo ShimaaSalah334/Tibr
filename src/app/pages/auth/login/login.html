@@ -17,8 +17,8 @@
           <div class="brand-logo-wrapper mb-3">
             <img src="logo.png" alt="Tibr Logo">
           </div>
-          <h1 class="h3 fw-bold text-navy mb-1">Welcome Back</h1>
-          <p class="text-secondary-muted small">Sign in to access your investment wallet</p>
+          <h1 class="h3 fw-bold text-navy mb-1">{{i18n.translate('login.Welcome','مرحبًا بعودتك')}}</h1>
+          <p class="text-secondary-muted small">{{i18n.translate('login.access_your_investment','سجّل الدخول للوصول إلى محفظة استثماراتك')}}</p>
         </div>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -28,8 +28,8 @@
             </div>
           }
           
-          <div class="mb-3 text-start">
-            <label class="form-label text-navy fw-medium" for="email">Email Address</label>
+          <div class="mb-3">
+            <label class="form-label text-navy fw-medium" for="email">{{i18n.translate('login.email','')}}</label>
             <div class="position-relative input-with-icon">
               <i class="fa-regular fa-envelope field-icon"></i>
               <input 
@@ -44,15 +44,15 @@
             </div>
             @if (loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)) {
               <div class="invalid-feedback d-block mt-1">
-                @if (loginForm.get('email')?.hasError('required')) { Email is required. }
+                @if (loginForm.get('email')?.hasError('required')) {{{i18n.translate('login.email_is_required','البريد الإلكتروني مطلوب.') }}}
               </div>
             }
           </div>
 
           <div class="mb-3 text-start">
             <div class="d-flex justify-content-between align-items-center mb-1">
-              <label class="form-label text-navy fw-medium mb-0" for="password">Password</label>
-              <a class="small-link text-gold-dark text-decoration-none fw-semibold" routerLink="/forget-password">Forgot Password?</a>
+              <label class="form-label text-navy fw-medium mb-0" for="password">{{i18n.translate('login.password','كلمة المرور')}}</label>
+              <a class="small-link text-gold-dark text-decoration-none fw-semibold" routerLink="/forget-password">{{i18n.translate('login.forgot_password',"هل نسيت كلمة السر؟")}}</a>
             </div>
             <div class="position-relative d-flex align-items-center input-with-icon">
               <i class="fa-solid fa-lock field-icon"></i>
@@ -76,7 +76,7 @@
             </div>
             @if (loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)) {
               <div class="invalid-feedback d-block mt-1">
-                @if (loginForm.get('password')?.hasError('required')) { Password is required. }
+                @if (loginForm.get('password')?.hasError('required')) {{{i18n.translate('login.password_is_required','كلمة المرور مطلوبة.')}}}
               </div>
             }
           </div>

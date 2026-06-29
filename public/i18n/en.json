@@ -468,5 +468,12 @@
     "strategy.th_exec_method": "Execution Method",
     "strategy.th_expiry": "Expiration Date",
     "strategy.th_status": "Status",
-    "strategy.open_ended": "Open-ended"
+    "strategy.open_ended": "Open-ended",
+    "login.Welcome":"Welcome Back",
+    "login.access_your_investment":"Sign in to access your investment wallet",
+    "login.email":"Email Address",
+    "login.email_is_required":"Email is required.",
+    "login.password":"Password",
+    "login.forgot_password":"Forgot Password",
+    "login.password_is_required":"Password is Required"
   }

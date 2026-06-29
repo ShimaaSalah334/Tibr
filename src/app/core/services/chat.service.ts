@@ -43,12 +43,11 @@ export class ChatService {
   sendMessage(
     message: string,
     conversationId: number | null,
-    intent: string = 'planner',
+    intent: string | null = null,
     language: string = 'ar'
   ): Observable<ChatResponse> {
-    const payload: Record<string, unknown> = { message, language };
+    const payload: Record<string, unknown> = { message, intent, language };
     if (conversationId !== null) payload['conversationId'] = conversationId;
-    if (intent) payload['intent'] = intent;
     return this.http.post<ChatResponse>(API_ENDPOINTS.chatAi.getChat, payload, { headers: this.getHeaders() });
   }
 

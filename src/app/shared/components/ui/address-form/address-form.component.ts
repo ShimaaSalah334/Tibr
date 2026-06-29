@@ -1,9 +1,10 @@
 import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslatePipe } from '../../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-address-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslatePipe],
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.css',
 })

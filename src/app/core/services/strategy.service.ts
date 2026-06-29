@@ -8,7 +8,8 @@ import { API_ENDPOINTS } from '../constants/api_endpoints';
 export interface StrategyPayload {
   asset: 'gold' | 'silver';
   side: 'buy' | 'sell';
-  quantity: number;
+  quantity?: number;
+  maxAmountEgp?: number;
   operator: 'less_than' | 'less_than_or_equal' | 'greater_than' | 'greater_than_or_equal' | 'equal';
   targetPriceEgp: number;
   executionType: 'alert_only' | 'auto_execute' | 'alert_and_execute';
@@ -23,6 +24,7 @@ export interface StrategyResponse {
   executionMode: string;
   executionType: string;
   quantity: number;
+  maxAmountEgp?: number | null;
   requestedPrice: number;
   currentPrice: number;
   status: string;

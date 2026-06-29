@@ -52,14 +52,24 @@
           </select>
         </div>
 
-        <div class="col-12 col-md-6">
-          <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.quantity', 'الكمية (بالجرام)') }}</label>
-          <input 
-            type="number" 
-            class="form-control form-control-dark h-input px-3 fs-6" 
-            [placeholder]="i18n.translate('strategy.quantity_placeholder', 'مثلاً: 10')" 
-            [(ngModel)]="quantity" />
-        </div>
+        <ng-container [ngSwitch]="side">
+          <div class="col-12 col-md-6" *ngSwitchCase="'sell'">
+            <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.quantity', 'الكمية (بالجرام)') }}</label>
+            <input 
+              type="number" 
+              class="form-control form-control-dark h-input px-3 fs-6" 
+              [placeholder]="i18n.translate('strategy.quantity_placeholder', 'مثلاً: 10')" 
+              [(ngModel)]="quantity" />
+          </div>
+          <div class="col-12 col-md-6" *ngSwitchCase="'buy'">
+            <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.amount', 'المبلغ (ج.م)') }}</label>
+            <input 
+              type="number" 
+              class="form-control form-control-dark h-input px-3 fs-6" 
+              [placeholder]="i18n.translate('strategy.amount_placeholder', 'مثلاً: 5000')" 
+              [(ngModel)]="maxAmountEgp" />
+          </div>
+        </ng-container>
 
         <div class="col-12 col-md-6">
           <label class="small fw-semibold text-gold-label mb-2 d-block">{{ i18n.translate('strategy.condition_type', 'نوع الشرط') }}</label>
@@ -110,7 +120,15 @@
             </div>
             <div class="d-flex justify-content-between align-items-center small">
               <span class="text-muted-gold">{{ i18n.translate('strategy.operation_type', 'نوع العملية') }}:</span>
-              <span class="fw-bold text-white">{{ side === 'buy' ? 'شراء' : 'بيع' }} ({{ quantity }} جرام)</span>
+              <span class="fw-bold text-white">{{ side === 'buy' ? i18n.translate('strategy.buy', 'شراء') : i18n.translate('strategy.sell', 'بيع') }}</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small" *ngIf="side === 'buy'">
+              <span class="text-muted-gold">{{ i18n.translate('strategy.summary_amount', 'المبلغ المخصص:') }}</span>
+              <span class="fw-bold text-white">{{ maxAmountEgp | number }} ج.م</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center small" *ngIf="side === 'sell'">
+              <span class="text-muted-gold">{{ i18n.translate('strategy.summary_quantity', 'الكمية:') }}</span>
+              <span class="fw-bold text-white">{{ quantity }} {{ i18n.translate('strategy.grams', 'جرام') }}</span>
             </div>
             <div class="d-flex justify-content-between align-items-center small">
               <span class="text-muted-gold">{{ i18n.translate('strategy.leverage_label', 'الرافعة المالية:') }}</span>
@@ -182,7 +200,14 @@
                     {{ translateSide(item.orderType) }}
                   </span>
                 </td>
-                <td>{{ item.quantity }} جرام</td>
+                <td>
+                  <ng-container *ngIf="item.orderType === 'Buy' && item.maxAmountEgp != null && item.maxAmountEgp > 0">
+                    {{ item.maxAmountEgp | number }} ج.م
+                  </ng-container>
+                  <ng-container *ngIf="item.orderType !== 'Buy' || !item.maxAmountEgp || item.maxAmountEgp === 0">
+                    {{ item.quantity }} {{ i18n.translate('strategy.grams', 'جرام') }}
+                  </ng-container>
+                </td>
                 <td>{{ item.currentPrice | number:'1.2-2' }} ج.م</td>
                 <td>{{ item.executionType }}</td>
                 <td>{{ item.expiryDate ? (item.expiryDate | date:'yyyy-MM-dd') : i18n.translate('strategy.open_ended', 'مفتوح') }}</td>

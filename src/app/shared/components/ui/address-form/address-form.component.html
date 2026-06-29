@@ -1,30 +1,30 @@
 <form [formGroup]="form" class="luxury-form animate-fade-in">
   
   <div class="form-group-custom mb-4">
-    <label for="street" class="luxury-label">Street Address</label>
+    <label for="street" class="luxury-label">{{ 'checkout.address.street' | translate }}</label>
     <div class="input-wrapper">
       <i class="fas fa-road input-icon"></i>
-      <input id="street" type="text" class="luxury-input" formControlName="street" placeholder="e.g. 123 El Horreya St." />
+      <input id="street" type="text" class="luxury-input" formControlName="street" [placeholder]="'checkout.address.street_placeholder' | translate" />
     </div>
   </div>
 
   <div class="row g-4 mb-4">
     <div class="col-md-6">
       <div class="form-group-custom">
-        <label for="city" class="luxury-label">City</label>
+        <label for="city" class="luxury-label">{{ 'checkout.address.city' | translate }}</label>
         <div class="input-wrapper">
           <i class="fas fa-city input-icon"></i>
-          <input id="city" type="text" class="luxury-input" formControlName="city" placeholder="e.g. Cairo" />
+          <input id="city" type="text" class="luxury-input" formControlName="city" [placeholder]="'checkout.address.city_placeholder' | translate" />
         </div>
       </div>
     </div>
     
     <div class="col-md-6">
       <div class="form-group-custom">
-        <label for="state" class="luxury-label">State / Region</label>
+        <label for="state" class="luxury-label">{{ 'checkout.address.state' | translate }}</label>
         <div class="input-wrapper">
           <i class="fas fa-map input-icon"></i>
-          <input id="state" type="text" class="luxury-input" formControlName="state" placeholder="e.g. Giza" />
+          <input id="state" type="text" class="luxury-input" formControlName="state" [placeholder]="'checkout.address.state_placeholder' | translate" />
         </div>
       </div>
     </div>
@@ -33,20 +33,20 @@
   <div class="row g-4">
     <div class="col-md-6">
       <div class="form-group-custom">
-        <label for="zip" class="luxury-label">ZIP / Postal Code</label>
+        <label for="zip" class="luxury-label">{{ 'checkout.address.zip' | translate }}</label>
         <div class="input-wrapper">
           <i class="fas fa-mail-bulk input-icon"></i>
-          <input id="zip" type="text" class="luxury-input" formControlName="zip" placeholder="e.g. 11511" />
+          <input id="zip" type="text" class="luxury-input" formControlName="zip" [placeholder]="'checkout.address.zip_placeholder' | translate" />
         </div>
       </div>
     </div>
     
     <div class="col-md-6">
       <div class="form-group-custom">
-        <label for="country" class="luxury-label">Country</label>
+        <label for="country" class="luxury-label">{{ 'checkout.address.country' | translate }}</label>
         <div class="input-wrapper">
           <i class="fas fa-globe input-icon"></i>
-          <input id="country" type="text" class="luxury-input" formControlName="country" placeholder="e.g. Egypt" />
+          <input id="country" type="text" class="luxury-input" formControlName="country" [placeholder]="'checkout.address.country_placeholder' | translate" />
         </div>
       </div>
     </div>

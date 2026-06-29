@@ -14,6 +14,7 @@ export class InvestmentStrategy implements OnInit {
 selectedAsset: 'gold' | 'silver' = 'gold';
   side: 'buy' | 'sell' = 'buy';
   quantity: number = 10;
+  maxAmountEgp: number = 5000;
   conditionType: string = 'Less Than';
   targetPrice: number | null = null;
   executionType: string = 'Auto Execute';
@@ -64,8 +65,18 @@ selectedAsset: 'gold' | 'silver' = 'gold';
     this.errorMessage = '';
     this.successMessage = '';
 
-    if (!this.targetPrice || this.targetPrice <= 0 || this.quantity <= 0) {
-      this.errorMessage = 'الرجاء إدخال كمية وسعر مستهدف صحيحين.';
+    if (!this.targetPrice || this.targetPrice <= 0) {
+      this.errorMessage = this.i18n.translate('strategy.error_valid_target', 'الرجاء إدخال سعر مستهدف صحيح.');
+      return;
+    }
+
+    if (this.side === 'sell' && (!this.quantity || this.quantity <= 0)) {
+      this.errorMessage = this.i18n.translate('strategy.error_valid_quantity', 'الرجاء إدخال كمية صحيحة.');
+      return;
+    }
+
+    if (this.side === 'buy' && (!this.maxAmountEgp || this.maxAmountEgp <= 0)) {
+      this.errorMessage = this.i18n.translate('strategy.error_valid_amount', 'الرجاء إدخال مبلغ صحيح.');
       return;
     }
 
@@ -84,11 +95,16 @@ selectedAsset: 'gold' | 'silver' = 'gold';
     const payload: StrategyPayload = {
       asset: this.selectedAsset,
       side: this.side,
-      quantity: this.quantity,
       operator: operatorMap[this.conditionType],
       targetPriceEgp: this.targetPrice,
       executionType: executionMap[this.executionType]
     };
+
+    if (this.side === 'buy') {
+      payload.maxAmountEgp = this.maxAmountEgp;
+    } else {
+      payload.quantity = this.quantity;
+    }
 
     if (this.expirationDate) {
       payload.expiresAt = this.expirationDate;
@@ -99,7 +115,7 @@ selectedAsset: 'gold' | 'silver' = 'gold';
     this.strategyService.createStrategy(payload).subscribe({
       next: (response) => {
         this.isLoading = false;
-        this.successMessage = `تم إنشاء الاستراتيجية بنجاح! رقم المعاملة: ${response.id}`;
+        this.successMessage = this.i18n.translate('strategy.success_msg', 'تم إنشاء الاستراتيجية بنجاح!') + ` رقم المعاملة: ${response.id}`;
         
         // إعادة تحديث القائمة تلقائياً بعد الإضافة الناجحة دون الحاجة لعمل Refresh للمتصفح
         this.loadUserStrategies(); 
